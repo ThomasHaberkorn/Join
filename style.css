@@ -1,6 +1,7 @@
 html {
     margin: 0;
     background-color: #f6f7f8;
+    font-family: sans-serif;
 }
 
 body {
@@ -15,6 +16,19 @@ body {
     align-items: center;
 }
 
+.dispflexFD {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dispflexSpaBe {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .mainContent {
     width: 1440px;
     height: 1024px;
@@ -26,10 +40,37 @@ body {
     height: 493px;
     border-radius: 30px;
 }
-
+.loginHead {
+    width: 100%;
+}
 .loginHeadline h1 {
     text-align: center;
     font-weight: bold;
+}
+
+.loginLogo {
+}
+
+.singUpButton {
+    width: 91px;
+    height: 49px;
+    border: none;
+    border-radius: 8px;
+    padding: 16px 15px;
+    background-color: #2a3647;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+}
+.loginLogo img {
+    width: 100px;
+    height: 122px;
+    margin-left: 77px;
+}
+
+.loginSignUp {
+    margin-right: 122px;
 }
 
 .loginForm {
