@@ -15,6 +15,7 @@ function initContactSection() {
           <div class="spaceContactList"></div>`;
         }
         list.innerHTML += `
+        <img src="${contacts[i]['url']}" class="contactPic">
         <div class="singleNameList">${contacts[i]['firstName']} ${contacts[i]['lastName']}</div>`;
     }
 }

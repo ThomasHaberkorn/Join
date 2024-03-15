@@ -120,4 +120,10 @@ body {
     padding: 24px 15px;
     border: #2a3647 1px solid;
 }
+
+.contactPic{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
 /* end comment-Section*/
