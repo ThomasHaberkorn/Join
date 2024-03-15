@@ -26,12 +26,14 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 63.5px;
 }
 
 .loginLogo img {
     width: 100px;
     height: 122px;
     margin-left: 77px;
+    margin-top: 80px;
 }
 
 .loginSignUp {
@@ -39,19 +41,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.loginHeadline {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.loginHeadlineh1 {
-    text-align: center;
-    font-weight: bold;
-}
-
-.loginLogo {
 }
 
 .singUpButton {
@@ -65,6 +54,13 @@ body {
     font-size: 16px;
     font-weight: 700;
     line-height: 19.2px;
+    margin-left: 35px;
+}
+
+.signUpText {
+    font-size: 20px;
+    font-weight: 400px;
+    line-height: 24px;
 }
 
 /* --- login innerContent --- */
@@ -79,6 +75,26 @@ body {
     align-items: center;
 }
 
+.loginHeadline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.loginHeadlineh1 {
+    text-align: center;
+    font-size: 61px;
+    line-height: 73.2px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.headlineBorder {
+    width: 150px;
+
+    border-bottom: 3px solid #29abe2;
+    border-radius: 8px;
+}
+
 .loginForm {
     display: flex;
     flex-direction: column;
@@ -89,6 +105,21 @@ body {
     height: 48px;
     gap: 8px;
     margin: 16px;
+    background-image: url(/assets/img/mail.png);
+    background-repeat: no-repeat;
+    background-position: 377px 12px;
+    background-size: 24px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    text-indent: 21px;
+}
+
+.loginInputMail::placeholder {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #d1d1d1;
+    transform: translateY(10%);
 }
 
 .loginPassword {
@@ -96,6 +127,22 @@ body {
     height: 48px;
     gap: 8px;
     margin: 16px;
+    background-image: url(/assets/img/lock.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-position: 377px 12px;
+    background-size: 24px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    text-indent: 21px;
+}
+
+.loginPassword::placeholder {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #d1d1d1;
+    transform: translateY(10%);
 }
 
 /* start comment-Section*/
