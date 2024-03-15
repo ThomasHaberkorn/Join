@@ -6,7 +6,7 @@ function initContactSection() {
     list.innerHTML +=`
     <div class="contactButtonArea dispflex">
       <div class="borderContactButton dispflex">
-        <div class="addNewContactButton dispflex">Add new contact  
+        <div class="addNewContactButton dispflex" onclick="addNewContact()">Add new contact  
         <img src="./assets/img/person_add.png"></div>
       </div> 
     </div> 
@@ -22,13 +22,21 @@ function initContactSection() {
           <div class="spaceContactList"></div>`;
         }
         list.innerHTML += `
-        <div class="shortContactInfo" id="info${i}">
+        <div class="shortContactInfo" onclick="showContact(${i})" id="info${i}">
           <img src="${contacts[i]['url']}" class="contactPic">
           <div class="shortContactLetters">
             <div class="singleNameList">${contacts[i]['firstName']} ${contacts[i]['lastName']}</div>
             <div class="listMail">${contacts[i]['email']}</div> 
           </div>
         </div>`;
-        
       }
+}
+
+function addNewContact(){
+
+}
+
+function showContact(index){
+  
+
 }

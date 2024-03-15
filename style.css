@@ -106,7 +106,8 @@ body {
     height: 928px;
     flex-direction: column;
     overflow: scroll;
-    overflow-x: hidden
+    overflow-x: hidden;
+    box-shadow: 4px 0px 6px 0px rgb(0,0,0,0.2);
 }
 
 .firstLetter {
@@ -145,7 +146,7 @@ body {
 
 .shortContactInfo {
     width: 352px;
-    height: 78px;
+    height: 78;
     display: flex;
     flex-direction: row;
     border-radius: 10px;
@@ -195,4 +196,45 @@ body {
     background-color: #ffffff;
 }
 
+.contactArea{
+    display: flex;
+    flex-direction: row;
+}
+
+.contactBig{
+  background-color: #f6f7f8;
+}
+
+.headLine{
+    display: flex;
+    align-items: center;
+    width: 569px;
+    height: 73px;
+    margin-top: 110px;
+    margin-left: 55px;
+    flex-direction: row;
+    
+}
+
+.headLineLeft{
+    width: 274px;
+    height: 73px;
+    font-size: 61px;
+    font-weight: 700;
+    text-align: right;
+    line-height: 73px;
+}
+
+.headLineSpace{
+    background-color: #29ABE2;
+    height: 59px;
+    width: 3px;
+    margin: 30px 30px ;
+}
+
+.headLineRight{
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 32px;
+}
 /* end contact-Section*/
