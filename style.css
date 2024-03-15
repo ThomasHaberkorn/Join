@@ -51,10 +51,7 @@ body {
     font-weight: bold;
 }
 
-.headlineBorder {
-    width: 150px;
-    border-bottom: 3px solid #29abe2;
-    border-radius: 8px;
+.loginLogo {
 }
 
 .singUpButton {
@@ -100,3 +97,29 @@ body {
     gap: 8px;
     margin: 16px;
 }
+
+/* start comment-Section*/
+.firstLetter {
+    width: 352px;
+    height: 58px;
+    padding: 36px 17px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.spaceContactList {
+    width: 352px;
+    height: 1px;
+    padding: 0px 8px;
+    background-color: #d1d1d1;
+}
+
+.singleNameList {
+    width: 352px;
+    height: 78px;
+    margin: 0;
+    padding: 24px 15px;
+    border: #2a3647 1px solid;
+}
+/* end comment-Section*/
