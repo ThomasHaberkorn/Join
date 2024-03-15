@@ -95,7 +95,7 @@ body {
     margin: 16px;
 }
 
-/* start comment-Section*/
+/* start contact-Section*/
 .firstLetter {
     width: 352px;
     height: 58px;
@@ -119,5 +119,11 @@ body {
     margin: 0;
     padding: 24px 15px;
     border: #2a3647 1px solid;
+}
+
+.contactPic{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
 }
 /* end comment-Section*/
