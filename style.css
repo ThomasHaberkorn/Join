@@ -1,6 +1,4 @@
 html {
-    margin: 0;
-    background-color: #f6f7f8;
     font-family: sans-serif;
 }
 
@@ -9,49 +7,52 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-}
-
-.dispflex {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.dispflexFD {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.dispflexSpaBe {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin: 0;
+    background-color: black;
 }
 
 .mainContent {
     width: 1440px;
     height: 1024px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f6f7f8;
 }
 
-.innerContent {
-    background-color: white;
-    width: 652px;
-    height: 493px;
-    border-radius: 30px;
-}
+/* ---  login Head  --- */
 
 .loginHead {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
-.loginHeadline h1 {
+.loginLogo img {
+    width: 100px;
+    height: 122px;
+    margin-left: 77px;
+}
+
+.loginSignUp {
+    margin-right: 122px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginHeadline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.loginHeadlineh1 {
     text-align: center;
     font-weight: bold;
 }
 
-.loginLogo {}
+.loginLogo {
+}
 
 .singUpButton {
     width: 91px;
@@ -66,14 +67,16 @@ body {
     line-height: 19.2px;
 }
 
-.loginLogo img {
-    width: 100px;
-    height: 122px;
-    margin-left: 77px;
-}
+/* --- login innerContent --- */
 
-.loginSignUp {
-    margin-right: 122px;
+.innerContent {
+    background-color: white;
+    width: 652px;
+    height: 493px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .loginForm {
@@ -103,17 +106,16 @@ body {
     display: flex;
     justify-content: start;
     align-items: center;
-
 }
 
-.spaceContactList{
+.spaceContactList {
     width: 352px;
     height: 1px;
     padding: 0px 8px;
-    background-color: #D1D1D1;
+    background-color: #d1d1d1;
 }
 
-.singleNameList{
+.singleNameList {
     width: 352px;
     height: 78px;
     margin: 0;
@@ -121,9 +123,3 @@ body {
     border: #2a3647 1px solid;
 }
 
-.contactPic{
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-}
-/* end comment-Section*/
