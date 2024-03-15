@@ -1,6 +1,4 @@
 html {
-    margin: 0;
-    background-color: #f6f7f8;
     font-family: sans-serif;
 }
 
@@ -9,46 +7,54 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-}
-.dispflex {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.dispflexFD {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.dispflexSpaBe {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin: 0;
+    background-color: black;
 }
 
 .mainContent {
     width: 1440px;
     height: 1024px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f6f7f8;
 }
 
-.innerContent {
-    background-color: white;
-    width: 652px;
-    height: 493px;
-    border-radius: 30px;
-}
+/* ---  login Head  --- */
+
 .loginHead {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
-.loginHeadline h1 {
+
+.loginLogo img {
+    width: 100px;
+    height: 122px;
+    margin-left: 77px;
+}
+
+.loginSignUp {
+    margin-right: 122px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginHeadline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.loginHeadlineh1 {
     text-align: center;
     font-weight: bold;
 }
 
-.loginLogo {
+.headlineBorder {
+    width: 150px;
+    border-bottom: 3px solid #29abe2;
+    border-radius: 8px;
 }
 
 .singUpButton {
@@ -63,14 +69,17 @@ body {
     font-weight: 700;
     line-height: 19.2px;
 }
-.loginLogo img {
-    width: 100px;
-    height: 122px;
-    margin-left: 77px;
-}
 
-.loginSignUp {
-    margin-right: 122px;
+/* --- login innerContent --- */
+
+.innerContent {
+    background-color: white;
+    width: 652px;
+    height: 493px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .loginForm {
