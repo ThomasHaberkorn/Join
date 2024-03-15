@@ -1,0 +1,22 @@
+.d-none {
+    display: none;
+}
+
+.dispflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dispflexFD {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dispflexSpaBe {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
