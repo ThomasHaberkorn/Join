@@ -1,0 +1,91 @@
+.sidebarMainContainer {
+    width: 232px;
+    height: 1024px;
+    background-color: #2a3647;
+}
+
+.sibebarNavContainer {
+    margin-bottom: 110px;
+}
+.sidebarImgContainer {
+    width: 232px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.sidebarImgContainer img {
+    width: 100.03px;
+    height: 121.97px;
+    margin-top: 64px;
+}
+
+.sidebarLinkStyle {
+    width: 232px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.sidebarLinkStyle:hover {
+    background-color: #2a3e59;
+}
+.sidebarLinkStyle:active {
+    background-color: #091931;
+}
+
+.sidebarLinkStyle p:active {
+    color: #ffffff;
+}
+
+.sidebarLinkStyle img {
+    width: 30px;
+    height: 30px;
+    margin-left: 58.5px;
+    margin-right: 8px;
+}
+
+.sidebarLinkStyle p {
+    margin: 0;
+    color: #cdcdcd;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 3px;
+}
+
+.sidebarFooter {
+    width: 232px;
+    height: 317px;
+    padding-top: 243px;
+    display: flex;
+    justify-content: center;
+}
+
+.sidebarFooterContent {
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+}
+.sidebarFooter a {
+    color: #cdcdcd;
+    text-decoration: none;
+    margin-left: 60px;
+}
+
+.sidebarFooter a:hover {
+    color: #29abe2;
+}
+
+.sidebarFooterPrivacyPolicyContainer,
+.sidebarFooterLegalNoticeContainer {
+    width: 232px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebarFooterPrivacyPolicyContainer:active,
+.sidebarFooterLegalNoticeContainer:active {
+    background-color: #091931;
+}
