@@ -450,47 +450,87 @@ input[id="signinCheckBoxPrivacyPolicy"] {
 @media (max-width: 950px) {
     .signinInnerContent {
         margin-top: 0px;
+        transition: 0.4s;
     }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 720px) {
+    .loginMainContent {
+        height: 926px;
+    }
     .loginInnerContent {
-        width: 100%;
+        width: 396px;
+        height: 515px;
     }
-    .loginSignUp {
-        margin-right: 60px;
-        transition: 0.3s;
-    }
-    .signinInnerContent {
-        width: 100%;
-    }
-}
 
-@media (max-width: 550px) {
-    .loginLogo img {
-        margin-left: 50px;
-        transition: 0.3s;
+    .loginHeadlineh1 {
+        margin-top: 32px;
+        font-size: 47px;
+        line-height: 56.4px;
+    }
+    .signinHeadlineh1 {
+        margin-top: 32px;
+        font-size: 47px;
+        line-height: 56.4px;
     }
     .signupVectorImg {
         margin-left: -50px;
         margin-right: 40px;
         transition: 0.3s;
     }
-}
-
-@media (max-width: 490px) {
+    .loginLogo img {
+        width: 64px;
+        height: 78px;
+        transition: 0.4s;
+    }
+    .signinInnerContent {
+        width: 396px;
+        height: 595px;
+    }
     .loginInputMail {
         width: 350px;
+        height: 48px;
         background-position: 300px 12px;
     }
     .loginPassword {
         width: 350px;
+        height: 48px;
+        background-position: 300px 12px;
+        margin-bottom: 30px;
+    }
+    .signinInputName {
+        width: 350px;
+        height: 48px;
+        background-position: 300px 14px;
+    }
+    .signinInputMail {
+        width: 350px;
+        height: 48px;
         background-position: 300px 12px;
     }
-    .loginSignUp {
-        flex-direction: column;
+    .signinPassword {
+        width: 350px;
+        height: 48px;
+        background-position: 300px 12px;
     }
+    .loginFooter {
+        height: 190px;
+    }
+    .loginCheckBox {
+        margin-bottom: 20px;
+    }
+    .loginSignUp {
+        position: absolute;
+        width: 100%;
+        bottom: 140px;
+        display: flex;
+    }
+}
 
+@media (max-width: 550px) {
+}
+
+/* @media (max-width: 490px) {
     .loginSingUpText {
         margin-top: 80px;
     }
@@ -499,21 +539,15 @@ input[id="signinCheckBoxPrivacyPolicy"] {
         margin-top: 10px;
         transition: 0.3s;
     }
-    .signinInputName {
-        width: 350px;
-        background-position: 300px 14px;
-    }
-    .signinInputMail {
-        width: 350px;
-        background-position: 300px 12px;
-    }
-    .signinPassword {
-        width: 350px;
-        background-position: 300px 12px;
-    }
-}
+} */
 
-@media (max-width: 390px) {
+@media (max-width: 420px) {
+    .loginInnerContent {
+        width: 300px;
+    }
+    .signinInnerContent {
+        width: 300px;
+    }
     .loginInputMail {
         width: 280px;
         background-position: 250px 12px;
@@ -522,10 +556,7 @@ input[id="signinCheckBoxPrivacyPolicy"] {
         width: 280px;
         background-position: 250px 12px;
     }
-    .loginLogo img {
-        margin-left: 20px;
-        transition: 0.3s;
-    }
+
     .loginSignUp {
         margin-right: 30px;
         transition: 0.3s;
@@ -547,15 +578,23 @@ input[id="signinCheckBoxPrivacyPolicy"] {
         margin-right: 30px;
         transition: 0.3s;
     }
+    .loginButtons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .loginButton {
+        width: 180px;
+        margin-right: 0;
+        margin-bottom: 21px;
+    }
+    .guestLoginButton {
+        margin-right: 0;
+        width: 180px;
+    }
 }
 
 @media (max-width: 330px) {
-    .loginButton {
-        margin-right: 5px;
-    }
-    .guestLoginButton {
-        margin-right: 5px;
-    }
     .signupVectorImg {
         margin-left: -20px;
         margin-right: 15px;
