@@ -413,7 +413,7 @@ input[id="signinCheckBoxPrivacyPolicy"] {
     color: #a8a8a8;
 }
 
-/* start comment-Section*/
+/* start contact-Section*/
 .firstLetter {
     width: 352px;
     height: 58px;
@@ -437,6 +437,12 @@ input[id="signinCheckBoxPrivacyPolicy"] {
     padding: 24px 15px;
     border: #2a3647 1px solid;
 }
+.contactPic{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
 /* end comment-Section*/
 
 /* Media Section */
@@ -595,3 +601,7 @@ input[id="signinCheckBoxPrivacyPolicy"] {
         transition: 0.3s;
     }
 }
+
+
+
+
