@@ -30,6 +30,7 @@ function initContactSection() {
           </div>
         </div>`;
   }
+  
 }
 
 function addNewContact() {
@@ -38,15 +39,22 @@ function addNewContact() {
 
 function showContact(index) {
   let fullContact = document.getElementById('contactFull');
-  fullContact.innerHTML = ``;
+// Animation für das Verschieben des Containers nach rechts vorbereiten
+fullContact.style.transition = "transform 0.15s ease";
+fullContact.style.transform = "translateX(120%)";
+
+// Eine kurze Verzögerung hinzufügen, um die Animation abzuschließen
+setTimeout(() => {
+  // Alten Inhalt löschen
+  fullContact.innerHTML = '';
   fullContact.innerHTML += `
   <div class="contactFullUpperSection" id="contactFullUpperSection">
     <img class="contactFullImage" src="${contacts[index]['url']}">
       <div class="contactNameEditDelete">
         <div class="contactFullName">${contacts[index]['firstName']}  ${contacts[index]['lastName']}</div>
         <div class="contactEditDeleteArea">
-          <div onclick="editContact${index}" class="contactEdit"><img class="existContactEdit" src="./assets/img/edit.png"><p>Edit</p></img></div>
-          <div onclick="deleteContact${index}" class="contactDelete margin16left"><img class="existContactEdit margin16left" src="./assets/img/delete.png"><p>Delete</p></img></div>
+          <div onclick="editContact(${index})" class="contactEdit"><img class="existContactEdit" src="./assets/img/edit.png"><p>Edit</p></img></div>
+          <div onclick="deleteContact(${index})" class="contactDelete margin16left"><img class="existContactEdit margin16left" src="./assets/img/delete.png"><p>Delete</p></img></div>
         </div>   
       </div>
     </div>
@@ -63,8 +71,19 @@ function showContact(index) {
     </div>
   </div>
   `;
+
+  fullContact.style.transform = "translateX(0)";
+  }, 150);
 }
 
-function editContact(index){
+async function finishCurrentAnimation(element) {
+  // Warten, bis die Transition abgeschlossen ist
+  await element.getAnimations().forEach(animation => animation.finished);
+
+  // Element aus dem Sichtbereich entfernen
+  element.style.transform = "translateX(400px)"; // Passen Sie den Wert an, um die Fensterbreite zu berücksichtigen
+}
+
+function editContact(index) {
 
 }
