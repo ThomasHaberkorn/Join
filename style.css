@@ -437,7 +437,7 @@ input[id="signinCheckBoxPrivacyPolicy"] {
     padding: 24px 15px;
     border: #2a3647 1px solid;
 }
-.contactPic{
+.contactPic {
     width: 42px;
     height: 42px;
     border-radius: 50%;
@@ -601,7 +601,3 @@ input[id="signinCheckBoxPrivacyPolicy"] {
         transition: 0.3s;
     }
 }
-
-
-
-
