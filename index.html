@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="display.css">
-    <link rel="stylesheet" href="sidebar.css">
-    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/display.css">
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/header.css">
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
     <script src="js/script.js"></script>
     <script src="js/storage.js"></script>
@@ -25,7 +25,7 @@
             </div>
             <div class="loginSignUp" id="loginSignUp">
                 <div class="loginSingUpText">Not a Join user?</div>
-                <button class="loginSingUpButton" id="loginSingUpButton" onclick="loginToSignup()">Sign Up</button>
+                <button class="loginSingUpButton" id="loginSingUpButton" onclick="toggleLoginSignup()">Sign Up</button>
             </div>
         </div>
 
@@ -60,7 +60,7 @@
 
             <div class="signin" id="signin">
                 <div class="signupHead">
-                    <img class="signupVectorImg" src="./assets/img/Vector.png" alt="" onclick="signupToLogin()">
+                    <img class="signupVectorImg" src="./assets/img/Vector.png" alt="" onclick="toggleLoginSignup()">
                     <div class="signinHeadline" id="signinHeadline">
                         <h1 class="signinHeadlineh1">Sign up</h1>
                         <div class="signinHeadlineBorder"></div>

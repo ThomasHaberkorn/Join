@@ -7,20 +7,20 @@ async function init() {
  * switch from Log in to Sign up in the index.html
  */
 
-function loginToSignup() {
-    document.getElementById("loginInnerContent").classList.add("d-none");
-    document.getElementById("signinInnerContent").classList.remove("d-none");
-    document.getElementById("loginSignUp").classList.add("d-none");
-}
+function toggleLoginSignup() {
+    const loginInnerContent = document.getElementById("loginInnerContent");
+    const signinInnerContent = document.getElementById("signinInnerContent");
+    const loginSignUp = document.getElementById("loginSignUp");
 
-/**
- * switch back to Log in Page from Sign up Page in the index.html
- */
+    if (loginInnerContent.classList.contains("d-none")) {
+        loginInnerContent.classList.remove("d-none");
+        signinInnerContent.classList.add("d-none");
+    } else {
+        loginInnerContent.classList.add("d-none");
+        signinInnerContent.classList.remove("d-none");
+    }
 
-function signupToLogin() {
-    document.getElementById("loginInnerContent").classList.remove("d-none");
-    document.getElementById("signinInnerContent").classList.add("d-none");
-    document.getElementById("loginSignUp").classList.remove("d-none");
+    loginSignUp.classList.toggle("d-none");
 }
 
 async function includeHTML() {
@@ -36,3 +36,4 @@ async function includeHTML() {
         }
     }
 }
+

@@ -4,7 +4,7 @@ function initContactSection() {
   let list = document.getElementById('contactSection');
   list.innerHTML = '';
   list.innerHTML += `
-    <div class="contactButtonArea dispflex">
+    <div class="dispflex">
       <div class="borderContactButton dispflex">
         <div class="addNewContactButton dispflex" onclick="addNewContact()">Add new contact  
         <img src="./assets/img/person_add.png"></div>
@@ -40,7 +40,7 @@ function addNewContact() {
 function showContact(index) {
   let fullContact = document.getElementById('contactFull');
 // Animation für das Verschieben des Containers nach rechts vorbereiten
-fullContact.style.transition = "transform 0.15s ease";
+fullContact.style.transition = "transform 0.4s ease";
 fullContact.style.transform = "translateX(120%)";
 
 // Eine kurze Verzögerung hinzufügen, um die Animation abzuschließen
@@ -73,17 +73,38 @@ setTimeout(() => {
   `;
 
   fullContact.style.transform = "translateX(0)";
-  }, 150);
-}
-
-async function finishCurrentAnimation(element) {
-  // Warten, bis die Transition abgeschlossen ist
-  await element.getAnimations().forEach(animation => animation.finished);
-
-  // Element aus dem Sichtbereich entfernen
-  element.style.transform = "translateX(400px)"; // Passen Sie den Wert an, um die Fensterbreite zu berücksichtigen
+  }, 400);
 }
 
 function editContact(index) {
-
+  let contactEdit = document.getElementById('contactEditArea');
+  contactEdit.style.display = "flex";
+  contactEdit.innerHTML = ``;
+  contactEdit.innerHTML +=`
+    <div class="contactEditVisible" id="contactEditVisible">
+      <div class="contactEditLeft">
+        <img src="./assets/img/join-logo-white.png">
+        <a>Edit contact</a>
+        <div class="contactEditSpace"></div>
+      </div>
+      <div class="contactEditRight">
+        <img src="${contacts[index]['url']}" class="contactEditFullImage">
+        <div class="contactEditRenderDetailsRight">
+          <img src="./assets/img/Close.png" class="contactEditClose">
+          <div class="contactEditUserDetails">
+            <div class="contactEditInput">
+              <input  id="contactEditName" placeholder="${contacts[index]['firstName']}  ${contacts[index]['lastName']}">
+            </div>
+            <div class="contactEditInput">
+              <input id="contactEditEmail" placeholder="${contacts[index]['email']}">
+            </div>
+            <div class="contactEditInput">
+              <input id="contactEditPhone" placeholder="${contacts[index]['phone']}">
+            </div>
+          </div>
+          <div class="contactEditSaveDelete"></div
+        </div>  
+      </div>
+    </div>
+  `;
 }

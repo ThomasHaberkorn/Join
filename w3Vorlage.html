@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="display.css">
-    <link rel="stylesheet" href="sidebar.css">
-    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/display.css">
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/summary.css">
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
     <script src="js/script.js"></script>
     <script src="js/storage.js"></script>
@@ -18,14 +19,18 @@
 </head>
 
 <body onload="init()">
-    <div class="container1">
-        <div class="sidebar">
+    <div class="mainContainer">
+        <div class="w3Sidebar">
             <div w3-include-html="sidebar.html"></div>
         </div>
-        <div class="testHeader">
+        <div class="w3Header">
             <div w3-include-html="header.html"></div>
-            <div class="contentContainer"></div>
+            <div class="contentContainer">
+                <!--  Hier HTML Inhalt einfügen und in der 
+                        CSS ".mainContainer {display: flex}" -->
+            </div>
         </div>
+
     </div>
 </body>
 
