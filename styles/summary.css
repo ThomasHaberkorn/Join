@@ -1,0 +1,120 @@
+.mainContainer {
+    display: flex;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.summaryMainContainer {
+    position: absolute;
+    background-color: #f6f7f8;
+    width: 1208px;
+    height: 928px;
+    z-index: -1;
+}
+
+.border {
+    border: 1px solid black;
+    border-radius: 30px;
+}
+
+.summaryHead {
+    height: 73px;
+    margin-top: 110px;
+    margin-left: 96px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 56px;
+}
+
+.summaryTextJoin {
+    font-size: 61px;
+    font-weight: 700;
+    line-height: 73.2px;
+    margin-right: 30px;
+}
+
+.summaryTextJoinBoarder {
+    height: 56px;
+    border-right: 3px solid #29abe2;
+    border-radius: 5px;
+    margin-right: 30px;
+}
+
+.summaryTextH2 {
+    font-size: 27px;
+    font-weight: 400px;
+    line-height: 32.4px;
+}
+.summaryContentContainer {
+    width: 560px;
+    height: 562px;
+    margin-left: 96px;
+    display: flex;
+    align-items: center;
+}
+
+.summaryInfoContainer {
+    width: 560px;
+    box-sizing: border-box;
+}
+
+.summaryTodoDoneInfoContainer {
+    width: 560px;
+    height: 168px;
+    margin-bottom: 28px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.summaryTodoInfoContainer {
+    width: 264px;
+    height: 168px;
+}
+
+.summaryDoneInfoContainer {
+    width: 264px;
+    height: 168px;
+}
+.summaryDeadlineInfoContainer {
+    height: 168px;
+    margin-bottom: 28px;
+}
+
+.summaryOverviewInfoContainer {
+    height: 168px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.summaryOverviewTaskInBord {
+    width: 168px;
+    height: 168px;
+}
+
+.summaryOverviewTaskInProgress {
+    width: 168px;
+    height: 168px;
+}
+
+.summaryOverviewAwaitingFeedback {
+    width: 168px;
+    height: 168px;
+}
+
+.summaryWelcomeContainer {
+    width: 385px;
+    height: 136px;
+    margin-left: 80px;
+}
+
+.summaryWelcomeDaytimeContainer {
+    width: 385px;
+    height: 56px;
+}
+
+.summaryWelcomeNameContainer {
+    width: 385px;
+    height: 77px;
+}

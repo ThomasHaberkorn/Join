@@ -1,11 +1,12 @@
 .headerMainContainer {
-    width: 792px;
+    width: 1208px;
     height: 96px;
     background-color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0px 5px 6px -3px rgb(0, 0, 0, 0.2);
+    z-index: 100;
 }
 
 .headerHeadline {
