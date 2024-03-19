@@ -423,13 +423,6 @@ input[id="signinCheckBoxPrivacyPolicy"] {
     align-items: center;
 }
 
-.spaceContactList {
-    width: 352px;
-    height: 1px;
-    padding: 0px 8px;
-    background-color: #d1d1d1;
-}
-
 .singleNameList {
     width: 352px;
     height: 78px;
