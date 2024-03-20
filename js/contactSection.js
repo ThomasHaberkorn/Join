@@ -93,18 +93,27 @@ function editContact(index) {
           <img src="./assets/img/Close.png" class="contactEditClose">
           <div class="contactEditUserDetails">
             <div class="contactEditInput">
-              <input  id="contactEditName" placeholder="${contacts[index]['firstName']}  ${contacts[index]['lastName']}">
+              <input  id="contactEditName" placeholder="Name">
+              <img src="./assets/img/person.png">
             </div>
             <div class="contactEditInput">
-              <input id="contactEditEmail" placeholder="${contacts[index]['email']}">
+              <input id="contactEditEmail" placeholder="Mail">
+              <img src="./assets/img/mail.png">
             </div>
             <div class="contactEditInput">
-              <input id="contactEditPhone" placeholder="${contacts[index]['phone']}">
+              <input id="contactEditPhone" placeholder="Phone">
+              <img src="./assets/img/call.png">
             </div>
           </div>
-          <div class="contactEditSaveDelete"></div
+          <div class="contactEditSaveDelete">
+            <div class="contactEditCancel dispflex" onclick="">Delete</div>
+            <div class="contactEditSave dispflex" onclick="">Save <img src="./assets/img/check.png"</div>
+          </div
         </div>  
       </div>
     </div>
   `;
+document.getElementById('contactEditName').defaultValue =`${contacts[index]['firstName']}  ${contacts[index]['lastName']}`;
+document.getElementById('contactEditEmail').defaultValue = contacts[index]['email'];
+document.getElementById('contactEditPhone').defaultValue = contacts[index]['phone'];
 }

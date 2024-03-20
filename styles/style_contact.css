@@ -1,8 +1,13 @@
+.mainContainer{
+display: flex;
+justify-content: center;
+align-items: center;
+}
 /* start contact-Section*/
 
 .contactlist {
     width: 456px;
-    height: 928px;
+    max-height: 928px;
     background-color: white;
     overflow: scroll;
     overflow-x: hidden;
@@ -20,7 +25,6 @@
     font-weight: 400;
     display: flex;
     align-items: center;
-    background-color: #29abe2;
 }
 
 .spaceContactList {
@@ -260,7 +264,7 @@
     display: none;
     justify-content: center;
     align-items: center;
-    background-color: transparent;
+    background-color: rgba(0,0,0,0.25);
 }
 
 .contactEditVisible {
@@ -311,8 +315,6 @@
     border-bottom-right-radius: 30px;
     display: flex;
     flex-direction: row;
-
-
 }
 
 .contactEditFullImage {
@@ -350,10 +352,12 @@
     border: 1px solid #d1d1d1;
     border-radius: 10px;
     height: 50px;
+    width: 422px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 13px 21px;
+    margin: 13px 21px;
+    flex-direction: row;
 }
 
 .contactEditInput input{
@@ -361,12 +365,56 @@
     height: 24px;
     border: none;
     color: #000000;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 21px;
+}
+.contactEditInput img{
+    width: 16px;
+    height: 16px;
+    margin-right: 13px;
 }
 
 .contactEditSaveDelete{
     width: 249px;
     height: 57px;
-    background-color: #29abe2;
+    display: flex;
+    justify-content: space-between;
 }
 
+.contactEditCancel{
+    width: 113px;
+    height: 55px;
+    border: 1px #2a3647 solid;
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 25px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.contactEditSave{
+    width: 111px;
+    height: 55px;
+    background-color: #2a3647;
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 25px;
+    color: #ffffff;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.contactEditSave img{
+    width: 15;
+    height: 11px;
+    margin-left: 8px;
+}
 /* end contact-Section*/
