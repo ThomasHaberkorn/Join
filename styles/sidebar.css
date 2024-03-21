@@ -1,7 +1,8 @@
 .sidebarMainContainer {
     width: 232px;
-    height: 1024px;
+    height: 100vh;
     background-color: #2a3647;
+    position: fixed;
 }
 
 .sibebarNavContainer {
@@ -26,6 +27,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 16px;
+    cursor: pointer;
 }
 
 .sidebarLinkStyle:hover {
@@ -56,10 +58,12 @@
 
 .sidebarFooter {
     width: 232px;
-    height: 317px;
-    padding-top: 243px;
+    height: 74px;bottom: 64px;
+    position: fixed;
     display: flex;
     justify-content: center;
+    bottom: 64px;
+    position: fixed;
 }
 
 .sidebarFooterContent {
