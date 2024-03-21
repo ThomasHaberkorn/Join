@@ -11,10 +11,10 @@ function initContactSection() {
       </div> 
     </div> 
     `;
-  contacts.sort((a, b) => a['lastName'].localeCompare(b['lastName']));
+  contacts.sort((a, b) => a['name'].localeCompare(b['name']));
 
   for (i = 0; i < contacts.length; i++) {
-    let firstLetter = contacts[i]['lastName'].charAt(0);
+    let firstLetter = contacts[i]['name'].charAt(0);
     if (!uniqueFirstLetters.has(firstLetter)) {
       uniqueFirstLetters.add(firstLetter);
       list.innerHTML += `
@@ -25,12 +25,12 @@ function initContactSection() {
         <div class="shortContactInfo" onclick="showContact(${i})" id="info${i}">
           <img src="${contacts[i]['url']}" class="contactPic">
           <div class="shortContactLetters">
-            <div class="singleNameListContact">${contacts[i]['firstName']} ${contacts[i]['lastName']}</div>
+            <div class="singleNameListContact">${contacts[i]['name']}</div>
             <div class="listMail">${contacts[i]['email']}</div> 
           </div>
         </div>`;
   }
-  
+
 }
 
 function addNewContact() {
@@ -39,19 +39,19 @@ function addNewContact() {
 
 function showContact(index) {
   let fullContact = document.getElementById('contactFull');
-// Animation für das Verschieben des Containers nach rechts vorbereiten
-fullContact.style.transition = "transform 0.4s ease";
-fullContact.style.transform = "translateX(120%)";
+  // Animation für das Verschieben des Containers nach rechts vorbereiten
+  fullContact.style.transition = "transform 0.4s ease";
+  fullContact.style.transform = "translateX(120%)";
 
-// Eine kurze Verzögerung hinzufügen, um die Animation abzuschließen
-setTimeout(() => {
-  // Alten Inhalt löschen
-  fullContact.innerHTML = '';
-  fullContact.innerHTML += `
+  // Eine kurze Verzögerung hinzufügen, um die Animation abzuschließen
+  setTimeout(() => {
+    // Alten Inhalt löschen
+    fullContact.innerHTML = '';
+    fullContact.innerHTML += `
   <div class="contactFullUpperSection" id="contactFullUpperSection">
     <img class="contactFullImage" src="${contacts[index]['url']}">
       <div class="contactNameEditDelete">
-        <div class="contactFullName">${contacts[index]['firstName']}  ${contacts[index]['lastName']}</div>
+        <div class="contactFullName">${contacts[index]['name']}</div>
         <div class="contactEditDeleteArea">
           <div onclick="editContact(${index})" class="contactEdit"><img class="existContactEdit" src="./assets/img/edit.png"><p>Edit</p></img></div>
           <div onclick="deleteContact(${index})" class="contactDelete margin16left"><img class="existContactEdit margin16left" src="./assets/img/delete.png"><p>Delete</p></img></div>
@@ -72,7 +72,7 @@ setTimeout(() => {
   </div>
   `;
 
-  fullContact.style.transform = "translateX(0)";
+    fullContact.style.transform = "translateX(0)";
   }, 400);
 }
 
@@ -80,7 +80,7 @@ function editContact(index) {
   let contactEdit = document.getElementById('contactEditArea');
   contactEdit.style.display = "flex";
   contactEdit.innerHTML = ``;
-  contactEdit.innerHTML +=`
+  contactEdit.innerHTML += `
     <div class="contactEditVisible" id="contactEditVisible">
       <div class="contactEditLeft">
         <img src="./assets/img/join-logo-white.png">
@@ -106,14 +106,14 @@ function editContact(index) {
             </div>
           </div>
           <div class="contactEditSaveDelete">
-            <div class="contactEditCancel dispflex" onclick="">Delete</div>
+            <div class="contactEditDelete dispflex" onclick="">Delete</div>
             <div class="contactEditSave dispflex" onclick="">Save <img src="./assets/img/check.png"</div>
           </div
         </div>  
       </div>
     </div>
   `;
-document.getElementById('contactEditName').defaultValue =`${contacts[index]['firstName']}  ${contacts[index]['lastName']}`;
-document.getElementById('contactEditEmail').defaultValue = contacts[index]['email'];
-document.getElementById('contactEditPhone').defaultValue = contacts[index]['phone'];
+  document.getElementById('contactEditName').defaultValue = contacts[index]['name'];
+  document.getElementById('contactEditEmail').defaultValue = contacts[index]['email'];
+  document.getElementById('contactEditPhone').defaultValue = contacts[index]['phone'];
 }

@@ -1,6 +1,8 @@
 .headerMainContainer {
-    width: 1208px;
+    width: calc(100% - 232px);
+    margin-left: 232px;
     height: 96px;
+    position: fixed;
     background-color: #ffffff;
     display: flex;
     justify-content: space-between;

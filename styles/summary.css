@@ -12,6 +12,7 @@
     width: 1208px;
     height: 928px;
     z-index: -1;
+    margin-left: 232px;
 }
 
 .border {
@@ -21,7 +22,7 @@
 
 .summaryHead {
     height: 73px;
-    margin-top: 110px;
+    margin-top: 206px;
     margin-left: 96px;
     display: flex;
     align-items: center;

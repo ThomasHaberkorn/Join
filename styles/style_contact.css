@@ -1,13 +1,8 @@
-.mainContainer{
-display: flex;
-justify-content: center;
-align-items: center;
-}
 /* start contact-Section*/
 
 .contactlist {
-    width: 456px;
-    max-height: 928px;
+    width: 439px; /*456px - 17 px width scrollbar*/
+    height: calc(100vh - 95px);
     background-color: white;
     overflow: scroll;
     overflow-x: hidden;
@@ -16,6 +11,11 @@ align-items: center;
     align-items: center;
     flex-direction: column;
     justify-content: flex-start;
+}
+
+#style-3::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
 }
 
 .firstLetterContact {
@@ -88,6 +88,12 @@ align-items: center;
     cursor: pointer;
 }
 
+.addNewContactButton:hover{
+    background-color:#29abe2;
+    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.2);
+    transition: 100ms ease-in-out;
+}
+
 .addNewContactButton img {
     margin-left: 16px;
 }
@@ -101,6 +107,7 @@ align-items: center;
 .contactArea {
     display: flex;
     flex-direction: row;
+    margin-left: 232px;
 }
 
 .contactBig {
@@ -264,7 +271,7 @@ align-items: center;
     display: none;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0,0,0,0.25);
+    background-color: rgba(0, 0, 0, 0.25);
 }
 
 .contactEditVisible {
@@ -335,20 +342,25 @@ align-items: center;
     margin-left: 390px;
     width: 32px;
     height: 32px;
+    border-radius: 16px;
     cursor: pointer;
+}
+
+.contactEditClose:hover{
+    background-color: #eeeeee;
 }
 
 .contactEditUserDetails {
     display: flex;
-   align-items: center;
-    justify-content:space-between;
+    align-items: center;
+    justify-content: space-between;
     width: 422px;
     height: 215px;
     margin: 57px 48px 48px 0;
     flex-direction: column;
 }
 
-.contactEditInput{
+.contactEditInput {
     border: 1px solid #d1d1d1;
     border-radius: 10px;
     height: 50px;
@@ -360,7 +372,7 @@ align-items: center;
     flex-direction: row;
 }
 
-.contactEditInput input{
+.contactEditInput input {
     width: 380px;
     height: 24px;
     border: none;
@@ -372,20 +384,22 @@ align-items: center;
     justify-content: space-between;
     margin-left: 21px;
 }
-.contactEditInput img{
+
+.contactEditInput img {
     width: 16px;
     height: 16px;
     margin-right: 13px;
 }
 
-.contactEditSaveDelete{
+.contactEditSaveDelete {
     width: 249px;
     height: 57px;
     display: flex;
     justify-content: space-between;
 }
 
-.contactEditCancel{
+.contactEditDelete {
+    cursor: pointer;
     width: 113px;
     height: 55px;
     border: 1px #2a3647 solid;
@@ -398,8 +412,14 @@ align-items: center;
     align-items: center;
 }
 
+.contactEditDelete:hover{
+    border: 2px #29abe2 solid;
+    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.2);
+    transition: 100ms ease-in-out;
+}
 
-.contactEditSave{
+.contactEditSave {
+    cursor: pointer;
     width: 111px;
     height: 55px;
     background-color: #2a3647;
@@ -408,13 +428,21 @@ align-items: center;
     line-height: 25px;
     color: #ffffff;
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
+    border-radius: 8px;
 }
 
-.contactEditSave img{
+.contactEditSave:hover{
+    background-color:#29abe2;
+    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.2);
+    transition: 100ms ease-in-out;
+}
+
+.contactEditSave img {
     width: 15;
     height: 11px;
     margin-left: 8px;
 }
+
 /* end contact-Section*/
