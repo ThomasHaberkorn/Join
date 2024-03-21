@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/display.css">
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/summary.css">
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
+    <script src="js/script.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/summary.js"></script>
+    <script src="js/add_task.js"></script>
+    <script src="js/contacts.js"></script>
+    <script src="js/contactSection.js"></script>
+</head>
+
+<body onload="init()">
+    <div class="summaryMainContent">
+        <div class="w3Sidebar">
+            <div class="sidebarMainContainer" id="sidebarMainContainer">
+                <div class="sidebarImgContainer">
+                    <img src="/assets/img/join-logo-white.png" alt="Join-Logo">
+                </div>
+                <div class="sibebarNavContainer">
+                    <div class="sidebarSummary sidebarLinkStyle" onclick="">
+                        <img src="/assets/img/sidebarSummaryIcons.png" alt="Summary Icon">
+                        <p class="sidebarSummaryText">Summary</p>
+                    </div>
+                    <div class="sidebarAddTask sidebarLinkStyle" onclick="">
+                        <img src="/assets/img/sidebarAddTaskIcons.png" alt="Add Task Icon">
+                        <p class="sidebarAddTask">Add Task</p>
+                    </div>
+                    <div class="sidebarBoard sidebarLinkStyle" onclick="">
+                        <img src="/assets/img/sidebarBoardIcons.png" alt="Board Icon">
+                        <p class="sidebarBoard">Board</p>
+                    </div>
+                    <div class="sidebarContacts sidebarLinkStyle" onclick="">
+                        <img src="/assets/img/sidebarContactsIcons.png" alt="Contact Icon">
+                        <p class="sidebarContact">Contact</p>
+                    </div>
+
+                </div>
+                <div class="sidebarFooter">
+                    <div class="sidebarFooterContent">
+                        <div class="sidebarFooterPrivacyPolicyContainer">
+                            <a href="" class="sidebarFooterPrivacyPolicy">Privacy Policy</a>
+                        </div>
+                        <div class="sidebarFooterLegalNoticeContainer">
+                            <a href="" class="sidebarFooterLegalNotice">Legal notice</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w3Header">
+            <div class="headerMainContainer">
+                <div class="headerHeadline">Kanban Project Management Tool</div>
+                <div class="headerInfoContainer">
+                    <div class="headerHelp"><img src="assets/img/help.png" alt="to Help Page" onclick=""></div>
+                    <div class="headerLogoutButton" id="headerLogoutButton">
+                        <div class="headerUserProfileInitials" id="headerUserProfileInitials"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="contentContainer">
+                <div class="summaryMainContainer">
+                    <div class="summaryHead border">
+                        <div class="summaryTextJoin border">Join 360</div>
+                        <div class="summaryTextJoinBoarder"></div>
+                        <div class="summaryTextH2 border">Key Metrics at a Glance</div>
+                    </div>
+                    <div class="summaryContentContainer">
+                        <div class="summaryInfoContainer">
+                            <div class="summaryTodoDoneInfoContainer" id="summaryTodoDoneInfoContainer">
+                                <div class="summaryTodoInfoContainer border bg-white" id="summaryTodoInfoContainer">
+                                </div>
+                                <div class="summaryDoneInfoContainer border bg-white" id="summaryDoneInfoContainer">
+                                </div>
+                            </div>
+                            <div class="summaryDeadlineInfoContainer border bg-white" id="summaryDeadlineInfoContainer">
+                            </div>
+                            <div class="summaryOverviewInfoContainer">
+                                <div class="summaryOverviewTaskInBord border bg-white" id="summaryOverviewTaskInBoard">
+                                </div>
+                                <div class="summaryOverviewTaskInProgress border bg-white"
+                                    id="summaryOverviewTaskInProgress">
+                                </div>
+                                <div class="summaryOverviewAwaitingFeedback border bg-white"
+                                    id="summaryOverviewAwaitingFeedback"></div>
+                            </div>
+
+                        </div>
+                        <div class="summaryWelcomeContainer border">
+                            <div class="summaryWelcomeDaytimeContainer" id="summaryWelcomeDaytimeContainer"></div>
+                            <div class="summaryWelcomeNameContainer" id="summaryWelcomeNameContainer"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

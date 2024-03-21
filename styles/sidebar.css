@@ -1,6 +1,6 @@
 .sidebarMainContainer {
     width: 232px;
-    height: 1024px;
+    height: 100vh;
     background-color: #2a3647;
 }
 
@@ -56,7 +56,7 @@
 
 .sidebarFooter {
     width: 232px;
-    height: 317px;
+    /* height: 317px; */
     padding-top: 243px;
     display: flex;
     justify-content: center;

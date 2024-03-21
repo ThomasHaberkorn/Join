@@ -1,19 +1,60 @@
-.mainContainer {
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+/* .summaryTestDiv {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+} */
+
+.summaryMainContent {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    background-color: #f6f7f8;
 }
 
 .bg-white {
     background-color: white;
 }
 
-.summaryMainContainer {
-    position: absolute;
-    background-color: #f6f7f8;
-    width: 1208px;
-    height: 928px;
-    z-index: -1;
+.w3Header {
+    width: 100%;
 }
 
+.w3Sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.summaryContentContainer {
+    height: 100dvh;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 232px;
+    background-color: var(--whiteGray);
+}
+.summaryMainContainer {
+    background-color: red;
+    /* width: 50rem; */
+    display: flex;
+    align-items: center;
+}
+
+.summaryInfoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 .border {
     border: 1px solid black;
     border-radius: 30px;
@@ -21,8 +62,6 @@
 
 .summaryHead {
     height: 73px;
-    margin-top: 110px;
-    margin-left: 96px;
     display: flex;
     align-items: center;
     margin-bottom: 56px;
@@ -44,77 +83,133 @@
 
 .summaryTextH2 {
     font-size: 27px;
-    font-weight: 400px;
+    font-weight: 400;
     line-height: 32.4px;
 }
-.summaryContentContainer {
-    width: 560px;
+.summaryInfoContentContainer {
+    /* width: 560px; */
     height: 562px;
-    margin-left: 96px;
     display: flex;
     align-items: center;
 }
 
-.summaryInfoContainer {
-    width: 560px;
+.summaryInfoBox {
+    width: 100%;
     box-sizing: border-box;
 }
 
-.summaryTodoDoneInfoContainer {
-    width: 560px;
+.row1 {
+    /* width: 560px; */
+    gap: 30px;
     height: 168px;
     margin-bottom: 28px;
     display: flex;
     justify-content: space-between;
 }
 
+.summaryTodoInfoImg {
+    width: 69px;
+    height: 69px;
+}
+
+.summaryTodoInfoCounter {
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 76.8px;
+    text-align: center;
+}
+
+.summaryTodoInfoText {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
 .summaryTodoInfoContainer {
-    width: 264px;
-    height: 168px;
+    gap: 40px;
+    width: 100%;
+    height: 100%;
 }
 
 .summaryDoneInfoContainer {
-    width: 264px;
-    height: 168px;
+    width: 100%;
+    height: 100%;
 }
-.summaryDeadlineInfoContainer {
+.row2 {
     height: 168px;
     margin-bottom: 28px;
 }
 
-.summaryOverviewInfoContainer {
+.row3 {
+    gap: 38px;
     height: 168px;
     display: flex;
     justify-content: space-between;
 }
 
 .summaryOverviewTaskInBord {
-    width: 168px;
-    height: 168px;
+    /* width: 168px; */
+    width: 100%;
+    /* height: 168px; */
+    height: 100%;
 }
 
 .summaryOverviewTaskInProgress {
-    width: 168px;
-    height: 168px;
+    /* width: 168px; */
+    width: 100%;
+    /* height: 168px; */
+    height: 100%;
 }
 
 .summaryOverviewAwaitingFeedback {
-    width: 168px;
-    height: 168px;
+    /* width: 168px; */
+    width: 100%;
+    /* height: 168px; */
+    height: 100%;
 }
 
 .summaryWelcomeContainer {
-    width: 385px;
+    /* width: 385px; */
     height: 136px;
-    margin-left: 80px;
+    /* margin-left: 80px; */
 }
 
 .summaryWelcomeDaytimeContainer {
-    width: 385px;
+    /* width: 385px; */
     height: 56px;
+    font-size: 47px;
+    font-weight: 500;
+    line-height: 56.4px;
 }
 
 .summaryWelcomeNameContainer {
-    width: 385px;
+    /* width: 385px; */
     height: 77px;
+}
+
+@media (max-width: 1150px) {
+    .summaryTextJoin {
+        font-size: 50px;
+        margin-left: 20px;
+    }
+    .summaryTextH2 {
+        font-size: 24px;
+    }
+    .summaryWelcomeDaytimeContainer {
+        font-size: 36px;
+    }
+    .summaryInfoContentContainer {
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 1050px) {
+    .row3,
+    .row2,
+    .row1 {
+        height: 140px;
+    }
+    .summaryInfoContentContainer {
+        height: 500px;
+    }
 }
