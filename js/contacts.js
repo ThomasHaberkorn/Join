@@ -37,13 +37,13 @@ let contacts = [
     },
     {
         "url": "./assets/img/Jasmin.png",
-        "name": "Jasmin Miller",
+        "name": "Leonore Miller",
         "email": "RealMiller@gmail.com",
         "phone": "+49 171 3920022"
     },
     {
         "url": "./assets/img/Jean.jpeg",
-        "name": "Jean Vanderhorst",
+        "name": "Kim Vanderhorst",
         "email": "Vanderhorst@gmail.com",
         "phone": "+49 171 3920018"
     },

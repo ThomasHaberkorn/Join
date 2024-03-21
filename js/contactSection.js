@@ -1,16 +1,7 @@
 let uniqueFirstLetters = new Set();
 
-function initContactSection() {
-  let list = document.getElementById('contactSection');
-  list.innerHTML = '';
-  list.innerHTML += `
-    <div class="dispflex">
-      <div class="borderContactButton dispflex">
-        <div class="addNewContactButton dispflex" onclick="addNewContact()">Add new contact  
-        <img src="./assets/img/person_add.png"></div>
-      </div> 
-    </div> 
-    `;
+function rendercontactList(){   
+  let list = document.getElementById('contactList');
   contacts.sort((a, b) => a['name'].localeCompare(b['name']));
 
   for (i = 0; i < contacts.length; i++) {
@@ -45,7 +36,6 @@ function showContact(index) {
 
   // Eine kurze Verzögerung hinzufügen, um die Animation abzuschließen
   setTimeout(() => {
-    // Alten Inhalt löschen
     fullContact.innerHTML = '';
     fullContact.innerHTML += `
   <div class="contactFullUpperSection" id="contactFullUpperSection">
@@ -71,7 +61,6 @@ function showContact(index) {
     </div>
   </div>
   `;
-
     fullContact.style.transform = "translateX(0)";
   }, 400);
 }
@@ -81,7 +70,7 @@ function editContact(index) {
   contactEdit.style.display = "flex";
   contactEdit.innerHTML = ``;
   contactEdit.innerHTML += `
-    <div class="contactEditVisible" id="contactEditVisible">
+    <div class="contactEditVisible slide-in-right" id="contactEditVisible">
       <div class="contactEditLeft">
         <img src="./assets/img/join-logo-white.png">
         <a>Edit contact</a>
@@ -90,7 +79,7 @@ function editContact(index) {
       <div class="contactEditRight">
         <img src="${contacts[index]['url']}" class="contactEditFullImage">
         <div class="contactEditRenderDetailsRight">
-          <img src="./assets/img/Close.png" class="contactEditClose">
+          <img src="./assets/img/Close.png" class="contactEditClose" onclick="closeEditContact()">
           <div class="contactEditUserDetails">
             <div class="contactEditInput">
               <input  id="contactEditName" placeholder="Name">
@@ -116,4 +105,12 @@ function editContact(index) {
   document.getElementById('contactEditName').defaultValue = contacts[index]['name'];
   document.getElementById('contactEditEmail').defaultValue = contacts[index]['email'];
   document.getElementById('contactEditPhone').defaultValue = contacts[index]['phone'];
+}
+
+function closeEditContact() {
+  let contactEditVisible = document.getElementById('contactEditVisible');
+  contactEditVisible.classList.remove('slide-in-right');
+  contactEditVisible.classList.add('slide-out-right');
+  contactEditVisible.innerHTML = "";
+  document.getElementById('contactEditArea').style.display = "none";
 }
