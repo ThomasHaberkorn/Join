@@ -171,7 +171,7 @@ body {
 .summaryWelcomeContainer {
     /* width: 385px; */
     height: 136px;
-    /* margin-left: 80px; */
+    margin-left: 80px;
 }
 
 .summaryWelcomeDaytimeContainer {
@@ -187,7 +187,7 @@ body {
     height: 77px;
 }
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1200px) {
     .summaryTextJoin {
         font-size: 50px;
         margin-left: 20px;
@@ -197,6 +197,9 @@ body {
     }
     .summaryWelcomeDaytimeContainer {
         font-size: 36px;
+    }
+    .summaryWelcomeContainer {
+        margin-left: 40px;
     }
     .summaryInfoContentContainer {
         margin-left: 20px;
@@ -321,9 +324,20 @@ body {
 }
 
 @media screen and (max-width: 500px) {
-    /* .summaryInfoContainer {
-        width: 400px;
-    } */
+    .infoContentText1 {
+        font-size: 55px;
+        margin-bottom: -10px;
+    }
+    .infoContentText2 {
+        font-size: 20px;
+    }
+    .infoContentImg {
+        width: 60px;
+        height: 60px;
+    }
+    .summaryTodoInfoContainer {
+        gap: 30px;
+    }
     .row1,
     .row2,
     .row3 {
@@ -339,6 +353,21 @@ body {
         height: 90px;
         gap: 10px;
     }
+    .infoContentText1 {
+        font-size: 45px;
+        margin-top: -15px;
+        margin-bottom: -15px;
+    }
+    .infoContentText2 {
+        font-size: 20px;
+    }
+    .infoContentImg {
+        width: 50px;
+        height: 50px;
+    }
+    .summaryTodoInfoContainer {
+        gap: 20px;
+    }
 }
 
 @media screen and (max-width: 361px) {
@@ -353,5 +382,20 @@ body {
     }
     .summaryContentContainer {
         height: 650px;
+    }
+    .infoContentText1 {
+        font-size: 35px;
+        margin-top: -15px;
+        margin-bottom: -15px;
+    }
+    .infoContentText2 {
+        font-size: 12px;
+    }
+    .infoContentImg {
+        width: 40px;
+        height: 40px;
+    }
+    .summaryTodoInfoContainer {
+        gap: 10px;
     }
 }
