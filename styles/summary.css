@@ -44,7 +44,7 @@ body {
     background-color: var(--whiteGray);
 }
 .summaryMainContainer {
-    background-color: red;
+    background-color: #f6f7f8;
     /* width: 50rem; */
     display: flex;
     align-items: center;
@@ -187,7 +187,7 @@ body {
     height: 77px;
 }
 
-@media (max-width: 1150px) {
+@media screen and (max-width: 1150px) {
     .summaryTextJoin {
         font-size: 50px;
         margin-left: 20px;
@@ -203,7 +203,7 @@ body {
     }
 }
 
-@media (max-width: 1050px) {
+@media screen and (max-width: 1050px) {
     .row3,
     .row2,
     .row1 {
@@ -211,5 +211,147 @@ body {
     }
     .summaryInfoContentContainer {
         height: 500px;
+        margin-right: 20px;
+    }
+    .summaryWelcomeContainer {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .summaryTextJoin {
+        font-size: 45px;
+    }
+    .summaryTextH2 {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .headerHeadline {
+        display: none;
+    }
+    .headerHeadlineImage {
+        display: block !important;
+        margin-left: 16px;
+        margin-top: 5px;
+    }
+    .headerHeadlineImage img {
+        width: 32px;
+        height: 39px;
+    }
+
+    .summaryMainContent {
+        display: block;
+    }
+    .w3Sidebar {
+        position: absolute;
+        top: auto;
+        right: 0;
+    }
+    .sidebarMainContainer {
+        width: 100vw !important;
+        height: 80px !important;
+        display: flex;
+    }
+    .summaryContentContainer {
+        padding-left: 0;
+    }
+    .headerMainContainer {
+        left: 0 !important;
+    }
+    .sidebarImgContainer {
+        display: none !important;
+    }
+    .sidebarFooter {
+        display: none !important;
+    }
+    .sibebarNavContainer {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        margin-bottom: 0 !important;
+        margin-top: 3px;
+    }
+    .sidebarLinkStyle {
+        width: auto !important;
+        flex-direction: column;
+        border-radius: 16px;
+        width: 80px !important;
+        height: 76px !important;
+        justify-content: center;
+    }
+    .sidebarLinkStyle img {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .summaryContentContainer {
+        height: 800px;
+        padding-top: 40px;
+        transition: 0.4s;
+    }
+    .summaryHead {
+        flex-direction: column;
+        align-items: start;
+    }
+    .summaryTextH2 {
+        margin-left: 20px;
+    }
+
+    .summaryInfoContentContainer {
+        height: 500px;
+    }
+    .summaryInfoContainer {
+        width: 90vw;
+    }
+    .summaryTextJoinBoarder {
+        display: none;
+    }
+    .summaryTextJoinBoarder2 {
+        border-right: 0;
+        border-top: 3px solid #29abe2;
+        height: 3px;
+        width: 90px;
+        margin-top: 10px;
+        margin-left: 20px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    /* .summaryInfoContainer {
+        width: 400px;
+    } */
+    .row1,
+    .row2,
+    .row3 {
+        height: 110px;
+        gap: 25px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .row1,
+    .row2,
+    .row3 {
+        height: 90px;
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 361px) {
+    .row1,
+    .row2,
+    .row3 {
+        height: 80px;
+        gap: 10px;
+    }
+    .summaryInfoContentContainer {
+        height: 400px;
+    }
+    .summaryContentContainer {
+        height: 650px;
     }
 }
