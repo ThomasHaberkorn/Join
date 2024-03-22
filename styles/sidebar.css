@@ -58,8 +58,10 @@
 
 .sidebarFooter {
     width: 232px;
-    height: 74px;bottom: 64px;
+    height: 74px;
+    bottom: 64px;
     position: fixed;
+
     display: flex;
     justify-content: center;
     bottom: 64px;
