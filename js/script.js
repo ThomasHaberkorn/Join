@@ -1,6 +1,7 @@
 async function init() {
     // setItem();
     await includeHTML();
+    setDaytime();
 }
 
 /**

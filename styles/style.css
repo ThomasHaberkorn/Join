@@ -520,10 +520,11 @@ input[id="signinCheckBoxPrivacyPolicy"] {
         margin-bottom: 20px;
     }
     .loginSignUp {
-        position: absolute;
+        position: relative;
         width: 100%;
-        bottom: 140px;
+        top: 690px;
         display: flex;
+        margin-right: 140px;
     }
 }
 
