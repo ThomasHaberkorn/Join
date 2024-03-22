@@ -1,4 +1,3 @@
-styles/
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,21 +7,45 @@ styles/
     <title>Join</title>
     <script src="js/contacts.js"></script>
     <script src="js/contactSection.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/add_task.js"></script>
+    <script src="js/contact_html.js"></script>
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/style_contact.css">
     <link rel="stylesheet" href="styles/display.css">
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/summary.css">
 </head>
 
-<body onload="initContactSection()">
-    <div class="contactArea">
-        <div class="contactlist" id="contactSection"></div>
-        <div class="contactBig" id="contactBig">
-            <div class="headLineContact" id="headLine">
-                <div class="headLineLeftContact">Contacts</div>
-                <div class="headLineSpaceContact"></div>
-                <div class="headLineRightContact">Better with a team</div>
+<body onload="rendercontactList(); init()">
+    <div class="mainContainer">
+        <div class="w3Sidebar">
+            <div w3-include-html="sidebar.html"></div>
+        </div>
+        <div class="w3Header">
+            <div w3-include-html="header.html"></div>
+            <div class="contentContainer">
+                <div class="contactArea">
+                    <div class="contactlist" id="contactList">
+                        <div class="borderContactButton">
+                            <div class="addNewContactButton dispflex" onclick="addNewContact()">Add new contact<img src="./assets/img/person_add.png"></div>
+                        </div>
+                        <div class="listArea" id="listArea"></div>
+                    </div>
+                    <div class="contactBig" id="contactBig">
+                        <div class="headLineContact" id="headLine">
+                            <div class="headLineLeftContact">Contacts</div>
+                            <div class="headLineSpaceContact"></div>
+                            <div class="headLineRightContact">Better with a team</div>
+                            <div class="headLineSpaceContactHorizontal"></div>
+                        </div>
+                        <div class="contactFull" id="contactFull"></div>
+                    </div>
+                </div>
+                <div class="contactEditArea" id="contactEditArea"></div>
             </div>
-            <div class="contactFull" id="contactFull"></div>
         </div>
     </div>
 </body>

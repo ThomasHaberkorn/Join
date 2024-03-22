@@ -32,7 +32,7 @@ body {
     justify-content: center;
     align-items: center;
     padding-left: 232px;
-    background-color: var(--whiteGray);
+    background-color: #f6f7f8;
 }
 .summaryMainContainer {
     background-color: #f6f7f8;

@@ -3,12 +3,19 @@ html {
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    width: 100%;
     margin: 0;
-    background-color: black;
+   background-color: #f6f7f8;
+}
+
+.mainContainer {
+    display: flex;
+    width: 100%;
+}
+
+.w3Sidebar{
+    top:0;
+    margin-left: 0;
 }
 
 .loginMainContent {
@@ -421,13 +428,6 @@ input[id="signinCheckBoxPrivacyPolicy"] {
     display: flex;
     justify-content: start;
     align-items: center;
-}
-
-.spaceContactList {
-    width: 352px;
-    height: 1px;
-    padding: 0px 8px;
-    background-color: #d1d1d1;
 }
 
 .singleNameList {
