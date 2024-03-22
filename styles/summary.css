@@ -3,15 +3,6 @@ body {
     font-family: sans-serif;
 }
 
-/* .summaryTestDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    background-color: black;
-} */
-
 .summaryMainContent {
     width: 100vw;
     height: 100vh;
@@ -45,7 +36,6 @@ body {
 }
 .summaryMainContainer {
     background-color: #f6f7f8;
-    /* width: 50rem; */
     display: flex;
     align-items: center;
 }
@@ -87,7 +77,6 @@ body {
     line-height: 32.4px;
 }
 .summaryInfoContentContainer {
-    /* width: 560px; */
     height: 562px;
     display: flex;
     align-items: center;
@@ -99,7 +88,6 @@ body {
 }
 
 .row1 {
-    /* width: 560px; */
     gap: 30px;
     height: 168px;
     margin-bottom: 28px;
@@ -148,34 +136,26 @@ body {
 }
 
 .summaryOverviewTaskInBord {
-    /* width: 168px; */
     width: 100%;
-    /* height: 168px; */
     height: 100%;
 }
 
 .summaryOverviewTaskInProgress {
-    /* width: 168px; */
     width: 100%;
-    /* height: 168px; */
     height: 100%;
 }
 
 .summaryOverviewAwaitingFeedback {
-    /* width: 168px; */
     width: 100%;
-    /* height: 168px; */
     height: 100%;
 }
 
 .summaryWelcomeContainer {
-    /* width: 385px; */
     height: 136px;
     margin-left: 80px;
 }
 
 .summaryWelcomeDaytimeContainer {
-    /* width: 385px; */
     height: 56px;
     font-size: 47px;
     font-weight: 500;
@@ -183,219 +163,5 @@ body {
 }
 
 .summaryWelcomeNameContainer {
-    /* width: 385px; */
     height: 77px;
-}
-
-@media screen and (max-width: 1200px) {
-    .summaryTextJoin {
-        font-size: 50px;
-        margin-left: 20px;
-    }
-    .summaryTextH2 {
-        font-size: 24px;
-    }
-    .summaryWelcomeDaytimeContainer {
-        font-size: 36px;
-    }
-    .summaryWelcomeContainer {
-        margin-left: 40px;
-    }
-    .summaryInfoContentContainer {
-        margin-left: 20px;
-    }
-}
-
-@media screen and (max-width: 1050px) {
-    .row3,
-    .row2,
-    .row1 {
-        height: 140px;
-    }
-    .summaryInfoContentContainer {
-        height: 500px;
-        margin-right: 20px;
-    }
-    .summaryWelcomeContainer {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 800px) {
-    .summaryTextJoin {
-        font-size: 45px;
-    }
-    .summaryTextH2 {
-        font-size: 20px;
-    }
-}
-
-@media screen and (max-width: 750px) {
-    .headerHeadline {
-        display: none;
-    }
-    .headerHeadlineImage {
-        display: block !important;
-        margin-left: 16px;
-        margin-top: 5px;
-    }
-    .headerHeadlineImage img {
-        width: 32px;
-        height: 39px;
-    }
-
-    .summaryMainContent {
-        display: block;
-    }
-    .w3Sidebar {
-        position: absolute;
-        top: auto;
-        right: 0;
-    }
-    .sidebarMainContainer {
-        width: 100vw !important;
-        height: 80px !important;
-        display: flex;
-    }
-    .summaryContentContainer {
-        padding-left: 0;
-    }
-    .headerMainContainer {
-        left: 0 !important;
-    }
-    .sidebarImgContainer {
-        display: none !important;
-    }
-    .sidebarFooter {
-        display: none !important;
-    }
-    .sibebarNavContainer {
-        display: flex;
-        width: 100%;
-        justify-content: space-around;
-        margin-bottom: 0 !important;
-        margin-top: 3px;
-    }
-    .sidebarLinkStyle {
-        width: auto !important;
-        flex-direction: column;
-        border-radius: 16px;
-        width: 80px !important;
-        height: 76px !important;
-        justify-content: center;
-    }
-    .sidebarLinkStyle img {
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-}
-
-@media screen and (max-width: 550px) {
-    .summaryContentContainer {
-        height: 800px;
-        padding-top: 40px;
-        transition: 0.4s;
-    }
-    .summaryHead {
-        flex-direction: column;
-        align-items: start;
-    }
-    .summaryTextH2 {
-        margin-left: 20px;
-    }
-
-    .summaryInfoContentContainer {
-        height: 500px;
-    }
-    .summaryInfoContainer {
-        width: 90vw;
-    }
-    .summaryTextJoinBoarder {
-        display: none;
-    }
-    .summaryTextJoinBoarder2 {
-        border-right: 0;
-        border-top: 3px solid #29abe2;
-        height: 3px;
-        width: 90px;
-        margin-top: 10px;
-        margin-left: 20px;
-    }
-}
-
-@media screen and (max-width: 500px) {
-    .infoContentText1 {
-        font-size: 55px;
-        margin-bottom: -10px;
-    }
-    .infoContentText2 {
-        font-size: 20px;
-    }
-    .infoContentImg {
-        width: 60px;
-        height: 60px;
-    }
-    .summaryTodoInfoContainer {
-        gap: 30px;
-    }
-    .row1,
-    .row2,
-    .row3 {
-        height: 110px;
-        gap: 25px;
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .row1,
-    .row2,
-    .row3 {
-        height: 90px;
-        gap: 10px;
-    }
-    .infoContentText1 {
-        font-size: 45px;
-        margin-top: -15px;
-        margin-bottom: -15px;
-    }
-    .infoContentText2 {
-        font-size: 20px;
-    }
-    .infoContentImg {
-        width: 50px;
-        height: 50px;
-    }
-    .summaryTodoInfoContainer {
-        gap: 20px;
-    }
-}
-
-@media screen and (max-width: 361px) {
-    .row1,
-    .row2,
-    .row3 {
-        height: 80px;
-        gap: 10px;
-    }
-    .summaryInfoContentContainer {
-        height: 400px;
-    }
-    .summaryContentContainer {
-        height: 650px;
-    }
-    .infoContentText1 {
-        font-size: 35px;
-        margin-top: -15px;
-        margin-bottom: -15px;
-    }
-    .infoContentText2 {
-        font-size: 12px;
-    }
-    .infoContentImg {
-        width: 40px;
-        height: 40px;
-    }
-    .summaryTodoInfoContainer {
-        gap: 10px;
-    }
 }
