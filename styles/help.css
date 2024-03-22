@@ -45,6 +45,11 @@ body {
     padding-top: 90px;
 }
 
+.helpArrowLeft img {
+    width: 21.3px;
+    height: 20.7px;
+}
+
 .helpTextContainer {
     max-width: 1208px;
 }
