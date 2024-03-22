@@ -35,11 +35,29 @@ body {
     height: 93%;
 }
 
+.headHighlight {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.helpArrowLeft {
+    padding-top: 90px;
+}
+
+.helpTextContainer {
+    max-width: 1208px;
+}
+
 .helpTextarea {
     width: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
     height: 90vh;
+}
+
+span {
+    color: #29abe2;
 }
 
 .helpTextarea::-webkit-scrollbar {
@@ -50,7 +68,7 @@ body {
     margin-top: 110px;
 }
 
-.headerHelp img{
+.headerHelp img {
     display: none;
 }
 ol {
@@ -74,7 +92,7 @@ ol li::before {
     align-self: flex-start; /* Obere Ausrichtung der Nummerierung */
     line-height: 2.2; /* Behebt die vertikale Ausrichtung */
 }
-::marker{
+::marker {
     content: "";
 }
 @media screen and (max-width: 1200px) {
@@ -83,7 +101,11 @@ ol li::before {
 @media screen and (max-width: 1050px) {
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
+    .headerHeadline {
+        margin-left: 64px !important;
+        transition: 0.4s;
+    }
 }
 
 @media screen and (max-width: 750px) {
@@ -148,6 +170,10 @@ ol li::before {
     .helpHeadline {
         margin-top: 70px;
     }
+
+    .helpArrowLeft {
+        padding-top: 49px;
+    }
     .helpTextarea {
         height: 83.3vh;
     }
@@ -166,6 +192,9 @@ ol li::before {
     }
     .helpHeadline {
         margin-top: 48px;
+    }
+    .helpArrowLeft {
+        padding-top: 27px;
     }
 }
 
