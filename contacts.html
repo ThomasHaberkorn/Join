@@ -28,16 +28,18 @@
             <div w3-include-html="header.html"></div>
             <div class="contentContainer">
                 <div class="contactArea">
-                    <div class="borderContactButton dispflex">
-                        <div class="addNewContactButton dispflex" onclick="addNewContact()">Add new contact  
-                        <img src="./assets/img/person_add.png"></div>
+                    <div class="contactlist" id="contactList">
+                        <div class="borderContactButton dispflex">
+                            <div class="addNewContactButton dispflex" onclick="addNewContact()">Add new contact<img src="./assets/img/person_add.png"></div>
+                        </div>
+                        <div class="listArea" id="listArea"></div>
                     </div>
-                    <div class="contactlist" id="contactList"></div>
                     <div class="contactBig" id="contactBig">
                         <div class="headLineContact" id="headLine">
                             <div class="headLineLeftContact">Contacts</div>
                             <div class="headLineSpaceContact"></div>
                             <div class="headLineRightContact">Better with a team</div>
+                            <div class="headLineSpaceContactHorizontal"></div>
                         </div>
                         <div class="contactFull" id="contactFull"></div>
                     </div>

@@ -1,15 +1,27 @@
 /* start contact-Section*/
+.w3Header {
+    width: 100%;
+}
+
 
 .contactlist {
-    width: 439px;
-    /*456px - 17 px width scrollbar*/
-    max-height: calc(100vh - 196px);
+    width: 37%;
+    max-height: calc(100vh - 96px);
     background-color: white;
     box-shadow: 4px 6px 6px 0px rgb(0, 0, 0, 0.2);
     overflow: scroll;
-    margin-top: 175px;
-    overflow-x: hidden;
-    z-index: 10;
+    margin: 96px 0 0 0;
+    min-width: 320px;
+    max-width: 450px;
+}
+
+.listArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 439px;
+
 }
 
 ::-webkit-scrollbar {
@@ -25,10 +37,10 @@
 ::-webkit-scrollbar-track {
     background: transparent;
     height: 24px;
-  }
+}
 
 .firstLetterContact {
-    width: 352px;
+    width: 80%;
     height: 58px;
     font-size: 20px;
     font-weight: 400;
@@ -36,13 +48,13 @@
     align-items: center;
     justify-content: flex-start;
     line-height: 24px;
-    margin: 17px 302px 17px 88px;
+    padding-left: 60px;
 }
 
 .spaceContactList {
-    width: 352px;
+    width: 80%;
     height: 1px;
-    margin: 0px 8px 0px 8px;
+    margin: 8px 0px 8px 0px;
     background-color: #d1d1d1;
 }
 
@@ -56,20 +68,21 @@
     width: 38px;
     height: 38px;
     border-radius: 19px;
-    margin: 15px 35px 21px 24px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .shortContactInfo {
-    width: 352px;
+    width: 80%;
     height: 78px;
     display: flex;
     flex-direction: row;
     border-radius: 10px;
     cursor: pointer;
-    margin-left: 52px;
+    padding-left: 32px;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .listMail {
@@ -79,9 +92,7 @@
 }
 
 .shortContactLetters {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    margin-left: 0px;
+    padding-left: 35px;
 }
 
 .shortContactInfo:hover {
@@ -90,7 +101,7 @@
 }
 
 .addNewContactButton {
-    width: 352px;
+    width: 80%;
     height: 56px;
     background-color: #2a3647;
     color: #ffffff;
@@ -99,7 +110,7 @@
     font-size: 21px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 4px 6px 6px 0px rgb(0, 0, 0, 0.2);
+
 }
 
 .addNewContactButton:hover {
@@ -113,10 +124,9 @@
 }
 
 .borderContactButton {
-    width: 439px;
+    width: 100%;
     height: 101px;
     background-color: #ffffff;
-    position: absolute;
     left: 232px;
     top: 96px;
 }
@@ -125,30 +135,30 @@
     display: flex;
     flex-direction: row;
     margin-left: 232px;
+    width: calc(100% - 232px);
 }
 
 .contactBig {
     background-color: #f6f7f8;
-    width: 752px;
-    overflow: hidden;
+    width: 65%;
+    margin-right: 0;
+    overflow-x: hidden;
 }
 
 .headLineContact {
     display: flex;
     align-items: center;
     width: 569px;
-    height: 73px;
+    height: auto;
     margin-top: 110px;
     margin-left: 55px;
     flex-direction: row;
 }
 
 .headLineLeftContact {
-    width: 274px;
     height: 73px;
     font-size: 61px;
     font-weight: 700;
-    text-align: right;
     line-height: 73px;
 }
 
@@ -165,8 +175,16 @@
     line-height: 32px;
 }
 
+.headLineSpaceContactHorizontal {
+    background-color: #29abe2;
+    height: 3px;
+    width: 90px;
+    margin-top: 16px;
+    display: none;
+}
+
 .contactFull {
-    width: 690px;
+    width: 100%;
     height: 364px;
     margin-top: 32px;
     margin-left: 62px;
@@ -177,14 +195,13 @@
     height: 120px;
     display: flex;
     flex-direction: row;
-    justify-content: fl;
     align-items: center;
 }
 
 .contactFullImage {
     width: 120px;
     height: 120px;
-    border-radius: 60px;
+    border-radius: 50%;
     border: 3px white solid;
 }
 
@@ -192,6 +209,7 @@
     font-size: 47px;
     line-height: 57px;
     font-weight: 500;
+    padding-right: 24px;
 }
 
 .contactNameEditDelete {
@@ -491,7 +509,86 @@
     }
 
     to {
-        right: 100%;
+        right: -100%;
+    }
+}
+
+@media(max-width: 1230px) {
+    .headLineContact {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .headLineSpaceContact {
+        display: none;
+    }
+
+    .headLineSpaceContactHorizontal {
+        display: block;
+    }
+
+    .headLineRightContact {
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 24px;
+    }
+
+    .headLineLeftContact {
+        height: 56px;
+        font-size: 47px;
+        font-weight: 700;
+        line-height: 56px;
+    }
+
+    .contactFullUpperSection {
+        width: 90%;
+        height: 80px;
+    }
+
+    .contactFullImage {
+        width: 80px;
+        height: 80px;
+        aspect-ratio: 1 / 1;
+    }
+
+    .contactFullName {
+        font-size: 36px;
+        line-height: 43px;
+        font-weight: 700;
+    }
+    
+    .contactNameEditDelete {
+        margin-left: 20px;
+    }
+
+    .contactEditDeleteArea {
+        display: none;
+    }
+}
+
+@media (max-width: 950px) {
+    .sidebarMainContainer{
+        display: none;
+    }
+    
+    .contactlist{
+        margin-left: 0;
+    }
+
+    .contactArea {
+        margin: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 650px) {
+    .contactBig{
+        display: none;
+    }
+
+    .contactlist{
+        width: 100%;
+        max-width: 650px;
     }
 }
 
