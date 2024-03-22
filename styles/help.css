@@ -50,6 +50,33 @@ body {
     margin-top: 110px;
 }
 
+.headerHelp img{
+    display: none;
+}
+ol {
+    counter-reset: my-counter;
+    padding-left: 0; /* Verhindert das Standard-Einrücken der Nummerierung */
+}
+
+ol li {
+    list-style: none; /* Entfernt die standardmäßige Nummerierung */
+    counter-increment: my-counter; /* Zählt die Nummerierung hoch */
+    display: flex; /* Verwendet Flexbox für die Ausrichtung */
+    align-items: flex-start; /* Obere Ausrichtung der Elemente */
+    margin-bottom: 10px; /* Abstand zwischen den Listenpunkten */
+}
+
+ol li::before {
+    content: counter(my-counter); /* Fügt die Nummerierung ein */
+    font-size: 1.9em; /* Größere Schrift für die Nummerierung */
+    font-weight: bold; /* Optional: Fettschrift für die Nummerierung */
+    margin-right: 15px; /* Abstand zwischen Nummerierung und Text */
+    align-self: flex-start; /* Obere Ausrichtung der Nummerierung */
+    line-height: 2.2; /* Behebt die vertikale Ausrichtung */
+}
+::marker{
+    content: "";
+}
 @media screen and (max-width: 1200px) {
 }
 
