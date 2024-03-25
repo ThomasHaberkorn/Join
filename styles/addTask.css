@@ -613,3 +613,16 @@ input:focus {
         font-size: 32px;
     }
 }
+
+.selected-priority {
+    border: 2px solid #007bff; /* Blauer Rahmen */
+    background-color: #e7f1ff; /* Hellblaue Füllung */
+}
+
+.delete-subtask {
+    margin-left: 10px;
+    color: red;
+    border: none;
+    background: none;
+    cursor: pointer;
+}

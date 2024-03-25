@@ -7,11 +7,27 @@
     <title>Add Task</title>
     <link rel="stylesheet" href="./styles/sidebar.css">
     <link rel="stylesheet" href="./styles/addTask.css">
+    <link rel="stylesheet" href="styles/display.css">
+    <link rel="stylesheet" href="styles/media.css">
+    <link rel="stylesheet" href="styles/header.css">
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
 </head>
 
 <body>
-    <header></header>
+    <header>
+        <div class="headerMainContainer">
+            <div class="headerHeadlineImage d-none">
+                <img src="assets/img/joinIconklein.png" alt="" class="headerHeadlineImg">
+            </div>
+            <div class="headerHeadline">Kanban Project Management Tool</div>
+            <div class="headerInfoContainer">
+                <div class="headerHelp"><img src="assets/img/help.png" alt="to Help Page" onclick=""></div>
+                <div class="headerLogoutButton" id="headerLogoutButton">
+                    <div class="headerUserProfileInitials" id="headerUserProfileInitials"></div>
+                </div>
+            </div>
+        </div>
+    </header>
     <div id="sidebar">
         <div class="sidebarMainContainer" id="sidebarMainContainer">
             <div class="sidebarImgContainer">
@@ -74,8 +90,8 @@
                                             <div class="inputDropDown">
                                                 <input id="inputDropDown" type="text"
                                                     placeholder="Select contacts to assign">
-                                                <img id="openDropdown"
-                                                    src="./assets/img/addTask/arrow_drop_downaa.png" alt="">
+                                                <img id="openDropdown" src="./assets/img/addTask/arrow_drop_downaa.png"
+                                                    alt="">
                                             </div>
 
                                             <div id="dropDownContacts">
@@ -101,16 +117,13 @@
                                     <div class="prio">
                                         <p style="margin: 0;">Prio</p>
                                         <div class="prio-selection">
-                                            <button type="button"class="btn-select"
-                                                id="urgentBtn">
+                                            <button type="button" class="btn-select" id="urgentBtn">
                                                 <p>Urgent</p><img src="./assets/img/addTask/Prio alta.png">
                                             </button>
-                                            <button type="button"class="btn-select yellow"
-                                                id="mediumBtn">
+                                            <button type="button" class="btn-select yellow" id="mediumBtn">
                                                 <p>Medium</p><img src="./assets/img/addTask/Prio media.png">
                                             </button>
-                                            <button type="button"class="btn-select"
-                                                id="lowBtn">
+                                            <button type="button" class="btn-select" id="lowBtn">
                                                 <p>Low</p><img src="./assets/img/addTask/Capa 2 (4).png">
                                             </button>
                                         </div>
@@ -127,9 +140,8 @@
                                         <p style="margin: 0;">Subtasks</p>
                                         <input id="subtask" type="text" placeholder="Add new subtask">
                                         <div class="pngs">
-                                            <img src="./assets/img/addTask/Subtasks icons11.png"
-                                                id="subtask-img">
-                                           
+                                            <img src="./assets/img/addTask/Subtasks icons11.png" id="subtask-img">
+
                                         </div>
                                         <ul class="subtask-list" id="list"></ul>
                                     </div>
@@ -146,7 +158,7 @@
                         </div>
                         <div class="btn-position">
                             <button type="button" class="btn-clear">Clear X</button>
-                            <button class="btn" id="create-btn" >Create Task <img
+                            <button class="btn" id="create-btn">Create Task <img
                                     src="./assets/img/addTask/check (1).png"></button>
                         </div>
                     </section>
