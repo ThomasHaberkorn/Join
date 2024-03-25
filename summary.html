@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join-Summary</title>
+    <link rel="stylesheet" href="styles/display.css">
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/media.css">
+    <link rel="stylesheet" href="styles/summary.css">
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
+    <script src="js/script.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/summary.js"></script>
+    <script src="js/add_task.js"></script>
+    <script src="js/contacts.js"></script>
+    <script src="js/contactSection.js"></script>
+</head>
+
+<body onload="initSum()">
+    <div class="summaryMainContent">
+
+        <div class="w3Header">
+            <div w3-include-html="header.html"></div>
+            <div class="summaryContentContainer">
+                <div class="summaryMainContainer">
+                    <div class="summaryInfoContainer">
+                        <div class="summaryHead">
+                            <div class="summaryTextJoin">Join 360</div>
+                            <div class="summaryTextJoinBoarder"></div>
+                            <div class="summaryTextH2">Key Metrics at a Glance</div>
+                            <div class="summaryTextJoinBoarder2"></div>
+                        </div>
+                        <div class="summaryInfoContentContainer">
+                            <div class="summaryInfoBox">
+                                <div class="row1">
+                                    <div class="summaryTodoInfoContainer border bg-white d-flex">
+                                        <div class="summaryTodoInfoImage d-flex">
+                                            <img src="/assets/img/pencil-icon-summary.png" alt="Todo"
+                                                class="summaryTodoInfoImg infoContentImg">
+                                        </div>
+                                        <div class="summaryTodoInfoBox d-flex">
+                                            <div class="summaryTodoInfoCount d-flDirCol" id="summaryTodoInfoCount">
+                                                <div class="summaryTodoInfoCounter infoContentText1"
+                                                    id="summaryTodoInfoCounter">1</div>
+                                                <div class="summaryTodoInfoText">To-do</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="summaryDoneInfoContainer border bg-white" id="summaryDoneInfoContainer">
+                                    </div>
+                                </div>
+                                <div class="row2 border bg-white" id="summaryDeadlineInfoContainer">
+                                </div>
+                                <div class="row3">
+                                    <div class="summaryOverviewTaskInBord border bg-white"
+                                        id="summaryOverviewTaskInBoard">
+                                    </div>
+                                    <div class="summaryOverviewTaskInProgress border bg-white"
+                                        id="summaryOverviewTaskInProgress">
+                                    </div>
+                                    <div class="summaryOverviewAwaitingFeedback border bg-white"
+                                        id="summaryOverviewAwaitingFeedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="summaryWelcomeContainer border">
+                        <div class="summaryWelcomeDaytimeContainer" id="summaryWelcomeDaytimeContainer"></div>
+                        <div class="summaryWelcomeNameContainer" id="summaryWelcomeNameContainer"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="w3Sidebar">
+            <div w3-include-html="sidebar.html"></div>
+        </div>
+    </div>
+</body>
+
+</html>

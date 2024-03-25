@@ -1,36 +1,20 @@
 let uniqueFirstLetters = new Set();
 
-function initContactSection() {
-  let list = document.getElementById('contactSection');
-  list.innerHTML = '';
-  list.innerHTML += `
-    <div class="contactButtonArea dispflex">
-      <div class="borderContactButton dispflex">
-        <div class="addNewContactButton dispflex" onclick="addNewContact()">Add new contact  
-        <img src="./assets/img/person_add.png"></div>
-      </div> 
-    </div> 
-    `;
-  contacts.sort((a, b) => a['lastName'].localeCompare(b['lastName']));
-
+function rendercontactList() {
+  let list = document.getElementById('listArea');
+  contacts.sort((a, b) => a['name'].localeCompare(b['name']));
   for (i = 0; i < contacts.length; i++) {
-    let firstLetter = contacts[i]['lastName'].charAt(0);
+    let firstLetter = contacts[i]['name'].charAt(0);
     if (!uniqueFirstLetters.has(firstLetter)) {
       uniqueFirstLetters.add(firstLetter);
       list.innerHTML += `
           <div class="firstLetterContact">${firstLetter}</div>
           <div class="spaceContactList"></div>`;
     }
-    list.innerHTML += `
-        <div class="shortContactInfo" onclick="showContact(${i})" id="info${i}">
-          <img src="${contacts[i]['url']}" class="contactPic">
-          <div class="shortContactLetters">
-            <div class="singleNameListContact">${contacts[i]['firstName']} ${contacts[i]['lastName']}</div>
-            <div class="listMail">${contacts[i]['email']}</div> 
-          </div>
-        </div>`;
+    list.innerHTML += rendercontactListHTML(i);
+    document.getElementById(`listContact${i}`).style.backgroundColor = contacts[i]['color'];
+
   }
-  
 }
 
 function addNewContact() {
@@ -39,51 +23,37 @@ function addNewContact() {
 
 function showContact(index) {
   let fullContact = document.getElementById('contactFull');
-// Animation für das Verschieben des Containers nach rechts vorbereiten
-fullContact.style.transition = "transform 0.15s ease";
-fullContact.style.transform = "translateX(120%)";
+  // Animation für das Verschieben des Containers nach rechts vorbereiten
+  fullContact.style.transition = "transform 0.4s ease";
+  fullContact.style.transform = "translateX(120%)";
+  
+  // Eine kurze Verzögerung hinzufügen, um die Animation abzuschließen
+  setTimeout(() => {
+    fullContact.innerHTML = '';
+    fullContact.innerHTML += renderShowContentHTML(index);
+    fullContact.style.transform = "translateX(0)";
+    document.getElementById(`listContactBig${index}`).style.backgroundColor = contacts[index]['color'];
+  }, 400);
 
-// Eine kurze Verzögerung hinzufügen, um die Animation abzuschließen
-setTimeout(() => {
-  // Alten Inhalt löschen
-  fullContact.innerHTML = '';
-  fullContact.innerHTML += `
-  <div class="contactFullUpperSection" id="contactFullUpperSection">
-    <img class="contactFullImage" src="${contacts[index]['url']}">
-      <div class="contactNameEditDelete">
-        <div class="contactFullName">${contacts[index]['firstName']}  ${contacts[index]['lastName']}</div>
-        <div class="contactEditDeleteArea">
-          <div onclick="editContact(${index})" class="contactEdit"><img class="existContactEdit" src="./assets/img/edit.png"><p>Edit</p></img></div>
-          <div onclick="deleteContact(${index})" class="contactDelete margin16left"><img class="existContactEdit margin16left" src="./assets/img/delete.png"><p>Delete</p></img></div>
-        </div>   
-      </div>
-    </div>
-  </div>
-  <div class="contactInformationHeadline">Contact Information</div>
-  <div class="mailPhoneArea">
-    <div class="renderMail">
-      <p>Email</p>
-    </div>
-    <a href="mailto:${contacts[index]['email']}">${contacts[index]['email']}</a>
-    <div class="renderPhone">
-      <p>Phone</p>
-    <a href="tel:${contacts[index]['phone']}">${contacts[index]['phone']}</a>
-    </div>
-  </div>
-  `;
-
-  fullContact.style.transform = "translateX(0)";
-  }, 150);
-}
-
-async function finishCurrentAnimation(element) {
-  // Warten, bis die Transition abgeschlossen ist
-  await element.getAnimations().forEach(animation => animation.finished);
-
-  // Element aus dem Sichtbereich entfernen
-  element.style.transform = "translateX(400px)"; // Passen Sie den Wert an, um die Fensterbreite zu berücksichtigen
 }
 
 function editContact(index) {
-
+  let contactEdit = document.getElementById('contactEditArea');
+  contactEdit.style.display = "flex";
+  contactEdit.innerHTML = ``;
+  contactEdit.innerHTML += editContactHTML(index);
+  document.getElementById('contactEditName').defaultValue = contacts[index]['name'];
+  document.getElementById('contactEditEmail').defaultValue = contacts[index]['email'];
+  document.getElementById('contactEditPhone').defaultValue = contacts[index]['phone'];
+  document.getElementById(`contactEditImage${index}`).style.backgroundColor = contacts[index]['color']; 
 }
+
+function closeEditContact() {
+  let contactEditVisible = document.getElementById('contactEditVisible');
+  contactEditVisible.classList.add('slide-out-right');
+  setTimeout(() => {
+    document.getElementById('contactEditArea').style.display = "none";
+    contactEditVisible.innerHTML = "";
+  }, 400);
+}
+

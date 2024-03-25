@@ -2,13 +2,18 @@
     display: none;
 }
 
-.dispflex {
+.d-flex {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.dispflexFD {
+.d-SpAroundCe {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.d-flDirCol {
     display: flex;
     flex-direction: column;
     justify-content: center;
