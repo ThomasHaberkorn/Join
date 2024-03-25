@@ -1,99 +1,131 @@
 let contacts = [
     {
-        "url": "./assets/img/Adam.png",
+        "color": "#5f9ea0",
         "name": "Adam Wheeler",
         "email": "Wheeler@gmail.com",
-        "phone": "+49 171 3920001"
+        "phone": "+49 171 3920001",
+        "firstLetter": "A",
+        "lastLetter":"W",
     },
     {
-        "url": "./assets/img/Bernd.jpeg",
+        "color": "#00ffff",
         "name": "Bernd Mueller",
         "email": "Mueller@gmail.com",
-        "phone": "+49 171 3920004"
+        "phone": "+49 171 3920004",
+        "firstLetter": "B",
+        "lastLetter":"M",
     },
     {
-        "url": "./assets/img/Chris.png",
+        "color": "#ff8c00",
         "name": "Christian Fischer",
         "email": "Lanz33@gmail.com",
-        "phone": "+49 175 6065860"
+        "phone": "+49 175 6065860",
+        "firstLetter": "C",
+        "lastLetter":"F",
     },
     {
-        "url": "./assets/img/Francis.jpeg",
+        "color": "#8fbc8f",
         "name": "Francis Meissner",
         "email": "Meissner@gmail.com",
-        "phone": "+49 171 3920023"
+        "phone": "+49 171 3920023",
+        "firstLetter": "F",
+        "lastLetter":"M",
     },
     {
-        "url": "./assets/img/Jamal.jpeg",
+        "color": "#ff1493",
         "name": "Jamal Aziz",
         "email": "Aziz99@gmail.com",
-        "phone": "+49 171 3920077"
+        "phone": "+49 171 3920077",
+        "firstLetter": "J",
+        "lastLetter":"A",
     },
     {
-        "url": "./assets/img/Janette.jpeg",
+        "color": "#00bfff",
         "name": "Janette Hollborn",
         "email": "Hollborn@gmail.com",
-        "phone": "+49 171 3920034"
+        "phone": "+49 171 3920034",
+        "firstLetter": "J",
+        "lastLetter":"H",
     },
     {
-        "url": "./assets/img/Jasmin.png",
+        "color": "#ff00ff",
         "name": "Leonore Miller",
         "email": "RealMiller@gmail.com",
-        "phone": "+49 171 3920022"
+        "phone": "+49 171 3920022",
+        "firstLetter": "L",
+        "lastLetter":"M",
     },
     {
-        "url": "./assets/img/Jean.jpeg",
+        "color": "#daa520",
         "name": "Kim Vanderhorst",
         "email": "Vanderhorst@gmail.com",
-        "phone": "+49 171 3920018"
+        "phone": "+49 171 3920018",
+        "firstLetter": "K",
+        "lastLetter":"V",
     },
     {
-        "url": "./assets/img/Jessica.jpeg",
+        "color": "#adff2f",
         "name": "Jessica Brand",
         "email": "Brandalarm@gmail.com",
-        "phone": "+49 171 3920044"
+        "phone": "+49 171 3920044",
+        "firstLetter": "J",
+        "lastLetter":"B",
     },
     {
-        "url": "./assets/img/Kim.jpeg",
+        "color": "#cd5c5c",
         "name": "Kim Seidel",
         "email": "Seidel1337@gmail.com",
-        "phone": "+49 171 3920088"
+        "phone": "+49 171 3920088",
+        "firstLetter": "K",
+        "lastLetter":"S",
     },
     {
-        "url": "./assets/img/Laura.jpeg",
+        "color": "#f0e68c",
         "name": "Laura Wüst",
         "email": "wuest.in.action@gmail.com",
-        "phone": "+49 171 3920034"
+        "phone": "+49 171 3920034",
+        "firstLetter": "L",
+        "lastLetter":"W",
     },
     {
-        "url": "./assets/img/Martin.jpeg",
+        "color": "#e6e6fa",
         "name": "Martin Gruber",
         "email": "gruber.martin@gmail.com",
-        "phone": "+49 171 3920046"
+        "phone": "+49 171 3920046",
+        "firstLetter": "M",
+        "lastLetter":"G",
     },
     {
-        "url": "./assets/img/Renate.jpeg",
+        "color": "#f08080",
         "name": "Renate Schmitz",
         "email": "renate.schmitz@gmail.com",
-        "phone": "+49 171 3920057"
+        "phone": "+49 171 3920057",
+        "firstLetter": "R",
+        "lastLetter":"S",
     },
     {
-        "url": "./assets/img/Sara.jpeg",
+        "color": "#d3d3d3",
         "name": "Sara Sweeny",
         "email": "sweeny.bussines@gmail.com",
-        "phone": "+49 171 3920029"
+        "phone": "+49 171 3920029",
+        "firstLetter": "S",
+        "lastLetter":"S",
     },
     {
-        "url": "./assets/img/Simone.jpeg",
+        "color": "#20b2aa",
         "name": "Simone Lammer",
         "email": "Simone.Lammer@gmail.com",
-        "phone": "+49 171 3920031"
+        "phone": "+49 171 3920031",
+        "firstLetter": "S",
+        "lastLetter":"L",
     },
     {
-        "url": "./assets/img/Verona.jpeg",
+        "color": "#00ff00",
         "name": "Verona Bricks",
         "email": "Bricks.consultant@gmail.com",
-        "phone": "+49 171 3920055"
+        "phone": "+49 171 3920055",
+        "firstLetter": "V",
+        "lastLetter":"B",
     },
 
 ]

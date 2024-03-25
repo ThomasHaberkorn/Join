@@ -12,7 +12,12 @@
     overflow: scroll;
     margin: 96px 0 0 0;
     min-width: 320px;
-    max-width: 450px;
+    max-width: 400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
 }
 
 .listArea {
@@ -21,7 +26,6 @@
     justify-content: center;
     align-items: center;
     max-width: 439px;
-
 }
 
 ::-webkit-scrollbar {
@@ -40,7 +44,7 @@
 }
 
 .firstLetterContact {
-    width: 80%;
+    width: 100%;
     height: 58px;
     font-size: 20px;
     font-weight: 400;
@@ -48,11 +52,11 @@
     align-items: center;
     justify-content: flex-start;
     line-height: 24px;
-    padding-left: 60px;
+    padding-left: 3rem;
 }
 
 .spaceContactList {
-    width: 80%;
+    width: 90%;
     height: 1px;
     margin: 8px 0px 8px 0px;
     background-color: #d1d1d1;
@@ -71,10 +75,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    aspect-ratio: 1 / 1;
 }
 
 .shortContactInfo {
-    width: 80%;
+    width: 100%;
     height: 78px;
     display: flex;
     flex-direction: row;
@@ -103,7 +108,7 @@
 }
 
 .addNewContactButton {
-    width: 80%;
+    width: 95%;
     height: 56px;
     background-color: #2a3647;
     color: #ffffff;
@@ -112,7 +117,30 @@
     font-size: 21px;
     font-weight: 700;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+}
+
+.addNewContactButtonSmall{
+    display: none;
+    position: fixed;
+    right: 16px;
+    bottom: 32px;
+    width: 56px;
+    height: 56px;
+    background-color: #2a3647;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 4px 0px rgb(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.addNewContactButtonSmall img{
+    width: 32px;
+    height: 32px;
 }
 
 .addNewContactButton:hover {
@@ -128,9 +156,8 @@
 .borderContactButton {
     width: 100%;
     height: 101px;
+    margin-top: 22px;
     background-color: #ffffff;
-    left: 232px;
-    top: 96px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -208,6 +235,12 @@
     height: 120px;
     border-radius: 50%;
     border: 3px white solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 27px;
+    line-height: 32px;
+    font-weight: 400;
 }
 
 .contactFullName {
@@ -370,6 +403,12 @@
     height: 120px;
     border-radius: 50%;
     margin: 204px 0 0 97px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 47px;
+    font-weight: 500;
+    line-height: 56px;
 }
 
 .contactEditRenderDetailsRight {
@@ -469,7 +508,7 @@
     line-height: 25px;
     color: #ffffff;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     border-radius: 8px;
 }
@@ -565,10 +604,6 @@
     .contactNameEditDelete {
         margin-left: 20px;
     }
-
-    .contactEditDeleteArea {
-        display: none;
-    }
 }
 
 @media (max-width: 950px) {
@@ -586,8 +621,12 @@
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 660px) {
     .contactBig{
+        display: none;
+    }
+
+    .contactEditDeleteArea {
         display: none;
     }
 
@@ -595,20 +634,14 @@
         display: none;
     }
 
+    .addNewContactButtonSmall{
+        display: flex;
+    }
     .contactlist{
         width: 100%;
         max-width: 650px;
     }
 }
 
-@media (max-width: 390px) {
-    .shortContactInfo {
-        padding-left: 0;
-    }
-    .shortContactLetters {
-        padding-left: 8px;
-    }
 
-    
-}
 /* end contact-Section*/
