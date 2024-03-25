@@ -1,7 +1,7 @@
 function rendercontactListHTML(i) {
     return /*html*/`
      <div class="shortContactInfo" onclick="showContact(${i})" id="info${i}">
-          <img src="${contacts[i]['url']}" class="contactPic">
+          <div id="listContact${i}" class="contactPic">${contacts[i]['firstLetter']}${contacts[i]['lastLetter']}</div>
           <div class="shortContactLetters">
             <div class="singleNameListContact">${contacts[i]['name']}</div>
             <div class="listMail">${contacts[i]['email']}</div> 
@@ -13,7 +13,7 @@ function rendercontactListHTML(i) {
 function renderShowContentHTML(index) {
     return /*html*/`
      <div class="contactFullUpperSection" id="contactFullUpperSection">
-    <img class="contactFullImage" src="${contacts[index]['url']}">
+    <div class="contactFullImage" id="listContactBig${index}">${contacts[index]['firstLetter']}${contacts[index]['lastLetter']}</div>
       <div class="contactNameEditDelete">
         <div class="contactFullName">${contacts[index]['name']}</div>
         <div class="contactEditDeleteArea">
@@ -46,7 +46,7 @@ function editContactHTML(index) {
         <div class="contactEditSpace"></div>
       </div>
       <div class="contactEditRight">
-        <img src="${contacts[index]['url']}" class="contactEditFullImage">
+        <div id="contactEditImage${index}" class="contactEditFullImage">${contacts[index]['firstLetter']}${contacts[index]['lastLetter']}</div>
         <div class="contactEditRenderDetailsRight">
           <img src="./assets/img/Close.png" class="contactEditClose" onclick="closeEditContact()">
           <div class="contactEditUserDetails">
@@ -65,14 +65,10 @@ function editContactHTML(index) {
           </div>
           <div class="contactEditSaveDelete">
             <div class="contactEditDelete dispflex" onclick="">Delete</div>
-            <div class="contactEditSave dispflex" onclick="">Save <img src="./assets/img/check.png"></div>
+            <div class="contactEditSave" onclick="">Save <img src="./assets/img/check.png"></div>
         </div>
         </div>  
       </div>
     </div>
     `
-
-
-
-
 }
