@@ -61,7 +61,6 @@
     height: 74px;
     bottom: 64px;
     position: fixed;
-
     display: flex;
     justify-content: center;
     bottom: 64px;
@@ -95,3 +94,11 @@
 .sidebarFooterLegalNoticeContainer:active {
     background-color: #091931;
 }
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
