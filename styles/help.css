@@ -99,6 +99,6 @@ ol li::before {
     align-self: flex-start; /* Obere Ausrichtung der Nummerierung */
     line-height: 2.2; /* Behebt die vertikale Ausrichtung */
 }
-::marker {
+/* ::marker {
     content: "";
-}
+} */

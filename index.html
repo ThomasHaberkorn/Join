@@ -19,83 +19,121 @@
 </head>
 
 <body onload="init()">
-    <div class="loginMainContent" id="loginMainContent">
-        <div class="loginHead" id="loginHead">
-            <div class="loginLogo" id="loginLogo">
-                <img src="./assets/img/Capa 2.png" alt="" class="loginHeadLogo">
-            </div>
-            <div class="loginSignUp" id="loginSignUp">
-                <div class="loginSingUpText">Not a Join user?</div>
-                <button class="loginSingUpButton" id="loginSingUpButton" onclick="toggleLoginSignup()">Sign Up</button>
-            </div>
-        </div>
-
-        <!------- Log in Part ------->
-
-        <div class="loginInnerContent" id="loginInnerContent">
-
-            <div class="login" id="login">
-                <div class="loginHeadline" id="loginHeadline">
-                    <h1 class="loginHeadlineh1">Log in</h1>
-                    <div class="loginHeadlineBorder"></div>
+    <div class="bodyContent">
+        <div class="loginMainContent" id="loginMainContent">
+            <div class="loginHead" id="loginHead">
+                <div class="loginLogo" id="loginLogo">
+                    <img src="./assets/img/Capa 2.png" alt="" class="loginHeadLogo">
                 </div>
-                <form class="loginForm" id="loginForm">
-                    <input type="email" class="loginInputMail" id="loginInputMail" placeholder="Email" required>
-                    <input type="password" class="loginPassword" id="loginpassword" placeholder="Password" required>
-                </form>
-                <div class="loginCheckBox">
-                    <input type="checkbox" class="loginCheckBoxRememberMe" id="loginCheckBoxRememberMe">
-                    <label for="loginCheckBoxRememberMe" class="loginCheckBoxRememberMeLabel"></label>
-                    <p class="loginCheckBoxRememberMeSpan">Remember Me</p>
+                <div class="loginSignUp" id="loginSignUp">
+                    <div class="loginSingUpText">Not a Join user?</div>
+                    <button class="loginSingUpButton" id="loginSingUpButton" onclick="toggleLoginSignup()">Sign
+                        Up</button>
                 </div>
             </div>
-            <div class="loginButtons">
-                <button class="loginButton" id="loginButton">Log in</button>
-                <button class="guestLoginButton" id="guestLoginButton">Guest Log in</button>
-            </div>
-        </div>
 
-        <!------- Sign in Part ------->
+            <!------- Log in Part ------->
 
-        <div class="signinInnerContent d-none" id="signinInnerContent">
+            <div class="loginInnerContent" id="loginInnerContent">
 
-            <div class="signin" id="signin">
-                <div class="signupHead">
-                    <img class="signupVectorImg" src="./assets/img/Vector.png" alt="" onclick="toggleLoginSignup()">
-                    <div class="signinHeadline" id="signinHeadline">
-                        <h1 class="signinHeadlineh1">Sign up</h1>
-                        <div class="signinHeadlineBorder"></div>
+                <div class="login" id="login">
+                    <div class="loginHeadline" id="loginHeadline">
+                        <h1 class="loginHeadlineh1">Log in</h1>
+                        <div class="loginHeadlineBorder"></div>
+                    </div>
+                    <form class="loginForm" id="loginForm">
+                        <input type="email" class="loginInputMail" id="loginInputMail" placeholder="Email" required>
+                        <input type="password" class="loginPassword" id="loginpassword" placeholder="Password" required>
+                    </form>
+                    <div class="loginCheckBox">
+                        <input type="checkbox" class="loginCheckBoxRememberMe" id="loginCheckBoxRememberMe">
+                        <label for="loginCheckBoxRememberMe" class="loginCheckBoxRememberMeLabel"></label>
+                        <p class="loginCheckBoxRememberMeSpan">Remember Me</p>
                     </div>
                 </div>
-                <form class="signinForm" id="signinForm">
-                    <input type="text" class="signinInputName" id="signinInputName" placeholder="Name" required>
-                    <input type="email" class="signinInputMail" id="signinInputMail" placeholder="Email" required>
-                    <input type="password" class="signinPassword" id="signinpassword" placeholder="Password"
-                        name="signinPassword" required>
-                    <input type="password" class="signinPassword" id="signinpasswordConfirm"
-                        placeholder="Confirm Password" name="signinPassword" required>
-                </form>
-                <div class="signinCheckBox">
-                    <input type="checkbox" class="signinCheckBoxPrivacyPolicy" id="signinCheckBoxPrivacyPolicy">
-                    <label for="signinCheckBoxPrivacyPolicy" class="signinCheckBoxPrivacyPolicyLabel"></label>
-                    <p class="signinCheckBoxPrivacyPolicySpan">I accept the <a href=""
-                            class="sighinLinkPrivacyPolicy">Privacy policy</a> </p>
+                <div class="msgBox" id="msgBox"></div>
+                <div class="loginButtons">
+                    <button class="loginButton" id="loginButton" onclick="login()">Log in</button>
+                    <button class="guestLoginButton" id="guestLoginButton">Guest Log in</button>
                 </div>
             </div>
-            <div class="signupButtons">
-                <button class="signupButton" id="signupButton">Sign up</button>
+
+            <!------- Sign in Part ------->
+
+            <div class="signinInnerContent d-none" id="signinInnerContent">
+
+                <div class="signin" id="signin">
+                    <div class="signupHead">
+                        <img class="signupVectorImg" src="./assets/img/Vector.png" alt="" onclick="toggleLoginSignup()">
+                        <div class="signinHeadline" id="signinHeadline">
+                            <h1 class="signinHeadlineh1">Sign up</h1>
+                            <div class="signinHeadlineBorder"></div>
+                        </div>
+                    </div>
+                    <form class="signinForm" action="javascript: void(0)" onsubmit="addUser()">
+                        <input type="text" class="signinInputName" id="signinInputName" placeholder="Name" required>
+                        <input type="email" class="signinInputMail" id="signinInputMail" placeholder="Email" required>
+                        <input type="password" class="signinPassword" id="signinpassword" placeholder="Password"
+                            name="signinPassword" required>
+                        <input type="password" class="signinPassword" id="signinpasswordConfirm"
+                            placeholder="Confirm Password" name="signinPassword" required>
+                        <div id="my-form"></div>
+                        <div class="signinCheckBox">
+                            <input type="checkbox" class="signinCheckBoxPrivacyPolicy" id="signinCheckBoxPrivacyPolicy"
+                                name="my-checkbox" required title="Bitte aktivieren Sie die Checkbox.">
+
+                            <label for="signinCheckBoxPrivacyPolicy" class="signinCheckBoxPrivacyPolicyLabel"></label>
+                            <p class="signinCheckBoxPrivacyPolicySpan">I accept the <a href=""
+                                    class="sighinLinkPrivacyPolicy">Privacy policy</a> </p>
+                        </div>
+                </div>
+                <div class="signupButtons">
+                    <input type="submit" name="submit" class="signupButton" value="Submit" />
+                    <!-- <button class="signupButton">Sign up</button> -->
+                </div>
+                </form>
             </div>
-        </div>
 
-        <!-- Footer -->
+            <!-- Footer -->
 
-        <div class="loginFooter">
-            <a href="#" class="loginFooterLinkPrivacyP">Privacy Policy</a>
-            <a href="#" class="loginFooterLinkLegalN">Legal notice</a>
+            <div class=" loginFooter">
+                <a href="#" class="loginFooterLinkPrivacyP">Privacy Policy</a>
+                <a href="#" class="loginFooterLinkLegalN">Legal notice</a>
+            </div>
         </div>
     </div>
 
+    <script>
+        const submitButton = document.querySelector('.signupButton'); // Den Submit-Button mit der Klasse "signupButton" abrufen
+        const checkbox = document.getElementById('signinCheckBoxPrivacyPolicy'); // Die Checkbox mit der ID "signinCheckBoxPrivacyPolicy" abrufen
 
+        // Checkbox-Status initial prüfen (optional)
+        if (!checkbox.checked) {
+            submitButton.disabled = true; // Den Button deaktivieren, wenn die Checkbox nicht angeklickt ist
+            submitButton.classList.add("bcGray");
+        }
+
+        // Event-Listener auf die Checkbox hinzufügen, um dynamische Updates zu ermöglichen
+        checkbox.addEventListener('change', () => {
+            submitButton.disabled = !checkbox.checked; // Den Button-Status basierend auf dem Status der Checkbox umschalten
+
+            if (!checkbox.checked) {
+                submitButton.classList.add("bcGray"); // Button wieder grau machen, wenn Checkbox nicht angeklickt ist
+            } else {
+                submitButton.classList.remove("bcGray"); // Button blau machen, wenn Checkbox angeklickt ist
+            }
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const msg = urlParams.get('msg');
+        if (msg) {
+            msgBox.innerHTML = msg;
+            msgBox.classList.remove("d-none");
+        } else {
+            msgBox.classList.add("d-none");
+        }
+
+    </script>
 </body>
 
 </html>

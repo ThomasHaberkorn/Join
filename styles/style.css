@@ -5,16 +5,20 @@ html {
 body {
     width: 100%;
     margin: 0;
-   background-color: #f6f7f8;
+    background-color: #f6f7f8;
 }
-
+.bodyContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .mainContainer {
     display: flex;
     width: 100%;
 }
 
-.w3Sidebar{
-    top:0;
+.w3Sidebar {
+    top: 0;
     margin-left: 0;
 }
 
@@ -168,7 +172,14 @@ body {
 .loginCheckBoxRememberMeSpan {
     margin: 0 0 0 4px;
 }
-
+#msgBox {
+    margin-bottom: 12px;
+    margin-top: -16px;
+    color: white;
+    border-radius: 15px;
+    padding: 15px 15px;
+    background-color: #2a3647;
+}
 .loginButton {
     width: 110px;
     height: 48px;
@@ -379,6 +390,10 @@ input[id="loginCheckBoxRememberMe"] {
     cursor: pointer;
 }
 
+.bcGray {
+    background-color: gray !important;
+}
+
 input[id="signinCheckBoxPrivacyPolicy"] + label {
     display: inline-block;
     width: 16px;
@@ -526,9 +541,16 @@ input[id="signinCheckBoxPrivacyPolicy"] {
         display: flex;
         margin-right: 140px;
     }
+    #msgBox {
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 555px) {
+    .loginSingUpText {
+        width: 146px;
+    }
 }
 
 /* @media (max-width: 490px) {
@@ -555,12 +577,17 @@ input[id="signinCheckBoxPrivacyPolicy"] {
     }
     .loginPassword {
         width: 280px;
+        margin-bottom: 12px;
         background-position: 250px 12px;
     }
-
+    .loginLogo img {
+        margin-left: 50px;
+        margin-right: 60px;
+    }
     .loginSignUp {
         margin-right: 30px;
         transition: 0.3s;
+        margin-left: -135px;
     }
     .signinInputName {
         width: 280px;
@@ -587,11 +614,20 @@ input[id="signinCheckBoxPrivacyPolicy"] {
     .loginButton {
         width: 180px;
         margin-right: 0;
-        margin-bottom: 21px;
+        margin-bottom: 12px;
     }
     .guestLoginButton {
         margin-right: 0;
         width: 180px;
+        margin-bottom: 10px;
+    }
+
+    .loginCheckBox {
+        margin-bottom: 8px;
+    }
+    #msgBox {
+        margin-top: 8px;
+        margin-bottom: 10px;
     }
 }
 

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board</title>
+    <link rel="stylesheet" href="./styles/sidebar.css">
+    <link rel="stylesheet" href="./styles/addTask.css">
+    <link rel="stylesheet" href="./styles/board.css">
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
+</head>
+
+<body>
+    <header></header>
+    <div id="sidebar">
+        <div class="sidebarMainContainer" id="sidebarMainContainer">
+            <div class="sidebarImgContainer">
+                <img src="/assets/img/join-logo-white.png" alt="Join-Logo">
+            </div>
+            <div class="sibebarNavContainer">
+                <div class="sidebarSummary sidebarLinkStyle" onclick="">
+                    <img src="/assets/img/sidebarSummaryIcons.png" alt="Summary Icon">
+                    <p class="sidebarSummaryText">Summary</p>
+                </div>
+                <div class="sidebarAddTask sidebarLinkStyle" onclick="">
+                    <img src="/assets/img/sidebarAddTaskIcons.png" alt="Add Task Icon">
+                    <p class="sidebarAddTask">Add Task</p>
+                </div>
+                <div class="sidebarBoard sidebarLinkStyle" onclick="">
+                    <img src="/assets/img/sidebarBoardIcons.png" alt="Board Icon">
+                    <p class="sidebarBoard">Board</p>
+                </div>
+                <div class="sidebarContacts sidebarLinkStyle" onclick="">
+                    <img src="/assets/img/sidebarContactsIcons.png" alt="Contact Icon">
+                    <p class="sidebarContact">Contact</p>
+                </div>
+            </div>
+            <div class="sidebarFooter">
+                <div class="sidebarFooterContent">
+                    <div class="sidebarFooterPrivacyPolicyContainer">
+                        <a href="" class="sidebarFooterPrivacyPolicy">Privacy Policy</a>
+                    </div>
+                    <div class="sidebarFooterLegalNoticeContainer">
+                        <a href="" class="sidebarFooterLegalNotice">Legal notice</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="taskBoard" class="task-board">
+        <div id="boardContainer">
+            <div id="todo" class="task-column">
+                <h2>To Do</h2>
+            </div>
+            <div id="inProgress" class="task-column">
+                <h2>In Progress</h2>
+            </div>
+            <div id="awaitFeedback" class="task-column">
+                <h2>Await Feedback</h2>
+            </div>
+            <div id="done" class="task-column">
+                <h2>Done</h2>
+            </div>
+        </div>        
+    </div>    
+    <script src="js/board.js"></script>
+</body>
+
+</html>
