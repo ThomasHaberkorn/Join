@@ -1,3 +1,8 @@
+async function initSum() {
+    await includeHTML();
+    setDaytime();
+}
+
 function setDaytime() {
     document.getElementById("summaryWelcomeDaytimeContainer").innerHTML =
         getDaytime();
@@ -25,7 +30,7 @@ function getDaytime() {
         return "Good morning";
     } else if (b > 11 && b < 18) {
         return "Welcome";
-    } else if (b > 18 && b < 24) {
+    } else if (b >= 18 && b < 24) {
         return "Good evening";
     }
 }
