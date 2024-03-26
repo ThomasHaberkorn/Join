@@ -1,5 +1,6 @@
 async function init() {
     await includeHTML();
+    handleCheckboxAndMessage();
 }
 
 /**
@@ -38,6 +39,33 @@ async function includeHTML() {
     }
 }
 
+// Neue Funktion zum Behandeln der Checkbox und Nachrichtenanzeige
+function handleCheckboxAndMessage() {
+    const submitButton = document.querySelector(".signupButton");
+    const checkbox = document.getElementById("signinCheckBoxPrivacyPolicy");
+    const msgBox = document.getElementById("msgBox"); // Angenommen, Sie haben ein Element mit dieser ID für die Nachricht
+
+    // Erstmaliger Check und Button-Status
+    submitButton.disabled = !checkbox.checked;
+    submitButton.classList.add(!checkbox.checked ? "bcGray" : ""); // Ternärer Operator für bedingte Klassenaddition
+
+    // Event-Listener für Checkbox-Änderungen
+    checkbox.addEventListener("change", () => {
+        submitButton.disabled = !checkbox.checked;
+        submitButton.classList.toggle("bcGray"); // Umschalten der Klasse basierend auf dem Checkbox-Status
+    });
+
+    // Behandlung der Nachrichtenanzeige aus URL-Parametern
+    const urlParams = new URLSearchParams(window.location.search);
+    const msg = urlParams.get("msg");
+    if (msg) {
+        msgBox.innerHTML = msg;
+        msgBox.classList.remove("d-none");
+    } else {
+        msgBox.classList.add("d-none");
+    }
+}
+
 let users = JSON.parse(localStorage.getItem("user")) || []; // Lade vorhandene Nutzer
 
 function addUser() {
@@ -67,16 +95,30 @@ function addUser() {
 }
 
 function login() {
+    // Verhindert den standardmäßigen Formular-Submit
+    event.preventDefault();
+
     const email = document.getElementById("loginInputMail").value;
     const password = document.getElementById("loginpassword").value;
 
     const foundUser = users.find((user) => user.email === email);
 
     if (foundUser && password === foundUser.password) {
-        window.location.href = "summary.html?name=" + foundUser.name;
+        // Speichern des Namens im Session Storage
+        sessionStorage.setItem("userName", foundUser.name);
+        // sessionStorage.setItem("userId", foundUser.id);
+        // Speichern der ID (falls vorhanden)
+
+        // Weiterleiten zur Summary-Seite
+        window.location.href = "summary.html";
     } else {
         window.location.href = "index.html?msg=Email oder Passwort falsch";
     }
+}
+
+function logout() {
+    sessionStorage.clear();
+    window.location.href = "index.html"; // oder eine andere Logout-Zielseite
 }
 
 // let suser = user.find((u) => u.email == mail.value);
