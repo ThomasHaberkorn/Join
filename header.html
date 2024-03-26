@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="styles/header.css">
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
     <script src="js/script.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/add_task.js"></script>
-    <script src="js/contacts.js"></script>
-    <script src="js/contactSection.js"></script>
+    <!-- <script src="js/summary.js"></script> -->
+    <!-- <script src="js/storage.js"></script> -->
+    <!-- <script src="js/add_task.js"></script> -->
+    <!-- <script src="js/contacts.js"></script> -->
+    <!-- <script src="js/contactSection.js"></script> -->
+
 </head>
 
 <body>
@@ -24,9 +26,9 @@
         <div class="headerHeadline">Kanban Project Management Tool</div>
         <div class="headerInfoContainer">
             <div class="headerHelp"><img src="assets/img/help.png" alt="to Help Page" onclick=""></div>
-            <div class="headerLogoutButton" id="headerLogoutButton">
+            <div class="headerLogoutButton" id="headerLogoutButton" onmouseover="showMenu()" onmouseleave="hideMenu()">
                 <div class="headerUserProfileInitials" id="headerUserProfileInitials"></div>
-                <div class="dropdownMenu" id="dropdownMenu">
+                <div class="dropdownMenu d-none" id="dropdownMenu" onmouseleave="hideMenu()">
                     <a href="#">Privacy Policy</a>
                     <a href="#">Legal Notice</a>
                     <a href="#" onclick="logout()">Logout</a>
@@ -34,25 +36,6 @@
             </div>
         </div>
     </div>
-    <!-- <script>
-        // Initialisierung des Dropdown-Menüs
-        const headerLogoutButton = document.getElementById("headerLogoutButton");
-        const dropdownMenu = document.getElementById("dropdownMenu");
-
-        let timeout;
-
-        headerLogoutButton.addEventListener("mouseover", () => {
-            clearTimeout(timeout);
-            dropdownMenu.style.display = "block";
-        });
-
-        headerLogoutButton.addEventListener("mouseout", () => {
-            timeout = setTimeout(() => {
-                dropdownMenu.style.display = "none";
-            }, 500); // Verzögerung in Millisekunden
-        });
-
-    </script> -->
 </body>
 
 </html>

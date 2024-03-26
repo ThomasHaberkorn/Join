@@ -42,7 +42,6 @@
     margin-right: 40px;
     margin-left: 16px;
     position: relative;
-    display: inline-block;
     cursor: pointer;
 }
 
@@ -52,32 +51,17 @@
     color: #29abe2;
     display: inline-block;
 }
-/*  */
-/* .headerLogoutButton {
-    position: relative;
-    display: inline-block;
-  } */
-/*   
-  .headerUserProfileInitials {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #ccc;
-    text-align: center;
-    line-height: 30px;
-  } */
 
 .dropdownMenu {
     position: absolute;
     width: 150px;
-    top: 80%;
+    top: 90%;
     left: -120px;
     z-index: 1;
-    display: none;
     background-color: #2a3647;
     border-radius: 20px 0 20px 20px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    /* display: none; */
 }
 
 .dropdownMenu a {
@@ -99,3 +83,19 @@
     display: block;
     transition: 0.5s;
 }
+
+/*  */
+/* .headerLogoutButton {
+    position: relative;
+    display: inline-block;
+  } */
+/*   
+  .headerUserProfileInitials {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ccc;
+    text-align: center;
+    line-height: 30px;
+  } */
