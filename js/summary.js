@@ -1,6 +1,7 @@
-async function initSum() {
+async function initSummary() {
     await includeHTML();
     setDaytime();
+    getUserName();
 }
 
 function setDaytime() {
@@ -28,9 +29,26 @@ function getDaytime() {
 
     if (b >= 0 && b < 11) {
         return "Good morning";
-    } else if (b > 11 && b < 18) {
+    } else if (b >= 11 && b < 18) {
         return "Welcome";
     } else if (b >= 18 && b < 24) {
         return "Good evening";
     }
 }
+
+function getUserName() {
+    const userName = sessionStorage.getItem("userName");
+
+    if (userName) {
+        document.getElementById("nameBox").innerHTML = userName;
+    } else {
+        document.getElementById("nameBox").textContent = "Guastuser";
+    }
+}
+// {
+/* <script>
+    // Abrufen des Namens aus dem Session Storage const userName =
+    sessionStorage.getItem("userName"); // Einfügen des Namens in den
+    HTML-Inhalt document.getElementById("userName").textContent = userName;
+</script>; */
+// }

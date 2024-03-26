@@ -9,16 +9,17 @@
     <link rel="stylesheet" href="styles/sidebar.css">
     <link rel="stylesheet" href="styles/media.css">
     <link rel="stylesheet" href="styles/summary.css">
+    <!-- <link rel="stylesheet" href="styles/header.css"> -->
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
     <script src="js/script.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/summary.js"></script>
-    <script src="js/add_task.js"></script>
+    <!-- <script src="js/add_task.js"></script> -->
     <script src="js/contacts.js"></script>
     <script src="js/contactSection.js"></script>
 </head>
 
-<body onload="initSum()">
+<body onload="initSummary()">
     <div class="summaryMainContent">
 
         <div class="w3Header">
@@ -68,7 +69,9 @@
                     </div>
                     <div class="summaryWelcomeContainer border">
                         <div class="summaryWelcomeDaytimeContainer" id="summaryWelcomeDaytimeContainer"></div>
-                        <div class="summaryWelcomeNameContainer" id="summaryWelcomeNameContainer"></div>
+                        <div class="summaryWelcomeNameContainer" id="summaryWelcomeNameContainer">
+                            <div class="nameBox" id="nameBox"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -78,6 +81,7 @@
             <div w3-include-html="sidebar.html"></div>
         </div>
     </div>
+
 </body>
 
 </html>

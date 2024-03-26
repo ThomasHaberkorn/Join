@@ -30,12 +30,17 @@ function showContact(index) {
   // Eine kurze Verzögerung hinzufügen, um die Animation abzuschließen
   setTimeout(() => {
     fullContact.innerHTML = '';
-    fullContact.innerHTML += renderShowContentHTML(index);
+    fullContact.innerHTML += renderShowContactHTML(index);
     fullContact.style.transform = "translateX(0)";
     document.getElementById(`listContactBig${index}`).style.backgroundColor = contacts[index]['color'];
   }, 400);
-
 }
+
+function showContactResponsive() {
+}
+
+
+
 
 function editContact(index) {
   let contactEdit = document.getElementById('contactEditArea');

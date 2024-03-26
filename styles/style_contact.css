@@ -409,13 +409,13 @@
     font-size: 47px;
     font-weight: 500;
     line-height: 56px;
+    border: 3px white solid;
 }
 
 .contactEditRenderDetailsRight {
     width: 422px;
     height: 409px;
     margin: 48px 48px 135px 72px;
-
 }
 
 .contactEditClose {
@@ -424,6 +424,29 @@
     height: 32px;
     border-radius: 16px;
     cursor: pointer;
+}
+
+.contactEditCloseResponse{
+    display: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    cursor: pointer;
+    position: fixed;
+    top: 1.5rem;
+    right: 1rem;
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
+}
+
+.contactEditCloseResponse img{
+    width: 13px;
+    height: 13px;
+}
+
+.contactEditCloseResponse:active{
+    background-color: #29abe2;
 }
 
 .contactEditClose:hover {
@@ -525,6 +548,23 @@
     margin-left: 8px;
 }
 
+.contactFullResponsive{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    display: none;
+    justify-content:flex-start;
+    align-items: center;
+    background-color: #f6f7f6;
+    z-index: 100;
+    overflow-x: 30%;
+}
+
+
+
+
 .slide-in-right {
     animation: slide-in-right 0.5s ease-in-out forwards;
     position: absolute;
@@ -603,6 +643,112 @@
     
     .contactNameEditDelete {
         margin-left: 20px;
+    }
+
+    .contactEditVisible {
+        height: 800px;
+        width: 396px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 30px;
+        align-items:center;
+        justify-content: space-between;
+    }
+
+    .contactEditLeft {
+        height: 45%;
+        width: 100%;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 0px;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .contactEditRight {
+        width: 100%;
+        height: 55%;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 30px;
+        border-bottom-left-radius: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .contactEditFullImage {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        position:fixed;
+        top: 37%;
+        aspect-ratio:  1 / 1;
+    }
+
+    .contactEditRenderDetailsRight {
+        width: 100%;
+        height: 53%;
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .contactEditUserDetails {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 171px;
+        flex-direction: column;
+        margin: auto;
+    }
+
+    .contactEditClose {
+       display: none;
+    }
+
+    .contactEditCloseResponse{
+        display: flex;
+    }
+    .contactEditInput {
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        height: 50px;
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 13px 21px;
+        flex-direction: row;
+    }
+    
+    .contactEditSaveDelete{
+        margin-top: 2rem;
+    }
+    .contactEditLeft img {
+       display: none;
+    }
+
+    .contactEditLeft a {
+        font-size: 47px;
+        line-height: 56px;
+        font-weight: 700;
+        margin-top: 0px;
+        margin-left: 1.5rem;
+    }
+
+    .contactEditSpace {
+        width: 90px;
+        height: 3px;
+        background-color: #29abe2;
+        margin-left: 1.5rem;
+        margin-top: 16px;
     }
 }
 

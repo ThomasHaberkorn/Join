@@ -5,7 +5,9 @@ let contacts = [
         "email": "Wheeler@gmail.com",
         "phone": "+49 171 3920001",
         "firstLetter": "A",
-        "lastLetter":"W",
+        "lastLetter": "W",
+        "userID": "20240301",
+        "passwort":"1234",
     },
     {
         "color": "#00ffff",
@@ -14,6 +16,8 @@ let contacts = [
         "phone": "+49 171 3920004",
         "firstLetter": "B",
         "lastLetter":"M",
+        "userID": "20240302",
+        "passwort":"1234",
     },
     {
         "color": "#ff8c00",
@@ -22,6 +26,8 @@ let contacts = [
         "phone": "+49 175 6065860",
         "firstLetter": "C",
         "lastLetter":"F",
+        "userID": "20240303",
+        "passwort":"1234",
     },
     {
         "color": "#8fbc8f",
@@ -30,6 +36,8 @@ let contacts = [
         "phone": "+49 171 3920023",
         "firstLetter": "F",
         "lastLetter":"M",
+        "userID": "20240304",
+        "passwort":"1234",
     },
     {
         "color": "#ff1493",
@@ -38,6 +46,8 @@ let contacts = [
         "phone": "+49 171 3920077",
         "firstLetter": "J",
         "lastLetter":"A",
+        "userID": "20240305",
+        "passwort":"1234",
     },
     {
         "color": "#00bfff",
@@ -46,6 +56,8 @@ let contacts = [
         "phone": "+49 171 3920034",
         "firstLetter": "J",
         "lastLetter":"H",
+        "userID": "20240306",
+        "passwort":"1234",
     },
     {
         "color": "#ff00ff",
@@ -54,6 +66,8 @@ let contacts = [
         "phone": "+49 171 3920022",
         "firstLetter": "L",
         "lastLetter":"M",
+        "userID": "20240307",
+        "passwort":"1234",
     },
     {
         "color": "#daa520",
@@ -62,6 +76,7 @@ let contacts = [
         "phone": "+49 171 3920018",
         "firstLetter": "K",
         "lastLetter":"V",
+        "userID": "20240308",
     },
     {
         "color": "#adff2f",
@@ -70,6 +85,8 @@ let contacts = [
         "phone": "+49 171 3920044",
         "firstLetter": "J",
         "lastLetter":"B",
+        "userID": "20240309",
+        "passwort":"1234",
     },
     {
         "color": "#cd5c5c",
@@ -78,6 +95,8 @@ let contacts = [
         "phone": "+49 171 3920088",
         "firstLetter": "K",
         "lastLetter":"S",
+        "userID": "20240310",
+        "passwort":"1234",
     },
     {
         "color": "#f0e68c",
@@ -86,6 +105,8 @@ let contacts = [
         "phone": "+49 171 3920034",
         "firstLetter": "L",
         "lastLetter":"W",
+        "userID": "20240311",
+        "passwort":"1234",
     },
     {
         "color": "#e6e6fa",
@@ -94,6 +115,8 @@ let contacts = [
         "phone": "+49 171 3920046",
         "firstLetter": "M",
         "lastLetter":"G",
+        "userID": "20240312",
+        "passwort":"1234",
     },
     {
         "color": "#f08080",
@@ -102,6 +125,8 @@ let contacts = [
         "phone": "+49 171 3920057",
         "firstLetter": "R",
         "lastLetter":"S",
+        "userID": "20240313",
+        "passwort":"1234",
     },
     {
         "color": "#d3d3d3",
@@ -110,6 +135,8 @@ let contacts = [
         "phone": "+49 171 3920029",
         "firstLetter": "S",
         "lastLetter":"S",
+        "userID": "20240314",
+        "passwort":"1234",
     },
     {
         "color": "#20b2aa",
@@ -118,6 +145,8 @@ let contacts = [
         "phone": "+49 171 3920031",
         "firstLetter": "S",
         "lastLetter":"L",
+        "userID": "20240315",
+        "passwort":"1234",
     },
     {
         "color": "#00ff00",
@@ -126,6 +155,8 @@ let contacts = [
         "phone": "+49 171 3920055",
         "firstLetter": "V",
         "lastLetter":"B",
+        "userID": "202403016",
+        "passwort":"1234",
     },
 
 ]
