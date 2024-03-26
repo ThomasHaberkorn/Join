@@ -1,6 +1,7 @@
 async function init() {
     await includeHTML();
     handleCheckboxAndMessage();
+    setTimeout();
 }
 
 /**
@@ -121,6 +122,24 @@ function logout() {
     window.location.href = "index.html"; // oder eine andere Logout-Zielseite
 }
 
+function setTimeout() {
+    // Initialisierung des Dropdown-Menüs
+    const headerLogoutButton = document.getElementById("headerLogoutButton");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+
+    let timeout;
+
+    headerLogoutButton.addEventListener("mouseover", () => {
+        clearTimeout(timeout);
+        dropdownMenu.style.display = "block";
+    });
+
+    headerLogoutButton.addEventListener("mouseout", () => {
+        timeout = setTimeout(() => {
+            dropdownMenu.style.display = "none";
+        }, 500); // Verzögerung in Millisekunden
+    });
+}
 // let suser = user.find((u) => u.email == mail.value);
 // console.log(suser);
 

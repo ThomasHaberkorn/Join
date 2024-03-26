@@ -97,4 +97,5 @@
 
 .headerLogoutButton:hover .dropdownMenu {
     display: block;
+    transition: 0.5s;
 }
