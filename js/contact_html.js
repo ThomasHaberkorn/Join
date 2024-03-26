@@ -1,5 +1,5 @@
 function rendercontactListHTML(i) {
-    return /*html*/`
+  return /*html*/`
      <div class="shortContactInfo" onclick="showContact(${i})" id="info${i}">
           <div id="listContact${i}" class="contactPic">${contacts[i]['firstLetter']}${contacts[i]['lastLetter']}</div>
           <div class="shortContactLetters">
@@ -10,14 +10,14 @@ function rendercontactListHTML(i) {
     `;
 }
 
-function renderShowContentHTML(index) {
-    return /*html*/`
-     <div class="contactFullUpperSection" id="contactFullUpperSection">
+function renderShowContactHTML(index) {
+  return /*html*/`
+  <div class="contactFullUpperSection" id="contactFullUpperSection">
     <div class="contactFullImage" id="listContactBig${index}">${contacts[index]['firstLetter']}${contacts[index]['lastLetter']}</div>
       <div class="contactNameEditDelete">
         <div class="contactFullName">${contacts[index]['name']}</div>
         <div class="contactEditDeleteArea">
-          <div onclick="editContact(${index})" class="contactEdit"><img class="existContactEdit" src="./assets/img/edit.png"><p>Edit</p></img></div>
+          <div onclick="editContact(${index})" class="contactEdit"><img class="existContactEdit" src="./assets/img/edit.png"><p>Edit</p></div>
           <div onclick="deleteContact(${index})" class="contactDelete margin16left"><img class="existContactEdit margin16left" src="./assets/img/delete.png"><p>Delete</p></img></div>
         </div>   
       </div>
@@ -38,12 +38,14 @@ function renderShowContentHTML(index) {
 }
 
 function editContactHTML(index) {
-    return /*HTML*/`
+  return /*HTML*/`
      <div class="contactEditVisible slide-in-right" id="contactEditVisible">
+     <div class="contactEditCloseResponse" onclick="closeEditContact()"><img src="./assets/img/Close-white.png"></div>
       <div class="contactEditLeft">
         <img src="./assets/img/join-logo-white.png">
         <a>Edit contact</a>
         <div class="contactEditSpace"></div>
+        
       </div>
       <div class="contactEditRight">
         <div id="contactEditImage${index}" class="contactEditFullImage">${contacts[index]['firstLetter']}${contacts[index]['lastLetter']}</div>

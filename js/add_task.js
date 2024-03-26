@@ -67,21 +67,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function handleCreateTask(event) {
-        event.preventDefault(); // Verhindert das Standardverhalten des Buttons im Formular
+        event.preventDefault(); 
     
         var title = document.getElementById('titleInput').value;
         var description = document.getElementById('descriptionInput').value;
         var taskDate = document.getElementById('taskDate').value;
         var category = document.getElementById('category').value;
-        var status = 'todo'; // Fügen Sie einen Standardstatus hinzu
+        var status = 'todo'; 
     
-        // Speichern der Aufgabendetails im localStorage, inklusive Subtasks, Priorität und Status
         var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        tasks.push({ title, description, taskDate, category, priority, subtasks, status });
+        var newTaskId = 'task-' + Math.random().toString(36).substr(2, 9); // Generiere eine eindeutige ID
+        tasks.push({ id: newTaskId, title, description, taskDate, category, priority, subtasks, status }); // Füge die ID hier hinzu
         localStorage.setItem('tasks', JSON.stringify(tasks));
     
-        // Weiterleitung zur board.html Seite
         window.location.href = 'board.html';
     }
+    
     
 });
