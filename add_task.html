@@ -11,163 +11,145 @@
     <link rel="stylesheet" href="styles/media.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/display.css">
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/summary.css">
+    <script src="js/script.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/add_task.js"></script>
+    <script src="js/contacts.js"></script>
+    <script src="js/contactSection.js"></script>
 </head>
 
 <body>
-    <header>
-        <div class="headerMainContainer">
-            <div class="headerHeadlineImage d-none">
-                <img src="assets/img/joinIconklein.png" alt="" class="headerHeadlineImg">
-            </div>
-            <div class="headerHeadline">Kanban Project Management Tool</div>
-            <div class="headerInfoContainer">
-                <div class="headerHelp"><img src="assets/img/help.png" alt="to Help Page" onclick=""></div>
-                <div class="headerLogoutButton" id="headerLogoutButton">
-                    <div class="headerUserProfileInitials" id="headerUserProfileInitials"></div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <div id="sidebar">
-        <div class="sidebarMainContainer" id="sidebarMainContainer">
-            <div class="sidebarImgContainer">
-                <img src="/assets/img/join-logo-white.png" alt="Join-Logo">
-            </div>
-            <div class="sibebarNavContainer">
-                <div class="sidebarSummary sidebarLinkStyle" onclick="">
-                    <img src="/assets/img/sidebarSummaryIcons.png" alt="Summary Icon">
-                    <p class="sidebarSummaryText">Summary</p>
-                </div>
-                <div class="sidebarAddTask sidebarLinkStyle" onclick="">
-                    <img src="/assets/img/sidebarAddTaskIcons.png" alt="Add Task Icon">
-                    <p class="sidebarAddTask">Add Task</p>
-                </div>
-                <div class="sidebarBoard sidebarLinkStyle" onclick="">
-                    <img src="/assets/img/sidebarBoardIcons.png" alt="Board Icon">
-                    <p class="sidebarBoard">Board</p>
-                </div>
-                <div class="sidebarContacts sidebarLinkStyle" onclick="">
-                    <img src="/assets/img/sidebarContactsIcons.png" alt="Contact Icon">
-                    <p class="sidebarContact">Contact</p>
-                </div>
-            </div>
-            <div class="sidebarFooter">
-                <div class="sidebarFooterContent">
-                    <div class="sidebarFooterPrivacyPolicyContainer">
-                        <a href="" class="sidebarFooterPrivacyPolicy">Privacy Policy</a>
-                    </div>
-                    <div class="sidebarFooterLegalNoticeContainer">
-                        <a href="" class="sidebarFooterLegalNotice">Legal notice</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="container" class="container">
+
+    <body onload="init()">
         <div class="mainContainer">
-            <div class="contentContainer">
-                <form class="contentContainer">
-                    <div class="tasks">
-                        <div class="headline">
-                            <h2>Add Task</h2>
-                        </div>
-                        <div class="vertical-menu">
-                            <div class="position-left-right">
+            <div class="w3Sidebar">
+                <div w3-include-html="sidebar.html"></div>
+            </div>
+            <div class="w3Header">
+                <div w3-include-html="header.html"></div>
+                <div class="contentContainer">
+                    <div id="container" class="container">
+                        <div class="mainContainer">
+                            <div class="contentContainer">
+                                <form class="contentContainer">
+                                    <div class="tasks">
+                                        <div class="headline">
+                                            <h2>Add Task</h2>
+                                        </div>
+                                        <div class="vertical-menu">
+                                            <div class="position-left-right">
 
-                                <div class="left-selection">
-                                    <div class="title">
-                                        <p>Title<b style="color: red;">*</b></p>
-                                        <input id="titleInput" required type="text" placeholder="Enter a Title">
-                                    </div>
-                                    <div class="description">
-                                        <p>Description</p>
-                                        <textarea id="descriptionInput" placeholder="Enter a Description"></textarea>
-                                    </div>
+                                                <div class="left-selection">
+                                                    <div class="title">
+                                                        <p>Title<b style="color: red;">*</b></p>
+                                                        <input id="titleInput" required type="text"
+                                                            placeholder="Enter a Title">
+                                                    </div>
+                                                    <div class="description">
+                                                        <p>Description</p>
+                                                        <textarea id="descriptionInput"
+                                                            placeholder="Enter a Description"></textarea>
+                                                    </div>
 
-                                    <div class="contact">
-                                        <label for="contacts">Assigned to</label>
-                                        <div class="containerDropDown">
-                                            <div class="inputDropDown">
-                                                <input id="inputDropDown" type="text"
-                                                    placeholder="Select contacts to assign">
-                                                <img id="openDropdown" src="./assets/img/addTask/arrow_drop_downaa.png"
-                                                    alt="">
+                                                    <div class="contact">
+                                                        <label for="contacts">Assigned to</label>
+                                                        <div class="containerDropDown">
+                                                            <div class="inputDropDown">
+                                                                <input id="inputDropDown" type="text"
+                                                                    placeholder="Select contacts to assign">
+                                                                <img id="openDropdown"
+                                                                    src="./assets/img/addTask/arrow_drop_downaa.png"
+                                                                    alt="">
+                                                            </div>
+
+                                                            <div id="dropDownContacts">
+
+                                                            </div>
+                                                        </div>
+                                                        <div id="checkedUserInitials">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="middle-line"></div>
+
+
+                                                <div class="right-selection">
+                                                    <div class="date">
+                                                        <p style="margin: 0;">Due date<b style="color: red;">*</b></p>
+                                                        <input required type="date" placeholder="dd/mm/yyyy"
+                                                            id="taskDate" min="<?= date('Y-m-d') ?>">
+                                                    </div>
+                                                    <div class="prio">
+                                                        <p style="margin: 0;">Prio</p>
+                                                        <div class="prio-selection">
+                                                            <button type="button" class="btn-select" id="urgentBtn">
+                                                                <p>Urgent</p><img
+                                                                    src="./assets/img/addTask/Prio alta.png">
+                                                            </button>
+                                                            <button type="button" class="btn-select yellow"
+                                                                id="mediumBtn">
+                                                                <p>Medium</p><img
+                                                                    src="./assets/img/addTask/Prio media.png">
+                                                            </button>
+                                                            <button type="button" class="btn-select" id="lowBtn">
+                                                                <p>Low</p><img
+                                                                    src="./assets/img/addTask/Capa 2 (4).png">
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="contact">
+                                                        <label for="Category">Category<b
+                                                                style="color: red;">*</b></label>
+                                                        <select name="Category" id="category" required>
+                                                            <option disabled value="" selected hidden>Select task
+                                                                Category</option>
+                                                            <option value="Technical Task">Technical Task</option>
+                                                            <option value="User Story">User Story</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="subtask">
+                                                        <p style="margin: 0;">Subtasks</p>
+                                                        <input id="subtask" type="text" placeholder="Add new subtask">
+                                                        <div class="pngs">
+                                                            <img src="./assets/img/addTask/Subtasks icons11.png"
+                                                                id="subtask-img">
+
+                                                        </div>
+                                                        <ul class="subtask-list" id="list"></ul>
+                                                    </div>
+                                                </div>
+
                                             </div>
-
-                                            <div id="dropDownContacts">
-
-                                            </div>
-                                        </div>
-                                        <div id="checkedUserInitials">
-
                                         </div>
                                     </div>
-                                </div>
 
-
-                                <div class="middle-line"></div>
-
-
-                                <div class="right-selection">
-                                    <div class="date">
-                                        <p style="margin: 0;">Due date<b style="color: red;">*</b></p>
-                                        <input required type="date" placeholder="dd/mm/yyyy" id="taskDate"
-                                            min="<?= date('Y-m-d') ?>">
-                                    </div>
-                                    <div class="prio">
-                                        <p style="margin: 0;">Prio</p>
-                                        <div class="prio-selection">
-                                            <button type="button" class="btn-select" id="urgentBtn">
-                                                <p>Urgent</p><img src="./assets/img/addTask/Prio alta.png">
-                                            </button>
-                                            <button type="button" class="btn-select yellow" id="mediumBtn">
-                                                <p>Medium</p><img src="./assets/img/addTask/Prio media.png">
-                                            </button>
-                                            <button type="button" class="btn-select" id="lowBtn">
-                                                <p>Low</p><img src="./assets/img/addTask/Capa 2 (4).png">
-                                            </button>
+                                    <section class="buttons-and-text">
+                                        <div class="required-text">
+                                            <b style="color: red;">*</b>
+                                            <p>This field is required</p>
                                         </div>
-                                    </div>
-                                    <div class="contact">
-                                        <label for="Category">Category<b style="color: red;">*</b></label>
-                                        <select name="Category" id="category" required>
-                                            <option disabled value="" selected hidden>Select task Category</option>
-                                            <option value="Technical Task">Technical Task</option>
-                                            <option value="User Story">User Story</option>
-                                        </select>
-                                    </div>
-                                    <div class="subtask">
-                                        <p style="margin: 0;">Subtasks</p>
-                                        <input id="subtask" type="text" placeholder="Add new subtask">
-                                        <div class="pngs">
-                                            <img src="./assets/img/addTask/Subtasks icons11.png" id="subtask-img">
-
+                                        <div class="btn-position">
+                                            <button type="button" class="btn-clear">Clear X</button>
+                                            <button class="btn" id="create-btn">Create Task <img
+                                                    src="./assets/img/addTask/check (1).png"></button>
                                         </div>
-                                        <ul class="subtask-list" id="list"></ul>
-                                    </div>
-                                </div>
-
+                                    </section>
+                                    <div id="animation" class="displayNone">Task added to board</div>
+                                </form>
                             </div>
                         </div>
                     </div>
-
-                    <section class="buttons-and-text">
-                        <div class="required-text">
-                            <b style="color: red;">*</b>
-                            <p>This field is required</p>
-                        </div>
-                        <div class="btn-position">
-                            <button type="button" class="btn-clear">Clear X</button>
-                            <button class="btn" id="create-btn">Create Task <img
-                                    src="./assets/img/addTask/check (1).png"></button>
-                        </div>
-                    </section>
-                    <div id="animation" class="displayNone">Task added to board</div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-    <script src="js/add_task.js"></script>
-</body>
+    </body>
 
 </html>

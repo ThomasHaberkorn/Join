@@ -1,87 +1,26 @@
 .task-board {
-    margin-left: 250px; /* Adjust based on sidebar width */
-    padding: 20px;
-}
-
-.task {
-    background-color: #f9f9f9;
-    margin: 10px 0;
-    padding: 20px;
-    border-radius: 5px;
-}
-
-.task-board {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-    background-color: #f4f7fa;
+    margin-left: 250px;
 }
 
 .task-card {
-    width: 300px;
     border-radius: 8px;
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
     display: flex;
     flex-direction: column;
 }
 
-.task-card-header {
-    color: #fff;
-    padding: 10px;
-    font-weight: bold;
-}
-
-.task-card-header.red {
-    background-color: #e74c3c;
-}
-
-.task-card-header.yellow {
-    background-color: #f1c40f;
-}
-
-.task-card-header.green {
-    background-color: #2ecc71;
-}
-
-.task-card-body {
-    padding: 15px;
-}
-
-.task-card-title {
-    margin-top: 0;
-}
-
-.task-card-description {
-    font-size: 14px;
-    color: #555;
-    margin: 10px 0;
-}
-
-.task-card-footer {
-    margin-top: auto;
-    padding: 10px 15px;
-    background-color: #f9f9f9;
+.allTasks {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.task-card-subtasks,
-.task-card-due-date {
-    font-size: 12px;
-    color: #777;
-}
-
-#boardContainer {
-    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
     justify-content: space-around;
+    min-width: 20%;
+    margin-left: 27px;
 }
 
 .task-column {
-    width: 24%;
+    min-width: 20%;
     min-height: 300px;
     background-color: #f4f4f4;
     border-radius: 4px;
@@ -91,4 +30,159 @@
 .task-card {
     margin-bottom: 10px;
     cursor: grab;
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    width: calc(100vw - 232px);
+    height: 100vh;
+}
+
+#taskBoard {
+    padding-top: 4.9rem;
+}
+
+#boardContainerUpperPart {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    margin: 50px;
+    font-size: xx-large;
+}
+
+#boardContainerUpperPartRight {
+    display: flex;
+    gap: 32px;
+}
+
+#boardSearchbar {
+    display: flex;
+    border: solid 1px #2A3647;
+    border-radius: 10px;
+    justify-content: space-between;
+    flex: 1 0 0;
+    background-color: white;
+    width: 312px;
+    padding: 8px 16px;
+    align-items: center;
+    gap: 10px;
+}
+
+#searchTask {
+    background-color: transparent;
+    border: none;
+    font-size: large;
+    outline: none;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+#boardSearchbarButton {
+    display: flex;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    border: 1px solid #2A3647;
+    background: #2A3647;
+    color: white;
+}
+
+#boardSearchbarButton p {
+    color: var(--white, #FFF);
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+.allTasksHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    color: var(--menu-color, #42526E);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    padding-left: 25px;
+}
+
+.boardPlusButton {
+    width: 24px;
+    height: 24px;
+}
+
+h2 {
+    margin: 0;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.addImage {
+    cursor: pointer;
+    background-image: url(assets/img/plusbutton.png);
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+}
+
+
+.boardTaskContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    width: 84vw;
+    margin-left: 27px;
+}
+
+figure {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;
+    unicode-bidi: isolate;
+}
+
+section {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+.task-card-title {
+    align-self: stretch;
+    color: var(--version-2-main-color, #2A3647);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    overflow: hidden;
+}
+
+.task-card-description {
+    align-self: stretch;
+    color: var(--icon, #A8A8A8);
+    font-size: 16px;
+    font-style: normal;
+    max-height: 35px;
+    overflow: hidden;
+    font-weight: 400;
+    line-height: 120%;
 }
