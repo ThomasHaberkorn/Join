@@ -2,6 +2,10 @@
     display: none;
 }
 
+.d-noneIMP {
+    display: none !important;
+}
+
 .d-flex {
     display: flex;
     justify-content: center;
