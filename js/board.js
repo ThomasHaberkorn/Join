@@ -1,22 +1,28 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const taskColumns = document.querySelectorAll('.task-column');
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
     // Sortiere die Tasks entsprechend ihres Status und füge sie in die entsprechenden Spalten ein
     tasks.forEach(task => {
         // Überprüfen, ob das Element für den Status existiert, um Fehler zu vermeiden
-        if(document.getElementById(task.status)) {
+        if (document.getElementById(task.status)) {
             let taskCard = createTaskCard(task);
             document.getElementById(task.status).appendChild(taskCard);
         }
     });
 
     function createTaskCard(task) {
-        let card = document.createElement('div');
+        let card = document.createElement('article');
         card.className = 'task-card';
         card.id = task.id || 'task-' + Math.random().toString(36).substr(2, 9); // Nutze vorhandene ID oder generiere eine neue
         card.setAttribute('draggable', true);
         card.dataset.status = task.status;
+    
+        // Bestimme die Klasse basierend auf der Kategorie
+        let categoryClass = task.category === 'Technical Task' ? 'category-technical' : 'category-userstory';
+    
+        // Erstelle das Div für die Kategorie und wende die Klasse an
+        let categoryDiv = `<div class="${categoryClass}">${task.category}</div>`;
     
         // Erstellen eines Strings für alle Subtasks
         let subtasksHtml = '<ul class="task-card-subtasks">';
@@ -27,24 +33,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
         // Integrieren aller Task-Details einschließlich Datum, Priorität, Kategorie und Subtasks
         card.innerHTML = `
-            <div class="task-card-header ${task.priority}">
-                <span class="task-card-category">${task.category}</span>
-                <span class="task-card-date">Due: ${task.taskDate}</span>
-            </div>
-            <div class="task-card-body">
-                <h3 class="task-card-title">${task.title}</h3>
-                <p class="task-card-description">${task.description}</p>
-                ${subtasksHtml} <!-- Hinzufügen der Subtasks hier -->
-            </div>
-            <div class="task-card-footer">
-                <span class="task-card-priority">Priority: ${task.priority}</span>
-            </div>
+            <div class="task-card-header">${categoryDiv}</div>
+            <div class="task-card-title">${task.title}</div>
+            <div class="task-card-description">${task.description}</div>
+            ${subtasksHtml}
+            <div>Applied to ...</div>
         `;
     
         card.addEventListener('dragstart', handleDragStart);
         return card;
     }
     
+
 
     taskColumns.forEach(column => {
         column.addEventListener('dragover', handleDragOver);
