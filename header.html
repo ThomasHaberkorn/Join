@@ -26,9 +26,33 @@
             <div class="headerHelp"><img src="assets/img/help.png" alt="to Help Page" onclick=""></div>
             <div class="headerLogoutButton" id="headerLogoutButton">
                 <div class="headerUserProfileInitials" id="headerUserProfileInitials"></div>
+                <div class="dropdownMenu" id="dropdownMenu">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Legal Notice</a>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
             </div>
         </div>
     </div>
+    <script>
+        // Initialisierung des Dropdown-Menüs
+        const headerLogoutButton = document.getElementById("headerLogoutButton");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        let timeout;
+
+        headerLogoutButton.addEventListener("mouseover", () => {
+            clearTimeout(timeout);
+            dropdownMenu.style.display = "block";
+        });
+
+        headerLogoutButton.addEventListener("mouseout", () => {
+            timeout = setTimeout(() => {
+                dropdownMenu.style.display = "none";
+            }, 500); // Verzögerung in Millisekunden
+        });
+
+    </script>
 </body>
 
 </html>

@@ -28,6 +28,7 @@
 .headerHelp {
     width: 32px;
     height: 32px;
+    cursor: pointer;
 }
 
 .headerLogoutButton {
@@ -40,10 +41,60 @@
     align-items: center;
     margin-right: 40px;
     margin-left: 16px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
 }
 
 .headerUserProfileInitials {
     width: 30px;
     height: 15px;
     color: #29abe2;
+    display: inline-block;
+}
+/*  */
+/* .headerLogoutButton {
+    position: relative;
+    display: inline-block;
+  } */
+/*   
+  .headerUserProfileInitials {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ccc;
+    text-align: center;
+    line-height: 30px;
+  } */
+
+.dropdownMenu {
+    position: absolute;
+    width: 150px;
+    top: 80%;
+    left: -120px;
+    z-index: 1;
+    display: none;
+    background-color: #2a3647;
+    border-radius: 20px 0 20px 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdownMenu a {
+    display: block;
+    padding: 12px 25px;
+    text-decoration: none;
+    color: #cdcdcd;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+}
+
+.dropdownMenu a:hover {
+    background-color: #091931;
+    border-radius: 20px;
+}
+
+.headerLogoutButton:hover .dropdownMenu {
+    display: block;
 }
