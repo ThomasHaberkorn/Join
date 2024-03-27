@@ -238,9 +238,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 27px;
-    line-height: 32px;
-    font-weight: 400;
+    font-size: 47px;
+    line-height: 56px;
+    font-weight: 500;
 }
 
 .contactFullName {
@@ -556,7 +556,6 @@
     justify-content:flex-start;
     align-items:flex-start;
     background-color: #f6f7f6;
-    z-index: 100;
 }
 
 .headLineContactResponsive{
@@ -854,9 +853,6 @@
 }
 
 @media (max-width: 950px) {
-    .sidebarMainContainer{
-        display: none;
-    }
     
     .contactlist{
         margin-left: 0;
