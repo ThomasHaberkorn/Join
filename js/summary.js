@@ -3,6 +3,7 @@ async function initSummary() {
     setDaytime();
     getUserName();
     getTasksAndProcess();
+    summaryActive();
 }
 
 function setDaytime() {
@@ -88,4 +89,8 @@ async function getTasksAndProcess() {
 
 async function getTask() {
     task = JSON.parse(localStorage.getItem("tasks"));
+}
+
+function summaryActive() {
+    document.getElementById("sumSidebar").classList.add("bgfocus");
 }
