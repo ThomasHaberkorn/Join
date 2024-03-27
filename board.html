@@ -21,7 +21,7 @@
     <script src="js/contactSection.js"></script>
 </head>
 
-<body onload="init()">
+<body onload="init(), initBoard()">
     <div class="mainContainer">
         <div class="w3Sidebar">
             <div w3-include-html="sidebar.html"></div>
@@ -56,24 +56,24 @@
                             </figure>
                             <figure class="allTasks">
                                 <div class="allTasksHeader">
-                                        <h2>In Progress</h2>
-                                        <img class="boardPlusButton" src="./assets/img/plusbutton.png">
+                                    <h2>In Progress</h2>
+                                    <img class="boardPlusButton" src="./assets/img/plusbutton.png">
                                 </div>
                                 <article id="inProgress" class="task-column">
                                 </article>
                             </figure>
                             <figure class="allTasks">
                                 <div class="allTasksHeader">
-                                        <h2>Await Feedback</h2>
-                                        <img class="boardPlusButton" src="./assets/img/plusbutton.png">
+                                    <h2>Await Feedback</h2>
+                                    <img class="boardPlusButton" src="./assets/img/plusbutton.png">
                                 </div>
                                 <article id="awaitFeedback" class="task-column">
                                 </article>
                             </figure>
                             <figure class="allTasks">
                                 <div class="allTasksHeader">
-                                        <h2>Done</h2>
-                                        <img class="boardPlusButton" src="./assets/img/plusbutton.png">
+                                    <h2>Done</h2>
+                                    <img class="boardPlusButton" src="./assets/img/plusbutton.png">
                                 </div>
                                 <article id="done" class="task-column">
                                 </article>
