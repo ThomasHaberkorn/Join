@@ -31,7 +31,12 @@ function showContact(index) {
     fullContact.style.transform = "translateX(0)";
     document.getElementById(`listContactBig${index}`).style.backgroundColor = contacts[index]['color'];
   }, 400);
-  showContactResponsive(index)
+  if (window.innerWidth >= 660) {
+    container.style.display = "none";
+  } else {
+   showContactResponsive(index) ;
+  }
+  
 }
 
 function showContactResponsive(index) {
@@ -83,5 +88,7 @@ function hideContactResponsive() {
   }
 }
 
+// Fügen Sie einen Event-Listener hinzu, um die Funktion beim Ändern der 
+// Fenstergröße auszuführen
 window.addEventListener("resize", hideContactResponsive);
 
