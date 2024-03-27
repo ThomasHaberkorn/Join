@@ -1,7 +1,6 @@
 async function init() {
     await includeHTML();
     handleCheckboxAndMessage();
-    // setTimeout();
 }
 
 /**
@@ -135,6 +134,10 @@ function hideMenu() {
     }, 700); // Verzögerung in Millisekunden
 }
 
+// function getTask() {
+//     let task = localStorage.getItem("task");
+//     console.log(task);
+// }
 // function setTimeout() {
 //     // Initialisierung des Dropdown-Menüs
 //     const headerLogoutButton = document.getElementById("headerLogoutButton");

@@ -32,6 +32,9 @@
     .summaryWelcomeContainer {
         display: none;
     }
+    .tasksNum {
+        margin-top: 5px;
+    }
 }
 
 @media screen and (max-width: 900px) {
@@ -193,11 +196,19 @@
     .summaryTodoInfoContainer {
         gap: 30px;
     }
+    .summaryDoneInfoContainer {
+        gap: 30px;
+    }
     .row1,
     .row2,
     .row3 {
         height: 110px;
         gap: 25px;
+    }
+    .tasksNum {
+        margin-top: -7px;
+        margin-bottom: -13px;
+        font-size: 55px;
     }
 }
 
@@ -223,11 +234,22 @@
     .summaryTodoInfoContainer {
         gap: 20px;
     }
-
+    .summaryDoneInfoContainer {
+        gap: 20px;
+    }
     .helpPosContainer {
         padding-left: 16px;
         padding-right: 16px;
         transition: 0.4s;
+    }
+    .tasksNum {
+        margin-top: -13px;
+        margin-bottom: -18px;
+        font-size: 45px;
+    }
+    .taskDesc {
+        font-size: 16px;
+        line-height: 20px;
     }
 }
 
@@ -261,5 +283,17 @@
     }
     .summaryTodoInfoContainer {
         gap: 10px;
+    }
+    .summaryDoneInfoContainer {
+        gap: 10px;
+    }
+    .tasksNum {
+        margin-top: -18px;
+        margin-bottom: -24px;
+        font-size: 35px;
+    }
+    .taskDesc {
+        font-size: 14px;
+        line-height: 20px;
     }
 }
