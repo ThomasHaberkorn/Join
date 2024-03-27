@@ -1,42 +1,56 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var createBtn = document.getElementById('create-btn');
-    var urgentBtn = document.getElementById('urgentBtn');
-    var mediumBtn = document.getElementById('mediumBtn');
-    var lowBtn = document.getElementById('lowBtn');
-    var subtaskInput = document.getElementById('subtask');
-    var subtaskAddButton = document.getElementById('subtask-img'); // Angenommen, dies ist ein Button
-    var subtaskList = document.getElementById('list'); // Die UL für Subtasks
+async function initAddSidebar() {
+    await includeHTML();
+    addTaskActive();
+}
 
-    var priorityButtons = { Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn };
-    var priority = ''; // Variable für die Priorität
+document.addEventListener("DOMContentLoaded", function () {
+    var createBtn = document.getElementById("create-btn");
+    var urgentBtn = document.getElementById("urgentBtn");
+    var mediumBtn = document.getElementById("mediumBtn");
+    var lowBtn = document.getElementById("lowBtn");
+    var subtaskInput = document.getElementById("subtask");
+    var subtaskAddButton = document.getElementById("subtask-img"); // Angenommen, dies ist ein Button
+    var subtaskList = document.getElementById("list"); // Die UL für Subtasks
+
+    var priorityButtons = {Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn};
+    var priority = ""; // Variable für die Priorität
     var subtasks = []; // Array für die Subtasks
 
     // Funktion zum Setzen der Priorität und visuellen Markierung
     function setPriority(selectedPriority) {
         priority = selectedPriority;
-        Object.values(priorityButtons).forEach(button => {
-            button.classList.remove('selected-priority');
+        Object.values(priorityButtons).forEach((button) => {
+            button.classList.remove("selected-priority");
         });
-        priorityButtons[selectedPriority].classList.add('selected-priority');
+        priorityButtons[selectedPriority].classList.add("selected-priority");
     }
 
     // Event Listener für Prioritätsbuttons
-    urgentBtn.addEventListener('click', function() { setPriority('Urgent'); });
-    mediumBtn.addEventListener('click', function() { setPriority('Medium'); });
-    lowBtn.addEventListener('click', function() { setPriority('Low'); });
+    urgentBtn.addEventListener("click", function () {
+        setPriority("Urgent");
+    });
+    mediumBtn.addEventListener("click", function () {
+        setPriority("Medium");
+    });
+    lowBtn.addEventListener("click", function () {
+        setPriority("Low");
+    });
 
     // Funktion zum Hinzufügen von Subtasks zur Liste und Anzeigen
     function addSubtask(subtask) {
         let index = subtasks.length;
         subtasks.push(subtask);
-        let li = document.createElement('li');
+        let li = document.createElement("li");
         li.innerHTML = `${subtask} <button class="delete-subtask" data-index="${index}">Löschen</button>`;
         subtaskList.appendChild(li);
 
         // Event Listener für den Löschbutton jedes Subtasks
-        li.querySelector('.delete-subtask').addEventListener('click', function() {
-            removeSubtask(index);
-        });
+        li.querySelector(".delete-subtask").addEventListener(
+            "click",
+            function () {
+                removeSubtask(index);
+            }
+        );
     }
 
     // Funktion zum Entfernen eines Subtasks
@@ -47,41 +61,52 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Funktion zum Aktualisieren der Subtask-Liste in der UI
     function updateSubtaskList() {
-        subtaskList.innerHTML = ''; // Löscht die aktuelle Liste
+        subtaskList.innerHTML = ""; // Löscht die aktuelle Liste
         subtasks.forEach((subtask, index) => {
             addSubtask(subtask, index); // Fügt jeden Subtask neu hinzu
         });
     }
 
     // Event Listener für das Hinzufügen von Subtasks
-    subtaskAddButton.addEventListener('click', function() {
+    subtaskAddButton.addEventListener("click", function () {
         var subtaskValue = subtaskInput.value.trim();
-        if(subtaskValue) {
+        if (subtaskValue) {
             addSubtask(subtaskValue);
-            subtaskInput.value = ''; // Eingabefeld leeren
+            subtaskInput.value = ""; // Eingabefeld leeren
         }
     });
 
-    createBtn.addEventListener('click', function(event) {
+    createBtn.addEventListener("click", function (event) {
         handleCreateTask(event);
     });
 
     function handleCreateTask(event) {
-        event.preventDefault(); 
-    
-        var title = document.getElementById('titleInput').value;
-        var description = document.getElementById('descriptionInput').value;
-        var taskDate = document.getElementById('taskDate').value;
-        var category = document.getElementById('category').value;
-        var status = 'todo'; 
-    
-        var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        var newTaskId = 'task-' + Math.random().toString(36).substr(2, 9); // Generiere eine eindeutige ID
-        tasks.push({ id: newTaskId, title, description, taskDate, category, priority, subtasks, status }); // Füge die ID hier hinzu
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    
-        window.location.href = 'board.html';
+        event.preventDefault();
+
+        var title = document.getElementById("titleInput").value;
+        var description = document.getElementById("descriptionInput").value;
+        var taskDate = document.getElementById("taskDate").value;
+        var category = document.getElementById("category").value;
+        var status = "todo";
+
+        var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        var newTaskId = "task-" + Math.random().toString(36).substr(2, 9); // Generiere eine eindeutige ID
+        tasks.push({
+            id: newTaskId,
+            title,
+            description,
+            taskDate,
+            category,
+            priority,
+            subtasks,
+            status,
+        }); // Füge die ID hier hinzu
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+
+        window.location.href = "board.html";
     }
-    
-    
 });
+
+function addTaskActive() {
+    document.getElementById("addTasksum").classList.add("bgfocus");
+}

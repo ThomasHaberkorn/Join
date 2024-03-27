@@ -1,7 +1,6 @@
 async function init() {
     await includeHTML();
     handleCheckboxAndMessage();
-    // setTimeout();
 }
 
 /**
@@ -135,6 +134,40 @@ function hideMenu() {
     }, 700); // Verzögerung in Millisekunden
 }
 
+function linkToSummary() {
+    window.location.href = "summary.html";
+    // resetFocus();
+}
+
+function linkToAddTask() {
+    window.location.href = "add_task.html";
+    // resetFocus();
+    // document.getElementById("addTasksum").classList.add("bgfocus");
+}
+
+function linkToBoard() {
+    window.location.href = "board.html";
+    // resetFocus();
+    document.getElementById("boardSum").classList.add("bgfocus");
+}
+
+function linkToContact() {
+    window.location.href = "contacts.html";
+    // resetFocus();
+    document.getElementById("contactSum").classList.add("bgfocus");
+}
+
+function resetFocus() {
+    document.getElementById("sumSidebar").classList.remove("bgfocus");
+    document.getElementById("addTasksum").classList.remove("bgfocus");
+    document.getElementById("boardSum").classList.remove("bgfocus");
+    document.getElementById("contactSum").classList.remove("bgfocus");
+}
+
+// function getTask() {
+//     let task = localStorage.getItem("task");
+//     console.log(task);
+// }
 // function setTimeout() {
 //     // Initialisierung des Dropdown-Menüs
 //     const headerLogoutButton = document.getElementById("headerLogoutButton");
