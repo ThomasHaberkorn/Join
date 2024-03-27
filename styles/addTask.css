@@ -626,3 +626,8 @@ input:focus {
     background: none;
     cursor: pointer;
 }
+
+#dropDownContacts {
+    display: none; /* Versteckt die Dropdown-Liste standardmäßig */
+}
+
