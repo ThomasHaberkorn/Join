@@ -44,25 +44,46 @@
                                         <div class="summaryTodoInfoBox d-flex">
                                             <div class="summaryTodoInfoCount d-flDirCol" id="summaryTodoInfoCount">
                                                 <div class="summaryTodoInfoCounter infoContentText1"
-                                                    id="summaryTodoInfoCounter">1</div>
+                                                    id="summaryTodoInfoCounter"></div>
                                                 <div class="summaryTodoInfoText">To-do</div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="summaryDoneInfoContainer border bg-white" id="summaryDoneInfoContainer">
+                                    <div class="summaryDoneInfoContainer border bg-white d-flex">
+                                        <!--  -->
+                                        <div class="summaryDoneInfoImage d-flex">
+                                            <img src="/assets/img/done-icon-summary.png" alt="Done"
+                                                class="summaryDoneInfoImg infoContentImg">
+                                        </div>
+                                        <div class="summaryDoneInfoBox d-flex">
+                                            <div class="summaryDoneInfoCount d-flDirCol" id="summaryDoneInfoCount">
+                                                <div class="summaryDoneInfoCounter infoContentText1"
+                                                    id="summaryDoneInfoCounter"></div>
+                                                <div class="summaryDoneInfoText">Done</div>
+                                            </div>
+                                        </div>
+                                        <!--  -->
                                     </div>
                                 </div>
                                 <div class="row2 border bg-white" id="summaryDeadlineInfoContainer">
                                 </div>
                                 <div class="row3">
-                                    <div class="summaryOverviewTaskInBord border bg-white"
+                                    <div class="summaryOverviewTaskInBord border bg-white flDirCol"
                                         id="summaryOverviewTaskInBoard">
+                                        <div class="tasksInBoardNum d-flex tasksNum" id="tasksInBoardNum"></div>
+                                        <div class="taskInBoardDesc d-flex taskDesc">Tasks in Board</div>
                                     </div>
                                     <div class="summaryOverviewTaskInProgress border bg-white"
                                         id="summaryOverviewTaskInProgress">
+                                        <div class="taskInProgressNum d-flex tasksNum" id="taskInProgressNum"></div>
+                                        <div class="taskInProgressDesc d-flex taskDesc">Tasks in Progress</div>
                                     </div>
                                     <div class="summaryOverviewAwaitingFeedback border bg-white"
-                                        id="summaryOverviewAwaitingFeedback"></div>
+                                        id="summaryOverviewAwaitingFeedback">
+                                        <div class="awaitingFeedbackNum d-flex tasksNum" id="awaitingFeedbackNum"></div>
+                                        <div class="awaitingFeedbackDesc d-flex taskDesc">Awaiting Feedback</div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

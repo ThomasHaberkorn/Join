@@ -32,6 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
             dropdown.appendChild(div);
         });
     }
+async function initAddSidebar() {
+    await includeHTML();
+    addTaskActive();
+}
+
+
 
     // Rufe die Funktion zum Befüllen des Dropdowns auf
     fillContactDropdown();
@@ -53,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function setPriority(selectedPriority) {
         // Speichere die ausgewählte Priorität
         priority = selectedPriority;
+
         // Für jeden Button in der Gruppe der Prioritätsbuttons
         Object.values(priorityButtons).forEach(button => {
             // Entferne die Hervorhebung
@@ -67,23 +74,28 @@ document.addEventListener('DOMContentLoaded', function() {
     mediumBtn.addEventListener('click', function() { setPriority('Medium'); });
     lowBtn.addEventListener('click', function() { setPriority('Low'); });
 
+
     // Diese Funktion fügt eine Subtask zur Liste der Subtasks hinzu
     function addSubtask(subtask) {
         // Der Index der neuen Subtask ist die aktuelle Anzahl der Subtasks
         let index = subtasks.length;
         // Füge die Subtask zur Liste der Subtasks hinzu
         subtasks.push(subtask);
+
         // Erstelle ein neues li-Element
         let li = document.createElement('li');
         // Füge die Subtask und einen Löschen-Button zum li-Element hinzu
+
         li.innerHTML = `${subtask} <button class="delete-subtask" data-index="${index}">Löschen</button>`;
         // Füge das li-Element zur Subtask-Liste hinzu
         subtaskList.appendChild(li);
+
 
         // Füge einen Event Listener zum Löschen-Button hinzu, der die removeSubtask Funktion aufruft, wenn der Button geklickt wird
         li.querySelector('.delete-subtask').addEventListener('click', function() {
             removeSubtask(index);
         });
+
     }
 
     // Diese Funktion entfernt eine Subtask aus der Liste der Subtasks
@@ -96,14 +108,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Diese Funktion aktualisiert die Anzeige der Subtask-Liste
     function updateSubtaskList() {
+
         // Leere die Subtask-Liste
         subtaskList.innerHTML = '';
         // Für jede Subtask in der Liste der Subtasks
+
         subtasks.forEach((subtask, index) => {
             // Füge die Subtask zur Subtask-Liste hinzu
             addSubtask(subtask);
         });
     }
+
 
     // Füge einen Event Listener zum Subtask-Add-Button hinzu, der eine Subtask hinzufügt, wenn der Button geklickt wird
     subtaskAddButton.addEventListener('click', function() {
@@ -139,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Die ID der neuen Aufgabe ist eine zufällig generierte ID
         var newTaskId = 'task-' + Math.random().toString(36).substr(2, 9);
         // Füge die neue Aufgabe zur Liste der Aufgaben hinzu
+
         tasks.push({
             id: newTaskId,
             title,
@@ -148,6 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
             priority,
             subtasks,
             status,
+
             assignedContacts
         });
         // Speichere die Liste der Aufgaben im localStorage
@@ -156,3 +173,4 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'board.html';
     });
 });
+

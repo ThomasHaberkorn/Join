@@ -11,6 +11,17 @@ document.addEventListener('DOMContentLoaded', function () {
     function getAssignedContactInitials(assignedContactIds) {
         // Die Funktion erhält als Parameter ein Array von zugewiesenen Kontakt-IDs
 
+async function initBoard() {
+    await includeHTML();
+    boardActive();
+}
+
+function boardActive() {
+    document.getElementById("boardSum").classList.add("bgfocus");
+}
+
+
+
         // Die map() Methode wird auf das Array der zugewiesenen Kontakt-IDs angewendet,
         // um ein neues Array zu erstellen, das die Initialen der Kontakte enthält
         return assignedContactIds.map(contactId => {
@@ -39,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Eine Funktion, die eine Karte für eine Aufgabe erstellt, basierend auf den Aufgabeninformationen
     function createTaskCard(task) {
+
         // Erstelle ein neues Artikel-Element für die Aufgabenkarte
         let card = document.createElement('article');
         card.className = 'task-card';
@@ -52,16 +64,19 @@ document.addEventListener('DOMContentLoaded', function () {
         let categoryDiv = `<div class="${categoryClass}">${task.category}</div>`;
 
         // Erstelle HTML für die Subtask-Liste
+
         let subtasksHtml = '<ul class="task-card-subtasks">';
-        task.subtasks.forEach(subtask => {
+        task.subtasks.forEach((subtask) => {
             subtasksHtml += `<li>${subtask}</li>`;
         });
+
         subtasksHtml += '</ul>';
 
         // Erfasse die Initialen der zugewiesenen Kontakte
         const assignedContactInitials = getAssignedContactInitials(task.assignedContacts);
 
         // Setze den HTML-Inhalt der Aufgabenkarte
+
         card.innerHTML = `
             <div class="task-card-header">${categoryDiv}</div>
             <div class="task-card-title">${task.title}</div>
@@ -72,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div>Applied to: ${assignedContactInitials}</div>
         `;
+
 
         // Füge einen Event Listener für den Drag-and-Drop-Vorgang hinzu
         card.addEventListener('dragstart', handleDragStart);
@@ -111,11 +127,12 @@ document.addEventListener('DOMContentLoaded', function () {
     taskColumns.forEach(column => {
         column.addEventListener('dragover', handleDragOver);
         column.addEventListener('drop', handleDrop);
+
     });
 
     // Eine Funktion, die aufgerufen wird, wenn ein Drag-and-Drop-Vorgang gestartet wird
     function handleDragStart(e) {
-        e.dataTransfer.setData('text/plain', e.target.id);
+        e.dataTransfer.setData("text/plain", e.target.id);
     }
 
     // Eine Funktion, die aufgerufen wird, wenn eine Element über eine Drop-Zone bewegt wird
@@ -126,26 +143,32 @@ document.addEventListener('DOMContentLoaded', function () {
     // Eine Funktion, die aufgerufen wird, wenn ein Element in eine Drop-Zone gezogen wird
     function handleDrop(e) {
         e.preventDefault();
-        const id = e.dataTransfer.getData('text');
+        const id = e.dataTransfer.getData("text");
         const draggableElement = document.getElementById(id);
+
         const newStatus = e.target.closest('.task-column').id;
         draggableElement.dataset.status = newStatus;
 
-        e.target.closest('.task-column').appendChild(draggableElement);
+
+        e.target.closest(".task-column").appendChild(draggableElement);
         updateTaskInLocalStorage(id, newStatus);
         updateTaskColumns();
     }
 
     // Eine Funktion, die den Status einer Aufgabe im Local Storage aktualisiert
     function updateTaskInLocalStorage(taskId, newStatus) {
+
         // Finde den Index der Aufgabe in der tasks-Liste basierend auf der taskId
         let taskIndex = tasks.findIndex(task => task.id === taskId);
         // Falls die Aufgabe gefunden wurde
+
         if (taskIndex !== -1) {
             // Aktualisiere den Status der Aufgabe
             tasks[taskIndex].status = newStatus;
+
             // Speichere die aktualisierte Liste der Aufgaben im Local Storage
             localStorage.setItem('tasks', JSON.stringify(tasks));
+
         }
     }
 });

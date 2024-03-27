@@ -18,7 +18,7 @@ function renderShowContactHTML(index) {
         <div class="contactFullName">${contacts[index]['name']}</div>
         <div class="contactEditDeleteArea">
           <div onclick="editContact(${index})" class="contactEdit"><img class="existContactEdit" src="./assets/img/edit.png"><p>Edit</p></div>
-          <div onclick="deleteContact(${index})" class="contactDelete margin16left"><img class="existContactEdit margin16left" src="./assets/img/delete.png"><p>Delete</p></img></div>
+          <div onclick="deleteContact(${index})" class="contactDelete margin16left"><img class="existContactEdit margin16left" src="./assets/img/delete.png"><p>Delete</p></div>
         </div>   
       </div>
     </div>
@@ -45,7 +45,6 @@ function editContactHTML(index) {
         <img src="./assets/img/join-logo-white.png">
         <a>Edit contact</a>
         <div class="contactEditSpace"></div>
-        
       </div>
       <div class="contactEditRight">
         <div id="contactEditImage${index}" class="contactEditFullImage">${contacts[index]['firstLetter']}${contacts[index]['lastLetter']}</div>
@@ -72,5 +71,34 @@ function editContactHTML(index) {
         </div>  
       </div>
     </div>
+    `
+}
+
+function rendercontactFullResponsive(index) {
+  return /*HTML*/`
+    <div class="headLineContactResponsive">
+      <div class="contactFullResponsiveClose">
+        <div class="headLineLeftContactResponsive">Contacts</div>
+      <img src="./assets/img/Vector.png" onclick="closeContactFullResponsive()">
+      </div>
+      <div class="headLineRightContactResponsive">Better with a team</div>
+      <div class="headLineSpaceContactHorizontalResponsive"></div>
+      
+      <div class="contactFullUpperSectionResponsive">
+        <div class="contactFullImage" id="listContactBigResponsive${index}">${contacts[index]['firstLetter']}${contacts[index]['lastLetter']}</div>
+        <div class="contactFullNameResponsive">${contacts[index]['name']}</div>
+      </div>
+      <div class="contactInformationHeadlineResponsive">Contact Information</div>
+      <div class="mailPhoneArea">
+    <div class="renderMail">
+      <p>Email</p>
+    </div>
+    <a href="mailto:${contacts[index]['email']}">${contacts[index]['email']}</a>
+    <div class="renderPhone">
+      <p>Phone</p>
+    <a href="tel:${contacts[index]['phone']}">${contacts[index]['phone']}</a>
+    </div>
+  </div>
+</div>
     `
 }
