@@ -75,6 +75,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Füge einen Event Listener für den Drag-and-Drop-Vorgang hinzu
         card.addEventListener('dragstart', handleDragStart);
+        
+        function openTaskEditor() {
+            const editorOpen = document.getElementById('editorOpen');
+            editorOpen.style.display = 'block';
+        }
+        // Füge einen Event Listener für den Klick auf die Aufgabenkarte hinzu
+        card.addEventListener('click', function() {
+            openTaskEditor()
+        });
+        
         return card;
     }
 
@@ -148,5 +158,10 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('tasks', JSON.stringify(tasks));
         }
     }
+
 });
 
+function closeEditor() {
+    const editorOpen = document.getElementById('editorOpen');
+    editorOpen.style.display = 'none';
+}

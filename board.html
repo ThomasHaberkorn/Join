@@ -14,8 +14,10 @@
     <link rel="stylesheet" href="styles/sidebar.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/summary.css">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    <script src="js/script.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="js/script.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/add_task.js"></script>
     <script src="js/contacts.js"></script>
@@ -57,24 +59,24 @@
                             </figure>
                             <figure class="allTasks">
                                 <div class="allTasksHeader">
-                                        <h2>In Progress</h2>
-                                        <img class="boardPlusButton" src="./assets/img/plusbutton.png">
+                                    <h2>In Progress</h2>
+                                    <img class="boardPlusButton" src="./assets/img/plusbutton.png">
                                 </div>
                                 <article id="inProgress" class="task-column">
                                 </article>
                             </figure>
                             <figure class="allTasks">
                                 <div class="allTasksHeader">
-                                        <h2>Await Feedback</h2>
-                                        <img class="boardPlusButton" src="./assets/img/plusbutton.png">
+                                    <h2>Await Feedback</h2>
+                                    <img class="boardPlusButton" src="./assets/img/plusbutton.png">
                                 </div>
                                 <article id="awaitFeedback" class="task-column">
                                 </article>
                             </figure>
                             <figure class="allTasks">
                                 <div class="allTasksHeader">
-                                        <h2>Done</h2>
-                                        <img class="boardPlusButton" src="./assets/img/plusbutton.png">
+                                    <h2>Done</h2>
+                                    <img class="boardPlusButton" src="./assets/img/plusbutton.png">
                                 </div>
                                 <article id="done" class="task-column">
                                 </article>
@@ -85,6 +87,9 @@
             </div>
         </div>
     </div>
+    <div id="editorOpen">
+        <div style="text-align: right;">
+            <button id="editorOpenCloseButton" onclick="closeEditor()">x</button>
     </div>
     <script src="js/board.js"></script>
 </body>
