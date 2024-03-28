@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="styles/summary.css">
 </head>
 
-<body onload="rendercontactList(); init()">
+
+<body onload="rendercontactList(); init(); hideContactResponsive(); initContact()">
     <div class="mainContainer">
         <div class="w3Sidebar">
             <div w3-include-html="sidebar.html"></div>
@@ -30,10 +31,12 @@
                 <div class="contactArea">
                     <div class="contactlist" id="contactList">
                         <div class="borderContactButton">
-                            <div class="addNewContactButton dispflex" onclick="addNewContact()">Add new contact<img src="./assets/img/person_add.png"></div>
+                            <div class="addNewContactButton dispflex" onclick="addNewContact()">Add new contact<img
+                                    src="./assets/img/person_add.png"></div>
                         </div>
                         <div class="listArea" id="listArea">
-                            <div class="addNewContactButtonSmall" onclick="addNewContact()"><img src="./assets/img/person_add.png"></div>
+                            <div class="addNewContactButtonSmall" onclick="addNewContact()"><img
+                                    src="./assets/img/person_add.png"></div>
                         </div>
                     </div>
                     <div class="contactBig" id="contactBig">
