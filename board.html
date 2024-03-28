@@ -14,8 +14,10 @@
     <link rel="stylesheet" href="styles/sidebar.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/summary.css">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    <script src="js/script.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="js/script.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/add_task.js"></script>
     <script src="js/contacts.js"></script>
@@ -85,6 +87,21 @@
             </div>
         </div>
     </div>
+     <div id="allTaskInformation">
+            <button id="allTaskInformationButton" onclick="closeAllTaskInformation()">x</button>
+            <div id="allTaskInformationCategory"></div>
+            <div id="allTaskInformationTitle"></div>
+            <div id="allTaskInformationDescription"></div>
+            <div id="allTaskInformationPriority"></div>
+            <div id="allTaskInformationDueDate"></div>
+            <div id="allTaskInformationAssignedTo"></div>
+            <div id="allTaskInformationStatus"></div>
+            <div id="allTaskInformationSubtasks"></div>
+            <div class="allTaskInformationLowerButtons">
+                <button id="deleteTaskButton">Delete</button>
+                <button id="editTaskButton">Edit</button>
+                <button id="moveTaskButton">Move</button>
+            </div>
     </div>
     <script src="js/board.js"></script>
 </body>
