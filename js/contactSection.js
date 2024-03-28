@@ -1,32 +1,25 @@
-async function initContact() {
-    await includeHTML();
-    contactActive();
-}
-
-function contactActive() {
-    document.getElementById("contactSum").classList.add("bgfocus");
-}
-
 let uniqueFirstLetters = new Set();
 
 function rendercontactList() {
-    let list = document.getElementById("listArea");
-    contacts.sort((a, b) => a["name"].localeCompare(b["name"]));
-    for (i = 0; i < contacts.length; i++) {
-        let firstLetter = contacts[i]["name"].charAt(0);
-        if (!uniqueFirstLetters.has(firstLetter)) {
-            uniqueFirstLetters.add(firstLetter);
-            list.innerHTML += `
+  let list = document.getElementById('listArea');
+  contacts.sort((a, b) => a['name'].localeCompare(b['name']));
+  for (i = 0; i < contacts.length; i++) {
+    let firstLetter = contacts[i]['name'].charAt(0);
+    if (!uniqueFirstLetters.has(firstLetter)) {
+      uniqueFirstLetters.add(firstLetter);
+      list.innerHTML += `
           <div class="firstLetterContact">${firstLetter}</div>
           <div class="spaceContactList"></div>`;
-        }
-        list.innerHTML += rendercontactListHTML(i);
-        document.getElementById(`listContact${i}`).style.backgroundColor =
-            contacts[i]["color"];
     }
+    list.innerHTML += rendercontactListHTML(i);
+    document.getElementById(`listContact${i}`).style.backgroundColor = contacts[i]['color'];
+
+  }
 }
 
-function addNewContact() {}
+function addNewContact() {
+
+}
 
 function showContact(index) {
   let fullContact = document.getElementById('contactFull');
@@ -98,3 +91,4 @@ function hideContactResponsive() {
 // Fügen Sie einen Event-Listener hinzu, um die Funktion beim Ändern der 
 // Fenstergröße auszuführen
 window.addEventListener("resize", hideContactResponsive);
+
