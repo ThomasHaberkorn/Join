@@ -301,19 +301,29 @@ section {
 }
 
 
-#editorOpen{
+#allTaskInformation {
     display: none;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
+    width: 50%;
+    height: 50%;
     background-color: white;
-    padding: 20px;
-    margin-top: 80px;
-    margin-bottom: 80px;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
 }
 
-#editorOpenCloseButton{
-    cursor: pointer;
+#allTaskInformationButton {
+    display: flex;
+    padding: 8px 16px;
+    gap: 4px;
+    border-radius: 10px;
+    border: 1px solid #2A3647;
+    background: #2A3647;
+    color: white;
+    position: absolute; /* Positioniert das Element absolut innerhalb des nächstgelegenen positionierten Elternelements (hier: #allTaskInformation) */
+    top: 8px; /* Positioniert das Element am oberen Rand des Elternelements */
+    right: 8px; /* Positioniert das Element am rechten Rand des Elternelements */
 }
+

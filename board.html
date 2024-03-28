@@ -87,9 +87,21 @@
             </div>
         </div>
     </div>
-    <div id="editorOpen">
-        <div style="text-align: right;">
-            <button id="editorOpenCloseButton" onclick="closeEditor()">x</button>
+     <div id="allTaskInformation">
+            <button id="allTaskInformationButton" onclick="closeAllTaskInformation()">x</button>
+            <div id="allTaskInformationCategory"></div>
+            <div id="allTaskInformationTitle"></div>
+            <div id="allTaskInformationDescription"></div>
+            <div id="allTaskInformationPriority"></div>
+            <div id="allTaskInformationDueDate"></div>
+            <div id="allTaskInformationAssignedTo"></div>
+            <div id="allTaskInformationStatus"></div>
+            <div id="allTaskInformationSubtasks"></div>
+            <div class="allTaskInformationLowerButtons">
+                <button id="deleteTaskButton">Delete</button>
+                <button id="editTaskButton">Edit</button>
+                <button id="moveTaskButton">Move</button>
+            </div>
     </div>
     <script src="js/board.js"></script>
 </body>
