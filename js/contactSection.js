@@ -1,4 +1,5 @@
 let uniqueFirstLetters = new Set();
+let previousIndex;
 
 function rendercontactList() {
   let list = document.getElementById('listArea');
@@ -13,7 +14,6 @@ function rendercontactList() {
     }
     list.innerHTML += rendercontactListHTML(i);
     document.getElementById(`listContact${i}`).style.backgroundColor = contacts[i]['color'];
-
   }
 }
 
@@ -24,19 +24,34 @@ function addNewContact() {
 function showContact(index) {
   let fullContact = document.getElementById('contactFull');
   fullContact.style.transition = "transform 0.4s ease";
-  fullContact.style.transform = "translateX(120%)";
-  setTimeout(() => {
-    fullContact.innerHTML = '';
-    fullContact.innerHTML += renderShowContactHTML(index);
-    fullContact.style.transform = "translateX(0)";
-    document.getElementById(`listContactBig${index}`).style.backgroundColor = contacts[index]['color'];
-  }, 400);
-  if (window.innerWidth >= 660) {
-    container.style.display = "none";
-  } else {
-   showContactResponsive(index) ;
+  fullContact.style.transform = "translateX(100%)";
+  if (previousIndex == index) {
+    fullContact.style.transform = "translateX(100%)";
+    previousIndex = -1;
+    document.getElementById(`info${index}`).classList.remove('contactListShowActive');
   }
-  
+  else {
+    removeMark();
+    document.getElementById(`info${index}`).classList.add('contactListShowActive');
+    document.getElementById(`info${index}`).classList.add('contactListShowActive:hover');
+    setTimeout(() => {
+      fullContact.innerHTML = '';
+      fullContact.innerHTML += renderShowContactHTML(index);
+      fullContact.style.transform = "translateX(0)";
+      document.getElementById(`listContactBig${index}`).style.backgroundColor = contacts[index]['color'];
+    }, 400);
+    if (window.innerWidth >= 950) {
+    } else {
+      showContactResponsive(index);
+    }
+    previousIndex = index;
+  }
+}
+
+function removeMark() {
+  for (let i = 0; i < contacts.length; i++) {
+    document.getElementById(`info${i}`).classList.remove('contactListShowActive')
+  }
 }
 
 function showContactResponsive(index) {
@@ -62,7 +77,6 @@ function editContact(index) {
 
 function closeEditContact() {
   let contactEditVisible = document.getElementById('contactEditVisible');
-  contactEditVisible.classList.remove('slide-in-right');
   contactEditVisible.classList.add('slide-out-right');
   setTimeout(() => {
     document.getElementById('contactEditArea').style.display = "none";
@@ -70,9 +84,10 @@ function closeEditContact() {
   }, 400);
 }
 
-function closeContactFullResponsive(){
+function closeContactFullResponsive() {
   let contactFullResponsive = document.getElementById('contactFullResponsive');
   contactFullResponsive.classList.add('slide-out-left');
+  removeMark()
   setTimeout(() => {
     contactFullResponsive.style.display = "flex";
     contactFullResponsive.innerHTML = "";
@@ -81,14 +96,13 @@ function closeContactFullResponsive(){
 
 function hideContactResponsive() {
   const container = document.getElementById("contactFullResponsive");
-  if (window.innerWidth >= 660) {
+  if (window.innerWidth >= 950) {
     container.style.display = "none";
   } else {
-    container.style.display = "block";
+    container.style.display = "flex";
   }
 }
 
 // Fügen Sie einen Event-Listener hinzu, um die Funktion beim Ändern der 
 // Fenstergröße auszuführen
 window.addEventListener("resize", hideContactResponsive);
-
