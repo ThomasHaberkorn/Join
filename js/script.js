@@ -1,6 +1,36 @@
 async function init() {
-    await includeHTML();
+    // await includeHTML();
+    sessionStorageFirstTimeTrue();
     handleCheckboxAndMessage();
+    checkMsgBox();
+    moveContainer();
+}
+
+function sessionStorageFirstTimeTrue() {
+    let firstLog = sessionStorage.getItem(
+        "IsThisFirstTime_Log_From_LiveServer"
+    );
+    if (firstLog == "false") {
+        document.getElementById("loginHeadLogo").classList.remove("d-none");
+        setLogoAnimationDone();
+        document
+            .getElementById("loginHeadLogo")
+            .classList.add("loginLogoFrame");
+    } else if (firstLog == null) {
+        // firstLog auf true setzen
+        sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", true);
+    } else if ((firstLog = true)) {
+        document.getElementById("loginHeadLogo").classList.remove("d-none");
+        setLogoAnimation();
+    }
+}
+
+function checkMsgBox() {
+    let mG = document.getElementById("msgBox").innerHTML;
+
+    if (mG == null) {
+        mG.classList.add("bcTransp");
+    }
 }
 
 /**
@@ -22,21 +52,22 @@ function toggleLoginSignup() {
 
     loginSignUp.classList.toggle("d-none");
 }
-/**
- * Includes the Sidebar and the Header to ervery Side
- */
-async function includeHTML() {
-    let includeElements = document.querySelectorAll("[w3-include-html]");
-    for (let i = 0; i < includeElements.length; i++) {
-        const element = includeElements[i];
-        file = element.getAttribute("w3-include-html");
-        let resp = await fetch(file);
-        if (resp.ok) {
-            element.innerHTML = await resp.text();
-        } else {
-            element.innerHTML = "Page not found";
-        }
-    }
+
+function setLogoAnimation() {
+    document.getElementById("loginSignUp").classList.add("transformOpacity");
+    document
+        .getElementById("loginMiddleContainer")
+        .classList.add("transformOpacity");
+    document.getElementById("loginHeadLogo").classList.add("transformLogo");
+    sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", false);
+}
+
+async function setLogoAnimationDone() {
+    document.getElementById("loginSignUp").classList.remove("transformOpacity");
+    document
+        .getElementById("loginMiddleContainer")
+        .classList.remove("transformOpacity");
+    document.getElementById("loginHeadLogo").classList.remove("transformLogo");
 }
 
 // Neue Funktion zum Behandeln der Checkbox und Nachrichtenanzeige
@@ -44,25 +75,26 @@ function handleCheckboxAndMessage() {
     const submitButton = document.querySelector(".signupButton");
     const checkbox = document.getElementById("signinCheckBoxPrivacyPolicy");
     const msgBox = document.getElementById("msgBox"); // Angenommen, Sie haben ein Element mit dieser ID für die Nachricht
-
-    // Erstmaliger Check und Button-Status
-    submitButton.disabled = !checkbox.checked;
-    submitButton.classList.add(!checkbox.checked ? "bcGray" : ""); // Ternärer Operator für bedingte Klassenaddition
-
-    // Event-Listener für Checkbox-Änderungen
-    checkbox.addEventListener("change", () => {
+    if (submitButton) {
+        // Erstmaliger Check und Button-Status
         submitButton.disabled = !checkbox.checked;
-        submitButton.classList.toggle("bcGray"); // Umschalten der Klasse basierend auf dem Checkbox-Status
-    });
+        submitButton.classList.add(!checkbox.checked ? "bcGray" : ""); // Ternärer Operator für bedingte Klassenaddition
 
-    // Behandlung der Nachrichtenanzeige aus URL-Parametern
-    const urlParams = new URLSearchParams(window.location.search);
-    const msg = urlParams.get("msg");
-    if (msg) {
-        msgBox.innerHTML = msg;
-        msgBox.classList.remove("d-none");
-    } else {
-        msgBox.classList.add("d-none");
+        // Event-Listener für Checkbox-Änderungen
+        checkbox.addEventListener("change", () => {
+            submitButton.disabled = !checkbox.checked;
+            submitButton.classList.toggle("bcGray"); // Umschalten der Klasse basierend auf dem Checkbox-Status
+        });
+
+        // Behandlung der Nachrichtenanzeige aus URL-Parametern
+        const urlParams = new URLSearchParams(window.location.search);
+        const msg = urlParams.get("msg");
+        if (msg) {
+            msgBox.innerHTML = msg;
+            msgBox.classList.remove("d-none");
+        } else {
+            msgBox.classList.add("d-none");
+        }
     }
 }
 
@@ -93,6 +125,10 @@ function addUser() {
     window.location.href =
         "index.html?msg=Du hast dich erfolgreich registriert";
 }
+
+// function hideMsgBox() {
+//     document.getElementById("msgBox").classList.add("d-none");
+// }
 
 function login() {
     // Verhindert den standardmäßigen Formular-Submit
@@ -136,7 +172,6 @@ function hideMenu() {
 
 function linkToSummary() {
     window.location.href = "summary.html";
-    // resetFocus();
 }
 
 function linkToAddTask() {
@@ -163,6 +198,24 @@ function resetFocus() {
     document.getElementById("boardSum").classList.remove("bgfocus");
     document.getElementById("contactSum").classList.remove("bgfocus");
 }
+
+const mediaQuery = window.matchMedia("(max-width: 720px)");
+
+function moveContainer() {
+    const loginSignUp = document.getElementById("loginSignUp");
+    const loginHead = document.getElementById("loginHead");
+    const signinMobilContainer = document.getElementById(
+        "signinMobileContainer"
+    );
+
+    if (mediaQuery.matches) {
+        signinMobilContainer.appendChild(loginSignUp);
+    } else {
+        loginHead.appendChild(loginSignUp);
+    }
+}
+
+mediaQuery.addListener(moveContainer);
 
 // function getTask() {
 //     let task = localStorage.getItem("task");
