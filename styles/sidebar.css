@@ -1,5 +1,6 @@
 .bgfocus {
     background-color: #091931;
+    pointer-events: none;
 }
 
 .sidebarMainContainer {

@@ -22,9 +22,10 @@
     <script src="js/add_task.js"></script>
     <script src="js/contacts.js"></script>
     <script src="js/contactSection.js"></script>
+    <script src="js/w3.js"></script>
 </head>
 
-<body onload="init(), initBoard()">
+<body onload="initBoard()">
     <div class="mainContainer">
         <div class="w3Sidebar">
             <div w3-include-html="sidebar.html"></div>
@@ -87,21 +88,21 @@
             </div>
         </div>
     </div>
-     <div id="allTaskInformation">
-            <button id="allTaskInformationButton" onclick="closeAllTaskInformation()">x</button>
-            <div id="allTaskInformationCategory"></div>
-            <div id="allTaskInformationTitle"></div>
-            <div id="allTaskInformationDescription"></div>
-            <div id="allTaskInformationPriority"></div>
-            <div id="allTaskInformationDueDate"></div>
-            <div id="allTaskInformationAssignedTo"></div>
-            <div id="allTaskInformationStatus"></div>
-            <div id="allTaskInformationSubtasks"></div>
-            <div class="allTaskInformationLowerButtons">
-                <button id="deleteTaskButton">Delete</button>
-                <button id="editTaskButton">Edit</button>
-                <button id="moveTaskButton">Move</button>
-            </div>
+    <div id="allTaskInformation">
+        <button id="allTaskInformationButton" onclick="closeAllTaskInformation()">x</button>
+        <div id="allTaskInformationCategory"></div>
+        <div id="allTaskInformationTitle"></div>
+        <div id="allTaskInformationDescription"></div>
+        <div id="allTaskInformationPriority"></div>
+        <div id="allTaskInformationDueDate"></div>
+        <div id="allTaskInformationAssignedTo"></div>
+        <div id="allTaskInformationStatus"></div>
+        <div id="allTaskInformationSubtasks"></div>
+        <div class="allTaskInformationLowerButtons">
+            <button id="deleteTaskButton">Delete</button>
+            <button id="editTaskButton">Edit</button>
+            <button id="moveTaskButton">Move</button>
+        </div>
     </div>
     <script src="js/board.js"></script>
 </body>

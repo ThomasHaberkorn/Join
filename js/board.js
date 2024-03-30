@@ -1,5 +1,5 @@
 async function initBoard() {
-    await includeHTML();
+    await includeW3();
     boardActive();
 }
 
@@ -93,57 +93,72 @@ document.addEventListener("DOMContentLoaded", function () {
             <div>Applied to: ${assignedContactInitials}</div>
         `;
 
+        card.addEventListener("dragstart", handleDragStart);
 
-        card.addEventListener('dragstart', handleDragStart);
-        
         function openAllTaskInformation(task) {
-            const allTaskInformation = document.getElementById('allTaskInformation');
-            allTaskInformation.style.display = 'block';
+            const allTaskInformation =
+                document.getElementById("allTaskInformation");
+            allTaskInformation.style.display = "block";
 
             // Setzen Sie den Titel in das allTaskInformationTitle-Element
-            const allTaskInformationTitle = document.getElementById('allTaskInformationTitle');
+            const allTaskInformationTitle = document.getElementById(
+                "allTaskInformationTitle"
+            );
             allTaskInformationTitle.textContent = task.title;
 
             // Setzen Sie die Beschreibung in das allTaskInformationDescription-Element
-            const allTaskInformationDescription = document.getElementById('allTaskInformationDescription');
+            const allTaskInformationDescription = document.getElementById(
+                "allTaskInformationDescription"
+            );
             allTaskInformationDescription.textContent = task.description;
 
             // Setzen Sie die Priorität in das allTaskInformationPriority-Element
-            const allTaskInformationPriority = document.getElementById('allTaskInformationPriority');
+            const allTaskInformationPriority = document.getElementById(
+                "allTaskInformationPriority"
+            );
             allTaskInformationPriority.textContent = task.priority;
 
             // Setzen Sie das Fälligkeitsdatum in das allTaskInformationDueDate-Element
-            const allTaskInformationDueDate = document.getElementById('allTaskInformationDueDate');
+            const allTaskInformationDueDate = document.getElementById(
+                "allTaskInformationDueDate"
+            );
             allTaskInformationDueDate.textContent = task.taskDate;
 
             // Setzen Sie die zugewiesene Person in das allTaskInformationAssignedTo-Element
-            const allTaskInformationAssignedTo = document.getElementById('allTaskInformationAssignedTo');
+            const allTaskInformationAssignedTo = document.getElementById(
+                "allTaskInformationAssignedTo"
+            );
             allTaskInformationAssignedTo.textContent = assignedContactInitials;
 
             // Setzen Sie die Kategorie in das allTaskInformationCategory-Element
-            const allTaskInformationCategory = document.getElementById('allTaskInformationCategory');
+            const allTaskInformationCategory = document.getElementById(
+                "allTaskInformationCategory"
+            );
             allTaskInformationCategory.textContent = task.category;
 
             // Setzen Sie den Status in das allTaskInformationStatus-Element
-            const allTaskInformationStatus = document.getElementById('allTaskInformationStatus');
+            const allTaskInformationStatus = document.getElementById(
+                "allTaskInformationStatus"
+            );
             allTaskInformationStatus.textContent = task.status;
 
             // Setzen Sie die Subtasks in das allTaskInformationSubtasks-Element
-            const allTaskInformationSubtasks = document.getElementById('allTaskInformationSubtasks');
-            allTaskInformationSubtasks.innerHTML = '';
-            task.subtasks.forEach(subtask => {
-            const subtaskElement = document.createElement('li');
-            subtaskElement.textContent = subtask;
-            allTaskInformationSubtasks.appendChild(subtaskElement);
+            const allTaskInformationSubtasks = document.getElementById(
+                "allTaskInformationSubtasks"
+            );
+            allTaskInformationSubtasks.innerHTML = "";
+            task.subtasks.forEach((subtask) => {
+                const subtaskElement = document.createElement("li");
+                subtaskElement.textContent = subtask;
+                allTaskInformationSubtasks.appendChild(subtaskElement);
             });
         }
 
         // Füge einen Event Listener für den Klick auf die Aufgabenkarte hinzu
-        card.addEventListener('click', function() {
+        card.addEventListener("click", function () {
             // Angenommen, 'task' ist die Aufgabe, die die Karte repräsentiert
             openAllTaskInformation(task);
         });
-        
 
         return card;
     }
@@ -223,11 +238,9 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("tasks", JSON.stringify(tasks));
         }
     }
-
 });
 
 function closeAllTaskInformation() {
-    const allTaskInformation = document.getElementById('allTaskInformation');
-    allTaskInformation.style.display = 'none';
+    const allTaskInformation = document.getElementById("allTaskInformation");
+    allTaskInformation.style.display = "none";
 }
-

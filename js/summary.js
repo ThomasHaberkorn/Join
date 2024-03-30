@@ -1,5 +1,5 @@
 async function initSummary() {
-    await includeHTML();
+    await includeW3();
     setDaytime();
     getUserName();
     getTasksAndProcess();
@@ -44,7 +44,7 @@ function getUserName() {
     if (userName) {
         document.getElementById("nameBox").innerHTML = userName;
     } else {
-        document.getElementById("nameBox").textContent = "Guastuser";
+        document.getElementById("nameBox").textContent = "Guast";
     }
 }
 // {
