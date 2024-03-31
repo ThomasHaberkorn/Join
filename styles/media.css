@@ -85,6 +85,7 @@
         width: 100vw !important;
         height: 80px !important;
         display: flex;
+        position: relative !important;
     }
     .summaryContentContainer {
         padding-left: 0;
@@ -404,6 +405,13 @@
     .taskDesc {
         font-size: 16px;
         line-height: 20px;
+    }
+    .sidebarLinkStyle img {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    .sidebarLinkStyle p {
+        font-size: 12px;
     }
 }
 
