@@ -333,7 +333,7 @@
         background-position: 250px 12px;
     }
     .signinPassword {
-        width: 280px;
+        width: 275px;
         background-position: 250px 12px;
     }
     .signupVectorImg {
@@ -412,9 +412,42 @@
     .sidebarLinkStyle p {
         font-size: 12px;
     }
+    .loginInnerContent {
+        margin-top: 170px;
+        transition: 0.4s;
+    }
+    .loginLogoFrame {
+        transform: scale(0.44);
+        margin-top: -20px;
+        transition: 0.4s;
+    }
+    .signinHeadlineh1 {
+        margin-top: 14px;
+        font-size: 44px;
+        line-height: 36.4px;
+        transition: 0.4s;
+    }
+    .signupVectorImg {
+        margin-top: -8px;
+        transition: 0.4s;
+    }
+    .signinCheckBox {
+        margin-top: 12px;
+        margin-bottom: 14px;
+        transition: 0.4s;
+    }
+    .signinInnerContent {
+        height: 495px;
+        margin-top: 140px;
+        transition: 0.4s;
+    }
+    .loginFooter {
+        margin-top: 10px;
+        margin-bottom: 40px;
+    }
 }
 
-@media screen and (max-width: 361px) {
+@media screen and (max-width: 376px) {
     .helpContentContainer {
         height: 650px;
     }

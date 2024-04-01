@@ -58,9 +58,10 @@ body {
         position: absolute;
         top: 170%;
         left: 45%;
-        opacity: 1;
+        opacity: 0;
     }
     1% {
+        opacity: 1;
         animation-delay: 2s;
     }
     100% {
@@ -342,6 +343,7 @@ input[id="loginCheckBoxRememberMe"] {
     margin-top: 10px;
     margin-left: -130px;
     margin-right: 110px;
+    cursor: pointer;
 }
 
 .signinHeadline {
