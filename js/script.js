@@ -1,5 +1,4 @@
 async function init() {
-    // await includeHTML();
     sessionStorageFirstTimeTrue();
     handleCheckboxAndMessage();
     checkMsgBox();
@@ -142,14 +141,17 @@ function login() {
     if (foundUser && password === foundUser.password) {
         // Speichern des Namens im Session Storage
         sessionStorage.setItem("userName", foundUser.name);
-        // sessionStorage.setItem("userId", foundUser.id);
-        // Speichern der ID (falls vorhanden)
 
         // Weiterleiten zur Summary-Seite
         window.location.href = "summary.html";
     } else {
         window.location.href = "index.html?msg=Email oder Passwort falsch";
     }
+}
+
+function guestLogin() {
+    sessionStorage.setItem("userName", "Guest");
+    window.location.href = "summary.html";
 }
 
 const mediaQuery = window.matchMedia("(max-width: 720px)");

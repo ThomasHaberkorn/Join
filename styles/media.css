@@ -323,14 +323,13 @@
     .loginSignUp {
         margin-right: 30px;
         transition: 0.3s;
-        margin-left: -135px;
     }
     .signinInputName {
-        width: 280px;
+        width: 275px;
         background-position: 250px 14px;
     }
     .signinInputMail {
-        width: 280px;
+        width: 275px;
         background-position: 250px 12px;
     }
     .signinPassword {
@@ -467,9 +466,9 @@
         transition: 0.3s;
     }
     .loginInputMail {
-        margin: 16px 10px 16px 10px;
+        margin: 16px 8px 16px 8px;
     }
     .loginPassword {
-        margin: 16px 10px 14px 10px;
+        margin: 16px 8px 14px 8px;
     }
 }
