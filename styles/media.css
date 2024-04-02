@@ -19,6 +19,12 @@
     }
 }
 
+@media (min-width: 1051px) {
+    .summaryWelcomeContainer {
+        display: block;
+    }
+}
+
 @media screen and (max-width: 1050px) {
     .row3,
     .row2,
@@ -29,9 +35,9 @@
         height: 500px;
         margin-right: 20px;
     }
-    .summaryWelcomeContainer {
+    /* .summaryWelcomeContainer {
         display: none;
-    }
+    } */
     .tasksNum {
         margin-top: 5px;
     }
@@ -213,6 +219,9 @@
         margin-top: 10px;
         margin-bottom: 25px;
     }
+    .summaryWelcomeContainer {
+        margin-left: 0px;
+    }
 }
 
 @media (max-width: 555px) {
@@ -305,36 +314,40 @@
 
 @media (max-width: 420px) {
     .loginInnerContent {
-        width: 300px;
+        width: 290px;
     }
     .signinInnerContent {
-        width: 300px;
+        width: 290px;
     }
     .loginInputMail {
-        width: 280px;
-        background-position: 250px 12px;
+        width: 270px;
+        background-position: 240px 12px;
     }
     .loginPassword {
-        width: 280px;
+        width: 270px;
         margin-bottom: 12px;
-        background-position: 250px 12px;
+        background-position: 240px 12px;
     }
 
     .loginSignUp {
         margin-right: 30px;
         transition: 0.3s;
+        margin-top: 24px;
     }
     .signinInputName {
-        width: 275px;
-        background-position: 250px 14px;
+        width: 270px;
+        background-position: 240px 14px;
+        margin: 10px;
     }
     .signinInputMail {
-        width: 275px;
-        background-position: 250px 12px;
+        width: 270px;
+        background-position: 240px 12px;
+        margin: 10px;
     }
     .signinPassword {
-        width: 275px;
-        background-position: 250px 12px;
+        width: 270px;
+        background-position: 240px 12px;
+        margin: 10px;
     }
     .signupVectorImg {
         margin-left: -40px;
@@ -363,6 +376,11 @@
     #msgBox {
         margin-top: 8px;
         margin-bottom: 10px;
+    }
+
+    .loginLogoPlaceholder {
+        width: 120px;
+        height: 150px;
     }
 }
 
@@ -413,11 +431,13 @@
         font-size: 12px;
     }
     .loginInnerContent {
-        margin-top: 170px;
+        margin-top: 70px;
+        transition: 0.4s;
+        height: 420px;
         transition: 0.4s;
     }
     .loginLogoFrame {
-        transform: scale(0.44);
+        transform: scale(0.42);
         margin-top: -20px;
         transition: 0.4s;
     }
@@ -432,18 +452,22 @@
         transition: 0.4s;
     }
     .signinCheckBox {
-        margin-top: 12px;
-        margin-bottom: 14px;
+        margin-top: 10px;
+        margin-bottom: 12px;
         transition: 0.4s;
     }
     .signinInnerContent {
-        height: 495px;
-        margin-top: 140px;
+        height: 490px;
+        margin-top: 110px;
         transition: 0.4s;
     }
     .loginFooter {
         margin-top: 10px;
-        margin-bottom: 40px;
+        height: 30px;
+    }
+    .loginCheckBox {
+        margin-left: 85px;
+        transition: 0.4s;
     }
 }
 
@@ -458,10 +482,10 @@
         gap: 10px;
     }
     .summaryInfoContentContainer {
-        height: 400px;
+        height: 315px;
     }
     .summaryContentContainer {
-        height: 650px;
+        height: 550px;
     }
     .infoContentText1 {
         font-size: 35px;
@@ -481,14 +505,20 @@
     .summaryDoneInfoContainer {
         gap: 10px;
     }
+    .summaryTodoInfoCounter {
+        line-height: 65.8px;
+    }
+    .summaryDoneInfoCounter {
+        line-height: 65.8px;
+    }
     .tasksNum {
-        margin-top: -18px;
+        margin-top: -16px;
         margin-bottom: -24px;
-        font-size: 35px;
+        font-size: 30px;
     }
     .taskDesc {
         font-size: 14px;
-        line-height: 20px;
+        line-height: 16px;
     }
 }
 

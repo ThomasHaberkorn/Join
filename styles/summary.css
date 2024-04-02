@@ -3,6 +3,13 @@ body {
     font-family: sans-serif;
 }
 
+.radius30 {
+    border-radius: 30px;
+}
+
+.shadow {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
 .summaryMainContent {
     width: 100vw;
     height: 100vh;
@@ -214,5 +221,5 @@ body {
     font-weight: 700;
     line-height: 76.8px;
     color: #29abe2;
-    text-align: center;
+    text-align: start;
 }

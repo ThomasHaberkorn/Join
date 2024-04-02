@@ -4,6 +4,12 @@ async function initSummary() {
     getUserName();
     getTasksAndProcess();
     summaryActive();
+    showWelcome();
+    setStorageSession();
+}
+
+function setStorageSession() {
+    sessionStorage.setItem("showWelcome", "true");
 }
 
 function setDaytime() {
@@ -94,3 +100,29 @@ async function getTask() {
 function summaryActive() {
     document.getElementById("sumSidebar").classList.add("bgfocus");
 }
+
+const mediaQuery = window.matchMedia("(max-width: 1050px)");
+// const mediaQuery1051 = window.matchMedia("(max-widht: 1050px)");
+
+function showWelcome() {
+    const welcomeContainer = document.getElementById("summaryWelcomeContainer");
+    const infoContainer = document.getElementById("summaryInfoContainer");
+    const storage = sessionStorage.getItem("showWelcome");
+    // if (mediaQuery1051.matches) {
+    //     welcomeContainer.classList.add("d-none");
+    // }
+    if (storage == null || storage == "false") {
+        if (mediaQuery.matches) {
+            welcomeContainer.classList.remove("d-none");
+            infoContainer.classList.add("d-none");
+            setTimeout(() => {
+                infoContainer.classList.remove("d-none");
+                welcomeContainer.classList.add("d-none");
+            }, 2000);
+        }
+    } else {
+        infoContainer.classList.remove("d-none");
+        welcomeContainer.classList.add("d-none");
+    }
+}
+mediaQuery.addEventListener("change", showWelcome);
