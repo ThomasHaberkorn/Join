@@ -395,4 +395,28 @@ function searchTasks() {
     });
 }
 
-document.getElementById("boardSearchbar").addEventListener("input", searchTasks);
+document.getElementById("searchTask").addEventListener("input", function() {
+    searchTasks();
+});
+
+function searchTasks() {
+    // Hole den aktuellen Wert des Suchfelds und wandele ihn in Kleinbuchstaben um
+    const searchValue = document.getElementById("searchTask").value.toLowerCase();
+
+    // Wähle alle Aufgabenkarten aus
+    const taskCards = document.querySelectorAll(".task-card");
+
+    // Durchlaufe jede Karte und prüfe, ob der Titel oder die Beschreibung den Suchbegriff enthält
+    taskCards.forEach((card) => {
+        // Hole den Text des Titels und der Beschreibung und wandele sie in Kleinbuchstaben um
+        const title = card.querySelector(".task-card-title").textContent.toLowerCase();
+        const description = card.querySelector(".task-card-description").textContent.toLowerCase();
+
+        // Prüfe, ob der Titel oder die Beschreibung den Suchbegriff enthält
+        if (title.includes(searchValue) || description.includes(searchValue)) {
+            card.style.display = ""; // Zeige die Karte an, wenn sie den Suchbegriff enthält
+        } else {
+            card.style.display = "none"; // Verberge die Karte, wenn sie den Suchbegriff nicht enthält
+        }
+    });
+}
