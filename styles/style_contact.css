@@ -3,14 +3,21 @@
     width: 100%;
 }
 
-
+.contentContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .contactlist {
     width: 37%;
-    max-height: calc(100vh - 96px);
+    height: calc(100vh - 81px);
     background-color: white;
     box-shadow: 4px 6px 6px 0px rgb(0, 0, 0, 0.2);
     overflow: scroll;
-    margin: 96px 0 0 0;
+    position: relative;
+    top: 81px;
+    bottom: 81px;
     min-width: 320px;
     max-width: 400px;
     display: flex;
@@ -86,7 +93,7 @@
     flex-direction: row;
     border-radius: 10px;
     cursor: pointer;
-    padding-left: 32px;
+    padding-left: 1rem;
     justify-content: flex-start;
     align-items: center;
 }
@@ -99,7 +106,7 @@
 }
 
 .shortContactLetters {
-    padding-left: 35px;
+    padding-left: 1rem;
     transition: 400ms;
 }
 
@@ -124,11 +131,11 @@
 
 }
 
-.addNewContactButtonSmall{
+.addNewContactButtonSmall {
     display: none;
     position: fixed;
     right: 16px;
-    bottom: 32px;
+    bottom: 112px;
     width: 56px;
     height: 56px;
     background-color: #2a3647;
@@ -140,13 +147,13 @@
     margin-right: 16px;
 }
 
-.addNewContactButtonSmall img{
+.addNewContactButtonSmall img {
     width: 32px;
     height: 32px;
-    
+
 }
 
-.addNewContactButtonSmall:hover{
+.addNewContactButtonSmall:hover {
     background-color: #29abe2;
     transition: 100ms ease-in-out;
 }
@@ -434,7 +441,7 @@
     cursor: pointer;
 }
 
-.contactEditCloseResponse{
+.contactEditCloseResponse {
     display: none;
     width: 32px;
     height: 32px;
@@ -448,12 +455,12 @@
     align-items: center;
 }
 
-.contactEditCloseResponse img{
+.contactEditCloseResponse img {
     width: 13px;
     height: 13px;
 }
 
-.contactEditCloseResponse:active{
+.contactEditCloseResponse:active {
     background-color: #29abe2;
 }
 
@@ -556,24 +563,25 @@
     margin-left: 8px;
 }
 
-.contactFullResponsive{
+.contactFullResponsive {
     bottom: 0;
-    width: 100%;
-    height: 86dvh;
+    height: calc(100% - 81px);
     display: none;
-    justify-content:flex-start;
-    align-items:flex-start;
+    justify-content: flex-start;
+    align-items: flex-start;
     background-color: #f6f7f6;
+    margin-left: 232px;
+    width: calc(100% - 232px);
 }
 
-.headLineContactResponsive{
+.headLineContactResponsive {
     margin-top: 48px;
     margin-left: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items:flex-start;
-    width:100%;
+    align-items: flex-start;
+    width: calc(100% - 17px);
 }
 
 .headLineLeftContactResponsive {
@@ -604,7 +612,7 @@
     margin-top: 16px;
 }
 
-.contactFullResponsiveClose{
+.contactFullResponsiveClose {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -614,20 +622,20 @@
     top: 128px;
 }
 
-.contactFullResponsiveClose img{
+.contactFullResponsiveClose img {
     width: 25px;
     height: 24px;
     margin: 16px;
 }
 
-.contactFullNameResponsive{
+.contactFullNameResponsive {
     font-size: 36px;
     line-height: 43px;
     font-weight: 700;
     margin-left: 20px;
 }
 
-.contactFullUpperSectionResponsive{
+.contactFullUpperSectionResponsive {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -635,7 +643,7 @@
     margin-top: 48px;
 }
 
-.contactInformationHeadlineResponsive{
+.contactInformationHeadlineResponsive {
     font-size: 20px;
     font-weight: 400;
     line-height: 24px;
@@ -643,11 +651,11 @@
 
 }
 
-.editContactButtonSmall{
+.editContactButtonSmall {
     display: flex;
     position: fixed;
     right: 16px;
-    bottom: 32px;
+    bottom: 112px;
     width: 56px;
     height: 56px;
     background-color: #2a3647;
@@ -659,7 +667,7 @@
     margin-right: 16px;
 }
 
-.editContactButtonSmall img{
+.editContactButtonSmall img {
     width: 5px;
     height: 21px;
 }
@@ -675,14 +683,14 @@
     right: -100%;
 }
 
-.contactListShowActive{
+.contactListShowActive {
     background-color: #2a3647;
     color: white;
 }
 
 .contactListShowActive:hover {
     background: #2a3647;
-  }
+}
 
 @keyframes slide-in-right {
     from {
@@ -796,7 +804,7 @@
         line-height: 43px;
         font-weight: 700;
     }
-    
+
     .contactNameEditDelete {
         margin-left: 20px;
     }
@@ -807,7 +815,7 @@
         display: flex;
         flex-direction: column;
         border-radius: 30px;
-        align-items:center;
+        align-items: center;
         justify-content: space-between;
     }
 
@@ -834,15 +842,15 @@
         align-items: center;
         flex-direction: column;
     }
-    
+
     .contactEditFullImage {
         display: flex;
         justify-content: center;
         align-items: center;
         margin: auto;
-        position:fixed;
+        position: fixed;
         top: 37%;
-        aspect-ratio:  1 / 1;
+        aspect-ratio: 1 / 1;
     }
 
     .contactEditRenderDetailsRight {
@@ -866,12 +874,13 @@
     }
 
     .contactEditClose {
-       display: none;
+        display: none;
     }
 
-    .contactEditCloseResponse{
+    .contactEditCloseResponse {
         display: flex;
     }
+
     .contactEditInput {
         border: 1px solid #d1d1d1;
         border-radius: 10px;
@@ -883,12 +892,13 @@
         margin: 13px 21px;
         flex-direction: row;
     }
-    
-    .contactEditSaveDelete{
+
+    .contactEditSaveDelete {
         margin-top: 2rem;
     }
+
     .contactEditLeft img {
-       display: none;
+        display: none;
     }
 
     .contactEditLeft a {
@@ -909,23 +919,26 @@
 }
 
 @media (max-width: 950px) {
-    
-    .contactlist{
+    .contactFullResponsive {
+        display: flex;
+    }
+
+    .contactlist {
         margin-left: 0;
     }
 
     .contactArea {
-        left: 0;
-        width: 100%;
+        width: calc(100% - 232px);
     }
-     .contactBig{
+
+    .contactBig {
         display: none;
     }
 }
 
 @media (max-width: 750px) {
-   
-    .contactArea{
+
+    .contactArea {
         display: flex;
         justify-content: center;
         margin-left: 0;
@@ -936,17 +949,26 @@
         display: none;
     }
 
-    .borderContactButton{
+    .borderContactButton {
         display: none;
     }
 
-    .addNewContactButtonSmall{
+    .addNewContactButtonSmall {
         display: flex;
     }
-    .contactlist{
+
+    .contactlist {
         width: 100%;
         max-width: 650px;
+        height: calc(100vh - 161px);
     }
+
+    .contactFullResponsive{
+        width: 100%;
+        height: calc(100% - 161px);
+        margin-left: 0;
+        bottom: 81px;
+    } 
 }
 
 

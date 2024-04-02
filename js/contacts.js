@@ -131,7 +131,7 @@ let contacts = [
     {
         "color": "#d3d3d3",
         "name": "Sara Sweeny",
-        "email": "sweeny.bussines@gmail.com",
+        "email": "sweeny@gmail.com",
         "phone": "+49 171 3920029",
         "firstLetter": "S",
         "lastLetter":"S",
@@ -141,7 +141,7 @@ let contacts = [
     {
         "color": "#20b2aa",
         "name": "Simone Lammer",
-        "email": "Simone.Lammer@gmail.com",
+        "email": "S.Lammer@gmail.com",
         "phone": "+49 171 3920031",
         "firstLetter": "S",
         "lastLetter":"L",
@@ -150,8 +150,8 @@ let contacts = [
     },
     {
         "color": "#00ff00",
-        "name": "Verona Bricks",
-        "email": "Bricks.consultant@gmail.com",
+        "name": "Verona Bell",
+        "email": "Bell.consultant@gmail.com",
         "phone": "+49 171 3920055",
         "firstLetter": "V",
         "lastLetter":"B",
