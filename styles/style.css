@@ -121,6 +121,7 @@ body {
     left: 45%;
     width: 200px;
     height: 244px;
+    z-index: 99;
     /* margin-left: 77px;
     margin-top: 80px; */
 }

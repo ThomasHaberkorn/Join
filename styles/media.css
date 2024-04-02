@@ -535,3 +535,10 @@
         margin: 16px 8px 14px 8px;
     }
 }
+
+@media (max-height: 750px) {
+    .loginHeadLogo {
+        scale: 0.75;
+        top: -10px !important;
+    }
+}
