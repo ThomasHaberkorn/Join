@@ -25,7 +25,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 439px;
+    width: 100%;
 }
 
 ::-webkit-scrollbar {
@@ -76,10 +76,11 @@
     justify-content: center;
     align-items: center;
     aspect-ratio: 1 / 1;
+    border: white 2px solid;
 }
 
 .shortContactInfo {
-    width: 100%;
+    width: 85%;
     height: 78px;
     display: flex;
     flex-direction: row;
@@ -136,11 +137,18 @@
     align-items: center;
     box-shadow: 0px 4px 4px 0px rgb(0, 0, 0, 0.25);
     cursor: pointer;
+    margin-right: 16px;
 }
 
 .addNewContactButtonSmall img{
     width: 32px;
     height: 32px;
+    
+}
+
+.addNewContactButtonSmall:hover{
+    background-color: #29abe2;
+    transition: 100ms ease-in-out;
 }
 
 .addNewContactButton:hover {
@@ -635,11 +643,46 @@
 
 }
 
+.editContactButtonSmall{
+    display: flex;
+    position: fixed;
+    right: 16px;
+    bottom: 32px;
+    width: 56px;
+    height: 56px;
+    background-color: #2a3647;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 4px 0px rgb(0, 0, 0, 0.25);
+    cursor: pointer;
+    margin-right: 16px;
+}
+
+.editContactButtonSmall img{
+    width: 5px;
+    height: 21px;
+}
+
+.editContactButtonSmall:hover {
+    background-color: #29abe2;
+    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.2);
+}
+
 .slide-in-right {
     animation: slide-in-right 0.5s ease-in-out forwards;
     position: absolute;
     right: -100%;
 }
+
+.contactListShowActive{
+    background-color: #2a3647;
+    color: white;
+}
+
+.contactListShowActive:hover {
+    background: #2a3647;
+  }
 
 @keyframes slide-in-right {
     from {
@@ -701,6 +744,19 @@
     .headLineContact {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .contactFullImage {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 3px white solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 38px;
+        line-height: 45px;
+        font-weight: 500;
     }
 
     .headLineSpaceContact {
@@ -859,14 +915,21 @@
     }
 
     .contactArea {
-        margin: 0;
+        left: 0;
         width: 100%;
+    }
+     .contactBig{
+        display: none;
     }
 }
 
-@media (max-width: 660px) {
-    .contactBig{
-        display: none;
+@media (max-width: 750px) {
+   
+    .contactArea{
+        display: flex;
+        justify-content: center;
+        margin-left: 0;
+        transition: 75ms;
     }
 
     .contactEditDeleteArea {
