@@ -89,7 +89,7 @@
     line-height: 120%;
 }
 
-#boardSearchbarButton {
+#boardAddTaskButton {
     display: flex;
     padding: 8px 16px;
     justify-content: center;
@@ -99,6 +99,7 @@
     border: 1px solid #2A3647;
     background: #2A3647;
     color: white;
+    cursor: pointer;
 }
 
 #boardSearchbarButton p {
@@ -107,6 +108,7 @@
     font-style: normal;
     font-weight: 700;
     line-height: 120%;
+    cursor: pointer;
 }
 
 h1 {
@@ -129,6 +131,7 @@ h1 {
 .boardPlusButton {
     width: 24px;
     height: 24px;
+    cursor: pointer;
 }
 
 h2 {
@@ -325,5 +328,50 @@ section {
     position: absolute; /* Positioniert das Element absolut innerhalb des nächstgelegenen positionierten Elternelements (hier: #allTaskInformation) */
     top: 8px; /* Positioniert das Element am oberen Rand des Elternelements */
     right: 8px; /* Positioniert das Element am rechten Rand des Elternelements */
+    cursor: pointer;
 }
 
+
+#taskEditorModal {
+    display: none;
+    position: fixed;
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#boardAddTask {
+    display: none;
+    position: fixed;
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#boardAddTaskCloseButton {
+    display: flex;
+    padding: 8px 16px;
+    gap: 4px;
+    border-radius: 10px;
+    border: 1px solid #2A3647;
+    background: #2A3647;
+    color: white;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+}
+
+#boardAddTask {
+    overflow: auto;
+}
