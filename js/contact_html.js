@@ -79,11 +79,10 @@ function rendercontactFullResponsive(index) {
     <div class="headLineContactResponsive">
       <div class="contactFullResponsiveClose">
         <div class="headLineLeftContactResponsive">Contacts</div>
-      <img src="./assets/img/Vector.png" onclick="closeContactFullResponsive()">
+        <img src="./assets/img/Vector.png" onclick="closeContactFullResponsive()">
       </div>
       <div class="headLineRightContactResponsive">Better with a team</div>
       <div class="headLineSpaceContactHorizontalResponsive"></div>
-      
       <div class="contactFullUpperSectionResponsive">
         <div class="contactFullImage" id="listContactBigResponsive${index}">${contacts[index]['firstLetter']}${contacts[index]['lastLetter']}</div>
         <div class="contactFullNameResponsive">${contacts[index]['name']}</div>
@@ -100,5 +99,7 @@ function rendercontactFullResponsive(index) {
     </div>
   </div>
 </div>
-    `
+<div class="editContactButtonSmall">
+<img src="./assets/img/more_vert.png">
+</div>`
 }
