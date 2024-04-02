@@ -375,3 +375,7 @@ section {
 #boardAddTask {
     overflow: auto;
 }
+
+#openDropdownEdit{
+    cursor: pointer;
+}
