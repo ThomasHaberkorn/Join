@@ -1,5 +1,5 @@
 async function initAddSidebar() {
-    await includeHTML();
+    await includeW3();
     addTaskActive();
 }
 function addTaskActive() {

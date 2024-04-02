@@ -37,6 +37,13 @@
     }
 }
 
+@media (max-width: 950px) {
+    .signinInnerContent {
+        margin-top: 190px;
+        transition: 0.4s;
+    }
+}
+
 @media screen and (max-width: 900px) {
     .headerHeadline {
         margin-left: 64px !important;
@@ -78,6 +85,7 @@
         width: 100vw !important;
         height: 80px !important;
         display: flex;
+        position: relative !important;
     }
     .summaryContentContainer {
         padding-left: 0;
@@ -127,6 +135,89 @@
     }
     .helpTextarea {
         height: 83.3vh;
+    }
+}
+
+@media (max-width: 720px) {
+    .loginMainContent {
+        height: 926px;
+    }
+    .loginInnerContent {
+        width: 396px;
+        height: 515px;
+    }
+
+    .loginHeadlineh1 {
+        margin-top: 32px;
+        font-size: 47px;
+        line-height: 56.4px;
+    }
+    .signinHeadlineh1 {
+        margin-top: 32px;
+        font-size: 47px;
+        line-height: 56.4px;
+    }
+    .signupVectorImg {
+        margin-left: -50px;
+        margin-right: 40px;
+        transition: 0.3s;
+    }
+    .loginLogo img {
+        width: 128px;
+        height: 154px;
+        transition: 0.4s;
+    }
+    .signinInnerContent {
+        width: 396px;
+        height: 595px;
+    }
+    .loginInputMail {
+        width: 350px;
+        height: 48px;
+        background-position: 300px 12px;
+    }
+    .loginPassword {
+        width: 350px;
+        height: 48px;
+        background-position: 300px 12px;
+        margin-bottom: 30px;
+    }
+    .signinInputName {
+        width: 350px;
+        height: 48px;
+        background-position: 300px 14px;
+    }
+    .signinInputMail {
+        width: 350px;
+        height: 48px;
+        background-position: 300px 12px;
+    }
+    .signinPassword {
+        width: 350px;
+        height: 48px;
+        background-position: 300px 12px;
+    }
+    .loginFooter {
+        height: 190px;
+    }
+    .loginCheckBox {
+        margin-bottom: 20px;
+    }
+    .loginSignUp {
+        position: relative;
+        width: 100%;
+        margin-top: 50px;
+        display: flex;
+    }
+    #msgBox {
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 555px) {
+    .loginSingUpText {
+        width: 146px;
     }
 }
 
@@ -212,6 +303,70 @@
     }
 }
 
+@media (max-width: 420px) {
+    .loginInnerContent {
+        width: 300px;
+    }
+    .signinInnerContent {
+        width: 300px;
+    }
+    .loginInputMail {
+        width: 280px;
+        background-position: 250px 12px;
+    }
+    .loginPassword {
+        width: 280px;
+        margin-bottom: 12px;
+        background-position: 250px 12px;
+    }
+
+    .loginSignUp {
+        margin-right: 30px;
+        transition: 0.3s;
+        margin-left: -135px;
+    }
+    .signinInputName {
+        width: 280px;
+        background-position: 250px 14px;
+    }
+    .signinInputMail {
+        width: 280px;
+        background-position: 250px 12px;
+    }
+    .signinPassword {
+        width: 280px;
+        background-position: 250px 12px;
+    }
+    .signupVectorImg {
+        margin-left: -40px;
+        margin-right: 30px;
+        transition: 0.3s;
+    }
+    .loginButtons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .loginButton {
+        width: 180px;
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+    .guestLoginButton {
+        margin-right: 0;
+        width: 180px;
+        margin-bottom: 10px;
+    }
+
+    .loginCheckBox {
+        margin-bottom: 8px;
+    }
+    #msgBox {
+        margin-top: 8px;
+        margin-bottom: 10px;
+    }
+}
+
 @media screen and (max-width: 400px) {
     .row1,
     .row2,
@@ -250,6 +405,13 @@
     .taskDesc {
         font-size: 16px;
         line-height: 20px;
+    }
+    .sidebarLinkStyle img {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    .sidebarLinkStyle p {
+        font-size: 12px;
     }
 }
 
@@ -295,5 +457,19 @@
     .taskDesc {
         font-size: 14px;
         line-height: 20px;
+    }
+}
+
+@media (max-width: 335px) {
+    .signupVectorImg {
+        margin-left: -20px;
+        margin-right: 15px;
+        transition: 0.3s;
+    }
+    .loginInputMail {
+        margin: 16px 10px 16px 10px;
+    }
+    .loginPassword {
+        margin: 16px 10px 14px 10px;
     }
 }
