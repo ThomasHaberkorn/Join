@@ -50,7 +50,7 @@ function logout() {
 }
 
 /**
- *  dropdown menu close delay
+ *  dropdown menu show and close delay
  */
 let timeout;
 
