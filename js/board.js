@@ -102,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             // Jetzt, wo allTaskInformation definiert ist, kannst du darauf zugreifen und dessen Eigenschaften setzen
             allTaskInformation.dataset.taskId = task.id; // Speichere die ID der Aufgabe
+            
         
             // Zeige den "All Task Information" Bereich an
             allTaskInformation.style.display = 'block';
