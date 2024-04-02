@@ -58,9 +58,10 @@ body {
         position: absolute;
         top: 170%;
         left: 45%;
-        opacity: 1;
+        opacity: 0;
     }
     1% {
+        opacity: 1;
         animation-delay: 2s;
     }
     100% {
@@ -120,6 +121,7 @@ body {
     left: 45%;
     width: 200px;
     height: 244px;
+    z-index: 99;
     /* margin-left: 77px;
     margin-top: 80px; */
 }
@@ -136,7 +138,7 @@ body {
     height: 49px;
     border: none;
     border-radius: 8px;
-    padding: 16px 15px;
+    padding: 16px 14px;
     background-color: #2a3647;
     color: #ffffff;
     font-size: 16px;
@@ -342,6 +344,7 @@ input[id="loginCheckBoxRememberMe"] {
     margin-top: 10px;
     margin-left: -130px;
     margin-right: 110px;
+    cursor: pointer;
 }
 
 .signinHeadline {
