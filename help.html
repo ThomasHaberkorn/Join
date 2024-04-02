@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="styles/media.css">
     <link rel="stylesheet" href="styles/help.css">
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
-    <script src="js/script.js"></script>
+    <!-- <script src="js/script.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/add_task.js"></script>
-    <script src="js/contacts.js"></script>
-    <script src="js/contactSection.js"></script>
+    <script src="js/contacts.js"></script> -->
+    <script src="js/w3.js"></script>
 </head>
 
-<body onload="init()">
+<body onload="includeW3()">
     <div class="helpMainContent">
         <div class="w3Header">
             <div class="w3" w3-include-html="header.html"></div>
@@ -25,8 +25,8 @@
                     <div class="helpTextarea">
                         <div class="headHighlight">
                             <h1 class="helpHeadline">Help</h1>
-                            <div class="helpArrowLeft" id="helpArrowLeft" onclick=""><img src="assets/img/Vector.png"
-                                    alt="Arrow left">
+                            <div class="helpArrowLeft" id="helpArrowLeft" onclick="window.history.back();"><img
+                                    src="assets/img/Vector.png" alt="Arrow left">
                             </div>
                         </div>
                         <p>Welcome to the help page for <span>Join</span>, your guide to using our kanban project

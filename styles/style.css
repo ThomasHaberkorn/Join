@@ -1,3 +1,10 @@
+.bcGray {
+    background-color: gray !important;
+}
+.bcTransp {
+    background-color: transparent;
+}
+
 html {
     font-family: sans-serif;
 }
@@ -31,20 +38,92 @@ body {
     background-color: #f6f7f8;
 }
 
-/* ---  login Head  --- */
+/* @keyframes positionAnimation {
+    0% {
+        position: absolute;
+        width: 1440px;
+        height: 1024px;
+    }
+    100% {
+        position: absolute;
+        width: 177px;
+        height: 208px;
+    }
+} */
+
+@keyframes logoAnimation {
+    0% {
+        transform: scale(1);
+        animation-delay: 1;
+        position: absolute;
+        top: 170%;
+        left: 45%;
+        opacity: 0;
+    }
+    1% {
+        opacity: 1;
+        animation-delay: 2s;
+    }
+    100% {
+        position: absolute;
+        transform: scale(0.5);
+        top: 0;
+        left: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes contentFadeIn {
+    0% {
+        opacity: 0;
+    }
+    80% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.loginLogoFrame {
+    position: absolute;
+    transform: scale(0.5);
+    top: 0 !important;
+    left: 0 !important;
+    opacity: 1;
+}
+
+.transformOpacity {
+    animation: contentFadeIn 3s ease-in-out 0s forwards;
+    animation-delay: 0;
+}
+.transformLogo {
+    animation: logoAnimation 2s ease-in-out forwards;
+    animation-delay: 1s;
+}
 
 .loginHead {
+    position: absolute;
     width: 100%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 63.5px;
 }
 
+.loginLogoPlaceholder {
+    width: 177px;
+    height: 208px;
+}
+
 .loginLogo img {
-    width: 100px;
-    height: 122px;
-    margin-left: 77px;
-    margin-top: 80px;
+    position: absolute;
+    top: 170%;
+    left: 45%;
+    width: 200px;
+    height: 244px;
+    z-index: 99;
+    /* margin-left: 77px;
+    margin-top: 80px; */
 }
 
 .loginSignUp {
@@ -59,7 +138,7 @@ body {
     height: 49px;
     border: none;
     border-radius: 8px;
-    padding: 16px 15px;
+    padding: 16px 14px;
     background-color: #2a3647;
     color: #ffffff;
     font-size: 16px;
@@ -77,7 +156,16 @@ body {
 
 /* --- LOG IN --- innerContent --- */
 
+.loginMiddleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
 .loginInnerContent {
+    margin-top: 275px;
     background-color: white;
     width: 652px;
     height: 493px;
@@ -236,6 +324,7 @@ input[id="loginCheckBoxRememberMe"] {
 /* Sign in Part */
 
 .signinInnerContent {
+    margin-top: 190px;
     background-color: white;
     width: 598px;
     height: 630px;
@@ -243,7 +332,6 @@ input[id="loginCheckBoxRememberMe"] {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -63.5px;
 }
 
 .signupHead {
@@ -256,6 +344,7 @@ input[id="loginCheckBoxRememberMe"] {
     margin-top: 10px;
     margin-left: -130px;
     margin-right: 110px;
+    cursor: pointer;
 }
 
 .signinHeadline {
@@ -390,10 +479,6 @@ input[id="loginCheckBoxRememberMe"] {
     cursor: pointer;
 }
 
-.bcGray {
-    background-color: gray !important;
-}
-
 input[id="signinCheckBoxPrivacyPolicy"] + label {
     display: inline-block;
     width: 16px;
@@ -456,185 +541,4 @@ input[id="signinCheckBoxPrivacyPolicy"] {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-}
-
-/* end comment-Section*/
-
-/* Media Section */
-
-@media (max-width: 950px) {
-    .signinInnerContent {
-        margin-top: 0px;
-        transition: 0.4s;
-    }
-}
-
-@media (max-width: 720px) {
-    .loginMainContent {
-        height: 926px;
-    }
-    .loginInnerContent {
-        width: 396px;
-        height: 515px;
-    }
-
-    .loginHeadlineh1 {
-        margin-top: 32px;
-        font-size: 47px;
-        line-height: 56.4px;
-    }
-    .signinHeadlineh1 {
-        margin-top: 32px;
-        font-size: 47px;
-        line-height: 56.4px;
-    }
-    .signupVectorImg {
-        margin-left: -50px;
-        margin-right: 40px;
-        transition: 0.3s;
-    }
-    .loginLogo img {
-        width: 64px;
-        height: 78px;
-        transition: 0.4s;
-    }
-    .signinInnerContent {
-        width: 396px;
-        height: 595px;
-    }
-    .loginInputMail {
-        width: 350px;
-        height: 48px;
-        background-position: 300px 12px;
-    }
-    .loginPassword {
-        width: 350px;
-        height: 48px;
-        background-position: 300px 12px;
-        margin-bottom: 30px;
-    }
-    .signinInputName {
-        width: 350px;
-        height: 48px;
-        background-position: 300px 14px;
-    }
-    .signinInputMail {
-        width: 350px;
-        height: 48px;
-        background-position: 300px 12px;
-    }
-    .signinPassword {
-        width: 350px;
-        height: 48px;
-        background-position: 300px 12px;
-    }
-    .loginFooter {
-        height: 190px;
-    }
-    .loginCheckBox {
-        margin-bottom: 20px;
-    }
-    .loginSignUp {
-        position: relative;
-        width: 100%;
-        top: 690px;
-        display: flex;
-        margin-right: 140px;
-    }
-    #msgBox {
-        margin-top: 10px;
-        margin-bottom: 25px;
-    }
-}
-
-@media (max-width: 555px) {
-    .loginSingUpText {
-        width: 146px;
-    }
-}
-
-/* @media (max-width: 490px) {
-    .loginSingUpText {
-        margin-top: 80px;
-    }
-    .loginSingUpButton {
-        margin-left: 0;
-        margin-top: 10px;
-        transition: 0.3s;
-    }
-} */
-
-@media (max-width: 420px) {
-    .loginInnerContent {
-        width: 300px;
-    }
-    .signinInnerContent {
-        width: 300px;
-    }
-    .loginInputMail {
-        width: 280px;
-        background-position: 250px 12px;
-    }
-    .loginPassword {
-        width: 280px;
-        margin-bottom: 12px;
-        background-position: 250px 12px;
-    }
-    .loginLogo img {
-        margin-left: 50px;
-        margin-right: 60px;
-    }
-    .loginSignUp {
-        margin-right: 30px;
-        transition: 0.3s;
-        margin-left: -135px;
-    }
-    .signinInputName {
-        width: 280px;
-        background-position: 250px 14px;
-    }
-    .signinInputMail {
-        width: 280px;
-        background-position: 250px 12px;
-    }
-    .signinPassword {
-        width: 280px;
-        background-position: 250px 12px;
-    }
-    .signupVectorImg {
-        margin-left: -40px;
-        margin-right: 30px;
-        transition: 0.3s;
-    }
-    .loginButtons {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .loginButton {
-        width: 180px;
-        margin-right: 0;
-        margin-bottom: 12px;
-    }
-    .guestLoginButton {
-        margin-right: 0;
-        width: 180px;
-        margin-bottom: 10px;
-    }
-
-    .loginCheckBox {
-        margin-bottom: 8px;
-    }
-    #msgBox {
-        margin-top: 8px;
-        margin-bottom: 10px;
-    }
-}
-
-@media (max-width: 330px) {
-    .signupVectorImg {
-        margin-left: -20px;
-        margin-right: 15px;
-        transition: 0.3s;
-    }
 }

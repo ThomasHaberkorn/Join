@@ -1,5 +1,5 @@
 async function initBoard() {
-    await includeHTML();
+    await includeW3();
     boardActive();
 }
 
@@ -93,10 +93,10 @@ document.addEventListener("DOMContentLoaded", function () {
             <div>Applied to: ${assignedContactInitials}</div>
         `;
 
+        card.addEventListener("dragstart", handleDragStart);
 
-        card.addEventListener('dragstart', handleDragStart);
-        
         function openAllTaskInformation(task) {
+
             // Definiere allTaskInformation zuerst, bevor du darauf zugreifst
             const allTaskInformation = document.getElementById('allTaskInformation');
             
@@ -140,16 +140,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 subtaskElement.appendChild(document.createTextNode(subtask));
                 allTaskInformationSubtasks.appendChild(subtaskElement);
                 subtaskElement.style.listStyleType = 'none'; // Remove bullet points
+
             });
         }
         
 
         // Füge einen Event Listener für den Klick auf die Aufgabenkarte hinzu
-        card.addEventListener('click', function() {
+        card.addEventListener("click", function () {
             // Angenommen, 'task' ist die Aufgabe, die die Karte repräsentiert
             openAllTaskInformation(task);
         });
-        
 
         return card;
     }
@@ -229,13 +229,13 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("tasks", JSON.stringify(tasks));
         }
     }
-
 });
 
 function closeAllTaskInformation() {
-    const allTaskInformation = document.getElementById('allTaskInformation');
-    allTaskInformation.style.display = 'none';
+    const allTaskInformation = document.getElementById("allTaskInformation");
+    allTaskInformation.style.display = "none";
 }
+
 
 function deleteTask() {
     const allTaskInformation = document.getElementById('allTaskInformation');
@@ -420,3 +420,4 @@ function searchTasks() {
         }
     });
 }
+
