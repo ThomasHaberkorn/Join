@@ -1,29 +1,38 @@
 async function init() {
-    // await includeHTML();
-    sessionStorageFirstTimeTrue();
+    await sessionStorageFirstTimeTrue();
     handleCheckboxAndMessage();
     checkMsgBox();
     moveContainer();
 }
 
-function sessionStorageFirstTimeTrue() {
+/**
+ * Checks the session storage to see if the page has already been loaded.
+ * The animation is displayed the first time the page is loaded;
+ * no animation is displayed the next time the page is loaded
+ */
+
+async function sessionStorageFirstTimeTrue() {
     let firstLog = sessionStorage.getItem(
         "IsThisFirstTime_Log_From_LiveServer"
     );
     if (firstLog == "false") {
+        document.getElementById("loginHeadLogo").style.opacity = 1;
         document.getElementById("loginHeadLogo").classList.remove("d-none");
         setLogoAnimationDone();
         document
             .getElementById("loginHeadLogo")
             .classList.add("loginLogoFrame");
     } else if (firstLog == null) {
-        // firstLog auf true setzen
-        sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", true);
+        sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", true); // firstLog auf true setzen
     } else if ((firstLog = true)) {
         document.getElementById("loginHeadLogo").classList.remove("d-none");
         setLogoAnimation();
     }
 }
+
+/**
+ * Checks the message box for content. If it is empty, the message box is hidden.
+ */
 
 function checkMsgBox() {
     let mG = document.getElementById("msgBox").innerHTML;
@@ -53,6 +62,10 @@ function toggleLoginSignup() {
     loginSignUp.classList.toggle("d-none");
 }
 
+/**
+ * Sets style classes when the animation is executed.
+ */
+
 function setLogoAnimation() {
     document.getElementById("loginSignUp").classList.add("transformOpacity");
     document
@@ -61,6 +74,10 @@ function setLogoAnimation() {
     document.getElementById("loginHeadLogo").classList.add("transformLogo");
     sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", false);
 }
+
+/**
+ * Remove style classes when the animation has been executed.
+ */
 
 async function setLogoAnimationDone() {
     document.getElementById("loginSignUp").classList.remove("transformOpacity");
@@ -126,31 +143,28 @@ function addUser() {
         "index.html?msg=Du hast dich erfolgreich registriert";
 }
 
-// function hideMsgBox() {
-//     document.getElementById("msgBox").classList.add("d-none");
-// }
-
 function login() {
-    // Verhindert den standardmäßigen Formular-Submit
-    event.preventDefault();
-
+    event.preventDefault(); // Verhindert den standardmäßigen Formular-Submit
     const email = document.getElementById("loginInputMail").value;
     const password = document.getElementById("loginpassword").value;
-
     const foundUser = users.find((user) => user.email === email);
 
     if (foundUser && password === foundUser.password) {
-        // Speichern des Namens im Session Storage
         sessionStorage.setItem("userName", foundUser.name);
-        // sessionStorage.setItem("userId", foundUser.id);
-        // Speichern der ID (falls vorhanden)
-
-        // Weiterleiten zur Summary-Seite
         window.location.href = "summary.html";
     } else {
         window.location.href = "index.html?msg=Email oder Passwort falsch";
     }
 }
+
+function guestLogin() {
+    sessionStorage.setItem("userName", "Guest");
+    window.location.href = "summary.html";
+}
+
+/**
+ * Moves the Sing Up button to the "signinMobileContainer" with a screen width of 720 pixels
+ */
 
 const mediaQuery = window.matchMedia("(max-width: 720px)");
 
@@ -160,133 +174,10 @@ function moveContainer() {
     const signinMobilContainer = document.getElementById(
         "signinMobileContainer"
     );
-
     if (mediaQuery.matches) {
         signinMobilContainer.appendChild(loginSignUp);
     } else {
         loginHead.appendChild(loginSignUp);
     }
 }
-
 mediaQuery.addListener(moveContainer);
-
-// function getTask() {
-//     let task = localStorage.getItem("task");
-//     console.log(task);
-// }
-// function setTimeout() {
-//     // Initialisierung des Dropdown-Menüs
-//     const headerLogoutButton = document.getElementById("headerLogoutButton");
-//     const dropdownMenu = document.getElementById("dropdownMenu");
-
-//     let timeout;
-
-//     headerLogoutButton.addEventListener("mouseover", () => {
-//         clearTimeout(timeout);
-//         dropdownMenu.style.display = "block";
-//     });
-
-//     headerLogoutButton.addEventListener("mouseout", () => {
-//         timeout = setTimeout(() => {
-//             dropdownMenu.style.display = "none";
-//         }, 500); // Verzögerung in Millisekunden
-//     });
-// }
-// let suser = user.find((u) => u.email == mail.value);
-// console.log(suser);
-
-// for (let i = 0; i < users.length; i++) {
-//     const user = users[i];
-
-//     if (mail.value == user["email"] && pass.value == user["password"]) {
-//         window.location.href = "summary.html";
-//     } else {
-//         window.location.href = "index.html?msg=Email oder Passwort falsch";
-//     }
-// }
-// }
-
-// let users = JSON.parse(localStorage.getItem("user")) || []; // Lade vorhandene Nutzer
-
-// function addUser() {
-//   const name = document.getElementById("signinInputName").value;
-//   const email = document.getElementById("signinInputMail").value;
-//   const password = document.getElementById("signinpassword").value;
-
-//   // Validierung für leere Eingaben
-//   if (!name || !email || !password) {
-//     // Fehlermeldung anzeigen
-//     return;
-//   }
-
-//   // Passwort hashen, bevor es gespeichert wird
-//   const hashedPassword = bcryptjs.hashSync(password, 8);
-
-//   users.push({
-//     name,
-//     email,
-//     password: hashedPassword,  // Speichere nur den Hash
-//   });
-
-//   localStorage.setItem("user", JSON.stringify(users));
-
-//   document.getElementById("loginInnerContent").hidden = false;
-//   document.getElementById("signinInnerContent").hidden = true;
-// }
-
-// function login() {
-//   const email = document.getElementById("loginInputMail").value;
-//   const password = document.getElementById("loginpassword").value;
-
-//   const foundUser = users.find((user) => user.email === email);
-
-//   if (foundUser && bcryptjs.compareSync(password, foundUser.password)) {
-//     window.location.href = "summary.html";
-//   } else {
-//     window.location.href = "index.html?msg=Email oder Passwort falsch";
-//   }
-// }
-
-// let users = [];
-
-// function loadUsers(key) {
-//     users.push(JSON.parse(localStorage.getItem(key)));
-// }
-
-// function addUser() {
-//     let name = document.getElementById("signinInputName");
-//     let email = document.getElementById("signinInputMail");
-//     let password = document.getElementById("signinpassword");
-//     users.push({
-//         name: name.value,
-//         email: email.value,
-//         password: password.value,
-//     });
-
-//     loginInnerContent.classList.remove("d-none");
-//     signinInnerContent.classList.add("d-none");
-//     setArray("user", users);
-//     // window.location.href =
-//     //     "index.html?msg=Du hast dich erfolgreich registriert";
-// }
-
-// function setArray(key, array) {
-//     localStorage.setItem(key, JSON.stringify(array));
-// }
-
-// function login() {
-//     let mail = document.getElementById("loginInputMail");
-//     let pass = document.getElementById("loginpassword");
-//     let user = JSON.parse(localStorage.getItem("user"));
-
-//     console.log(user);
-//     for (let i = 0; i < user.length; i++) {
-//         const email = user[i]["email"];
-//         const passw = user[i]["password"];
-//         if (mail.value == email && pass.value == passw) {
-//             window.location.href = "summary.html";
-//             break;
-//         } else {
-//             window.location.href = "index.html?msg=Email oder Passwort falsch";
-//         }
-//     }

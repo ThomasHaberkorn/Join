@@ -16,33 +16,42 @@ async function includeW3() {
     }
 }
 
+/**
+ * links of the sidebar to the respective pages
+ */
+
 function linkToSummary() {
     window.location.href = "summary.html";
 }
 
 function linkToAddTask() {
     window.location.href = "add_task.html";
-    // resetFocus();
-    // document.getElementById("addTasksum").classList.add("bgfocus");
 }
 
 function linkToBoard() {
     window.location.href = "board.html";
-    // resetFocus();
-    document.getElementById("boardSum").classList.add("bgfocus");
 }
 
 function linkToContact() {
     window.location.href = "contacts.html";
-    // resetFocus();
-    document.getElementById("contactSum").classList.add("bgfocus");
 }
+
+function linkToHelp() {
+    window.location.href = "help.html";
+}
+
+/**
+ * deletes the session storage when the user logs out
+ */
 
 function logout() {
     sessionStorage.clear();
-    window.location.href = "index.html"; // oder eine andere Logout-Zielseite
+    window.location.href = "index.html";
 }
 
+/**
+ *  dropdown menu show and close delay
+ */
 let timeout;
 
 function showMenu() {

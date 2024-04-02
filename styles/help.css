@@ -60,6 +60,7 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     height: 90vh;
+    scrollbar-width: none;
 }
 
 span {
