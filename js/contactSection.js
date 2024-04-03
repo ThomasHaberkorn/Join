@@ -1,11 +1,13 @@
 async function initContact() {
+
     await includeW3();
     contactActive();
     showInitials();
+
 }
 
 function contactActive() {
-    document.getElementById("contactSum").classList.add("bgfocus");
+  document.getElementById("contactSum").classList.add("bgfocus");
 }
 
 let uniqueFirstLetters = new Set();
@@ -73,32 +75,32 @@ function removeMark() {
 }
 
 function showContactResponsive(index) {
-    let contactFullResponsive = document.getElementById(
-        "contactFullResponsive"
-    );
-    contactFullResponsive.style.display = "flex";
-    contactFullResponsive.classList.remove("slide-out-left");
-    contactFullResponsive.classList.add("slide-in-left");
-    contactFullResponsive.innerHTML = "";
-    contactFullResponsive.innerHTML += rendercontactFullResponsive(index);
-    document.getElementById(
-        `listContactBigResponsive${index}`
-    ).style.backgroundColor = contacts[index]["color"];
+  let contactFullResponsive = document.getElementById(
+    "contactFullResponsive"
+  );
+  contactFullResponsive.style.display = "flex";
+  contactFullResponsive.classList.remove("slide-out-left");
+  contactFullResponsive.classList.add("slide-in-left");
+  contactFullResponsive.innerHTML = "";
+  contactFullResponsive.innerHTML += rendercontactFullResponsive(index);
+  document.getElementById(
+    `listContactBigResponsive${index}`
+  ).style.backgroundColor = contacts[index]["color"];
 }
 
 function editContact(index) {
-    let contactEdit = document.getElementById("contactEditArea");
-    contactEdit.style.display = "flex";
-    contactEdit.innerHTML = ``;
-    contactEdit.innerHTML += editContactHTML(index);
-    document.getElementById("contactEditName").defaultValue =
-        contacts[index]["name"];
-    document.getElementById("contactEditEmail").defaultValue =
-        contacts[index]["email"];
-    document.getElementById("contactEditPhone").defaultValue =
-        contacts[index]["phone"];
-    document.getElementById(`contactEditImage${index}`).style.backgroundColor =
-        contacts[index]["color"];
+  let contactEdit = document.getElementById("contactEditArea");
+  contactEdit.style.display = "flex";
+  contactEdit.innerHTML = ``;
+  contactEdit.innerHTML += editContactHTML(index);
+  document.getElementById("contactEditName").defaultValue =
+    contacts[index]["name"];
+  document.getElementById("contactEditEmail").defaultValue =
+    contacts[index]["email"];
+  document.getElementById("contactEditPhone").defaultValue =
+    contacts[index]["phone"];
+  document.getElementById(`contactEditImage${index}`).style.backgroundColor =
+    contacts[index]["color"];
 }
 
 function closeEditContact() {
@@ -131,6 +133,16 @@ function hideContactResponsive() {
     }
 }
 
-// Fügen Sie einen Event-Listener hinzu, um die Funktion beim Ändern der
-// Fenstergröße auszuführen
 window.addEventListener("resize", hideContactResponsive);
+
+function popupEditDeleteSmal(index) {
+  let popupContactSmal = document.getElementById('popupContactSmallMenu');
+  popupContactSmal.style.display = "block";
+  popupContactSmal.classList.add(`slide-in-right`);
+  popupContactSmal.innerHTML = ``;
+  popupContactSmal.innerHTML = `
+    <div onclick="editContact(${index})" class="contactEdit"><img class="existContactEdit" src="./assets/img/edit.png"><p>Edit</p></div>
+    <div onclick="deleteContact(${index})" class="contactDelete margin16left"><img class="existContactEdit margin16left" src="./assets/img/delete.png"><p>Delete</p></div>
+  `;
+
+}
