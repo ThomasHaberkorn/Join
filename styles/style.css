@@ -5,6 +5,9 @@
     background-color: transparent;
 }
 
+.focus {
+    border: 1px solid red !important;
+}
 html {
     font-family: sans-serif;
 }
@@ -437,6 +440,10 @@ input[id="loginCheckBoxRememberMe"] {
     transform: translateY(10%);
 }
 
+#my-form {
+    margin-left: 13px;
+    color: #ff8190;
+}
 .signinCheckBox {
     display: flex;
     justify-content: center;

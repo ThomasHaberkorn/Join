@@ -6,6 +6,7 @@ async function initSummary() {
     summaryActive();
     showWelcome();
     setStorageSession();
+    showInitials();
 }
 
 function setStorageSession() {
@@ -66,6 +67,36 @@ let inProgress = 0;
 let awaitFeedback = 0;
 let done = 0;
 let taskInBoard = 0;
+let urgendTask = 0;
+
+// async function getTasksAndProcess() {
+//     await getTask();
+
+//     for (i = 0; i < task.length; i++) {
+//         const cat = task[i];
+//         let status = cat["status"];
+//         if (status == "todo") {
+//             todo++;
+//         } else if (status == "inProgress") {
+//             inProgress++;
+//         } else if (status == "awaitFeedback") {
+//             awaitFeedback++;
+//         } else if (status == "done") {
+//             done++;
+//         }
+//     }
+//     // getUrgendTask(task);
+//     // dates.push(task);
+//     getEarliestDate();
+//     console.log("h1", task);
+//     taskInBoard = todo + inProgress + awaitFeedback + done;
+
+//     document.getElementById("summaryTodoInfoCounter").innerHTML = todo;
+//     document.getElementById("summaryDoneInfoCounter").innerHTML = done;
+//     document.getElementById("tasksInBoardNum").innerHTML = taskInBoard;
+//     document.getElementById("taskInProgressNum").innerHTML = inProgress;
+//     document.getElementById("awaitingFeedbackNum").innerHTML = awaitFeedback;
+// }
 
 async function getTasksAndProcess() {
     await getTask();
@@ -83,7 +114,9 @@ async function getTasksAndProcess() {
             done++;
         }
     }
-
+    getUrgendTask(task);
+    dates.push(task);
+    console.log("dates", dates);
     taskInBoard = todo + inProgress + awaitFeedback + done;
 
     document.getElementById("summaryTodoInfoCounter").innerHTML = todo;
@@ -91,7 +124,146 @@ async function getTasksAndProcess() {
     document.getElementById("tasksInBoardNum").innerHTML = taskInBoard;
     document.getElementById("taskInProgressNum").innerHTML = inProgress;
     document.getElementById("awaitingFeedbackNum").innerHTML = awaitFeedback;
+
+    // Hier fügen Sie das früheste Datum in ein HTML-Element ein
+    const earliestDate = getEarliestDate(task);
+
+    if (earliestDate) {
+        const options = {year: "numeric", month: "long", day: "numeric"};
+        document.getElementById("summaryUrgentTaskNextDate").innerHTML =
+            earliestDate.toLocaleDateString("en-US", options);
+        document.getElementById("summaryUrgentTaskInfo").innerHTML =
+            "Upcoming Deadline";
+    } else {
+        document.getElementById("summaryUrgentTaskNextDate").innerHTML =
+            "No urgent deadlines";
+        document.getElementById("summaryUrgentTaskInfo").innerHTML =
+            "Upcoming Deadline";
+    }
 }
+
+let dates = [];
+
+// function getUrgendTask() {
+//     const urgendDates = task
+//         .filter((t) => t.priority === "high")
+//         .map((t) => t.taskDate)
+//         .sort((a, b) => {
+//             if (a instanceof Date && b instanceof Date) {
+//                 return a.getTime() - b.getTime();
+//             }
+//         });
+//     return urgendDates;
+// }
+
+function getUrgendTask(task) {
+    const taskCount = task.filter((t) => t.priority === "high");
+    document.getElementById("summaryUrgentTaskCount").innerHTML =
+        taskCount.length;
+}
+
+function getEarliestDate(tasks) {
+    const urgentTasks = tasks.filter((t) => t.priority === "high");
+    if (urgentTasks.length > 0) {
+        const earliestDate = new Date(
+            Math.min(
+                ...urgentTasks.map((t) => {
+                    // Überprüfen, ob taskDate im richtigen Format vorliegt
+                    const taskDate = new Date(t.taskDate);
+                    // Überprüfen, ob taskDate ein gültiges Datum ist
+                    if (
+                        Object.prototype.toString.call(taskDate) ===
+                            "[object Date]" &&
+                        !isNaN(taskDate)
+                    ) {
+                        return taskDate;
+                    } else {
+                        console.error("Ungültiges Datum gefunden:", t.taskDate);
+                        return NaN; // Oder einen anderen Wert, der darauf hinweist, dass das Datum ungültig ist
+                    }
+                })
+            )
+        );
+        return earliestDate;
+    }
+    return null;
+}
+
+// function getEarliestDate(tasks) {
+//     const urgentTasks = tasks.filter((t) => t.priority === "high");
+//     if (urgentTasks.length > 0) {
+//         const earliestDate = new Date(
+//             Math.min(...urgentTasks.map((t) => new Date(t)))
+//         );
+//         return earliestDate;
+//     }
+//     return null;
+// }
+// function getUrgendTask() {
+//     const urgendDates = task
+//         .filter((t) => t.priority === "high")
+//         .map((t) => t.taskDate)
+//         .sort((a, b) => {
+//             if (a instanceof Date && b instanceof Date) {
+//                 return a.getTime() - b.getTime();
+//             }
+//         });
+//     return urgendDates;
+// }
+
+// function getUrgendTask(tasks) {
+//     const urgendDates = tasks
+//         .filter((t) => t.priority === "high")
+//         .map((t) => t.taskDate)
+//         .sort((a, b) => {
+//             if (a instanceof Date && b instanceof Date) {
+//                 return a.getTime() - b.getTime();
+//             }
+//         });
+//     console.log("Gefilterte und sortierte dringende Aufgaben:", urgendDates);
+//     return urgendDates;
+// }
+
+// function getUrgendTask(tasks) {
+//     const urgendDates = tasks
+//         .filter((t) => t.priority === "high")
+//         .map((t) => t.taskDate)
+//         .sort((a, b) => {
+//             if (a instanceof Date && b instanceof Date) {
+//                 const yearDiff = a.getFullYear() - b.getFullYear();
+//                 if (yearDiff === 0) {
+//                     const monthDiff = a.getMonth() - b.getMonth();
+//                     if (monthDiff === 0) {
+//                         return a.getDate() - b.getDate();
+//                     }
+//                     return monthDiff;
+//                 }
+//                 return yearDiff;
+//             }
+//         });
+//     console.log("Gefilterte und sortierte dringende Aufgaben:", urgendDates);
+//     return urgendDates;
+// }
+
+// function getUrgendTask() {
+//     for (let i = 0; i < task.length; i++) {
+//         const uTask = task[i];
+//         if (uTask["priority"] == "high") {
+//             urgendTask++;
+//             dates.push(uTask["taskDate"]);
+//         }
+//     }
+//     sortUrgendDates();
+//     console.log("dates", dates);
+// }
+// // let getDates = [];
+
+// function sortUrgendDates() {
+//     dates.sort(function (a, b) {
+//         return a.getTime() - b.getTime();
+//     });
+//     // console.log("gugu", getDates);
+// }
 
 async function getTask() {
     task = JSON.parse(localStorage.getItem("tasks"));
