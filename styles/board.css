@@ -24,7 +24,6 @@
     flex-wrap: nowrap;
     justify-content: space-around;
     min-width: 20%;
-    margin-left: 27px;
 }
 
 .mainContainer {
@@ -34,10 +33,6 @@
     height: 100vh;
 }
 
-#taskBoard {
-    padding-top: 4.9rem;
-}
-
 #boardContainerUpperPart {
     display: flex;
     flex-direction: row;
@@ -45,8 +40,9 @@
     align-content: center;
     align-items: center;
     justify-content: space-between;
-    margin: 50px;
+    margin-bottom: 50px;
     font-size: xx-large;
+    margin-left: 64px;
 }
 
 #boardContainerUpperPartRight {
@@ -72,7 +68,7 @@
     border: none;
     font-size: large;
     outline: none;
-    font-family: Inter;
+    font-family: "Inter", sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -102,7 +98,8 @@
 }
 
 h1 {
-    font-weight: bold;
+    font-size: 61px!important;
+    font-weight: 700!important;
 }
 
 .allTasksHeader {
@@ -146,7 +143,6 @@ h2 {
     flex-wrap: nowrap;
     justify-content: space-around;
     width: 84vw;
-    margin-left: 27px;
     flex-grow: 1; /* Erlaubt dem Board Task Container, den verfügbaren Platz zu füllen */
     overflow-y: auto; /* Fügt bei Bedarf Scrollbalken hinzu */
 }
@@ -168,7 +164,7 @@ section {
 .task-card-title {
     align-self: stretch;
     color: var(--version-2-main-color, #2A3647);
-    font-family: Inter;
+    font-family: "Inter", sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
