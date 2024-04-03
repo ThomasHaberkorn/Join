@@ -99,7 +99,7 @@ function rendercontactFullResponsive(index) {
     </div>
   </div>
 </div>
-<div class="editContactButtonSmall">
+<div class="editContactButtonSmall" onclick="popupEditDeleteSmal(index)">
 <img src="./assets/img/more_vert.png">
 </div>`
 }
