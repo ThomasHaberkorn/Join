@@ -1,6 +1,7 @@
 async function initBoard() {
     await includeW3();
     boardActive();
+    showInitials();
 }
 
 function boardActive() {
@@ -86,9 +87,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="task-card-header">${categoryDiv}</div>
             <div class="task-card-title">${task.title}</div>
             <div class="task-card-description">${task.description}</div>
-            ${subtasksHtml}
             <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar"></div>
+            </div>
             </div>
             <div>Applied to: ${assignedContactInitials}</div>
         `;
@@ -96,54 +97,69 @@ document.addEventListener("DOMContentLoaded", function () {
         card.addEventListener("dragstart", handleDragStart);
 
         function openAllTaskInformation(task) {
-
             // Definiere allTaskInformation zuerst, bevor du darauf zugreifst
-            const allTaskInformation = document.getElementById('allTaskInformation');
-            
+            const allTaskInformation =
+                document.getElementById("allTaskInformation");
+
             // Jetzt, wo allTaskInformation definiert ist, kannst du darauf zugreifen und dessen Eigenschaften setzen
             allTaskInformation.dataset.taskId = task.id; // Speichere die ID der Aufgabe
-        
+
             // Zeige den "All Task Information" Bereich an
-            allTaskInformation.style.display = 'block';
-        
+            allTaskInformation.style.display = "block";
+
             // Setze den Titel, Beschreibung, Priorität, Fälligkeitsdatum, zugewiesene Person, Kategorie, Status und Subtasks
             // basierend auf der übergebenen Aufgabe (task)
-            const allTaskInformationTitle = document.getElementById('allTaskInformationTitle');
+            const allTaskInformationTitle = document.getElementById(
+                "allTaskInformationTitle"
+            );
             allTaskInformationTitle.textContent = task.title;
-        
-            const allTaskInformationDescription = document.getElementById('allTaskInformationDescription');
+
+            const allTaskInformationDescription = document.getElementById(
+                "allTaskInformationDescription"
+            );
             allTaskInformationDescription.textContent = task.description;
-        
-            const allTaskInformationPriority = document.getElementById('allTaskInformationPriority');
+
+            const allTaskInformationPriority = document.getElementById(
+                "allTaskInformationPriority"
+            );
             allTaskInformationPriority.textContent = task.priority;
-        
-            const allTaskInformationDueDate = document.getElementById('allTaskInformationDueDate');
+
+            const allTaskInformationDueDate = document.getElementById(
+                "allTaskInformationDueDate"
+            );
             allTaskInformationDueDate.textContent = task.taskDate;
-        
-            const allTaskInformationAssignedTo = document.getElementById('allTaskInformationAssignedTo');
-            allTaskInformationAssignedTo.textContent = getAssignedContactInitials(task.assignedContacts);
-        
-            const allTaskInformationCategory = document.getElementById('allTaskInformationCategory');
+
+            const allTaskInformationAssignedTo = document.getElementById(
+                "allTaskInformationAssignedTo"
+            );
+            allTaskInformationAssignedTo.textContent =
+                getAssignedContactInitials(task.assignedContacts);
+
+            const allTaskInformationCategory = document.getElementById(
+                "allTaskInformationCategory"
+            );
             allTaskInformationCategory.textContent = task.category;
-        
-            const allTaskInformationStatus = document.getElementById('allTaskInformationStatus');
+
+            const allTaskInformationStatus = document.getElementById(
+                "allTaskInformationStatus"
+            );
             allTaskInformationStatus.textContent = task.status;
-        
-            const allTaskInformationSubtasks = document.getElementById('allTaskInformationSubtasks');
-            allTaskInformationSubtasks.innerHTML = '';
-            task.subtasks.forEach(subtask => {
-                const subtaskElement = document.createElement('li');
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
+
+            const allTaskInformationSubtasks = document.getElementById(
+                "allTaskInformationSubtasks"
+            );
+            allTaskInformationSubtasks.innerHTML = "";
+            task.subtasks.forEach((subtask) => {
+                const subtaskElement = document.createElement("li");
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
                 checkbox.name = subtask;
                 subtaskElement.appendChild(checkbox);
                 subtaskElement.appendChild(document.createTextNode(subtask));
                 allTaskInformationSubtasks.appendChild(subtaskElement);
-                subtaskElement.style.listStyleType = 'none'; // Remove bullet points
-
+                subtaskElement.style.listStyleType = "none"; // Remove bullet points
             });
         }
-        
 
         // Füge einen Event Listener für den Klick auf die Aufgabenkarte hinzu
         card.addEventListener("click", function () {
@@ -236,13 +252,13 @@ function closeAllTaskInformation() {
     allTaskInformation.style.display = "none";
 }
 
-
 function deleteTask() {
-    const allTaskInformation = document.getElementById('allTaskInformation');
+    const allTaskInformation = document.getElementById("allTaskInformation");
     const taskId = allTaskInformation.dataset.taskId; // Hole die gespeicherte ID der Aufgabe
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    const taskIndex = tasks.findIndex(task => task.id === taskId); // Finde die Aufgabe basierend auf der ID
-    if (taskIndex !== -1) { // Wenn die Aufgabe gefunden wurde
+    const taskIndex = tasks.findIndex((task) => task.id === taskId); // Finde die Aufgabe basierend auf der ID
+    if (taskIndex !== -1) {
+        // Wenn die Aufgabe gefunden wurde
         const taskCard = document.getElementById(tasks[taskIndex].id);
         if (taskCard) {
             taskCard.remove(); // Entferne die Karte der Aufgabe aus dem DOM
@@ -253,139 +269,161 @@ function deleteTask() {
     closeAllTaskInformation(); // Schließe den "All Task Information"-Bereich
 }
 
+function closeEditor() {
+    const editTaskInformation = document.getElementById("taskEditorModal");
+    const allTaskInformation = document.getElementById("allTaskInformation");
+    editTaskInformation.style.display = "none";
+    allTaskInformation.style.display = "block";
+}
 
+const editTaskButton = document.getElementById("editTaskButton");
 
+document
+    .getElementById("editTaskButton")
+    .addEventListener("click", function () {
+        const allTaskInformation =
+            document.getElementById("allTaskInformation");
+        const taskEditorModal = document.getElementById("taskEditorModal");
+        allTaskInformation.style.display = "none";
+        taskEditorModal.style.display = "block";
 
+        const taskId = allTaskInformation.dataset.taskId;
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        const task = tasks.find((task) => task.id === taskId);
 
-function closeEditor(){
-    const editTaskInformation = document.getElementById('taskEditorModal');
-    const allTaskInformation = document.getElementById('allTaskInformation');
-    editTaskInformation.style.display = 'none';
-    allTaskInformation.style.display = 'block';
-};
+        if (task) {
+            document.getElementById("editTitle").value = task.title;
+            document.getElementById("editDescription").value = task.description;
+            document.getElementById("editDueDate").value = task.taskDate;
 
-const editTaskButton = document.getElementById('editTaskButton');
+            // Setze die Priorität in der Bearbeitungsansicht entsprechend der Aufgabe
+            const prioritySelect = document.getElementById("editPriority");
+            // Korrigiere die Annahme über die Werte der Optionen im Select-Element
+            prioritySelect.value = task.priority; // Vorausgesetzt die Werte sind 'Low', 'Medium', 'High'
 
-document.getElementById('editTaskButton').addEventListener('click', function() {
-    const allTaskInformation = document.getElementById('allTaskInformation');
-    const taskEditorModal = document.getElementById('taskEditorModal');
-    allTaskInformation.style.display = 'none';
-    taskEditorModal.style.display = 'block';
-
-    const taskId = allTaskInformation.dataset.taskId;
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    const task = tasks.find(task => task.id === taskId);
-
-    if (task) {
-        document.getElementById('editTitle').value = task.title;
-        document.getElementById('editDescription').value = task.description;
-        document.getElementById('editDueDate').value = task.taskDate;
-
-        // Setze die Priorität in der Bearbeitungsansicht entsprechend der Aufgabe
-        const prioritySelect = document.getElementById('editPriority');
-        // Korrigiere die Annahme über die Werte der Optionen im Select-Element
-        prioritySelect.value = task.priority; // Vorausgesetzt die Werte sind 'Low', 'Medium', 'High'
-
-        // Dropdown mit Kontakten dynamisch befüllen
-        const dropdownEdit = document.getElementById('dropDownContactsEdit');
-        dropdownEdit.innerHTML = ''; // Vorhandene Inhalte löschen
-        contacts.forEach(contact => {
-            const isChecked = task.assignedContacts.includes(contact.userID);
-            const checkboxId = `contact-edit-${contact.userID}`;
-            const div = document.createElement('div');
-            div.className = 'checkbox-container';
-            div.innerHTML = `
-                <input type="checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${contact.userID}" ${isChecked ? 'checked' : ''}>
+            // Dropdown mit Kontakten dynamisch befüllen
+            const dropdownEdit = document.getElementById(
+                "dropDownContactsEdit"
+            );
+            dropdownEdit.innerHTML = ""; // Vorhandene Inhalte löschen
+            contacts.forEach((contact) => {
+                const isChecked = task.assignedContacts.includes(
+                    contact.userID
+                );
+                const checkboxId = `contact-edit-${contact.userID}`;
+                const div = document.createElement("div");
+                div.className = "checkbox-container";
+                div.innerHTML = `
+                <input type="checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${
+                    contact.userID
+                }" ${isChecked ? "checked" : ""}>
                 <label for="${checkboxId}">${contact.name}</label>
             `;
-            dropdownEdit.appendChild(div);
-        });
+                dropdownEdit.appendChild(div);
+            });
 
-        // Öffnen/Schließen des Dropdowns mit korrektem Event Handling
-        const openDropdownEdit = document.getElementById('openDropdownEdit');
-        openDropdownEdit.addEventListener('click', function(event) {
-            event.stopPropagation(); // Verhindere, dass das Klick-Event weiter nach oben im DOM propagiert wird
-            dropdownEdit.style.display = dropdownEdit.style.display === 'block' ? 'none' : 'block';
-        });
+            // Öffnen/Schließen des Dropdowns mit korrektem Event Handling
+            const openDropdownEdit =
+                document.getElementById("openDropdownEdit");
+            openDropdownEdit.addEventListener("click", function (event) {
+                event.stopPropagation(); // Verhindere, dass das Klick-Event weiter nach oben im DOM propagiert wird
+                dropdownEdit.style.display =
+                    dropdownEdit.style.display === "block" ? "none" : "block";
+            });
 
-        // Verhindern, dass das Dropdown schließt, wenn innerhalb des Dropdowns geklickt wird
-        dropdownEdit.addEventListener('click', function(event) {
-            event.stopPropagation();
-        });
+            // Verhindern, dass das Dropdown schließt, wenn innerhalb des Dropdowns geklickt wird
+            dropdownEdit.addEventListener("click", function (event) {
+                event.stopPropagation();
+            });
 
-        // Füge einen globalen Event Listener hinzu, um das Dropdown zu schließen, wenn außerhalb geklickt wird
-        document.addEventListener('click', function(event) {
-            if (dropdownEdit.style.display === 'block' && !event.target.matches('#openDropdownEdit')) {
-                dropdownEdit.style.display = 'none';
-            }
-        });
-    }
-});
+            // Füge einen globalen Event Listener hinzu, um das Dropdown zu schließen, wenn außerhalb geklickt wird
+            document.addEventListener("click", function (event) {
+                if (
+                    dropdownEdit.style.display === "block" &&
+                    !event.target.matches("#openDropdownEdit")
+                ) {
+                    dropdownEdit.style.display = "none";
+                }
+            });
+        }
+    });
 
 // Entferne den direkten onclick-Handler von openDropdownEdit, da ein Event Listener hinzugefügt wurde
 
-
 // Annahme, openDropdownEdit ist der Pfeil/das Icon, mit dem das Dropdown geöffnet und geschlossen wird.
-const openDropdownEdit = document.getElementById('openDropdownEdit');
-const dropdownEdit = document.getElementById('dropDownContactsEdit');
+const openDropdownEdit = document.getElementById("openDropdownEdit");
+const dropdownEdit = document.getElementById("dropDownContactsEdit");
 
-openDropdownEdit.addEventListener('click', function(event) {
-    const isDropdownOpen = dropdownEdit.style.display === 'block';
-    dropdownEdit.style.display = isDropdownOpen ? 'none' : 'block';
+openDropdownEdit.addEventListener("click", function (event) {
+    const isDropdownOpen = dropdownEdit.style.display === "block";
+    dropdownEdit.style.display = isDropdownOpen ? "none" : "block";
 
     // Verhindert, dass das Klick-Event weiter nach oben im DOM propagiert wird
     event.stopPropagation();
 });
 
 // Verhindere, dass das Dropdown schließt, wenn innerhalb des Dropdowns geklickt wird
-dropdownEdit.addEventListener('click', function(event) {
+dropdownEdit.addEventListener("click", function (event) {
     event.stopPropagation();
 });
 
-document.getElementById('saveEdit').addEventListener('click', function() {
+document.getElementById("saveEdit").addEventListener("click", function () {
     const taskId = allTaskInformation.dataset.taskId;
-    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const taskIndex = tasks.findIndex(task => task.id === taskId);
-    
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const taskIndex = tasks.findIndex((task) => task.id === taskId);
 
-    if(taskIndex !== -1) {
+    if (taskIndex !== -1) {
         // Aktualisiere die Task im Array
-        tasks[taskIndex].title = document.getElementById('editTitle').value;
-        tasks[taskIndex].description = document.getElementById('editDescription').value;
-        tasks[taskIndex].taskDate = document.getElementById('editDueDate').value;
-        tasks[taskIndex].priority = document.getElementById('editPriority').value;
-        tasks[taskIndex].assignedContacts = Array.from(document.querySelectorAll('#dropDownContactsEdit input[type="checkbox"]:checked')).map(el => el.value);
+        tasks[taskIndex].title = document.getElementById("editTitle").value;
+        tasks[taskIndex].description =
+            document.getElementById("editDescription").value;
+        tasks[taskIndex].taskDate =
+            document.getElementById("editDueDate").value;
+        tasks[taskIndex].priority =
+            document.getElementById("editPriority").value;
+        tasks[taskIndex].assignedContacts = Array.from(
+            document.querySelectorAll(
+                '#dropDownContactsEdit input[type="checkbox"]:checked'
+            )
+        ).map((el) => el.value);
 
-        localStorage.setItem('tasks', JSON.stringify(tasks)); // Speichern des aktualisierten Arrays im Local Storage
+        localStorage.setItem("tasks", JSON.stringify(tasks)); // Speichern des aktualisierten Arrays im Local Storage
 
         closeEditor(); // Schließen des Editors
         // Füge hier eventuell Code hinzu, um die Anzeige zu aktualisieren
     } else {
-        alert('Aufgabe nicht gefunden.');
+        alert("Aufgabe nicht gefunden.");
     }
 });
 
+const boardAddTaskButton = document.getElementById("boardAddTaskButton");
+const boardAddTask = document.getElementById("boardAddTask");
 
-const boardAddTaskButton = document.getElementById('boardAddTaskButton');
-const boardAddTask = document.getElementById('boardAddTask');
-
-boardAddTaskButton.addEventListener('click', function() {
-    boardAddTask.style.display = 'block';
+boardAddTaskButton.addEventListener("click", function () {
+    boardAddTask.style.display = "block";
 });
 
-const boardAddTaskCloseButton = document.getElementById('boardAddTaskCloseButton');
+const boardAddTaskCloseButton = document.getElementById(
+    "boardAddTaskCloseButton"
+);
 
-boardAddTaskCloseButton.addEventListener('click', function() {
-    boardAddTask.style.display = 'none';
+boardAddTaskCloseButton.addEventListener("click", function () {
+    boardAddTask.style.display = "none";
 });
 
 function searchTasks() {
-    const searchValue = document.getElementById("boardSearchbar").value.toLowerCase();
+    const searchValue = document
+        .getElementById("boardSearchbar")
+        .value.toLowerCase();
     const taskCards = document.querySelectorAll(".task-card");
 
     taskCards.forEach((card) => {
-        const title = card.querySelector(".task-card-title").textContent.toLowerCase();
-        const description = card.querySelector(".task-card-description").textContent.toLowerCase();
+        const title = card
+            .querySelector(".task-card-title")
+            .textContent.toLowerCase();
+        const description = card
+            .querySelector(".task-card-description")
+            .textContent.toLowerCase();
 
         if (title.includes(searchValue) || description.includes(searchValue)) {
             card.style.display = "block";
@@ -395,13 +433,15 @@ function searchTasks() {
     });
 }
 
-document.getElementById("searchTask").addEventListener("input", function() {
+document.getElementById("searchTask").addEventListener("input", function () {
     searchTasks();
 });
 
 function searchTasks() {
     // Hole den aktuellen Wert des Suchfelds und wandele ihn in Kleinbuchstaben um
-    const searchValue = document.getElementById("searchTask").value.toLowerCase();
+    const searchValue = document
+        .getElementById("searchTask")
+        .value.toLowerCase();
 
     // Wähle alle Aufgabenkarten aus
     const taskCards = document.querySelectorAll(".task-card");
@@ -409,8 +449,12 @@ function searchTasks() {
     // Durchlaufe jede Karte und prüfe, ob der Titel oder die Beschreibung den Suchbegriff enthält
     taskCards.forEach((card) => {
         // Hole den Text des Titels und der Beschreibung und wandele sie in Kleinbuchstaben um
-        const title = card.querySelector(".task-card-title").textContent.toLowerCase();
-        const description = card.querySelector(".task-card-description").textContent.toLowerCase();
+        const title = card
+            .querySelector(".task-card-title")
+            .textContent.toLowerCase();
+        const description = card
+            .querySelector(".task-card-description")
+            .textContent.toLowerCase();
 
         // Prüfe, ob der Titel oder die Beschreibung den Suchbegriff enthält
         if (title.includes(searchValue) || description.includes(searchValue)) {
@@ -420,4 +464,3 @@ function searchTasks() {
         }
     });
 }
-

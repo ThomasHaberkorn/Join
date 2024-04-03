@@ -310,9 +310,46 @@
         margin-bottom: -13px;
         font-size: 55px;
     }
+    .summaryUrgentBorder {
+        height: 80px;
+    }
+    .summaryUrgentTaskCount {
+        font-size: 55px;
+        line-height: 60px;
+    }
+    .summaryUrgentTaskNextDate {
+        margin-left: 0;
+    }
+    .summaryUrgentTaskInfo {
+        margin-left: 0;
+    }
+    .summaryUrgentTaskDateContainer {
+        width: 60%;
+    }
+    .summaryUrgentTaskCount {
+        margin: 0 5px;
+    }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 450px) {
+    .summaryUrgentTaskCount {
+        font-size: 50px;
+        line-height: 55px;
+    }
+    .summaryUrgentText {
+        font-size: 16px;
+        line-height: 19.2px;
+    }
+    .summaryUrgentTaskNextDate {
+        margin-right: 10px;
+        font-size: 18px;
+    }
+    .summaryUrgentTaskInfo {
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 430px) {
     .loginInnerContent {
         width: 290px;
     }
@@ -384,7 +421,7 @@
     }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 419px) {
     .row1,
     .row2,
     .row3 {
@@ -469,6 +506,25 @@
         margin-left: 85px;
         transition: 0.4s;
     }
+    .summaryUrgentBorder {
+        height: 60px;
+    }
+    .summaryUrgentTaskCount {
+        line-height: 48px;
+    }
+    .summaryUrgentTaskNextDate {
+        font-size: 16px;
+    }
+    .summaryUrgentTaskInfo {
+        font-size: 14px;
+    }
+    .summaryUrgentTaskCount {
+        margin: 0 7px;
+    }
+    .summaryUrgentLogo {
+        width: 50px;
+        height: 50px;
+    }
 }
 
 @media screen and (max-width: 376px) {
@@ -520,6 +576,24 @@
         font-size: 14px;
         line-height: 16px;
     }
+    .summaryUrgentTaskCount {
+        font-size: 35px;
+        line-height: 40px;
+    }
+    .summaryUrgentText {
+        font-size: 14px;
+        line-height: 16px;
+    }
+    .summaryUrgentLogo {
+        width: 40px;
+        height: 40px;
+    }
+    .summaryUrgentTaskNextDate {
+        font-size: 14px;
+    }
+    .summaryUrgentTaskInfo {
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 335px) {
@@ -533,6 +607,12 @@
     }
     .loginPassword {
         margin: 16px 8px 14px 8px;
+    }
+    .summaryUrgentTaskNextDate {
+        font-size: 13px;
+    }
+    .summaryUrgentTaskInfo {
+        font-size: 11px;
     }
 }
 
