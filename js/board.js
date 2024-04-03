@@ -86,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="task-card-header">${categoryDiv}</div>
             <div class="task-card-title">${task.title}</div>
             <div class="task-card-description">${task.description}</div>
-            ${subtasksHtml}
             <div class="progress">
             <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
