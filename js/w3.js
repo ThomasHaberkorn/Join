@@ -1,3 +1,7 @@
+async function initW3() {
+    await includeW3();
+    showInitials();
+}
 /**
  * Includes the Sidebar and the Header to ervery Side
  */
@@ -63,4 +67,10 @@ function hideMenu() {
     timeout = setTimeout(() => {
         dropdownMenu.classList.add("d-none");
     }, 700); // Verzögerung in Millisekunden
+}
+
+function showInitials() {
+    let uName = sessionStorage.getItem("userName");
+    document.getElementById("headerUserProfileInitials").innerHTML =
+        uName.charAt(0);
 }

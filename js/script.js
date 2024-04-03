@@ -121,22 +121,35 @@ function addUser() {
     const name = document.getElementById("signinInputName").value;
     const email = document.getElementById("signinInputMail").value;
     const password = document.getElementById("signinpassword").value;
+    const passwordConfirm = document.getElementById(
+        "signinpasswordConfirm"
+    ).value;
     const existingUser = users.find((user) => user.email === email);
-
+    const confirmPassword = password === passwordConfirm;
     if (existingUser) {
         window.location.href =
             "index.html?msg=E-Mail-Adresse bereits registriert!";
         return;
     }
+    if (!confirmPassword) {
+        checkSignupPasswordConfirm();
+    } else {
+        signupForward();
+    }
+}
+function checkSignupPasswordConfirm() {
+    document.getElementById("signinpasswordConfirm").classList.add("focus");
+    document.getElementById("my-form").innerHTML =
+        "Ups! Your password don't match";
+}
 
+function signupForward() {
     users.push({
         name,
         email,
         password,
     });
-
     localStorage.setItem("user", JSON.stringify(users));
-
     loginInnerContent.classList.remove("d-none");
     signinInnerContent.classList.add("d-none");
     window.location.href =
