@@ -3,11 +3,19 @@
 }
 
 .task-card {
-    border-radius: 8px;
     background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    cursor: grab;
+    align-items: flex-start;
+    gap: 24px;
+    min-width: 170px;
+    padding: 16px;
+    margin-bottom: 16px;
+    margin-top: 8px;
+    align-self: stretch;
+    border-radius: 24px;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
 }
 
 .allTasks {
@@ -17,24 +25,6 @@
     justify-content: space-around;
     min-width: 20%;
     margin-left: 27px;
-}
-
-.task-column {
-    min-width: 20%;
-    max-height: calc(100vh - 232px);
-    background-color: #f4f4f4;
-    border-radius: 4px;
-    padding: 10px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-
-.task-card {
-    margin-bottom: 10px;
-    cursor: grab;
 }
 
 .mainContainer {
@@ -157,6 +147,8 @@ h2 {
     justify-content: space-around;
     width: 84vw;
     margin-left: 27px;
+    flex-grow: 1; /* Erlaubt dem Board Task Container, den verfügbaren Platz zu füllen */
+    overflow-y: auto; /* Fügt bei Bedarf Scrollbalken hinzu */
 }
 
 figure {
@@ -215,21 +207,6 @@ section {
     border-radius: 8px;
 }
 
-.task-card {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-    min-width: 170px;
-    padding: 16px;
-    margin-bottom: 16px;
-    margin-top: 8px;
-    align-self: stretch;
-    border-radius: 24px;
-    background: var(--white, #FFF);
-    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
-}
 
 .emptyBoardTask {
     display: flex;
@@ -244,19 +221,6 @@ section {
     color: var(--icon, #A8A8A8);
     background: #E7E7E7;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
-}
-
-.no-task-message {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-    margin: 20px;
-    background-color: #f4f4f4;
-    color: #888;
-    border-radius: 4px;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
 }
 
 .progress-bar {
@@ -277,14 +241,6 @@ section {
     flex-grow: 1; /* Erlaubt dem Inhaltscontainer, den verfügbaren Platz zu füllen */
 }
 
-.boardTaskContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-grow: 1; /* Erlaubt dem Board Task Container, den verfügbaren Platz zu füllen */
-    overflow-y: auto; /* Fügt bei Bedarf Scrollbalken hinzu */
-}
-
 .task-column {
     min-width: 20%;
     flex-grow: 1; /* Stellt sicher, dass Spalten flexibel den verfügbaren Platz einnehmen */
@@ -293,14 +249,24 @@ section {
     justify-content: flex-start; /* Startet die Anordnung der Elemente von oben */
     overflow-y: auto; /* Fügt bei Bedarf einen Scrollbalken innerhalb der Spalte hinzu */
     margin: 10px; /* Optional: Fügt Abstand zwischen den Spalten hinzu */
-    padding: 10px; /* Beibehalten für Innenabstand */
+    max-height: calc(100vh - 232px);
+    border-radius: 4px;
+    padding: 10px;
 }
 
 .no-task-message {
-    flex-grow: 1; /* Stellt sicher, dass die Nachricht flexibel den verfügbaren Platz einnimmt */
     display: flex;
-    align-items: center;
+    height: 48px;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px dashed var(--icon, #A8A8A8);
+    color: var(--icon, #A8A8A8);
+    background: #E7E7E7;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
 }
 
 
@@ -356,6 +322,7 @@ section {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    overflow: auto;
 }
 
 #boardAddTaskCloseButton {
@@ -370,10 +337,6 @@ section {
     top: 8px;
     right: 8px;
     cursor: pointer;
-}
-
-#boardAddTask {
-    overflow: auto;
 }
 
 #openDropdownEdit{
