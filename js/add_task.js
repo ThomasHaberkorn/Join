@@ -1,6 +1,7 @@
 async function initAddSidebar() {
     await includeW3();
     addTaskActive();
+    showInitials();
 }
 function addTaskActive() {
     document.getElementById("addTasksum").classList.add("bgfocus");
