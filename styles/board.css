@@ -1,7 +1,4 @@
-.task-board {
-    margin-left: 250px;
-    margin-right: 80px;
-}
+
 
 .task-card {
     background-color: #ffffff;
@@ -10,13 +7,14 @@
     cursor: grab;
     align-items: flex-start;
     gap: 24px;
-    min-width: 170px;
     padding: 16px;
     margin-bottom: 16px;
     margin-top: 8px;
     align-self: stretch;
     border-radius: 24px;
     box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+    width: 80%;
+    height: 263px;
 }
 
 .allTasks {
@@ -24,7 +22,7 @@
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-around;
-    min-width: 20%;
+    width: 20%;
 }
 
 .mainContainer {
@@ -42,8 +40,8 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 50px;
+    margin-left: 24px;
     font-size: xx-large;
-    margin-left: 64px;
 }
 
 #boardContainerUpperPartRight {
@@ -95,12 +93,12 @@
     font-style: normal;
     font-weight: 700;
     cursor: pointer;
-    margin-bottom: 0!important;
+    margin-bottom: 0 !important;
 }
 
 h1 {
-    font-size: 61px!important;
-    font-weight: 700!important;
+    font-size: 61px !important;
+    font-weight: 700 !important;
 }
 
 .allTasksHeader {
@@ -144,8 +142,10 @@ h2 {
     flex-wrap: nowrap;
     justify-content: space-around;
     width: 84vw;
-    flex-grow: 1; /* Erlaubt dem Board Task Container, den verfügbaren Platz zu füllen */
-    overflow-y: auto; /* Fügt bei Bedarf Scrollbalken hinzu */
+    flex-grow: 1;
+    /* Erlaubt dem Board Task Container, den verfügbaren Platz zu füllen */
+    overflow-y: auto;
+    /* Fügt bei Bedarf Scrollbalken hinzu */
 }
 
 figure {
@@ -225,35 +225,42 @@ section {
     background-color: #f0f0f0;
     border-radius: 4px;
     overflow: hidden;
-  }
-  
-  .progress-bar {
-    width: 25%;
+}
+
+.progress-bar {
     height: 8px;
     background-color: #4589FF;
     transition: width 0.5s ease-in-out;
-  }
-  
+}
 
-.mainContainer, .contentContainer {
+
+.mainContainer,
+.contentContainer {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Stellt sicher, dass der Hauptcontainer die volle Bildschirmhöhe einnimmt */
+    height: 100vh;
+    /* Stellt sicher, dass der Hauptcontainer die volle Bildschirmhöhe einnimmt */
 }
 
 .contentContainer {
-    flex-grow: 1; /* Erlaubt dem Inhaltscontainer, den verfügbaren Platz zu füllen */
+    height: 100dvh;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 232px;
+    background-color: #f6f7f8;
 }
 
 .task-column {
-    min-width: 20%;
-    flex-grow: 1; /* Stellt sicher, dass Spalten flexibel den verfügbaren Platz einnehmen */
+    width: 100%;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Startet die Anordnung der Elemente von oben */
-    overflow-y: auto; /* Fügt bei Bedarf einen Scrollbalken innerhalb der Spalte hinzu */
-    margin: 10px; /* Optional: Fügt Abstand zwischen den Spalten hinzu */
-    max-height: calc(100vh - 232px);
+    justify-content: flex-start;
+    overflow-y: auto;
+    margin: 10px;
+    height: 100%;
     border-radius: 4px;
     padding: 10px;
 }
@@ -271,34 +278,30 @@ section {
     color: var(--icon, #A8A8A8);
     background: #E7E7E7;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    width: 90%;
 }
 
 
 #allTaskInformation {
     display: none;
     position: fixed;
-    width: 50%;
+    width: 25%;
     height: 50%;
     background-color: white;
     z-index: 1000;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    padding: 60px;
+    border-radius: 24px;
 
 }
 
 #allTaskInformationButton {
-    display: flex;
-    padding: 8px 16px;
-    gap: 4px;
-    border-radius: 10px;
-    border: 1px solid #2A3647;
-    background: #2A3647;
-    color: white;
-    position: absolute; /* Positioniert das Element absolut innerhalb des nächstgelegenen positionierten Elternelements (hier: #allTaskInformation) */
-    top: 8px; /* Positioniert das Element am oberen Rand des Elternelements */
-    right: 8px; /* Positioniert das Element am rechten Rand des Elternelements */
+    background: white;
+    color: black;
     cursor: pointer;
+    border: none;
 }
 
 
@@ -317,8 +320,8 @@ section {
 #boardAddTask {
     display: none;
     position: fixed;
-    width: 50%;
-    height: 50%;
+    width: 70%;
+    height: 80%;
     background-color: white;
     z-index: 1000;
     justify-content: center;
@@ -327,6 +330,7 @@ section {
     left: 50%;
     transform: translate(-50%, -50%);
     overflow: auto;
+    border-radius: 24px;
 }
 
 #boardAddTaskCloseButton {
@@ -343,6 +347,86 @@ section {
     cursor: pointer;
 }
 
-#openDropdownEdit{
+#openDropdownEdit {
     cursor: pointer;
+}
+
+.boardAddTaskContentContainer{
+    width: 100%;
+    height: 100%;
+}
+
+#allTaskInformationInner{
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    white-space: normal;
+    height: 100%;
+    gap: 10px;
+    max-width: 20vw;
+}
+
+.display-flex{
+    display: flex;
+}
+
+.space-between{
+    justify-content: space-between;
+}
+
+#allTaskInformationTitle{
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#allTaskInformationDescription{
+    color: black;
+    font-size: 21px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+#modalDate{
+    display: flex;
+    gap: 25px;
+    width: 348px;
+    height: 19px;
+    margin-bottom: 10px;
+}
+
+#modalDateDueDate{
+    color: rgba(66, 82, 110, 1);
+    font-size: 18px;
+}
+
+#modalPriority{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#modalPriorityText{
+    color: rgba(66, 82, 110, 1);
+    margin-right: 25px;
+    font-size: 18px;
+}
+
+#allTaskInformationPriority{
+    margin-left: 15px;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+#modalAssignedTo{
+    color: rgba(66, 82, 110, 1);
+    font-size: 18px;
+}
+
+#allTaskInformationDueDate{
+    margin-left: 15px;
+    margin-right: 10px;
+    font-size: 18px;
 }

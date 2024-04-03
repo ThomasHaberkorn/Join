@@ -140,7 +140,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 subtaskElement.appendChild(document.createTextNode(subtask));
                 allTaskInformationSubtasks.appendChild(subtaskElement);
                 subtaskElement.style.listStyleType = 'none'; // Remove bullet points
-
             });
         }
         
