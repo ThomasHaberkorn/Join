@@ -108,7 +108,8 @@
             <div id="modalSubtasks"> Subtasks <br> </div>
             <div id="allTaskInformationSubtasks"></div>
             <div class="allTaskInformationLowerButtons">
-                <button class="cursorPointer allTaskInformationLowerButton" id="deleteTaskButton" onclick="deleteTask()">Delete</button>
+                <button class="cursorPointer allTaskInformationLowerButton" id="deleteTaskButton"
+                    onclick="deleteTask()">Delete</button>
                 <button class="cursorPointer allTaskInformationLowerButton" id="editTaskButton">Edit</button>
                 <button class="cursorPointer allTaskInformationLowerButton" id="moveTaskButton">Move</button>
             </div>
@@ -240,6 +241,20 @@
             </section>
             <div id="animation" class="displayNone">Task added to board</div>
         </form>
+    </div>
+
+    <div id="moveOption">
+        <div id="cardoptions">
+                <span id="bigcard-header">Move to</span>
+                <button id="cardOptionsCloseButton">X</button>
+        </div>
+        <div class="options-container">
+            <div class="cursorPointer optionsContainerOption" id="optionsContainerToDo" class="option-point">To Do</div>
+            <div class="cursorPointer optionsContainerOption"  id="optionsContainerInProgress" class="option-point">In Progress</div>
+            <div class="cursorPointer optionsContainerOption" id="optionsContainerAwaitFeedback" class="option-point">Await Feedback</div>
+            <div class="cursorPointer optionsContainerOption" id="optionsContainerDone" class="option-point">Done</div>
+        </div>
+        </div>
     </div>
 
     </div>

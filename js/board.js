@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const allTaskInformationCategory = document.getElementById(
                 "allTaskInformationCategory"
             );
-            
+
             if (task.category === "Technical Task") {
                 allTaskInformationCategory.textContent = "Technical Task";
                 allTaskInformationCategory.className = "category-technical";
@@ -493,4 +493,23 @@ function searchTasks() {
 }
 
 
+const moveTaskButton = document.getElementById("moveTaskButton");
 
+moveTaskButton.addEventListener("click", function () {
+    const moveOption = document.getElementById("moveOption");
+    moveOption.style.display = "block";
+});
+
+const allTaskInformation = document.getElementById("allTaskInformation");
+allTaskInformation.addEventListener("click", function () {
+    allTaskInformation.style.display = "none";
+});
+
+const cardOptionsCloseButton = document.getElementById("cardOptionsCloseButton");
+
+cardOptionsCloseButton.addEventListener("click", function () {
+    const moveOption = document.getElementById("moveOption");
+    const allTaskInformation = document.getElementById("allTaskInformation");
+    moveOption.style.display = "none";
+    allTaskInformation.style.display = "block";
+});

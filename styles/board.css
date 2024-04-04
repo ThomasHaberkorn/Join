@@ -542,6 +542,53 @@ section {
     margin-bottom: 5px;
 }
 
-.contact-name{
-    
+#moveOption{
+    display: none;
+    position: fixed;
+    width: 20%;
+    height: 60%;
+    background-color: white;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 60px;
+    border-radius: 24px;
+}
+
+#cardOptionsCloseButton {
+    background: white;
+    color: black;
+    cursor: pointer;
+    border: none;
+}
+
+#cardoptions{
+    display: flex;
+    justify-content: space-between;
+    min-width: 80%;
+    max-width: 80%;
+}
+
+#bigcard-header{
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#options-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.optionsContainerOption{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;    
+}
+
+.optionsContainerOption:hover{
+    background-color: #f6f7f8;
+    border-radius: 10px;
 }
