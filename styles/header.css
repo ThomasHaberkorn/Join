@@ -10,6 +10,7 @@
     right: 0;
     position: fixed;
     z-index: 5;
+    box-sizing: initial !important;
 }
 
 .headerHeadline {
@@ -50,18 +51,21 @@
     height: 15px;
     color: #29abe2;
     display: inline-block;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 15px;
+    text-align: center;
 }
 
 .dropdownMenu {
     position: absolute;
     width: 150px;
-    top: 90%;
+    top: 125%;
     left: -120px;
     z-index: 1;
     background-color: #2a3647;
     border-radius: 20px 0 20px 20px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    /* display: none; */
 }
 
 .dropdownMenu a {
@@ -83,19 +87,3 @@
     display: block;
     transition: 0.5s;
 }
-
-/*  */
-/* .headerLogoutButton {
-    position: relative;
-    display: inline-block;
-  } */
-/*   
-  .headerUserProfileInitials {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #ccc;
-    text-align: center;
-    line-height: 30px;
-  } */

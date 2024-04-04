@@ -116,7 +116,7 @@
 }
 
 .addNewContactButton {
-    width: 95%;
+    width: 91%;
     height: 56px;
     background-color: #2a3647;
     color: #ffffff;
@@ -667,6 +667,34 @@
     margin-right: 16px;
 }
 
+.dropdownContactSmallMenu {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    top: 163px;
+    right: 56px;
+    z-index: 155;
+    background-color: #2a3647;
+    border-radius: 20px 0 20px 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.dropdownContactSmallMenu a {
+    display: none;
+    padding: 12px 25px;
+    text-decoration: none;
+    color: #cdcdcd;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+}
+
+.dropdownContactSmalMenu a:hover {
+    background-color: #091931;
+    border-radius: 20px;
+}
+
 .editContactButtonSmall img {
     width: 5px;
     height: 21px;
@@ -967,7 +995,7 @@
         width: 100%;
         height: calc(100% - 161px);
         margin-left: 0;
-        bottom: 81px;
+        bottom: 80px;
     } 
 }
 
