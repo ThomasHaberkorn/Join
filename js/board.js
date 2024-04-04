@@ -94,16 +94,24 @@ document.addEventListener("DOMContentLoaded", function () {
             task.assignedContacts
         );
 
-        // Setze den HTML-Inhalt der Aufgabenkarte
+        const totalSubtasks = task.subtasks.length;
+        const completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
+        const progressPercentage = totalSubtasks === 0 ? 0 : (completedSubtasks / totalSubtasks) * 100;
+        const progressHtml = `
+            <div class="subtaskWithProgressBar">
+            <div class="progress" style="background-color: #e0e0e0; border-radius: 2px; margin-top: 10px;">
+                <div class="progress-bar" style="width: ${progressPercentage}%"></div>
+            </div>
+            <div class="subtaskNextToProgressBar";">${completedSubtasks}/${totalSubtasks} Subtasks</div>
+            </div>
+        `;
 
+        // Setze den HTML-Inhalt der Aufgabenkarte
         card.innerHTML = `
             <div class="task-card-header">${categoryDiv}</div>
             <div class="task-card-title">${task.title}</div>
             <div class="task-card-description">${task.description}</div>
-            <div class="progress">
-                <div class="progress-bar"></div>
-            </div>
-            </div>
+            </div>${progressHtml} <!-- Progress-Bar und Subtasks-Anzeige einfügen -->
             <div>Applied to: ${assignedContactInitials}</div>
         `;
 
