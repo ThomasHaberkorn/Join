@@ -159,7 +159,14 @@ document.addEventListener("DOMContentLoaded", function () {
             const allTaskInformationCategory = document.getElementById(
                 "allTaskInformationCategory"
             );
-            allTaskInformationCategory.textContent = task.category;
+            
+            if (task.category === "Technical Task") {
+                allTaskInformationCategory.textContent = "Technical Task";
+                allTaskInformationCategory.className = "category-technical";
+            } else {
+                allTaskInformationCategory.textContent = "User Story";
+                allTaskInformationCategory.className = "category-userstory";
+            }
 
             const allTaskInformationSubtasks = document.getElementById('allTaskInformationSubtasks');
             allTaskInformationSubtasks.innerHTML = '';
