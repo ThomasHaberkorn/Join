@@ -20,6 +20,38 @@ function toggleSubtaskCompletion(taskId, subtaskIndex, completedStatus) {
     }
 }
 
+// Eine Funktion, die die Initialen der zugewiesenen Kontakte basierend auf deren IDs zurückgibt
+function getAssignedContactElements(assignedContactIds) {
+    return assignedContactIds.map((contactId) => {
+        const contact = contacts.find((c) => c.userID === contactId);
+        if (contact) {
+            return `<div class="boardContact">
+                            <div class="item-img" style="background-color: ${contact.color};">
+                                ${contact.firstLetter}${contact.lastLetter}
+                            </div>
+                        </div>`;
+        }
+        return ''; // Für den Fall, dass kein Kontakt gefunden wird
+    }).join('');
+}
+
+function getAssignedContactDisplay(assignedContactIds) {
+    return assignedContactIds.map((contactId) => {
+        const contact = contacts.find((c) => c.userID === contactId);
+        if (contact) {
+            return `
+                    <div class="contact-display" style="padding-left: 15px; margin-top: 10px; display: flex; align-items: center; gap: 15px;">
+                        <div class="contact-avatar" style="background-color: ${contact.color};">
+                            ${contact.firstLetter}${contact.lastLetter}
+                        </div>
+                        <div class="contact-name">${contact.name}</div>
+                    </div>
+                `;
+        }
+        return ''; // Falls kein Kontakt gefunden wird
+    }).join('');
+}
+
 
 // Warte, bis das gesamte HTML-Dokument vollständig geladen ist, bevor der Code ausgeführt wird
 document.addEventListener("DOMContentLoaded", function () {
@@ -29,39 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Lade die Liste der Aufgaben aus dem Local Storage, falls vorhanden, andernfalls setze tasks auf ein leeres Array
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-    // Eine Funktion, die die Initialen der zugewiesenen Kontakte basierend auf deren IDs zurückgibt
-    function getAssignedContactInitials(assignedContactIds) {
-        // Die Funktion erhält als Parameter ein Array von zugewiesenen Kontakt-IDs
-
-        // Die map() Methode wird auf das Array der zugewiesenen Kontakt-IDs angewendet,
-        // um ein neues Array zu erstellen, das die Initialen der Kontakte enthält
-        return assignedContactIds
-            .map((contactId) => {
-                // Für jede Kontakt-ID wird eine Funktion ausgeführt, die die Initialen berechnet
-
-                // Suche den Kontakt in der Kontaktliste anhand seiner ID
-                const contact = contacts.find(
-                    (contact) => contact.userID === contactId
-                );
-                // Die find() Methode wird verwendet, um den Kontakt mit der aktuellen Kontakt-ID zu finden
-
-                // Überprüfe, ob der Kontakt gefunden wurde und einen Namen hat
-                if (contact && contact.name) {
-                    // Wenn ein Kontakt mit der angegebenen ID gefunden wurde und einen Namen hat
-
-                    // Erstelle die Initialen des Kontakts
-                    const initials = contact.name
-                        .split(" ")
-                        .filter((namePart) => namePart.length > 0) // Entferne leere Teile des Namens
-                        .map((namePart) => namePart[0].toUpperCase()) // Wähle den ersten Buchstaben jedes Namens und wandele ihn in Großbuchstaben um
-                        .join(""); // Verbinde die Initialen zu einem einzigen String
-                    return initials; // Gib die Initialen des Kontakts zurück
-                } else {
-                    return "??"; // Wenn der Kontakt nicht gefunden wurde oder keinen Namen hat, gib '??' zurück
-                }
-            })
-            .join(", "); // Verbinde die Initialen aller gefundenen Kontakte zu einem einzigen String und gib sie zurück
-    }
 
     // Eine Funktion, die eine Karte für eine Aufgabe erstellt, basierend auf den Aufgabeninformationen
     function createTaskCard(task) {
@@ -90,9 +89,10 @@ document.addEventListener("DOMContentLoaded", function () {
         subtasksHtml += "</ul>";
 
         // Erfasse die Initialen der zugewiesenen Kontakte
-        const assignedContactInitials = getAssignedContactInitials(
+        const assignedContactElements = getAssignedContactElements(
             task.assignedContacts
         );
+
 
         const totalSubtasks = task.subtasks.length;
         const completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
@@ -112,7 +112,10 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="task-card-title">${task.title}</div>
             <div class="task-card-description">${task.description}</div>
             </div>${progressHtml} <!-- Progress-Bar und Subtasks-Anzeige einfügen -->
-            <div>Applied to: ${assignedContactInitials}</div>
+            <div class="prioAndContact">
+                <div style="display: flex;">${assignedContactElements}</div>
+                <div class="prioritySvg" style="color: #FF3D00;"></div>
+            </div>
         `;
 
         card.addEventListener("dragstart", handleDragStart);
@@ -150,11 +153,8 @@ document.addEventListener("DOMContentLoaded", function () {
             );
             allTaskInformationDueDate.textContent = task.taskDate;
 
-            const allTaskInformationAssignedTo = document.getElementById(
-                "allTaskInformationAssignedTo"
-            );
-            allTaskInformationAssignedTo.textContent =
-                getAssignedContactInitials(task.assignedContacts);
+            const allTaskInformationAssignedTo = document.getElementById("allTaskInformationAssignedTo");
+            allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(task.assignedContacts);
 
             const allTaskInformationCategory = document.getElementById(
                 "allTaskInformationCategory"
@@ -163,6 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const allTaskInformationSubtasks = document.getElementById('allTaskInformationSubtasks');
             allTaskInformationSubtasks.innerHTML = '';
+            allTaskInformationSubtasks.style.listStyle = 'none'; // Add this line to set the list style to none
             task.subtasks.forEach((subtask, index) => {
                 const subtaskElement = document.createElement('li');
                 const checkbox = document.createElement('input');
@@ -336,7 +337,7 @@ document
                 div.innerHTML = `
                 <input class="cursorPointer" type="checkbox" id="${checkboxId} " name="assignedContactsEdit" value="${contact.userID
                     }" ${isChecked ? "checked" : ""}>
-                <label class="cursorPointer" for="${checkboxId}">${contact.name}</label>
+                <label for="${checkboxId}">${contact.name}</label>
             `;
                 dropdownEdit.appendChild(div);
             });
