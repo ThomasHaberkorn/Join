@@ -430,3 +430,10 @@ section {
     margin-right: 10px;
     font-size: 18px;
 }
+
+#modalSubtasks{
+    font-size: 18px;
+    color: rgba(66, 82, 110, 1);
+    width: 348px;
+    margin-top: 5px;
+}

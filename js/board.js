@@ -126,9 +126,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const allTaskInformationCategory = document.getElementById('allTaskInformationCategory');
             allTaskInformationCategory.textContent = task.category;
         
-            const allTaskInformationStatus = document.getElementById('allTaskInformationStatus');
-            allTaskInformationStatus.textContent = task.status;
-        
             const allTaskInformationSubtasks = document.getElementById('allTaskInformationSubtasks');
             allTaskInformationSubtasks.innerHTML = '';
             task.subtasks.forEach(subtask => {
@@ -140,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 subtaskElement.appendChild(document.createTextNode(subtask));
                 allTaskInformationSubtasks.appendChild(subtaskElement);
                 subtaskElement.style.listStyleType = 'none'; // Remove bullet points
+                
             });
         }
         
