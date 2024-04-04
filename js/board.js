@@ -8,6 +8,19 @@ function boardActive() {
     document.getElementById("boardSum").classList.add("bgfocus");
 }
 
+function toggleSubtaskCompletion(taskId, subtaskIndex, completedStatus) {
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    let taskIndex = tasks.findIndex(task => task.id === taskId);
+    if (taskIndex !== -1) {
+        let subtask = tasks[taskIndex].subtasks[subtaskIndex];
+        if (subtask) {
+            subtask.completed = completedStatus; // Aktualisiere den Erledigungsstatus
+            localStorage.setItem('tasks', JSON.stringify(tasks)); // Speichere die aktualisierten Tasks
+        }
+    }
+}
+
+
 // Warte, bis das gesamte HTML-Dokument vollständig geladen ist, bevor der Code ausgeführt wird
 document.addEventListener("DOMContentLoaded", function () {
     // Erfasse alle Spalten für Aufgaben aus dem HTML-Dokument und speichere sie in der Variable taskColumns
@@ -139,40 +152,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 "allTaskInformationCategory"
             );
             allTaskInformationCategory.textContent = task.category;
-<<<<<<< HEAD
-        
+
             const allTaskInformationSubtasks = document.getElementById('allTaskInformationSubtasks');
             allTaskInformationSubtasks.innerHTML = '';
-            task.subtasks.forEach(subtask => {
+            task.subtasks.forEach((subtask, index) => {
                 const subtaskElement = document.createElement('li');
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
-=======
+                checkbox.checked = subtask.completed; // Achte darauf, dass dies korrekt auf das completed-Attribut des Subtask-Objekts zugreift
+                checkbox.dataset.index = index; // Speichere den Index für den Zugriff im Event Listener
 
-            const allTaskInformationStatus = document.getElementById(
-                "allTaskInformationStatus"
-            );
-            allTaskInformationStatus.textContent = task.status;
+                // Event Listener für die Änderungen der Checkbox
+                checkbox.addEventListener('change', function () {
+                    toggleSubtaskCompletion(task.id, index, this.checked);
+                });
 
-            const allTaskInformationSubtasks = document.getElementById(
-                "allTaskInformationSubtasks"
-            );
-            allTaskInformationSubtasks.innerHTML = "";
-            task.subtasks.forEach((subtask) => {
-                const subtaskElement = document.createElement("li");
-                const checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
->>>>>>> c4f97dec7b1d6374a5cb9d4b397ed525f41dd5e4
-                checkbox.name = subtask;
                 subtaskElement.appendChild(checkbox);
-                subtaskElement.appendChild(document.createTextNode(subtask));
+                subtaskElement.appendChild(document.createTextNode(subtask.name));
                 allTaskInformationSubtasks.appendChild(subtaskElement);
-<<<<<<< HEAD
-                subtaskElement.style.listStyleType = 'none'; // Remove bullet points
-                
-=======
-                subtaskElement.style.listStyleType = "none"; // Remove bullet points
->>>>>>> c4f97dec7b1d6374a5cb9d4b397ed525f41dd5e4
             });
         }
 
@@ -329,10 +326,9 @@ document
                 const div = document.createElement("div");
                 div.className = "checkbox-container";
                 div.innerHTML = `
-                <input type="checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${
-                    contact.userID
-                }" ${isChecked ? "checked" : ""}>
-                <label for="${checkboxId}">${contact.name}</label>
+                <input class="cursorPointer" type="checkbox" id="${checkboxId} " name="assignedContactsEdit" value="${contact.userID
+                    }" ${isChecked ? "checked" : ""}>
+                <label class="cursorPointer" for="${checkboxId}">${contact.name}</label>
             `;
                 dropdownEdit.appendChild(div);
             });
@@ -479,3 +475,6 @@ function searchTasks() {
         }
     });
 }
+
+
+

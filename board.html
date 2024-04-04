@@ -108,10 +108,9 @@
             <div id="modalSubtasks"> Subtasks <br> </div>
             <div id="allTaskInformationSubtasks"></div>
             <div class="allTaskInformationLowerButtons">
-
-                <button id="deleteTaskButton" onclick="deleteTask()">Delete</button>
-                <button id="editTaskButton">Edit</button>
-                <button id="moveTaskButton">Move</button>
+                <button class="cursorPointer allTaskInformationLowerButton" id="deleteTaskButton" onclick="deleteTask()">Delete</button>
+                <button class="cursorPointer allTaskInformationLowerButton" id="editTaskButton">Edit</button>
+                <button class="cursorPointer allTaskInformationLowerButton" id="moveTaskButton">Move</button>
             </div>
         </div>
     </div>
@@ -119,8 +118,8 @@
     <div id="taskEditorModal">
         <input id="editTitle" type="text" placeholder="Title">
         <textarea id="editDescription" placeholder="Description"></textarea>
-        <input id="editDueDate" type="date" placeholder="Due Date">
-        <select id="editPriority">
+        <input class="cursorPointer" id="editDueDate" type="date" placeholder="Due Date">
+        <select class="cursorPointer" id="editPriority">
             <option value="">Select Priority</option>
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
@@ -137,8 +136,8 @@
         </div>
 
 
-        <button id="saveEdit">OK</button>
-        <button onclick="closeEditor()">Cancel</button>
+        <button class="cursorPointer" id="saveEdit">OK</button>
+        <button class="cursorPointer" onclick="closeEditor()">Cancel</button>
 
     </div>
 
