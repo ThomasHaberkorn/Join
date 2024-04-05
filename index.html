@@ -46,8 +46,13 @@
                         </div>
                         <form class="loginForm" id="loginForm">
                             <input type="email" class="loginInputMail" id="loginInputMail" placeholder="Email" required>
-                            <input type="password" class="loginPassword" id="loginpassword" placeholder="Password"
-                                required>
+
+                            <div class="PasswCont">
+                                <input type="password" class="inputPassword" id="loPWInput" placeholder="Password"
+                                    required onclick="changeImg('loPW')" onblur="removeFocus('loPW')">
+                                <img src="assets/img/lock.png" alt="" class="passwImg" id="loPW"
+                                    onclick="checkPW('loPW')">
+                            </div>
                         </form>
                         <div class="loginCheckBox">
                             <input type="checkbox" class="loginCheckBoxRememberMe" id="loginCheckBoxRememberMe">
@@ -80,10 +85,20 @@
                             <input type="text" class="signinInputName" id="signinInputName" placeholder="Name" required>
                             <input type="email" class="signinInputMail" id="signinInputMail" placeholder="Email"
                                 required>
-                            <input type="password" class="signinPassword" id="signinpassword" placeholder="Password"
-                                name="signinPassword" required>
-                            <input type="password" class="signinPassword" id="signinpasswordConfirm"
-                                placeholder="Confirm Password" name="signinPassword" required>
+
+                            <div class="PasswCont">
+                                <input type="password" class="signinPassword" id="suPWInput" placeholder="Password"
+                                    required onclick="changeImg('suPW')" onblur="removeFocus('suPW')">
+                                <img src="assets/img/lock.png" alt="" class="suPasswImg" id="suPW"
+                                    onclick="checkPW('suPW')">
+                            </div>
+                            <div class="PasswCont">
+                                <input type="password" class="signinPassword" id="suPWCInput" placeholder="Password"
+                                    required onclick="changeImg('suPWC')" onblur="removeFocus('suPWC')">
+                                <img src="assets/img/lock.png" alt="" class="suPasswImg" id="suPWC"
+                                    onclick="checkPW('suPWC')">
+                            </div>
+
                             <div id="my-form"></div>
                             <div class="signinCheckBox">
                                 <input type="checkbox" class="signinCheckBoxPrivacyPolicy"
