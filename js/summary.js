@@ -21,20 +21,10 @@ function setDaytime() {
 function getDaytime() {
     a = new Date();
     b = a.getHours();
-    c = a.getMinutes();
-    d = a.getSeconds();
-    day = a.getDate();
-    month = a.getMonth();
-    year = a.getYear();
-    if (b < 10) {
-        b = "0" + b;
-    }
-    if (c < 10) {
-        c = "0" + c;
-    }
-    if (d < 10) {
-        d = "0" + d;
-    }
+
+    // if (b < 10) {
+    //     b = "0" + b;
+    // }
 
     if (b >= 0 && b < 11) {
         return "Good morning";
@@ -69,34 +59,7 @@ let done = 0;
 let taskInBoard = 0;
 let urgendTask = 0;
 
-// async function getTasksAndProcess() {
-//     await getTask();
-
-//     for (i = 0; i < task.length; i++) {
-//         const cat = task[i];
-//         let status = cat["status"];
-//         if (status == "todo") {
-//             todo++;
-//         } else if (status == "inProgress") {
-//             inProgress++;
-//         } else if (status == "awaitFeedback") {
-//             awaitFeedback++;
-//         } else if (status == "done") {
-//             done++;
-//         }
-//     }
-//     // getUrgendTask(task);
-//     // dates.push(task);
-//     getEarliestDate();
-//     console.log("h1", task);
-//     taskInBoard = todo + inProgress + awaitFeedback + done;
-
-//     document.getElementById("summaryTodoInfoCounter").innerHTML = todo;
-//     document.getElementById("summaryDoneInfoCounter").innerHTML = done;
-//     document.getElementById("tasksInBoardNum").innerHTML = taskInBoard;
-//     document.getElementById("taskInProgressNum").innerHTML = inProgress;
-//     document.getElementById("awaitingFeedbackNum").innerHTML = awaitFeedback;
-// }
+let dates = [];
 
 async function getTasksAndProcess() {
     await getTask();
@@ -142,20 +105,6 @@ async function getTasksAndProcess() {
     }
 }
 
-let dates = [];
-
-// function getUrgendTask() {
-//     const urgendDates = task
-//         .filter((t) => t.priority === "high")
-//         .map((t) => t.taskDate)
-//         .sort((a, b) => {
-//             if (a instanceof Date && b instanceof Date) {
-//                 return a.getTime() - b.getTime();
-//             }
-//         });
-//     return urgendDates;
-// }
-
 function getUrgendTask(task) {
     const taskCount = task.filter((t) => t.priority === "Urgent");
     document.getElementById("summaryUrgentTaskCount").innerHTML =
@@ -189,82 +138,6 @@ function getEarliestDate(tasks) {
     return null;
 }
 
-// function getEarliestDate(tasks) {
-//     const urgentTasks = tasks.filter((t) => t.priority === "high");
-//     if (urgentTasks.length > 0) {
-//         const earliestDate = new Date(
-//             Math.min(...urgentTasks.map((t) => new Date(t)))
-//         );
-//         return earliestDate;
-//     }
-//     return null;
-// }
-// function getUrgendTask() {
-//     const urgendDates = task
-//         .filter((t) => t.priority === "high")
-//         .map((t) => t.taskDate)
-//         .sort((a, b) => {
-//             if (a instanceof Date && b instanceof Date) {
-//                 return a.getTime() - b.getTime();
-//             }
-//         });
-//     return urgendDates;
-// }
-
-// function getUrgendTask(tasks) {
-//     const urgendDates = tasks
-//         .filter((t) => t.priority === "high")
-//         .map((t) => t.taskDate)
-//         .sort((a, b) => {
-//             if (a instanceof Date && b instanceof Date) {
-//                 return a.getTime() - b.getTime();
-//             }
-//         });
-//     console.log("Gefilterte und sortierte dringende Aufgaben:", urgendDates);
-//     return urgendDates;
-// }
-
-// function getUrgendTask(tasks) {
-//     const urgendDates = tasks
-//         .filter((t) => t.priority === "high")
-//         .map((t) => t.taskDate)
-//         .sort((a, b) => {
-//             if (a instanceof Date && b instanceof Date) {
-//                 const yearDiff = a.getFullYear() - b.getFullYear();
-//                 if (yearDiff === 0) {
-//                     const monthDiff = a.getMonth() - b.getMonth();
-//                     if (monthDiff === 0) {
-//                         return a.getDate() - b.getDate();
-//                     }
-//                     return monthDiff;
-//                 }
-//                 return yearDiff;
-//             }
-//         });
-//     console.log("Gefilterte und sortierte dringende Aufgaben:", urgendDates);
-//     return urgendDates;
-// }
-
-// function getUrgendTask() {
-//     for (let i = 0; i < task.length; i++) {
-//         const uTask = task[i];
-//         if (uTask["priority"] == "high") {
-//             urgendTask++;
-//             dates.push(uTask["taskDate"]);
-//         }
-//     }
-//     sortUrgendDates();
-//     console.log("dates", dates);
-// }
-// // let getDates = [];
-
-// function sortUrgendDates() {
-//     dates.sort(function (a, b) {
-//         return a.getTime() - b.getTime();
-//     });
-//     // console.log("gugu", getDates);
-// }
-
 async function getTask() {
     task = JSON.parse(localStorage.getItem("tasks"));
 }
@@ -274,15 +147,12 @@ function summaryActive() {
 }
 
 const mediaQuery = window.matchMedia("(max-width: 1050px)");
-// const mediaQuery1051 = window.matchMedia("(max-widht: 1050px)");
 
 function showWelcome() {
     const welcomeContainer = document.getElementById("summaryWelcomeContainer");
     const infoContainer = document.getElementById("summaryInfoContainer");
     const storage = sessionStorage.getItem("showWelcome");
-    // if (mediaQuery1051.matches) {
-    //     welcomeContainer.classList.add("d-none");
-    // }
+
     if (storage == null || storage == "false") {
         if (mediaQuery.matches) {
             welcomeContainer.classList.remove("d-none");

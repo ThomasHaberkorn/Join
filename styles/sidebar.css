@@ -74,13 +74,9 @@
     display: flex;
     flex-direction: column;
 }
-.sidebarFooter a {
-    color: #cdcdcd;
-    text-decoration: none;
-    margin-left: 60px;
-}
 
-.sidebarFooter a:hover {
+.sidebarFooterPrivacyPolicyContainer:hover,
+.sidebarFooterLegalNoticeContainer:hover {
     color: #29abe2;
 }
 
@@ -90,11 +86,9 @@
     height: 35px;
     display: flex;
     align-items: center;
-}
-
-.sidebarFooterPrivacyPolicyContainer:active,
-.sidebarFooterLegalNoticeContainer:active {
-    background-color: #091931;
+    color: #cdcdcd;
+    margin-left: 120px;
+    cursor: pointer;
 }
 
 #sidebar {
