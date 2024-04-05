@@ -157,13 +157,13 @@ let dates = [];
 // }
 
 function getUrgendTask(task) {
-    const taskCount = task.filter((t) => t.priority === "high");
+    const taskCount = task.filter((t) => t.priority === "Urgent");
     document.getElementById("summaryUrgentTaskCount").innerHTML =
         taskCount.length;
 }
 
 function getEarliestDate(tasks) {
-    const urgentTasks = tasks.filter((t) => t.priority === "high");
+    const urgentTasks = tasks.filter((t) => t.priority === "Urgent");
     if (urgentTasks.length > 0) {
         const earliestDate = new Date(
             Math.min(
