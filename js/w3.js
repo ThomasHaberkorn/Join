@@ -69,8 +69,15 @@ function hideMenu() {
     }, 700); // Verzögerung in Millisekunden
 }
 
+/**
+ * show initials from first and last name in the header
+ */
+
 function showInitials() {
     let uName = sessionStorage.getItem("userName");
-    document.getElementById("headerUserProfileInitials").innerHTML =
-        uName.charAt(0);
+    let initials = uName
+        .split(" ")
+        .map((n) => n.charAt(0))
+        .join("");
+    document.getElementById("headerUserProfileInitials").innerHTML = initials;
 }
