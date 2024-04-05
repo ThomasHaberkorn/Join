@@ -39,7 +39,7 @@ function renderShowContactHTML(index) {
 
 function editContactHTML(index) {
   return /*HTML*/`
-     <div class="contactEditVisible slide-in-right" id="contactEditVisible">
+     <div class="contactEditVisible slide-in-right " id="contactEditVisible" onclick="event.stopPropagation()">
      <div class="contactEditCloseResponse" onclick="closeEditContact()"><img src="./assets/img/Close-white.png"></div>
       <div class="contactEditLeft">
         <img src="./assets/img/join-logo-white.png">
