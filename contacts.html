@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="styles/summary.css">
 </head>
 
-<body onload="rendercontactList(); hideContactResponsive(); initContact()">
+<body onload="initContact()">
     <div class="mainContainer">
         <div class="w3Sidebar">
             <div w3-include-html="sidebar.html"></div>
@@ -50,7 +50,7 @@
                         <div class="contactFull" id="contactFull"></div>
                     </div>
                 </div>
-                <div class="contactEditArea" id="contactEditArea"></div>
+                <div class="contactEditArea" id="contactEditArea" onclick="closeEditContact()"></div>
                 <div class="contactFullResponsive" id="contactFullResponsive"></div>
                 </div>
             </div>

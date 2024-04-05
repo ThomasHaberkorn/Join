@@ -1,20 +1,24 @@
 async function initContact() {
-
   await includeW3();
   contactActive();
   showInitials();
-
+  hideContactResponsive();
+  renderContactList(); 
+  initContactLS()
 }
 
 function contactActive() {
   document.getElementById("contactSum").classList.add("bgfocus");
 }
 
-let uniqueFirstLetters = new Set();
+
 let previousIndex;
 
-function rendercontactList() {
+function renderContactList() {
   let list = document.getElementById("listArea");
+  list.innerHTML = "";
+  let storedContacts = localStorage.getItem('contacts');
+  let uniqueFirstLetters = new Set();
   contacts.sort((a, b) => a["name"].localeCompare(b["name"]));
   for (i = 0; i < contacts.length; i++) {
     let firstLetter = contacts[i]["name"].charAt(0);
@@ -25,8 +29,7 @@ function rendercontactList() {
           <div class="spaceContactList"></div>`;
     }
     list.innerHTML += rendercontactListHTML(i);
-    document.getElementById(`listContact${i}`).style.backgroundColor =
-      contacts[i]["color"];
+    document.getElementById(`listContact${i}`).style.backgroundColor = contacts[i]["color"];
   }
 }
 
@@ -99,32 +102,6 @@ function editContact(index) {
   document.getElementById(`contactEditImage${index}`).style.backgroundColor = contacts[index]["color"];
 }
 
-function patchEdit(index) {
-  let newName = document.getElementById('contactEditName').value;
-  let newMail = document.getElementById('contactEditEmail').value;
-  let newPhone = document.getElementById('contactEditPhone').value;
-  let updatedContact = {
-    name: newName,
-    email: newMail,
-    phone: newPhone,
-  };
-
-  // Suchen des Kontakts anhand der ID
-  const contactToUpdate = contacts.find((contact) => contact.userID === "20240301");
-
-  // Aktualisieren des Kontakts im Array (falls gefunden)
-  if (contactToUpdate) {
-    Object.assign(contactToUpdate, updatedContact);
-  } else {
-    console.error("Kein Kontakt mit der ID '20240301' gefunden");
-  }
-
-  // Lokalen JSON-Store aktualisieren
-  setItem("contacts", contacts);
-
-  rendercontactList();
-}
-
 function closeEditContact() {
   let contactEditVisible = document.getElementById("contactEditVisible");
   contactEditVisible.classList.add("slide-out-right");
@@ -157,37 +134,59 @@ function hideContactResponsive() {
 
 window.addEventListener("resize", hideContactResponsive);
 
-function showcontactPopupEditDelete() {
+function showContactPopupEditDelete() {
   let popupContactSmal = document.getElementById('contactPopupEditDelete');
-  popupContactSmal.style.display = "block";
+  let popupAuxContainer = document.getElementById('popupAuxContainer');
+  popupAuxContainer.style.display = "block";
+  popupContactSmal.style.display = "flex";
+  popupContactSmal.classList.remove(`slide-out-right-popup`);
   popupContactSmal.classList.add(`slide-in-right-popup`);
 }
 
-function pushJSON() {
-  setItem("contacts", contacts).then((response) => {
-    // Verarbeitung der Serverantwort
-    console.log("Serverantwort:", response);
-  });
+function hideContactPopupEditDelete() {
+  let popupContactSmal = document.getElementById('contactPopupEditDelete');
+  let popupAuxContainer = document.getElementById('popupAuxContainer');
+  popupContactSmal.classList.remove(`slide-in-right-popup`);
+  popupContactSmal.classList.add(`slide-out-right-popup`);
+  setTimeout(() => {
+    popupContactSmal.style.display = "none";
+    popupAuxContainer.style.display = "none";
+  }, 400);
 }
 
-function pullJSON() {
-  getItem("contacts").then((contacts) => {
-    // Verarbeitung der geladenen Kontaktdaten
-    console.log("Geladene Kontakte:", contacts);
-  });
-}
-
-
-/* function patchEdit(index){
+function patchEdit(index) {
+  index = parseInt(index);
+  if (isNaN(index) || index < 0 || index >= contacts.length) {
+    console.error('Invalid index');
+    return;
+  }
   let newName = document.getElementById('contactEditName').value;
   let newMail = document.getElementById('contactEditEmail').value;
   let newPhone = document.getElementById('contactEditPhone').value;
-  console.log(contacts[index][userID])
-  setItem("contacts", (contacts) => {
-    const contactToUpdate = contacts.find((contact) => contact.userID === contacts[index]['userID']);
-    contacts[index]['name'] = newName;
-    contacts[index]['email'] = newMail;
-    contacts[index]['phone'] = newPhone;
-    return contacts;
-  });
-} */
+  const updatedContact = {
+    name: newName,
+    email: newMail,
+    phone: newPhone,
+  };
+  contacts[index] = Object.assign(contacts[index], updatedContact);
+  saveLocalstorage();
+  renderContactList();
+  showContact(index);
+}
+
+function loadLocalstorage() {
+  contacts = JSON.parse(localStorage.getItem('contacts'));
+}
+
+function saveLocalstorage() {
+  let contactsJSON = JSON.stringify(contacts);
+  localStorage.setItem('contacts', contactsJSON);
+}
+function initContactLS() {
+  if (localStorage.getItem('contacts')) {
+      loadLocalstorage();
+  }
+  else {
+      saveLocalstorage();
+  }
+}

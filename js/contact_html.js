@@ -39,7 +39,7 @@ function renderShowContactHTML(index) {
 
 function editContactHTML(index) {
   return /*HTML*/`
-     <div class="contactEditVisible slide-in-right" id="contactEditVisible">
+     <div class="contactEditVisible slide-in-right " id="contactEditVisible" onclick="event.stopPropagation()">
      <div class="contactEditCloseResponse" onclick="closeEditContact()"><img src="./assets/img/Close-white.png"></div>
       <div class="contactEditLeft">
         <img src="./assets/img/join-logo-white.png">
@@ -66,7 +66,7 @@ function editContactHTML(index) {
           </div>
           <div class="contactEditSaveDelete">
             <div class="contactEditDelete dispflex" onclick="">Delete</div>
-            <div class="contactEditSave" onclick="patchEdit('index'); closeEditContact()">Save <img src="./assets/img/check.png"></div>
+            <div class="contactEditSave" onclick="patchEdit(${index}); closeEditContact()">Save <img src="./assets/img/check.png"></div>
         </div>
         </div>  
       </div>
@@ -99,13 +99,14 @@ function rendercontactFullResponsive(index) {
     </div>
   </div>
 </div>
-<div class="editContactButtonSmall" onclick="showcontactPopupEditDelete()">
+<div class="editContactButtonSmall" onclick="showContactPopupEditDelete()">
   <img src="./assets/img/more_vert.png">
 </div>
-<div class="contactPopupEditDelete" id="contactPopupEditDelete">
-  <div onclick="editContact(${index})" class="contactEdit margin16left"><img class="existContactEdit" src="./assets/img/edit.png"><p>Edit</p></div>
-  <div onclick="deleteContact(${index})" class="contactDelete margin16left"><img class="existDeleteEdit" src="./assets/img/delete.png"><p>Delete</p></div>
+<div class="popupAuxContainer" id="popupAuxContainer" onclick="hideContactPopupEditDelete()">
+  <div class="contactPopupEditDelete" id="contactPopupEditDelete">
+    <div onclick="editContact(${index})" class="contactEdit margin16left"><div class="existContactEdit"></div>Edit</div>
+    <div onclick="deleteContact(${index})" class="contactDelete margin16left"><div class="existContactDelete"></div>Delete</div>
+  </div>
 </div>
-
 </div>`
 }
