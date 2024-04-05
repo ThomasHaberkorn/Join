@@ -100,6 +100,11 @@ ol li::before {
     align-self: flex-start; /* Obere Ausrichtung der Nummerierung */
     line-height: 2.2; /* Behebt die vertikale Ausrichtung */
 }
-/* ::marker {
-    content: "";
-} */
+
+.LNoticeMail {
+    text-decoration: none;
+}
+
+ul li {
+    margin-left: -15px;
+}

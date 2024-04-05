@@ -44,6 +44,10 @@ function linkToHelp() {
     window.location.href = "help.html";
 }
 
+function linkToLegalNotice() {
+    window.location.href = "legal_notice.html";
+}
+
 /**
  * deletes the session storage when the user logs out
  */

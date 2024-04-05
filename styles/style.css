@@ -47,23 +47,9 @@ body {
     background-color: #f6f7f8;
 }
 
-/* @keyframes positionAnimation {
-    0% {
-        position: absolute;
-        width: 1440px;
-        height: 1024px;
-    }
-    100% {
-        position: absolute;
-        width: 177px;
-        height: 208px;
-    }
-} */
-
 @keyframes logoAnimation {
     0% {
         transform: scale(1);
-        animation-delay: 1;
         position: absolute;
         top: 170%;
         left: 45%;
@@ -71,7 +57,6 @@ body {
     }
     1% {
         opacity: 1;
-        animation-delay: 2s;
     }
     100% {
         position: absolute;
@@ -131,8 +116,6 @@ body {
     width: 200px;
     height: 244px;
     z-index: 99;
-    /* margin-left: 77px;
-    margin-top: 80px; */
 }
 
 .loginSignUp {
@@ -199,7 +182,6 @@ body {
 
 .loginHeadlineBorder {
     width: 150px;
-
     border-bottom: 3px solid #29abe2;
     border-radius: 8px;
 }
@@ -236,7 +218,6 @@ body {
     height: 48px;
     gap: 8px;
     margin: 16px 16px 44px 16px;
-    /* background-image: url(/assets/img/lock.png); */
     background-repeat: no-repeat;
     background-position: right;
     background-position: 377px 12px;
@@ -258,11 +239,6 @@ body {
     color: #d1d1d1;
     transform: translateY(10%);
 }
-
-/* .loginPassword.focus {
-    background-image: url(/assets/img/passw-hidden.png) !important;
-    cursor: pointer;
-} */
 
 .loginCheckBox {
     margin-left: 55px;
@@ -438,7 +414,6 @@ input[id="loginCheckBoxRememberMe"] {
     width: 422px;
     height: 48px;
     margin: 12px;
-    /* background-image: url(/assets/img/lock.png); */
     background-repeat: no-repeat;
     background-position: right;
     background-position: 377px 12px;
@@ -455,10 +430,6 @@ input[id="loginCheckBoxRememberMe"] {
     width: 24px;
     height: 24px;
 }
-/* .signinPassword.focus {
-    background-image: url(/assets/img/passw-hidden.png);
-    cursor: pointer;
-} */
 
 .signinPassword::placeholder {
     font-size: 20px;

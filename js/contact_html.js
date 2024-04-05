@@ -17,8 +17,8 @@ function renderShowContactHTML(index) {
       <div class="contactNameEditDelete">
         <div class="contactFullName">${contacts[index]['name']}</div>
         <div class="contactEditDeleteArea">
-          <div onclick="editContact(${index})" class="contactEdit"><img class="existContactEdit" src="./assets/img/edit.png"><p>Edit</p></div>
-          <div onclick="deleteContact(${index})" class="contactDelete margin16left"><img class="existContactEdit margin16left" src="./assets/img/delete.png"><p>Delete</p></div>
+          <div onclick="editContact(${index})" class="contactEdit"><div class="existContactEdit"></div>Edit</div>
+          <div onclick="deleteContact(${index})" class="contactDelete margin16left"><div class="existContactDelete margin16left"></div>Delete</div>
         </div>   
       </div>
     </div>
@@ -66,7 +66,7 @@ function editContactHTML(index) {
           </div>
           <div class="contactEditSaveDelete">
             <div class="contactEditDelete dispflex" onclick="">Delete</div>
-            <div class="contactEditSave" onclick="">Save <img src="./assets/img/check.png"></div>
+            <div class="contactEditSave" onclick="patchEdit('index'); closeEditContact()">Save <img src="./assets/img/check.png"></div>
         </div>
         </div>  
       </div>
@@ -99,7 +99,13 @@ function rendercontactFullResponsive(index) {
     </div>
   </div>
 </div>
-<div class="editContactButtonSmall" onclick="popupEditDeleteSmal(index)">
-<img src="./assets/img/more_vert.png">
+<div class="editContactButtonSmall" onclick="showcontactPopupEditDelete()">
+  <img src="./assets/img/more_vert.png">
+</div>
+<div class="contactPopupEditDelete" id="contactPopupEditDelete">
+  <div onclick="editContact(${index})" class="contactEdit margin16left"><img class="existContactEdit" src="./assets/img/edit.png"><p>Edit</p></div>
+  <div onclick="deleteContact(${index})" class="contactDelete margin16left"><img class="existDeleteEdit" src="./assets/img/delete.png"><p>Delete</p></div>
+</div>
+
 </div>`
 }
