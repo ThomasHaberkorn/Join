@@ -35,9 +35,6 @@
         height: 500px;
         margin-right: 20px;
     }
-    /* .summaryWelcomeContainer {
-        display: none;
-    } */
     .tasksNum {
         margin-top: 5px;
     }
@@ -66,7 +63,7 @@
     }
 }
 
-@media (max-height: 780px) {
+@media (max-height: 780px) and (min-width: 780px) {
     .summaryMainContainer {
         margin-top: 55px;
     }
@@ -651,9 +648,32 @@
     }
 }
 
+@media (max-height: 870px) {
+    .summaryHead {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-height: 820px) {
+    .summaryHead {
+        margin-bottom: 20px;
+    }
+    .summaryContentContainer {
+        padding-top: 30px;
+    }
+}
+
 @media (max-height: 750px) {
     .loginHeadLogo {
-        scale: 0.75;
-        top: -10px !important;
+        scale: 0.7;
+    }
+}
+
+@media (max-height: 670px) and (max-width: 380px) {
+    .loginInnerContent {
+        margin-top: 110px;
+    }
+    .loginHeadlineh1 {
+        margin-top: 12px;
     }
 }
