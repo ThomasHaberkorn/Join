@@ -169,16 +169,21 @@ function signupForward(a, b, c) {
     let name = a;
     let email = b;
     let password = c;
+    let userLevel = "user";
     users.push({
         name,
         email,
         password,
+        userLevel,
     });
     localStorage.setItem("user", JSON.stringify(users));
     loginInnerContent.classList.remove("d-none");
     signinInnerContent.classList.add("d-none");
     window.location.href =
         "index.html?msg=Du hast dich erfolgreich registriert";
+    document.getElementById("loginInputMail").value = email;
+    document.getElementById("loPWInput").value = password;
+    document.getElementById("loginCheckBoxRememberMe").checked = true;
 }
 
 /**
@@ -209,6 +214,7 @@ function login() {
             localStorage.setItem("RememberUser", JSON.stringify(currentUser));
         }
         sessionStorage.setItem("userName", foundUser.name);
+        sessionStorage.setItem("userLevel", foundUser.userLevel);
         window.location.href = "summary.html";
     } else {
         window.location.href = "index.html?msg=Email oder Passwort falsch";

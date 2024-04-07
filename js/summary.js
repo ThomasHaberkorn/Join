@@ -1,12 +1,13 @@
 async function initSummary() {
     await includeW3();
+    await getTasksAndProcess();
     setDaytime();
     getUserName();
-    getTasksAndProcess();
     summaryActive();
     showWelcome();
     setStorageSession();
     showInitials();
+    checkLoggedUser();
 }
 
 function setStorageSession() {
@@ -22,10 +23,6 @@ function getDaytime() {
     a = new Date();
     b = a.getHours();
 
-    // if (b < 10) {
-    //     b = "0" + b;
-    // }
-
     if (b >= 0 && b < 11) {
         return "Good morning";
     } else if (b >= 11 && b < 18) {
@@ -36,21 +33,26 @@ function getDaytime() {
 }
 
 function getUserName() {
-    const userName = sessionStorage.getItem("userName");
+    let userName = sessionStorage.getItem("userName");
 
     if (userName) {
+        // Split the username into an array of names
+        let names = userName.split(" ");
+
+        // If there are more than two names, take only the first two
+        if (names.length > 2) {
+            userName = names.slice(0, 2).join(" ");
+        }
+
         document.getElementById("nameBox").innerHTML = userName;
     } else {
-        document.getElementById("nameBox").textContent = "Guast";
+        document.getElementById("nameBox").textContent = "Guest";
     }
 }
-// {
-/* <script>
-    // Abrufen des Namens aus dem Session Storage const userName =
-    sessionStorage.getItem("userName"); // Einfügen des Namens in den
-    HTML-Inhalt document.getElementById("userName").textContent = userName;
-</script>; */
-// }
+
+/**
+ * allocate the tasks to the respective categories
+ */
 let task;
 let todo = 0;
 let inProgress = 0;
@@ -58,39 +60,25 @@ let awaitFeedback = 0;
 let done = 0;
 let taskInBoard = 0;
 let urgendTask = 0;
-
 let dates = [];
 
 async function getTasksAndProcess() {
     await getTask();
-
-    for (i = 0; i < task.length; i++) {
-        const cat = task[i];
-        let status = cat["status"];
-        if (status == "todo") {
-            todo++;
-        } else if (status == "inProgress") {
-            inProgress++;
-        } else if (status == "awaitFeedback") {
-            awaitFeedback++;
-        } else if (status == "done") {
-            done++;
-        }
-    }
+    // await getUserTask();
+    countTasks();
     getUrgendTask(task);
     dates.push(task);
-    console.log("dates", dates);
     taskInBoard = todo + inProgress + awaitFeedback + done;
-
-    document.getElementById("summaryTodoInfoCounter").innerHTML = todo;
-    document.getElementById("summaryDoneInfoCounter").innerHTML = done;
-    document.getElementById("tasksInBoardNum").innerHTML = taskInBoard;
-    document.getElementById("taskInProgressNum").innerHTML = inProgress;
-    document.getElementById("awaitingFeedbackNum").innerHTML = awaitFeedback;
-
-    // Hier fügen Sie das früheste Datum in ein HTML-Element ein
+    allocateTasks();
     const earliestDate = getEarliestDate(task);
+    allocateEarliestDate(earliestDate);
+}
 
+/**
+ * allocate the earliest date of the urgent task
+ */
+
+function allocateEarliestDate(earliestDate) {
     if (earliestDate) {
         const options = {year: "numeric", month: "long", day: "numeric"};
         document.getElementById("summaryUrgentTaskNextDate").innerHTML =
@@ -105,12 +93,48 @@ async function getTasksAndProcess() {
     }
 }
 
+/**
+ * allocate the tasks to the respective categories
+ */
+function allocateTasks() {
+    document.getElementById("summaryTodoInfoCounter").innerHTML = todo;
+    document.getElementById("summaryDoneInfoCounter").innerHTML = done;
+    document.getElementById("tasksInBoardNum").innerHTML = taskInBoard;
+    document.getElementById("taskInProgressNum").innerHTML = inProgress;
+    document.getElementById("awaitingFeedbackNum").innerHTML = awaitFeedback;
+}
+
+/**
+ * count the tasks in the respective categories
+ */
+function countTasks() {
+    for (i = 0; i < task.length; i++) {
+        const cat = task[i];
+        let status = cat["status"];
+        if (status == "todo") {
+            todo++;
+        } else if (status == "inProgress") {
+            inProgress++;
+        } else if (status == "awaitFeedback") {
+            awaitFeedback++;
+        } else if (status == "done") {
+            done++;
+        }
+    }
+}
+
+/**
+ * count the urgent tasks from the task array
+ */
 function getUrgendTask(task) {
     const taskCount = task.filter((t) => t.priority === "Urgent");
     document.getElementById("summaryUrgentTaskCount").innerHTML =
         taskCount.length;
 }
 
+/**
+ * check valid date and return the earliest date of the urgent tasks
+ */
 function getEarliestDate(tasks) {
     const urgentTasks = tasks.filter((t) => t.priority === "Urgent");
     if (urgentTasks.length > 0) {
@@ -138,14 +162,34 @@ function getEarliestDate(tasks) {
     return null;
 }
 
+/**
+ * get the tasks from the local storage and filter the tasks based on the user level
+ * currently only for the summary.html and the display of the number of tasks in its respective categories
+ */
+
 async function getTask() {
-    task = JSON.parse(localStorage.getItem("tasks"));
+    const userLevel = sessionStorage.getItem("userLevel");
+    let taskTemp = JSON.parse(localStorage.getItem("tasks"));
+    if (userLevel === "user") {
+        const userTasks = taskTemp.filter((t) => t.userLevel === "user");
+        task = userTasks;
+    } else {
+        const userTasks = taskTemp.filter((t) => t.userLevel === "guest");
+        task = userTasks;
+    }
 }
 
+/**
+ * highlight the summary link in the sidebar
+ */
 function summaryActive() {
     document.getElementById("sumSidebar").classList.add("bgfocus");
 }
 
+/**
+ * show the weclome message and hide it at less than 1050px width
+ * at screen width less than 1050px the welcome message will be shown for 2 seconds and then hidden
+ */
 const mediaQuery = window.matchMedia("(max-width: 1050px)");
 
 function showWelcome() {
