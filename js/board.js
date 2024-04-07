@@ -2,6 +2,7 @@ async function initBoard() {
     await includeW3();
     boardActive();
     showInitials();
+    checkLoggedUser();
 }
 
 function boardActive() {

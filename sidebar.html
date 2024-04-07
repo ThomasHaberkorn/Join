@@ -24,7 +24,7 @@
             <img src="/assets/img/join-logo-white.png" alt="Join-Logo">
         </div>
 
-        <div class="sibebarNavContainer" id="abab">
+        <div class="sibebarNavContainer" id="sibebarNavContainer">
             <div class="sidebarSummary sidebarLinkStyle" id="sumSidebar" onclick="linkToSummary()">
                 <img src="/assets/img/sidebarSummaryIcons.png" alt="Summary Icon">
                 <p class="sidebarSummaryText">Summary</p>
@@ -44,10 +44,12 @@
 
         </div>
         <div class="sidebarFooter">
-            <div class="sidebarFooterContent">
+            <div class="sidebarFooterContent ">
                 <div class="sidebarFooterPrivacyPolicyContainer" onclick="linkToPrivacyPolicy()">Privacy Policy</div>
 
-                <div class="sidebarFooterLegalNoticeContainer" onclick="linkToLegalNotice()">Legal notice</div>
+                <div class="legalNoticeContainer " id="legalNoticeContainer">
+                    <div class="sidebarFooterLegalNoticeContainer" onclick="linkToLegalNotice()">Legal notice</div>
+                </div>
             </div>
         </div>
     </div>

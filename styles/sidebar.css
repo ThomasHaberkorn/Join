@@ -60,11 +60,8 @@
 
 .sidebarFooter {
     width: 232px;
-    height: 74px;
     bottom: 64px;
     position: fixed;
-    display: flex;
-    justify-content: center;
     bottom: 64px;
     position: fixed;
 }
@@ -82,12 +79,11 @@
 
 .sidebarFooterPrivacyPolicyContainer,
 .sidebarFooterLegalNoticeContainer {
-    width: 232px;
     height: 35px;
     display: flex;
     align-items: center;
     color: #cdcdcd;
-    margin-left: 120px;
+    padding-left: 60px;
     cursor: pointer;
 }
 
