@@ -10,19 +10,32 @@ async function initSummary() {
     checkLoggedUser();
 }
 
+/**
+ * Sets "showWelcome" to "true" in the session storage to prevent the WelcomeScreen from being
+ * displayed again during this session
+ */
+
 function setStorageSession() {
     sessionStorage.setItem("showWelcome", "true");
 }
+
+/**
+ * Initializes getDaytime and displays the time of day
+ */
 
 function setDaytime() {
     document.getElementById("summaryWelcomeDaytimeContainer").innerHTML =
         getDaytime();
 }
 
+/**
+ *
+ * @returns the daytime greeting
+ */
+
 function getDaytime() {
     a = new Date();
     b = a.getHours();
-
     if (b >= 0 && b < 11) {
         return "Good morning";
     } else if (b >= 11 && b < 18) {
@@ -32,18 +45,19 @@ function getDaytime() {
     }
 }
 
+/**
+ * get the Username from the session storage and display it in the wlcome message
+ */
+
 function getUserName() {
     let userName = sessionStorage.getItem("userName");
-
     if (userName) {
         // Split the username into an array of names
         let names = userName.split(" ");
-
         // If there are more than two names, take only the first two
         if (names.length > 2) {
             userName = names.slice(0, 2).join(" ");
         }
-
         document.getElementById("nameBox").innerHTML = userName;
     } else {
         document.getElementById("nameBox").textContent = "Guest";
@@ -64,7 +78,6 @@ let dates = [];
 
 async function getTasksAndProcess() {
     await getTask();
-    // await getUserTask();
     countTasks();
     getUrgendTask(task);
     dates.push(task);
@@ -141,9 +154,9 @@ function getEarliestDate(tasks) {
         const earliestDate = new Date(
             Math.min(
                 ...urgentTasks.map((t) => {
-                    // Überprüfen, ob taskDate im richtigen Format vorliegt
+                    // Check whether taskDate is in the correct format
                     const taskDate = new Date(t.taskDate);
-                    // Überprüfen, ob taskDate ein gültiges Datum ist
+                    // Check whether taskDate is a valid date
                     if (
                         Object.prototype.toString.call(taskDate) ===
                             "[object Date]" &&
@@ -152,7 +165,7 @@ function getEarliestDate(tasks) {
                         return taskDate;
                     } else {
                         console.error("Ungültiges Datum gefunden:", t.taskDate);
-                        return NaN; // Oder einen anderen Wert, der darauf hinweist, dass das Datum ungültig ist
+                        return NaN;
                     }
                 })
             )
@@ -196,7 +209,6 @@ function showWelcome() {
     const welcomeContainer = document.getElementById("summaryWelcomeContainer");
     const infoContainer = document.getElementById("summaryInfoContainer");
     const storage = sessionStorage.getItem("showWelcome");
-
     if (storage == null || storage == "false") {
         if (mediaQuery.matches) {
             welcomeContainer.classList.remove("d-none");

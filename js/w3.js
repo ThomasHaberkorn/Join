@@ -82,6 +82,10 @@ function linkToLegalNotice() {
     window.location.href = "legal_notice.html";
 }
 
+function linkToPrivacyPolicy() {
+    window.location.href = "privacy_policy.html";
+}
+
 /**
  * deletes the session storage when the user logs out
  */
@@ -113,10 +117,27 @@ function hideMenu() {
 
 function showInitials() {
     let uName = sessionStorage.getItem("userName");
-    let initials = uName
-        .split(" ")
-        .map((n) => n.charAt(0))
-        .join("");
-    initials = initials.substring(0, 2); // Limit the initials to 2 characters
-    document.getElementById("headerUserProfileInitials").innerHTML = initials;
+    if (uName) {
+        let initials = uName
+            .split(" ")
+            .map((n) => n.charAt(0))
+            .join("");
+        initials = initials.substring(0, 2); // Limit the initials to 2 characters
+        document.getElementById("headerUserProfileInitials").innerHTML =
+            initials;
+    }
 }
+
+// -----------------------------------
+// let tasks = [];
+// const userLevel = sessionStorage.getItem("userLevel");
+// let taskTemp = JSON.parse(localStorage.getItem("tasks")) || [];
+// if (userLevel === "user") {
+//     const userTasks = taskTemp.filter((t) => t.userLevel === "user");
+//     tasks = userTasks;
+// } else {
+//     const userTasks = taskTemp.filter((t) => t.userLevel === "guest");
+//     tasks = userTasks;
+// }
+
+// -----------------------------------
