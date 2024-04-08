@@ -2,6 +2,7 @@ async function initAddSidebar() {
     await includeW3();
     addTaskActive();
     showInitials();
+    checkLoggedUser();
 }
 function addTaskActive() {
     document.getElementById("addTasksum").classList.add("bgfocus");
@@ -162,6 +163,14 @@ document.addEventListener("DOMContentLoaded", function () {
         ].map((input) => input.value);
         // Der Status der Aufgabe ist 'todo'
         var status = "todo";
+        // Fügt ein UserLevel hinzu - user oder gast
+        var userLevel;
+        if (sessionStorage.getItem("userName") === "Guest") {
+            userLevel = "guest";
+        } else {
+            userLevel = "user";
+        }
+
         // Die Liste der Aufgaben ist die Liste der Aufgaben im localStorage, oder eine leere Liste, wenn es keine Aufgaben im localStorage gibt
         var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         // Die ID der neuen Aufgabe ist eine zufällig generierte ID
@@ -177,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
             priority,
             subtasks,
             status,
-
+            userLevel,
             assignedContacts,
         });
         // Speichere die Liste der Aufgaben im localStorage
