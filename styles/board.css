@@ -1,8 +1,3 @@
-.task-board {
-    margin-left: 250px;
-    margin-right: 80px;
-}
-
 .task-card {
     background-color: #ffffff;
     display: flex;
@@ -10,13 +5,14 @@
     cursor: grab;
     align-items: flex-start;
     gap: 24px;
-    min-width: 170px;
     padding: 16px;
     margin-bottom: 16px;
     margin-top: 8px;
     align-self: stretch;
     border-radius: 24px;
     box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+    width: 80%;
+    height: 263px;
 }
 
 .allTasks {
@@ -24,7 +20,7 @@
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-around;
-    min-width: 20%;
+    width: 20%;
 }
 
 .mainContainer {
@@ -42,8 +38,8 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 50px;
+    margin-left: 24px;
     font-size: xx-large;
-    margin-left: 64px;
 }
 
 #boardContainerUpperPartRight {
@@ -95,12 +91,12 @@
     font-style: normal;
     font-weight: 700;
     cursor: pointer;
-    margin-bottom: 0!important;
+    margin-bottom: 0 !important;
 }
 
 h1 {
-    font-size: 61px!important;
-    font-weight: 700!important;
+    font-size: 61px !important;
+    font-weight: 700 !important;
 }
 
 .allTasksHeader {
@@ -144,8 +140,10 @@ h2 {
     flex-wrap: nowrap;
     justify-content: space-around;
     width: 84vw;
-    flex-grow: 1; /* Erlaubt dem Board Task Container, den verfügbaren Platz zu füllen */
-    overflow-y: auto; /* Fügt bei Bedarf Scrollbalken hinzu */
+    flex-grow: 1;
+    /* Erlaubt dem Board Task Container, den verfügbaren Platz zu füllen */
+    overflow-y: auto;
+    /* Fügt bei Bedarf Scrollbalken hinzu */
 }
 
 figure {
@@ -220,40 +218,64 @@ section {
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
 }
 
-.progress {
+.subtaskWithProgressBar{
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    justify-content: space-between;
     width: 100%;
-    background-color: #f0f0f0;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  
-  .progress-bar {
-    width: 25%;
-    height: 8px;
-    background-color: #4589FF;
-    transition: width 0.5s ease-in-out;
-  }
-  
+}
 
-.mainContainer, .contentContainer {
+.progress {
+    background: rgba(244, 244, 244, 1);
+    border-radius: 8px;
+    height: 8px;
+    width: 128px;
+}
+
+.progress-bar {
+    background: rgba(69, 137, 255, 1);
+    height: 8px;
+    border-radius: 16px;
+}
+
+.subtaskNextToProgressBar{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(168, 168, 168, 1);
+}
+
+
+.mainContainer,
+.contentContainer {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Stellt sicher, dass der Hauptcontainer die volle Bildschirmhöhe einnimmt */
+    height: 100vh;
+    /* Stellt sicher, dass der Hauptcontainer die volle Bildschirmhöhe einnimmt */
 }
 
 .contentContainer {
-    flex-grow: 1; /* Erlaubt dem Inhaltscontainer, den verfügbaren Platz zu füllen */
+    height: 100dvh;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 232px;
+    background-color: #f6f7f8;
 }
 
 .task-column {
-    min-width: 20%;
-    flex-grow: 1; /* Stellt sicher, dass Spalten flexibel den verfügbaren Platz einnehmen */
+    width: 100%;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Startet die Anordnung der Elemente von oben */
-    overflow-y: auto; /* Fügt bei Bedarf einen Scrollbalken innerhalb der Spalte hinzu */
-    margin: 10px; /* Optional: Fügt Abstand zwischen den Spalten hinzu */
-    max-height: calc(100vh - 232px);
+    justify-content: flex-start;
+    overflow-y: auto;
+    margin: 10px;
+    height: 100%;
     border-radius: 4px;
     padding: 10px;
 }
@@ -271,54 +293,52 @@ section {
     color: var(--icon, #A8A8A8);
     background: #E7E7E7;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    width: 90%;
 }
 
 
 #allTaskInformation {
     display: none;
     position: fixed;
-    width: 50%;
-    height: 50%;
+    width: 20%;
+    height: 60%;
     background-color: white;
     z-index: 1000;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    padding: 60px;
+    border-radius: 24px;
 
 }
 
 #allTaskInformationButton {
-    display: flex;
-    padding: 8px 16px;
-    gap: 4px;
-    border-radius: 10px;
-    border: 1px solid #2A3647;
-    background: #2A3647;
-    color: white;
-    position: absolute; /* Positioniert das Element absolut innerhalb des nächstgelegenen positionierten Elternelements (hier: #allTaskInformation) */
-    top: 8px; /* Positioniert das Element am oberen Rand des Elternelements */
-    right: 8px; /* Positioniert das Element am rechten Rand des Elternelements */
+    background: white;
+    color: black;
     cursor: pointer;
+    border: none;
 }
 
 
 #taskEditorModal {
     display: none;
     position: fixed;
-    width: 50%;
-    height: 50%;
+    width: 20%;
+    height: 60%;
     background-color: white;
     z-index: 1000;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    padding: 60px;
+    border-radius: 24px;
 }
 
 #boardAddTask {
     display: none;
     position: fixed;
-    width: 50%;
-    height: 50%;
+    width: 70%;
+    height: 80%;
     background-color: white;
     z-index: 1000;
     justify-content: center;
@@ -327,6 +347,7 @@ section {
     left: 50%;
     transform: translate(-50%, -50%);
     overflow: auto;
+    border-radius: 24px;
 }
 
 #boardAddTaskCloseButton {
@@ -343,6 +364,333 @@ section {
     cursor: pointer;
 }
 
-#openDropdownEdit{
+#openDropdownEdit {
+    cursor: pointer;
+}
+
+.boardAddTaskContentContainer {
+    width: 100%;
+    height: 100%;
+}
+
+#allTaskInformationInner {
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    white-space: normal;
+    height: 100%;
+    gap: 10px;
+    max-width: 20vw;
+}
+
+.display-flex {
+    display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+#allTaskInformationTitle {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#allTaskInformationDescription {
+    color: black;
+    font-size: 21px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+#modalDate {
+    display: flex;
+    gap: 25px;
+    width: 348px;
+    height: 19px;
+    margin-bottom: 10px;
+}
+
+#modalDateDueDate {
+    color: rgba(66, 82, 110, 1);
+    font-size: 18px;
+}
+
+#modalPriority {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#modalPriorityText {
+    color: rgba(66, 82, 110, 1);
+    margin-right: 25px;
+    font-size: 18px;
+}
+
+#allTaskInformationPriority {
+    margin-left: 15px;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+#modalAssignedTo {
+    color: rgba(66, 82, 110, 1);
+    font-size: 18px;
+}
+
+#allTaskInformationDueDate {
+    margin-left: 15px;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+#modalSubtasks {
+    font-size: 18px;
+    color: rgba(66, 82, 110, 1);
+    width: 348px;
+    margin-top: 5px;
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+.checkbox-container {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    margin: 8px 12px 8px 8px;
+    border: 1.5px solid #c0c0c0;
+    transition: all 0.3s ease-in-out;
+    border-radius: 4px;
+    padding: 6px;
+}
+
+.checkbox-container label {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.allTaskInformationLowerButtons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 20px;
+    gap: 14px;
+}
+
+.allTaskInformationLowerButton {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: rgba(42, 54, 71, 1);
+    border: none;
+}
+
+.item-img{
+    font-size: 15px;
+    border-radius: 50%;
+    border: 2px solid white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: -15px;
+    color: white;
+    font-weight: 500;
+}
+
+#allTaskInformationAssignedTo {
+    min-height: 170px;
+    max-height: 170px;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(209, 209, 209) white;
+    overflow-y: scroll;
+}
+
+.contact-display{
+    padding-left: 15px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.contact-avatar{
+    font-size: 15px;
+    color: #ffffff;
+    border-radius: 50%;
+    border: 2px solid white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+#moveOption{
+    display: none;
+    position: fixed;
+    width: 20%;
+    height: 60%;
+    background-color: white;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 60px;
+    border-radius: 24px;
+}
+
+#cardOptionsCloseButton {
+    background: white;
+    color: black;
+    cursor: pointer;
+    border: none;
+}
+
+#cardoptions{
+    display: flex;
+    justify-content: space-between;
+    min-width: 80%;
+    max-width: 80%;
+}
+
+#bigcard-header{
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#options-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.optionsContainerOption{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;    
+}
+
+.optionsContainerOption:hover{
+    background-color: #f6f7f8;
+    border-radius: 10px;
+}
+
+--------------------------------------------------------------------------------------------------------------------------
+
+#taskEditorModal {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    z-index: 10;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+#taskEditorModal input[type="text"],
+#taskEditorModal textarea,
+#taskEditorModal select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#taskEditorModal input[type="date"] {
+    cursor: pointer;
+}
+
+#taskEditorModal button {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#taskEditorModal button:hover {
+    background-color: #45a049;
+}
+
+.contact-dropdown-edit,
+.input-dropdown-edit {
+    width: 100%;
+    position: relative;
+}
+
+#openDropdownEdit {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+#dropDownContactsEdit {
+    display: none;
+    position: absolute;
+    background-color: #f6f6f6;
+    min-width: 100%;
+    overflow: auto;
+    border: 1px solid #ddd;
+    z-index: 1;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 4px;
+}
+
+#dropDownContactsEdit div {
+    padding: 12px 16px;
+    cursor: pointer;
+}
+
+#dropDownContactsEdit div:hover {
+    background-color: #ddd;
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+#saveEdit,
+#editPriority option {
+    font-weight: 500;
+}
+
+/* Verbesserung der Sichtbarkeit und Interaktivität */
+#inputDropdownEdit, #editDueDate {
     cursor: pointer;
 }
