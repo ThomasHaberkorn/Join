@@ -25,18 +25,9 @@ function renderContactList() {
         if (!uniqueFirstLetters.has(firstLetter)) {
             uniqueFirstLetters.add(firstLetter);
             list.innerHTML += `
-  let list = document.getElementById("listArea");
-  list.innerHTML = "";
-  let uniqueFirstLetters = new Set();
-  contacts.sort((a, b) => a["name"].localeCompare(b["name"]));
-  for (i = 0; i < contacts.length; i++) {
-    let firstLetter = contacts[i]["name"].charAt(0);
-    if (!uniqueFirstLetters.has(firstLetter)) {
-      uniqueFirstLetters.add(firstLetter);
-      list.innerHTML += `
-          <div class="firstLetterContact">${firstLetter}</div>
-          <div class="spaceContactList"></div>`;
-        }
+            <div class="firstLetterContact">${firstLetter}</div>
+            <div class="spaceContactList"></div>`;
+          }
         list.innerHTML += rendercontactListHTML(i);
         document.getElementById(`listContact${i}`).style.backgroundColor =
             contacts[i]["color"];
