@@ -25,9 +25,9 @@ function renderContactList() {
         if (!uniqueFirstLetters.has(firstLetter)) {
             uniqueFirstLetters.add(firstLetter);
             list.innerHTML += `
-          <div class="firstLetterContact">${firstLetter}</div>
-          <div class="spaceContactList"></div>`;
-        }
+            <div class="firstLetterContact">${firstLetter}</div>
+            <div class="spaceContactList"></div>`;
+          }
         list.innerHTML += rendercontactListHTML(i);
         document.getElementById(`listContact${i}`).style.backgroundColor =
             contacts[i]["color"];
@@ -35,6 +35,21 @@ function renderContactList() {
 }
 
 function addNewContact() {}
+function addNewContact() {
+  let newContact = {
+    color: getRandomColor(),
+    name: "New Contact",
+    email: ""
+ }
+ let addNewContact = document.getElementById('contactAddArea');
+ addNewContact.style.display = "flex";
+ addNewContact.innerHTML = "";
+ addNewContact.innerHTML += addNewContactHTML();
+}
+
+function getRandomColor(){
+
+}
 
 function showContact(index) {
     let fullContact = document.getElementById("contactFull");
