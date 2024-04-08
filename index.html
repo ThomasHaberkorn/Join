@@ -13,10 +13,7 @@
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
     <script src="js/script.js"></script>
     <script src="js/storage.js"></script>
-
     <script src="js/w3.js"></script>
-    <!-- <script src="js/contacts.js"></script>
-    <script src="js/contactSection.js"></script> -->
 </head>
 
 <body onload="init()">
@@ -36,6 +33,7 @@
                 </div>
             </div>
             <div class="loginMiddleContainer" id="loginMiddleContainer">
+
                 <!------- Log in Part ------->
 
                 <div class="loginInnerContent " id="loginInnerContent">
@@ -69,6 +67,7 @@
                     </div>
                 </div>
                 <div class="signinMobilContainer" id="signinMobileContainer"></div>
+
                 <!------- Sign in Part ------->
 
                 <div class="signinInnerContent d-none" id="signinInnerContent">
@@ -121,44 +120,12 @@
                 <!-- Footer -->
 
                 <div class=" loginFooter">
-                    <div class="loginFooterLinkPrivacyP" onclick="linkToPrivacyPolicyIndex()">Privacy Policy</div>
-                    <div class="loginFooterLinkLegalN" onclick="linkToLegalNoticeIndex()">Legal notice</div>
+                    <div class="loginFooterLinkPrivacyP" onclick="linkToPrivacyPolicy()">Privacy Policy</div>
+                    <div class="loginFooterLinkLegalN" onclick="linkToLegalNotice()">Legal notice</div>
                 </div>
             </div>
         </div>
     </div>
-    <!--  -->
-    <!-- <script>
-        const submitButton = document.querySelector('.signupButton'); // Den Submit-Button mit der Klasse "signupButton" abrufen
-        const checkbox = document.getElementById('signinCheckBoxPrivacyPolicy'); // Die Checkbox mit der ID "signinCheckBoxPrivacyPolicy" abrufen
-
-        // Checkbox-Status initial prüfen (optional)
-        if (!checkbox.checked) {
-            submitButton.disabled = true; // Den Button deaktivieren, wenn die Checkbox nicht angeklickt ist
-            submitButton.classList.add("bcGray");
-        }
-
-        // Event-Listener auf die Checkbox hinzufügen, um dynamische Updates zu ermöglichen
-        checkbox.addEventListener('change', () => {
-            submitButton.disabled = !checkbox.checked; // Den Button-Status basierend auf dem Status der Checkbox umschalten
-
-            if (!checkbox.checked) {
-                submitButton.classList.add("bcGray"); // Button wieder grau machen, wenn Checkbox nicht angeklickt ist
-            } else {
-                submitButton.classList.remove("bcGray"); // Button blau machen, wenn Checkbox angeklickt ist
-            }
-        });
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const msg = urlParams.get('msg');
-        if (msg) {
-            msgBox.innerHTML = msg;
-            msgBox.classList.remove("d-none");
-        } else {
-            msgBox.classList.add("d-none");
-        }
-
-    </script> -->
 </body>
 
 </html>

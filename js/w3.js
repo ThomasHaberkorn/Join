@@ -86,18 +86,6 @@ function linkToPrivacyPolicy() {
     window.location.href = "privacy_policy.html";
 }
 
-function linkToPrivacyPolicyIndex() {
-    sessionStorage.getItem("sidebarShouldHide") === "true";
-    window.location.href = "privacy_policy.html";
-    initPirivacyPolicy();
-}
-
-function linkToLegalNoticeIndex() {
-    sessionStorage.getItem("sidebarShouldHide") === "true";
-    window.location.href = "legal_notice.html";
-    initLegalNotice();
-}
-
 /**
  * deletes the session storage when the user logs out
  */
