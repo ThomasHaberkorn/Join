@@ -74,6 +74,55 @@ function editContactHTML(index) {
     `
 }
 
+function addNewContactHTML() {
+  return /*HTML*/`
+  <div class="contactAddVisible slide-in-right " id="contactAddVisible" onclick="event.stopPropagation()">
+  <div class="contactAddCloseResponse" onclick="closeAddContact()"><img src="./assets/img/Close-white.png"></div>  
+  <div class="contactAddLeft">
+        <img src="./assets/img/join-logo-white.png">
+        <a>Add contact</a>
+        <p>Tasks are better with a team!</p>
+        <div class="contactAddSpace"></div>
+      </div>
+
+      <div class="contactAddRight">
+        <div class="contactAddFullImage"><img src="./assets/img/Group13.png"></div>
+        <div class="contactAddRenderDetailsRight">
+          <img src="./assets/img/Close.png" class="contactAddClose" onclick="closeAddContact()">
+          <div class="contactAddUserDetails">
+            <div class="contactAddInput">
+              <input  id="contactAddName" placeholder="Name">
+              <img src="./assets/img/person.png">
+            </div>
+            <div class="contactAddInput">
+              <input id="contactAddEmail" placeholder="Mail">
+              <img src="./assets/img/mail.png">
+            </div>
+            <div class="contactAddInput">
+              <input id="contactAddPhone" placeholder="Phone">
+              <img src="./assets/img/call.png">
+            </div>
+          </div>
+          <div class="contactCancelCreateButtons">
+            <div class="contactCancelButton dispflex" onclick="closeAddContact()">Cancel<img src="./assets/img/cross.png"></div>
+            <div class="contactCreateButton" onclick="">Create contact <img src="./assets/img/check.png"></div>
+        </div>
+        </div>  
+</div>
+  
+  `;
+}
+
+function closeAddContact() {
+  let contactAddVisible = document.getElementById("contactAddVisible");
+  contactAddVisible.classList.add("slide-out-right");
+  setTimeout(() => {
+    document.getElementById("contactAddArea").style.display = "none";
+    contactAddVisible.innerHTML = "";
+  }, 400);
+
+}
+
 function rendercontactFullResponsive(index) {
   return /*HTML*/`
     <div class="headLineContactResponsive">

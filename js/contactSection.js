@@ -17,7 +17,6 @@ let previousIndex;
 function renderContactList() {
   let list = document.getElementById("listArea");
   list.innerHTML = "";
-  let storedContacts = localStorage.getItem('contacts');
   let uniqueFirstLetters = new Set();
   contacts.sort((a, b) => a["name"].localeCompare(b["name"]));
   for (i = 0; i < contacts.length; i++) {
@@ -33,7 +32,21 @@ function renderContactList() {
   }
 }
 
-function addNewContact() { }
+function addNewContact() {
+  let newContact = {
+    color: getRandomColor(),
+    name: "New Contact",
+    email: ""
+ }
+ let addNewContact = document.getElementById('contactAddArea');
+ addNewContact.style.display = "flex";
+ addNewContact.innerHTML = "";
+ addNewContact.innerHTML += addNewContactHTML();
+}
+
+function getRandomColor(){
+
+}
 
 function showContact(index) {
   let fullContact = document.getElementById("contactFull");
