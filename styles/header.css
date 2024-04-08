@@ -32,6 +32,9 @@
     cursor: pointer;
 }
 
+.headerHelpLink {
+    display: none !important;
+}
 .headerLogoutButton {
     width: 56px;
     height: 56px;
@@ -47,11 +50,11 @@
 }
 
 .headerUserProfileInitials {
-    width: 30px;
+    width: 50px;
     height: 15px;
     color: #29abe2;
     display: inline-block;
-    font-size: 40px;
+    font-size: 30px;
     font-weight: 700;
     line-height: 15px;
     text-align: center;
@@ -82,8 +85,8 @@
     background-color: #091931;
     border-radius: 20px;
 }
-
+/* 
 .headerLogoutButton:hover .dropdownMenu {
     display: block;
     transition: 0.5s;
-}
+} */

@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="styles/sidebar.css">
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
     <script src="js/script.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/add_task.js"></script>
-    <script src="js/contacts.js"></script>
-    <script src="js/contactSection.js"></script>
-    <script src="http://www.w3schools.com/lib/w3data.js"></script>
+    <!-- <script src="js/storage.js"></script> -->
+    <!-- <script src="js/add_task.js"></script> -->
+    <script src="js/w3.js"></script>
+    <!-- <script src="js/contactSection.js"></script> -->
+    <!-- <script src="http://www.w3schools.com/lib/w3data.js"></script> -->
 </head>
 
 <body>
@@ -24,7 +24,7 @@
             <img src="/assets/img/join-logo-white.png" alt="Join-Logo">
         </div>
 
-        <div class="sibebarNavContainer" id="abab">
+        <div class="sibebarNavContainer" id="sibebarNavContainer">
             <div class="sidebarSummary sidebarLinkStyle" id="sumSidebar" onclick="linkToSummary()">
                 <img src="/assets/img/sidebarSummaryIcons.png" alt="Summary Icon">
                 <p class="sidebarSummaryText">Summary</p>
@@ -44,12 +44,13 @@
 
         </div>
         <div class="sidebarFooter">
-            <div class="sidebarFooterContent">
-                <div class="sidebarFooterPrivacyPolicyContainer">
-                    <a href="" class="sidebarFooterPrivacyPolicy">Privacy Policy</a>
+            <div class="sidebarFooterContent ">
+                <div class="privacyPolicyContainer " id="privacyPolicyContainer">
+                    <div class="sidebarFooterPrivacyPolicyContainer" onclick="linkToPrivacyPolicy()">Privacy Policy
+                    </div>
                 </div>
-                <div class="sidebarFooterLegalNoticeContainer">
-                    <a href="" class="sidebarFooterLegalNotice">Legal notice</a>
+                <div class="legalNoticeContainer " id="legalNoticeContainer">
+                    <div class="sidebarFooterLegalNoticeContainer" onclick="linkToLegalNotice()">Legal notice</div>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@ async function initBoard() {
     await includeW3();
     boardActive();
     showInitials();
+    checkLoggedUser();
 }
 
 function boardActive() {
@@ -14,7 +15,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const taskColumns = document.querySelectorAll(".task-column");
 
     // Lade die Liste der Aufgaben aus dem Local Storage, falls vorhanden, andernfalls setze tasks auf ein leeres Array
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    // let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    // -----------------------------------
+    let tasks = [];
+
+    const userLevel = sessionStorage.getItem("userLevel");
+    taskTemp = JSON.parse(localStorage.getItem("tasks")) || [];
+    if (userLevel === "user") {
+        const userTasks = taskTemp.filter((t) => t.userLevel === "user");
+        tasks = userTasks;
+    } else {
+        const userTasks = taskTemp.filter((t) => t.userLevel === "guest");
+        tasks = userTasks;
+    }
+
+    // -----------------------------------
 
     // Eine Funktion, die die Initialen der zugewiesenen Kontakte basierend auf deren IDs zurückgibt
     function getAssignedContactInitials(assignedContactIds) {
@@ -232,19 +248,35 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Eine Funktion, die den Status einer Aufgabe im Local Storage aktualisiert
+
+    // ------------------------------------
+
     function updateTaskInLocalStorage(taskId, newStatus) {
-        // Finde den Index der Aufgabe in der tasks-Liste basierend auf der taskId
-        let taskIndex = tasks.findIndex((task) => task.id === taskId);
-        // Falls die Aufgabe gefunden wurde
-
+        let allTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        let taskIndex = allTasks.findIndex((task) => task.id === taskId);
         if (taskIndex !== -1) {
-            // Aktualisiere den Status der Aufgabe
-            tasks[taskIndex].status = newStatus;
-
-            // Speichere die aktualisierte Liste der Aufgaben im Local Storage
-            localStorage.setItem("tasks", JSON.stringify(tasks));
+            allTasks[taskIndex].status = newStatus;
+            localStorage.setItem("tasks", JSON.stringify(allTasks));
+        } else {
+            console.log("Aufgabe nicht gefunden");
         }
     }
+
+    // ------------------------------------
+
+    // function updateTaskInLocalStorage(taskId, newStatus) {
+    //     // Finde den Index der Aufgabe in der tasks-Liste basierend auf der taskId
+    //     let taskIndex = tasks.findIndex((task) => task.id === taskId);
+    //     // Falls die Aufgabe gefunden wurde
+    //     if (taskIndex !== -1) {
+    //         // Aktualisiere den Status der Aufgabe
+    //         tasks[taskIndex].status = newStatus;
+    //         // Speichere die aktualisierte Liste der Aufgaben im Local Storage
+    //         localStorage.setItem("tasks", JSON.stringify(tasks));
+    //     }
+    // }
+
+    // ------------------------------------
 });
 
 function closeAllTaskInformation() {
