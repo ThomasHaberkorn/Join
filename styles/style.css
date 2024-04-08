@@ -525,6 +525,20 @@ input[id="signinCheckBoxPrivacyPolicy"] {
     padding: 8px 12px;
     color: #a8a8a8;
 }
+.loginFooterLinkPrivacyP {
+    cursor: pointer;
+    margin-right: 8px;
+}
+.loginFooterLinkPrivacyP:hover {
+    color: #29abe2;
+}
+.loginFooterLinkLegalN {
+    cursor: pointer;
+    margin-left: 8px;
+}
+.loginFooterLinkLegalN:hover {
+    color: #29abe2;
+}
 
 /* start contact-Section*/
 .firstLetter {
