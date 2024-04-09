@@ -16,7 +16,6 @@ let previousIndex;
 let contactCount = 0;
 
 function renderContactList() {
-  loadLocalstorage();
     let list = document.getElementById("listArea");
     list.innerHTML = "";
     let uniqueFirstLetters = new Set();
@@ -55,6 +54,7 @@ function createNewContact(){
     id: generateUserId(),
   };
   contacts.push(newContact);
+  contacts.sort((a, b) => a["name"].localeCompare(b["name"]));
   saveLocalstorage();
   closeAddContact();
   renderContactList();
@@ -91,7 +91,6 @@ function deleteContact(index) {
 }
 
 function showContact(index) {
-  loadLocalstorage();
     let fullContact = document.getElementById("contactFull");
     fullContact.style.transition = "transform 0.4s ease";
     fullContact.style.transform = "translateX(100%)";
