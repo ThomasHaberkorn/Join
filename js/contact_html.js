@@ -18,7 +18,7 @@ function renderShowContactHTML(index) {
         <div class="contactFullName">${contacts[index]['name']}</div>
         <div class="contactEditDeleteArea">
           <div onclick="editContact(${index})" class="contactEdit"><div class="existContactEdit"></div>Edit</div>
-          <div onclick="deleteContact(${index})" class="contactDelete margin16left"><div class="existContactDelete margin16left"></div>Delete</div>
+          <div onclick="deleteContactBig(${index})" class="contactDelete margin16left"><div class="existContactDelete margin16left"></div>Delete</div>
         </div>   
       </div>
     </div>
@@ -89,26 +89,26 @@ function addNewContactHTML() {
         <div class="contactAddFullImage"><img src="./assets/img/Group13.png"></div>
         <div class="contactAddRenderDetailsRight">
           <img src="./assets/img/Close.png" class="contactAddClose" onclick="closeAddContact()">
-          <div class="contactAddUserDetails">
+          <form class="contactAddUserDetails" onsubmit="createNewContact()">
             <div class="contactAddInput">
-              <input  id="contactAddName" placeholder="Name">
+              <input id="contactAddName"  placeholder="Name" minlength="3" type="name" >
               <img src="./assets/img/person.png">
             </div>
             <div class="contactAddInput">
-              <input id="contactAddEmail" placeholder="Mail">
+              <input id="contactAddEmail" placeholder="Mail" required type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
               <img src="./assets/img/mail.png">
             </div>
             <div class="contactAddInput">
-              <input id="contactAddPhone" placeholder="Phone">
+              <input id="contactAddPhone" placeholder="Phone" required type="tel" pattern="\+?[0-9]{1,}">
               <img src="./assets/img/call.png">
             </div>
-          </div>
-          <div class="contactCancelCreateButtons">
-            <div class="contactCancelButton dispflex" onclick="closeAddContact()">Cancel<img src="./assets/img/cross.png"></div>
-            <div class="contactCreateButton" onclick="">Create contact <img src="./assets/img/check.png"></div>
+            <div class="contactCancelCreateButtons">
+              <div class="contactCancelButton dispflex" onclick="closeAddContact()">Cancel<img src="./assets/img/cross.png"></div>
+              <button type="submit" class="contactCreateButton">Create contact <img src="./assets/img/check.png"></button>
+            </div>
+          </form>
         </div>
-        </div>  
-</div>
+      </div>
   
   `;
 }

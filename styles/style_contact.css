@@ -85,6 +85,7 @@
     align-items: center;
     aspect-ratio: 1 / 1;
     border: white 2px solid;
+    color: white;
 }
 
 .shortContactInfo {
@@ -257,6 +258,7 @@
     font-size: 47px;
     line-height: 56px;
     font-weight: 500;
+    color: white;
 }
 
 .contactFullName {
@@ -615,6 +617,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 21px;
+    margin-right: 24px;
 }
 
 .contactCancelButton:hover {
@@ -754,6 +758,10 @@
     width: 16px;
     height: 16px;
     margin-right: 13px;
+}
+
+input:focus {
+    outline: none;
 }
 
 .contactEditSaveDelete {
@@ -1408,6 +1416,4 @@
         bottom: 80px;
     }
 }
-
-
 /* end contact-Section*/

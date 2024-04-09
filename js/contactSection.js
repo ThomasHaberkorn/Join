@@ -13,11 +13,12 @@ function contactActive() {
 }
 
 let previousIndex;
+let contactCount = 0;
 
 function renderContactList() {
+  loadLocalstorage();
     let list = document.getElementById("listArea");
     list.innerHTML = "";
-    let storedContacts = localStorage.getItem("contacts");
     let uniqueFirstLetters = new Set();
     contacts.sort((a, b) => a["name"].localeCompare(b["name"]));
     for (i = 0; i < contacts.length; i++) {
@@ -34,24 +35,63 @@ function renderContactList() {
     }
 }
 
-function addNewContact() {}
 function addNewContact() {
-  let newContact = {
-    color: getRandomColor(),
-    name: "New Contact",
-    email: ""
- }
  let addNewContact = document.getElementById('contactAddArea');
  addNewContact.style.display = "flex";
  addNewContact.innerHTML = "";
  addNewContact.innerHTML += addNewContactHTML();
 }
 
-function getRandomColor(){
+function createNewContact(){
+  let name = document.getElementById("contactAddName").value;
+  let lastName = name.split(' ').pop();
+  let newContact = {
+    color: getRandomColor(),
+    name: name,
+    email: document.getElementById("contactAddEmail").value,
+    phone: document.getElementById("contactAddPhone").value,
+    firstLetter: name.charAt(0),
+    lastLetter: lastName.charAt(0),
+    id: generateUserId(),
+  };
+  contacts.push(newContact);
+  saveLocalstorage();
+  closeAddContact();
+  renderContactList();
+}
 
+function generateUserId() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    let id;
+    let unique = false;
+    while (!unique) {
+        contactCount += 1;
+        const contactNumber = String(contactCount).padStart(2, '0');
+        id = `${year}${month}${contactNumber}`;
+        if (!contacts.some(contact => contact.id === id)) {
+            unique = true;
+        }
+    }
+    return id;
+}
+
+function getRandomColor() {
+  const getRandomHex = () => Math.floor(Math.random() * 128).toString(16).padStart(2, '0');
+  return `#${getRandomHex()}${getRandomHex()}${getRandomHex()}`;
+}
+
+function deleteContact(index) {
+    contacts.splice(index, 1);
+    saveLocalstorage();
+    renderContactList();
+    hideContactPopupEditDelete();
+    closeContactFullResponsive();
 }
 
 function showContact(index) {
+  loadLocalstorage();
     let fullContact = document.getElementById("contactFull");
     fullContact.style.transition = "transform 0.4s ease";
     fullContact.style.transform = "translateX(100%)";
@@ -73,9 +113,7 @@ function showContact(index) {
             fullContact.innerHTML = "";
             fullContact.innerHTML += renderShowContactHTML(index);
             fullContact.style.transform = "translateX(0)";
-            document.getElementById(
-                `listContactBig${index}`
-            ).style.backgroundColor = contacts[index]["color"];
+            document.getElementById(`listContactBig${index}`).style.backgroundColor = contacts[index]["color"];
         }, 400);
         if (window.innerWidth >= 950) {
         } else {
@@ -86,13 +124,13 @@ function showContact(index) {
 }
 
 function removeMark() {
-    for (let i = 0; i < contacts.length; i++) {
-        document
-            .getElementById(`info${i}`)
-            .classList.remove("contactListShowActive");
+  for (let i = 0; i < contacts.length; i++) {
+    let element = document.getElementById(`info${i}`);
+    if (element) {
+      element.classList.remove("contactListShowActive");
     }
+  }
 }
-
 function showContactResponsive(index) {
     let contactFullResponsive = document.getElementById(
         "contactFullResponsive"
@@ -112,14 +150,10 @@ function editContact(index) {
     contactEdit.style.display = "flex";
     contactEdit.innerHTML = ``;
     contactEdit.innerHTML += editContactHTML(index);
-    document.getElementById("contactEditName").defaultValue =
-        contacts[index]["name"];
-    document.getElementById("contactEditEmail").defaultValue =
-        contacts[index]["email"];
-    document.getElementById("contactEditPhone").defaultValue =
-        contacts[index]["phone"];
-    document.getElementById(`contactEditImage${index}`).style.backgroundColor =
-        contacts[index]["color"];
+    document.getElementById("contactEditName").defaultValue = contacts[index]["name"];
+    document.getElementById("contactEditEmail").defaultValue = contacts[index]["email"];
+    document.getElementById("contactEditPhone").defaultValue = contacts[index]["phone"];
+    document.getElementById(`contactEditImage${index}`).style.backgroundColor = contacts[index]["color"];
 }
 
 function closeEditContact() {
