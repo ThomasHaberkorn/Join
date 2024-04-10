@@ -35,7 +35,6 @@ function renderContactList() {
 }
 
 function sortContacts() {
-    initContactLS();
     contacts.sort((a, b) => a["name"].localeCompare(b["name"])); 
 }
 
@@ -60,9 +59,29 @@ function createNewContact() {
     };
     contacts.push(newContact);
     sortContacts();
-   
+    saveLocalstorage();
     renderContactList();
     closeAddContact();
+}
+
+function patchEdit(index) {
+    index = parseInt(index);
+    if (isNaN(index) || index < 0 || index >= contacts.length) {
+        console.error("Invalid index");
+        return;
+    }
+    let newName = document.getElementById("contactEditName").value;
+    let newMail = document.getElementById("contactEditEmail").value;
+    let newPhone = document.getElementById("contactEditPhone").value;
+    const updatedContact = {
+        name: newName,
+        email: newMail,
+        phone: newPhone,
+    };
+    contacts[index] = Object.assign(contacts[index], updatedContact);
+    saveLocalstorage();
+    renderContactList();
+    showContact(index);
 }
 
 function generateUserId() {
@@ -215,26 +234,6 @@ function hideContactPopupEditDelete() {
         popupContactSmal.style.display = "none";
         popupAuxContainer.style.display = "none";
     }, 400);
-}
-
-function patchEdit(index) {
-    index = parseInt(index);
-    if (isNaN(index) || index < 0 || index >= contacts.length) {
-        console.error("Invalid index");
-        return;
-    }
-    let newName = document.getElementById("contactEditName").value;
-    let newMail = document.getElementById("contactEditEmail").value;
-    let newPhone = document.getElementById("contactEditPhone").value;
-    const updatedContact = {
-        name: newName,
-        email: newMail,
-        phone: newPhone,
-    };
-    contacts[index] = Object.assign(contacts[index], updatedContact);
-    saveLocalstorage();
-    renderContactList();
-    showContact(index);
 }
 
 function loadLocalstorage() {
