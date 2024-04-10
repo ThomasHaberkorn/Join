@@ -15,7 +15,6 @@ let users;
 //     console.log(users);
 //     setItem("user", users);
 // }
-
 /**
  * This function is to load the user data from the remote storage.
  */
