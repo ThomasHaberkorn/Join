@@ -19,7 +19,7 @@ function renderContactList() {
     let list = document.getElementById("listArea");
     list.innerHTML = "";
     let uniqueFirstLetters = new Set();
-    contacts.sort((a, b) => a["name"].localeCompare(b["name"]));
+    sortContacts();
     for (i = 0; i < contacts.length; i++) {
         let firstLetter = contacts[i]["name"].charAt(0);
         if (!uniqueFirstLetters.has(firstLetter)) {
@@ -27,37 +27,42 @@ function renderContactList() {
             list.innerHTML += `
             <div class="firstLetterContact">${firstLetter}</div>
             <div class="spaceContactList"></div>`;
-          }
+        }
         list.innerHTML += rendercontactListHTML(i);
         document.getElementById(`listContact${i}`).style.backgroundColor =
             contacts[i]["color"];
     }
 }
 
-function addNewContact() {
- let addNewContact = document.getElementById('contactAddArea');
- addNewContact.style.display = "flex";
- addNewContact.innerHTML = "";
- addNewContact.innerHTML += addNewContactHTML();
+function sortContacts() {
+    initContactLS();
+    contacts.sort((a, b) => a["name"].localeCompare(b["name"])); 
 }
 
-function createNewContact(){
-  let name = document.getElementById("contactAddName").value;
-  let lastName = name.split(' ').pop();
-  let newContact = {
-    color: getRandomColor(),
-    name: name,
-    email: document.getElementById("contactAddEmail").value,
-    phone: document.getElementById("contactAddPhone").value,
-    firstLetter: name.charAt(0),
-    lastLetter: lastName.charAt(0),
-    id: generateUserId(),
-  };
-  contacts.push(newContact);
-  contacts.sort((a, b) => a["name"].localeCompare(b["name"]));
-  saveLocalstorage();
-  closeAddContact();
-  renderContactList();
+function addNewContactScreen() {
+    let addNewContact = document.getElementById('contactAddArea');
+    addNewContact.style.display = "flex";
+    addNewContact.innerHTML = "";
+    addNewContact.innerHTML += addNewContactHTML();
+}
+
+function createNewContact() {
+    let name = document.getElementById("contactAddName").value;
+    let lastName = name.split(' ').pop();
+    let newContact = {
+        color: getRandomColor(),
+        name: name,
+        email: document.getElementById("contactAddEmail").value,
+        phone: document.getElementById("contactAddPhone").value,
+        firstLetter: name.charAt(0),
+        lastLetter: lastName.charAt(0),
+        id: generateUserId(),
+    };
+    contacts.push(newContact);
+    sortContacts();
+   
+    renderContactList();
+    closeAddContact();
 }
 
 function generateUserId() {
@@ -78,8 +83,8 @@ function generateUserId() {
 }
 
 function getRandomColor() {
-  const getRandomHex = () => Math.floor(Math.random() * 128).toString(16).padStart(2, '0');
-  return `#${getRandomHex()}${getRandomHex()}${getRandomHex()}`;
+    const getRandomHex = () => Math.floor(Math.random() * 128).toString(16).padStart(2, '0');
+    return `#${getRandomHex()}${getRandomHex()}${getRandomHex()}`;
 }
 
 function deleteContact(index) {
@@ -88,6 +93,13 @@ function deleteContact(index) {
     renderContactList();
     hideContactPopupEditDelete();
     closeContactFullResponsive();
+}
+
+function deleteContactBig(index) {
+    contacts.splice(index, 1);
+    saveLocalstorage();
+    renderContactList();
+    document.getElementById("contactFull").style.transform = "translateX(100%)";
 }
 
 function showContact(index) {
@@ -123,12 +135,12 @@ function showContact(index) {
 }
 
 function removeMark() {
-  for (let i = 0; i < contacts.length; i++) {
-    let element = document.getElementById(`info${i}`);
-    if (element) {
-      element.classList.remove("contactListShowActive");
+    for (let i = 0; i < contacts.length; i++) {
+        let element = document.getElementById(`info${i}`);
+        if (element) {
+            element.classList.remove("contactListShowActive");
+        }
     }
-  }
 }
 function showContactResponsive(index) {
     let contactFullResponsive = document.getElementById(
@@ -165,9 +177,7 @@ function closeEditContact() {
 }
 
 function closeContactFullResponsive() {
-    let contactFullResponsive = document.getElementById(
-        "contactFullResponsive"
-    );
+    let contactFullResponsive = document.getElementById("contactFullResponsive");
     contactFullResponsive.classList.add("slide-out-left");
     removeMark();
     setTimeout(() => {
@@ -233,7 +243,7 @@ function loadLocalstorage() {
 
 function saveLocalstorage() {
     let contactsJSON = JSON.stringify(contacts);
-    localStorage.setItem("contacts", contactsJSON);
+    localStorage.setItem('contacts', contactsJSON);
 }
 function initContactLS() {
     if (localStorage.getItem("contacts")) {
@@ -241,4 +251,13 @@ function initContactLS() {
     } else {
         saveLocalstorage();
     }
+}
+
+function closeAddContact() {
+    let contactAddVisible = document.getElementById("contactAddVisible");
+    contactAddVisible.classList.add("slide-out-right");
+    setTimeout(() => {
+        document.getElementById("contactAddArea").style.display = "none";
+        contactAddVisible.innerHTML = "";
+    }, 400);
 }

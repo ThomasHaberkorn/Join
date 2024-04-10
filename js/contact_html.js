@@ -99,7 +99,7 @@ function addNewContactHTML() {
               <img src="./assets/img/mail.png">
             </div>
             <div class="contactAddInput">
-              <input id="contactAddPhone" placeholder="Phone" required type="tel" pattern="\+?[0-9]{1,}">
+              <input id="contactAddPhone" placeholder="Phone" required type="number" pattern="\+?[0-9]{1,}">
               <img src="./assets/img/call.png">
             </div>
             <div class="contactCancelCreateButtons">
@@ -111,16 +111,6 @@ function addNewContactHTML() {
       </div>
   
   `;
-}
-
-function closeAddContact() {
-  let contactAddVisible = document.getElementById("contactAddVisible");
-  contactAddVisible.classList.add("slide-out-right");
-  setTimeout(() => {
-    document.getElementById("contactAddArea").style.display = "none";
-    contactAddVisible.innerHTML = "";
-  }, 400);
-
 }
 
 function rendercontactFullResponsive(index) {
