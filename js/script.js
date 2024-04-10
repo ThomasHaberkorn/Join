@@ -4,6 +4,26 @@ async function init() {
     checkMsgBox();
     moveContainer();
     checkRememberUser();
+    await loadUsers();
+    // renderUsers();
+}
+
+let users;
+
+// function renderUsers() {
+//     users.splice(0);
+//     console.log(users);
+//     setItem("user", users);
+// }
+
+/**
+ * This function is to load the user data from the remote storage.
+ */
+async function loadUsers() {
+    let response = await getItem("user");
+
+    let responseUsers = [response.value || []];
+    users = JSON.parse(responseUsers);
 }
 
 /**
@@ -37,7 +57,6 @@ async function sessionStorageFirstTimeTrue() {
 
 function checkMsgBox() {
     let mG = document.getElementById("msgBox").innerHTML;
-
     if (mG == null) {
         mG.classList.add("bcTransp");
     }
@@ -128,16 +147,16 @@ function fillMsgBox() {
  * check if the user already exists and if the password and the password confirm are the same
  */
 
-let users = JSON.parse(localStorage.getItem("user")) || []; // load the user data from the local storage
-
-function addUser() {
+async function addUser() {
     const name = document.getElementById("signinInputName").value;
     const email = document.getElementById("signinInputMail").value;
     const password = document.getElementById("suPWInput").value;
     const passwordConfirm = document.getElementById("suPWCInput").value;
+    let currentUser = [];
     const existingUser = users.find((user) => user.email === email);
     const confirmPassword = password === passwordConfirm;
     if (existingUser) {
+        currentUser.push({email, password});
         window.location.href =
             "index.html?msg=E-Mail-Adresse bereits registriert!";
         return;
@@ -165,10 +184,11 @@ function checkSignupPasswordConfirm() {
  * signupForward function to save the user data in the local storage and redirect to the index.html
  */
 
-function signupForward(a, b, c) {
+async function signupForward(a, b, c) {
     let name = a;
     let email = b;
     let password = c;
+    let currentUser = [];
     let userLevel = "user";
     users.push({
         name,
@@ -176,14 +196,20 @@ function signupForward(a, b, c) {
         password,
         userLevel,
     });
-    localStorage.setItem("user", JSON.stringify(users));
+    currentUser.push({email, password});
+    await setItem("user", users);
+    localStorage.setItem("RememberUser", JSON.stringify(currentUser));
+    signupForwardRedirect(email, password);
+}
+
+function signupForwardRedirect(email, password) {
     loginInnerContent.classList.remove("d-none");
-    signinInnerContent.classList.add("d-none");
-    window.location.href =
-        "index.html?msg=Du hast dich erfolgreich registriert";
     document.getElementById("loginInputMail").value = email;
     document.getElementById("loPWInput").value = password;
     document.getElementById("loginCheckBoxRememberMe").checked = true;
+    signinInnerContent.classList.add("d-none");
+    window.location.href =
+        "index.html?msg=Du hast dich erfolgreich registriert";
 }
 
 /**
@@ -207,6 +233,12 @@ function login() {
     const password = document.getElementById("loPWInput").value;
     const foundUser = users.find((user) => user.email === email);
     let checkbox = document.getElementById("loginCheckBoxRememberMe");
+    // if (localStorage.SignupUser) {
+    //     email = JSON.parse(sessionStorage.SignupUser)[0].email;
+    //     password = JSON.parse(sessionStorage.SignupUser)[0].password;
+    //     localStorage.removeItem("SignupUser");
+    // }
+
     let currentUser = [];
     if (foundUser && password === foundUser.password) {
         if (checkbox.checked) {
