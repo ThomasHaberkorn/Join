@@ -19,7 +19,6 @@
     <script src="js/contacts.js"></script>
     <script src="js/script.js"></script>
     <script src="js/storage.js"></script>
-    <script src="js/add_task.js"></script>
     <script src="js/w3.js"></script>
     <script src="js/contactSection.js"></script>
 </head>
@@ -87,7 +86,7 @@
                                             <button type="button" class="btn-select" id="urgentBtn">
                                                 <p>Urgent</p><img src="./assets/img/addTask/Prio alta.png">
                                             </button>
-                                            <button type="button" class="btn-select yellow" id="mediumBtn">
+                                            <button type="button" class="btn-select" id="mediumBtn">
                                                 <p>Medium</p><img src="./assets/img/addTask/Prio media.png">
                                             </button>
                                             <button type="button" class="btn-select" id="lowBtn">
@@ -125,7 +124,7 @@
                             <p>This field is required</p>
                         </div>
                         <div class="btn-position">
-                            <button type="button" class="btn-clear">Clear X</button>
+                            <button type="button" id="addTaskClearButton" class="btn-clear">Clear X</button>
                             <button class="btn" id="create-btn">Create Task <img
                                     src="./assets/img/addTask/check (1).png"></button>
                         </div>
@@ -135,6 +134,6 @@
             </div>
         </div>
     </body>
-
+    <script src="js/add_task.js"></script>
 
 </html>

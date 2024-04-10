@@ -93,6 +93,19 @@ document.addEventListener("DOMContentLoaded", function () {
             task.assignedContacts
         );
 
+        // Zuordnung von Prioritäten zu Bildern
+        const prioritySymbols = {
+            Urgent: "./assets/img/urgentSymbol.png", // Pfad zum Bild für hohe Priorität
+            Medium: "./assets/img/mediumSymbol.png", // Pfad zum Bild für mittlere Priorität
+            Low: "./assets/img/lowSymbol.png" // Pfad zum Bild für niedrige Priorität
+        };
+
+        // Wählen Sie das entsprechende Symbol basierend auf der Task-Priorität
+        const prioritySymbol = prioritySymbols[task.priority];
+
+        // HTML für das Prioritätssymbol, wenn eine Priorität gesetzt ist
+        const prioritySymbolHtml = prioritySymbol ? `<img src="${prioritySymbol}" class="priority-symbol" alt="${task.priority}" style="margin-left: 10px;">` : '';
+
 
         const totalSubtasks = task.subtasks.length;
         const completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
@@ -114,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>${progressHtml} <!-- Progress-Bar und Subtasks-Anzeige einfügen -->
             <div class="prioAndContact">
                 <div style="display: flex;">${assignedContactElements}</div>
-                <div class="prioritySvg" style="color: #FF3D00;"></div>
+                ${prioritySymbolHtml} <!-- Füge das Prioritätssymbol hinzu -->
             </div>
         `;
 
@@ -129,7 +142,24 @@ document.addEventListener("DOMContentLoaded", function () {
             allTaskInformation.dataset.taskId = task.id; // Speichere die ID der Aufgabe
 
             // Zeige den "All Task Information" Bereich an
-            allTaskInformation.style.display = "block";
+            allTaskInformation.style.display = "flex";
+
+            // Zuordnung von Prioritäten zu Bildern
+            const prioritySymbols = {
+                Urgent: "./assets/img/urgentSymbol.png", // Pfad zum Bild für hohe Priorität
+                Medium: "./assets/img/mediumSymbol.png", // Pfad zum Bild für mittlere Priorität
+                Low: "./assets/img/lowSymbol.png" // Pfad zum Bild für niedrige Priorität
+            };
+
+            // Wählen Sie das entsprechende Symbol basierend auf der Task-Priorität
+            const prioritySymbol = prioritySymbols[task.priority];
+
+            // HTML für das Prioritätssymbol, wenn eine Priorität gesetzt ist
+            const prioritySymbolHtml = prioritySymbol ? `<img src="${prioritySymbol}" class="priority-symbol" alt="${task.priority}" style="vertical-align: middle; margin-left: 5px;">` : '';
+
+            const allTaskInformationPriority = document.getElementById("allTaskInformationPriority");
+            // Stellen Sie sicher, dass Sie sowohl den Prioritätstext als auch das Bild (wenn vorhanden) anzeigen
+            allTaskInformationPriority.innerHTML = task.priority + prioritySymbolHtml;
 
             // Setze den Titel, Beschreibung, Priorität, Fälligkeitsdatum, zugewiesene Person, Kategorie, Status und Subtasks
             // basierend auf der übergebenen Aufgabe (task)
@@ -142,11 +172,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 "allTaskInformationDescription"
             );
             allTaskInformationDescription.textContent = task.description;
-
-            const allTaskInformationPriority = document.getElementById(
-                "allTaskInformationPriority"
-            );
-            allTaskInformationPriority.textContent = task.priority;
 
             const allTaskInformationDueDate = document.getElementById(
                 "allTaskInformationDueDate"
@@ -273,6 +298,33 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("tasks", JSON.stringify(tasks));
         }
     }
+
+    document.querySelectorAll('.edit-prio').forEach(button => {
+        button.addEventListener('click', function () {
+            // Entferne zunächst die spezifischen Farbklassen von allen Buttons
+            document.querySelectorAll('.edit-prio').forEach(btn => {
+                btn.classList.remove('priority-urgent', 'priority-medium', 'priority-low');
+            });
+
+            // Füge die entsprechende Farbklasse basierend auf dem data-prio Attribut hinzu
+            switch (this.dataset.prio) {
+                case 'Urgent':
+                    this.classList.add('priority-urgent');
+                    break;
+                case 'Medium':
+                    this.classList.add('priority-medium');
+                    break;
+                case 'Low':
+                    this.classList.add('priority-low');
+                    break;
+            }
+
+            // Aktualisiere den Wert des versteckten Inputs mit der gewählten Priorität
+            document.getElementById('editPriority').value = this.dataset.prio;
+        });
+    });
+
+
 });
 
 function closeAllTaskInformation() {
@@ -301,10 +353,26 @@ function closeEditor() {
     const editTaskInformation = document.getElementById("taskEditorModal");
     const allTaskInformation = document.getElementById("allTaskInformation");
     editTaskInformation.style.display = "none";
-    allTaskInformation.style.display = "block";
+    allTaskInformation.style.display = "flex";
 }
 
 const editTaskButton = document.getElementById("editTaskButton");
+
+function setTaskEditorCategory(category) {
+    const taskEditorCategory = document.getElementById("taskEditorCategory");
+    if (category === "Technical Task") {
+        taskEditorCategory.textContent = "Technical Task";
+        taskEditorCategory.className = "category-technical"; // Setzen Sie hier die richtige Klasse für das Design
+    } else if (category === "User Story") {
+        taskEditorCategory.textContent = "User Story";
+        taskEditorCategory.className = "category-userstory"; // Setzen Sie hier die richtige Klasse für das Design
+    } else {
+        // Standard oder Fehlerbehandlung, falls notwendig
+        taskEditorCategory.textContent = "Category not set";
+        taskEditorCategory.className = "category-default"; // Eine Standardklasse, falls die Kategorie unbekannt ist
+    }
+}
+
 
 document
     .getElementById("editTaskButton")
@@ -320,6 +388,7 @@ document
         const task = tasks.find((task) => task.id === taskId);
 
         if (task) {
+            setTaskEditorCategory(task.category); // Aufruf der neuen Funktion mit der aktuellen Kategorie der Aufgabe
             document.getElementById("editTitle").value = task.title;
             document.getElementById("editDescription").value = task.description;
             document.getElementById("editDueDate").value = task.taskDate;
@@ -372,6 +441,22 @@ document
                     dropdownEdit.style.display = "none";
                 }
             });
+
+            // Lösche vorhandene Initialen
+            const editCheckedUserInitials = document.getElementById('editCheckedUserInitials');
+            editCheckedUserInitials.innerHTML = '';
+
+            task.assignedContacts.forEach(contactId => {
+                const contact = contacts.find(c => c.userID === contactId);
+                if (contact) {
+                    const initialsDiv = document.createElement('div');
+                    initialsDiv.className = 'userInitilas'; // Stellen Sie sicher, dass diese Klasse Ihren CSS-Styles entspricht
+                    initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
+                    initialsDiv.style.backgroundColor = contact.color; // Setze die Hintergrundfarbe des Divs auf die Farbe des Kontakts
+                    editCheckedUserInitials.appendChild(initialsDiv);
+                }
+            });
+
         }
     });
 
@@ -511,5 +596,5 @@ cardOptionsCloseButton.addEventListener("click", function () {
     const moveOption = document.getElementById("moveOption");
     const allTaskInformation = document.getElementById("allTaskInformation");
     moveOption.style.display = "none";
-    allTaskInformation.style.display = "block";
+    allTaskInformation.style.display = "flex";
 });

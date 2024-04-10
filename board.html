@@ -117,28 +117,62 @@
     </div>
 
     <div id="taskEditorModal">
-        <input id="editTitle" type="text" placeholder="Title">
-        <textarea id="editDescription" placeholder="Description"></textarea>
-        <input class="cursorPointer" id="editDueDate" type="date" placeholder="Due Date">
-        <select class="cursorPointer" id="editPriority">
-            <option value="">Select Priority</option>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="Urgent">Urgent</option>
-        </select>
-        <div class="contact-dropdown-edit">
-            <div class="input-dropdown-edit">
-                <input id="inputDropdownEdit" type="text" placeholder="Select contacts to assign" readonly>
-                <img id="openDropdownEdit" src="./assets/img/addTask/arrow_drop_downaa.png" alt="">
+        <div class="display-flex space-between">
+            <div id="taskEditorCategory"></div>
+            <button class="cursorPointer" onclick="closeEditor()">X</button>
+        </div>
+        <div id="taskEditorModalTitle">
+            <div id="editModalTitleDiv">
+                <p>Title</p>
+                <input id="editTitle" type="text" placeholder="Title">
             </div>
-            <div id="dropDownContactsEdit" class="dropdown-content-edit">
-                <!-- Checkboxen und Labels werden dynamisch eingefügt -->
+        </div>
+        <div id="taskEditorModalDescription">
+            <div id="taskEditorModalDescriptionDiv">
+                <p>Description</p>
+                <textarea id="editDescription" placeholder="Description"></textarea>
+            </div>
+        </div>
+        <div id="modalEditDueDate">
+            <p>Due date</p>
+            <input class="cursorPointer" id="editDueDate" type="date" placeholder="Due Date">
+        </div>
+
+        <div id="modalPrioOverall">
+            <p>Prio</p>
+            <input type="hidden" id="editPriority" value="">
+            <div id="modalEditPrioButtons" class="prio-selection">
+                <button type="button" class="btn-select edit-prio" data-prio="Urgent">
+                    <p>Urgent</p><img src="./assets/img/addTask/Prio alta.png">
+                </button>
+                <button type="button" class="btn-select edit-prio yellow" data-prio="Medium">
+                    <p>Medium</p><img src="./assets/img/addTask/Prio media.png">
+                </button>
+                <button type="button" class="btn-select edit-prio" data-prio="Low">
+                    <p>Low</p><img src="./assets/img/addTask/Capa 2 (4).png">
+                </button>
+            </div>
+        </div>
+
+        <div id="modalEditAssignedTo">
+            <p>Assigned To</p>
+            <div id="editContainerInputDropdown">
+                <div id="editInputDropdown">
+                    <div class="contact-dropdown-edit">
+                        <div class="input-dropdown-edit">
+                            <input id="inputDropdownEdit" type="text" placeholder="Select contacts to assign" readonly>
+                            <img id="openDropdownEdit" src="./assets/img/addTask/arrow_drop_downaa.png" alt="">
+                        </div>
+                        <div id="dropDownContactsEdit" class="dropdown-content-edit">
+                        </div>
+                    </div>
+                </div>
+                <div id="editCheckedUserInitials"></div>
             </div>
         </div>
 
 
         <button class="cursorPointer" id="saveEdit">OK</button>
-        <button class="cursorPointer" onclick="closeEditor()">Cancel</button>
 
     </div>
 
@@ -245,16 +279,18 @@
 
     <div id="moveOption">
         <div id="cardoptions">
-                <span id="bigcard-header">Move to</span>
-                <button id="cardOptionsCloseButton">X</button>
+            <span id="bigcard-header">Move to</span>
+            <button id="cardOptionsCloseButton">X</button>
         </div>
         <div class="options-container">
             <div class="cursorPointer optionsContainerOption" id="optionsContainerToDo" class="option-point">To Do</div>
-            <div class="cursorPointer optionsContainerOption"  id="optionsContainerInProgress" class="option-point">In Progress</div>
-            <div class="cursorPointer optionsContainerOption" id="optionsContainerAwaitFeedback" class="option-point">Await Feedback</div>
+            <div class="cursorPointer optionsContainerOption" id="optionsContainerInProgress" class="option-point">In
+                Progress</div>
+            <div class="cursorPointer optionsContainerOption" id="optionsContainerAwaitFeedback" class="option-point">
+                Await Feedback</div>
             <div class="cursorPointer optionsContainerOption" id="optionsContainerDone" class="option-point">Done</div>
         </div>
-        </div>
+    </div>
     </div>
 
     </div>

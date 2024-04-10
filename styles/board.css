@@ -190,6 +190,7 @@ section {
     align-items: flex-start;
     gap: 10px;
     border-radius: 8px;
+    width: 120px;
 }
 
 .category-userstory {
@@ -218,7 +219,7 @@ section {
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
 }
 
-.subtaskWithProgressBar{
+.subtaskWithProgressBar {
     display: flex;
     align-items: center;
     margin-bottom: 24px;
@@ -239,7 +240,7 @@ section {
     border-radius: 16px;
 }
 
-.subtaskNextToProgressBar{
+.subtaskNextToProgressBar {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -300,7 +301,7 @@ section {
 #allTaskInformation {
     display: none;
     position: fixed;
-    width: 20%;
+    width: 30%;
     height: 60%;
     background-color: white;
     z-index: 1000;
@@ -309,7 +310,6 @@ section {
     margin-top: 20px;
     padding: 60px;
     border-radius: 24px;
-
 }
 
 #allTaskInformationButton {
@@ -323,7 +323,7 @@ section {
 #taskEditorModal {
     display: none;
     position: fixed;
-    width: 20%;
+    width: 30%;
     height: 60%;
     background-color: white;
     z-index: 1000;
@@ -332,6 +332,10 @@ section {
     margin-top: 20px;
     padding: 60px;
     border-radius: 24px;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(209, 209, 209) white;
+    overflow-y: scroll;
+
 }
 
 #boardAddTask {
@@ -382,7 +386,7 @@ section {
     white-space: normal;
     height: 100%;
     gap: 10px;
-    max-width: 20vw;
+    width: 90%;
 }
 
 .display-flex {
@@ -456,7 +460,10 @@ section {
 }
 
 .cursorPointer {
+    background: white;
+    color: black;
     cursor: pointer;
+    border: none;
 }
 
 .checkbox-container {
@@ -472,10 +479,11 @@ section {
     height: 16px;
     width: 16px;
     margin: 8px 12px 8px 8px;
-    border: 1.5px solid #c0c0c0;
+    border: 1.5px solid #000;
     transition: all 0.3s ease-in-out;
     border-radius: 4px;
     padding: 6px;
+    background-color: #fff;
 }
 
 .checkbox-container label {
@@ -483,6 +491,7 @@ section {
     margin: 0;
     box-sizing: border-box;
 }
+
 
 .allTaskInformationLowerButtons {
     display: flex;
@@ -500,7 +509,7 @@ section {
     border: none;
 }
 
-.item-img{
+.item-img {
     font-size: 15px;
     border-radius: 50%;
     border: 2px solid white;
@@ -522,7 +531,7 @@ section {
     overflow-y: scroll;
 }
 
-.contact-display{
+.contact-display {
     padding-left: 15px;
     margin-top: 10px;
     display: flex;
@@ -530,7 +539,7 @@ section {
     gap: 15px;
 }
 
-.contact-avatar{
+.contact-avatar {
     font-size: 15px;
     color: #ffffff;
     border-radius: 50%;
@@ -544,10 +553,10 @@ section {
     margin-bottom: 5px;
 }
 
-#moveOption{
+#moveOption {
     display: none;
     position: fixed;
-    width: 20%;
+    width: 30%;
     height: 60%;
     background-color: white;
     z-index: 1000;
@@ -565,132 +574,268 @@ section {
     border: none;
 }
 
-#cardoptions{
+#cardoptions {
     display: flex;
     justify-content: space-between;
     min-width: 80%;
     max-width: 80%;
 }
 
-#bigcard-header{
+#bigcard-header {
     font-size: 40px;
     font-weight: 700;
     margin-bottom: 10px;
 }
 
-#options-container{
+#options-container {
     display: flex;
     flex-direction: column;
 }
 
-.optionsContainerOption{
+.optionsContainerOption {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-top: 10px;    
+    margin-top: 10px;
 }
 
-.optionsContainerOption:hover{
+.optionsContainerOption:hover {
     background-color: #f6f7f8;
     border-radius: 10px;
 }
 
---------------------------------------------------------------------------------------------------------------------------
-
-#taskEditorModal {
+.prioAndContact {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 40px;
-    background-color: #ffffff;
-    border-radius: 24px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 50%;
-    z-index: 10;
-    max-height: 80%;
-    overflow-y: auto;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
-#taskEditorModal input[type="text"],
-#taskEditorModal textarea,
-#taskEditorModal select {
+#taskEditorModalTitle {
+    align-self: stretch;
+    font-family: "Inter", sans-serif;
+    font-size: 34px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    margin-top: 8px;
+    margin-bottom: 24px;
 }
+
+#taskEditorModalTitle p {
+    margin: 0;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+#taskEditorModalDescription p {
+    margin: 0;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+#taskEditorModalDescription textarea {
+    font-family: "inter", sans-serif;
+}
+
+#editTitle {
+    display: flex;
+    padding: 12px 21px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px solid var(--Style, #D1D1D1);
+    background: #FFF;
+    width: 100%;
+    margin-top: 8px;
+}
+
+#editDescription {
+    display: flex;
+    height: 118px;
+    padding: 16px;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px solid var(--Style, #D1D1D1);
+    background: rgb(255, 255, 255);
+    resize: none;
+    width: 100%;
+}
+
 
 #taskEditorModal input[type="date"] {
     cursor: pointer;
 }
 
-#taskEditorModal button {
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#taskEditorModal button:hover {
-    background-color: #45a049;
-}
-
-.contact-dropdown-edit,
-.input-dropdown-edit {
-    width: 100%;
-    position: relative;
-}
-
-#openDropdownEdit {
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
-
 #dropDownContactsEdit {
     display: none;
-    position: absolute;
-    background-color: #f6f6f6;
-    min-width: 100%;
-    overflow: auto;
-    border: 1px solid #ddd;
-    z-index: 1;
-    max-height: 200px;
-    overflow-y: auto;
-    border-radius: 4px;
 }
 
-#dropDownContactsEdit div {
+#editModalTitleDiv {
+    width: 100%;
+}
+
+#taskEditorModalDescription {
+    align-self: stretch;
+    font-family: "inter", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    margin-bottom: 24px;
+}
+
+#taskEditorModalDescriptionDiv {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+#taskEditorModalDescriptionDiv p {
+    margin: 0;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+#editDueDate {
+    display: flex;
     padding: 12px 16px;
-    cursor: pointer;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px solid var(--Style, #D1D1D1);
+    background: #FFF;
+    font-family: "inter", sans-serif;
 }
 
-#dropDownContactsEdit div:hover {
-    background-color: #ddd;
+#editTitle,
+#editDescription,
+#editDueDate {
+    box-sizing: border-box;
+    width: 100%;
+    /* Ensure full-width */
+    margin: 8px 0;
+    /* Example margin */
+    padding: 12px;
+    /* Example padding */
+    border: 1px solid #D1D1D1;
+    /* Consistent border */
 }
 
-.cursorPointer {
-    cursor: pointer;
+#modalEditDueDate {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 24px;
 }
 
-#saveEdit,
-#editPriority option {
+.priority-urgent {
+    background-color: #FF3D00 !important;
+    color: white;
+    /* Textfarbe weiß für bessere Lesbarkeit */
+}
+
+.priority-medium {
+    background-color: #FFA800 !important;
+    color: white;
+}
+
+.priority-low {
+    background-color: #7AE229 !important;
+    color: white;
+}
+
+#modalPrioOverall {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+#inputDropdownEdit {
+    width: 80%;
+    border: none;
+    color: var(--black, #000);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+#editContainerInputDropdown {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background: var(--white, #FFF);
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+    width: 100%;
+}
+
+#editInputDropdown {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--Style, #D1D1D1);
+    background: var(--white, #FFF);
+    width: 100%;
+}
+
+.input-dropdown-edit {
+    display: flex;
+    justify-content: space-between;
+}
+
+.userInitilas {
+    width: 30px;
+    /* Oder eine passende Größe */
+    height: 30px;
+    /* Oder eine passende Größe */
+    border-radius: 15px;
+    /* Halb der Höhe/Breite für einen Kreis */
+    color: white;
+    /* Für weiße Textfarbe */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+}
+
+#editCheckedUserInitials {
+    display: flex;
+    align-items: start;
+    width: 100%;
+}
+
+.userInitilas{
+    font-size: 15px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
     font-weight: 500;
+    margin: 1px;
 }
 
-/* Verbesserung der Sichtbarkeit und Interaktivität */
-#inputDropdownEdit, #editDueDate {
-    cursor: pointer;
+.contact-dropdown-edit{
+    width: 100%;
 }
