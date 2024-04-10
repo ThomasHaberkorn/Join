@@ -3,11 +3,20 @@ async function initAddSidebar() {
     addTaskActive();
     showInitials();
     checkLoggedUser();
+    loadTasks();
 }
 function addTaskActive() {
     document.getElementById("addTasksum").classList.add("bgfocus");
 }
 
+let tasks = [];
+
+async function loadTasks() {
+    let response = await getItem("tasks");
+
+    let responseTasks = [response.value || []];
+    tasks = JSON.parse(responseTasks);
+}
 // Der gesamte Code wird erst ausgeführt, wenn das gesamte HTML-Dokument geladen ist.
 // Dies stellt sicher, dass alle Elemente, auf die wir zugreifen möchten, bereits existieren.
 document.addEventListener("DOMContentLoaded", function () {
@@ -22,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var subtaskList = document.getElementById("list"); // Die Liste, in der die Subtasks angezeigt werden
     var openDropdown = document.getElementById("openDropdown"); // Der Button zum Öffnen des Dropdown-Menüs
     // Wir erstellen ein Objekt, das die Prioritätsbuttons gruppiert, um später einfacher auf sie zugreifen zu können.
-    var priorityButtons = { Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn };
+    var priorityButtons = {Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn};
     var priority = ""; // Eine Variable, um die ausgewählte Priorität zu speichern
     var subtasks = []; // Ein Array, um die Subtasks zu speichern
 
@@ -89,59 +98,58 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Funktion, um eine neue Subtask zur Liste der Subtasks hinzuzufügen
-function addSubtask(subtaskName) {
-    // Erstelle ein neues Subtask-Objekt
-    let subtask = {
-        name: subtaskName,
-        completed: false // Initial ist die Subtask nicht abgeschlossen
-    };
-    // Füge das neue Subtask-Objekt zum Array der Subtasks hinzu
-    subtasks.push(subtask);
-
-    // Rufe die Funktion auf, um die Subtask-Liste im UI zu aktualisieren
-    // Achtung: Hier nicht die addSubtask-Funktion erneut aufrufen, um Rekursion zu vermeiden
-    updateSubtaskList();
-}
-
-// Funktion, um die Subtask-Liste im UI basierend auf dem aktuellen Zustand des 'subtasks'-Arrays zu aktualisieren
-function updateSubtaskList() {
-    // Leere zunächst die Liste im UI, um sie neu aufzubauen
-    subtaskList.innerHTML = "";
-
-    // Durchlaufe das Array der Subtasks und erstelle für jede Subtask ein Listenelement im UI
-    subtasks.forEach((subtask, index) => {
-        let li = document.createElement("li");
-        let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = subtask.completed;
-        checkbox.onchange = function() {
-            // Aktualisiere den 'completed'-Status der Subtask, wenn die Checkbox geändert wird
-            subtasks[index].completed = this.checked;
+    function addSubtask(subtaskName) {
+        // Erstelle ein neues Subtask-Objekt
+        let subtask = {
+            name: subtaskName,
+            completed: false, // Initial ist die Subtask nicht abgeschlossen
         };
+        // Füge das neue Subtask-Objekt zum Array der Subtasks hinzu
+        subtasks.push(subtask);
 
-        let text = document.createTextNode(" " + subtask.name);
-        let deleteButton = document.createElement("button");
-        deleteButton.textContent = "Löschen";
-        deleteButton.onclick = function() {
-            // Entferne die Subtask aus dem Array und aktualisiere die Liste, wenn der Löschen-Button geklickt wird
-            removeSubtask(index);
-        };
+        // Rufe die Funktion auf, um die Subtask-Liste im UI zu aktualisieren
+        // Achtung: Hier nicht die addSubtask-Funktion erneut aufrufen, um Rekursion zu vermeiden
+        updateSubtaskList();
+    }
 
-        li.appendChild(checkbox);
-        li.appendChild(text);
-        li.appendChild(deleteButton);
-        subtaskList.appendChild(li);
-    });
-}
+    // Funktion, um die Subtask-Liste im UI basierend auf dem aktuellen Zustand des 'subtasks'-Arrays zu aktualisieren
+    function updateSubtaskList() {
+        // Leere zunächst die Liste im UI, um sie neu aufzubauen
+        subtaskList.innerHTML = "";
 
-// Funktion, um eine Subtask aus der Liste zu entfernen
-function removeSubtask(index) {
-    // Entferne die Subtask aus dem Array
-    subtasks.splice(index, 1);
-    // Aktualisiere die Subtask-Liste im UI
-    updateSubtaskList();
-}
+        // Durchlaufe das Array der Subtasks und erstelle für jede Subtask ein Listenelement im UI
+        subtasks.forEach((subtask, index) => {
+            let li = document.createElement("li");
+            let checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = subtask.completed;
+            checkbox.onchange = function () {
+                // Aktualisiere den 'completed'-Status der Subtask, wenn die Checkbox geändert wird
+                subtasks[index].completed = this.checked;
+            };
 
+            let text = document.createTextNode(" " + subtask.name);
+            let deleteButton = document.createElement("button");
+            deleteButton.textContent = "Löschen";
+            deleteButton.onclick = function () {
+                // Entferne die Subtask aus dem Array und aktualisiere die Liste, wenn der Löschen-Button geklickt wird
+                removeSubtask(index);
+            };
+
+            li.appendChild(checkbox);
+            li.appendChild(text);
+            li.appendChild(deleteButton);
+            subtaskList.appendChild(li);
+        });
+    }
+
+    // Funktion, um eine Subtask aus der Liste zu entfernen
+    function removeSubtask(index) {
+        // Entferne die Subtask aus dem Array
+        subtasks.splice(index, 1);
+        // Aktualisiere die Subtask-Liste im UI
+        updateSubtaskList();
+    }
 
     // Event Listener für das Hinzufügen einer Subtask
     subtaskAddButton.addEventListener("click", function () {
@@ -152,9 +160,6 @@ function removeSubtask(index) {
         }
     });
 
-
-
-
     // Diese Funktion entfernt eine Subtask aus der Liste der Subtasks
     function removeSubtask(index) {
         // Entferne die Subtask an der gegebenen Position
@@ -163,36 +168,35 @@ function removeSubtask(index) {
         updateSubtaskList();
     }
 
-   // Korrigierte Funktion, um die Subtask-Liste im UI zu aktualisieren
-function updateSubtaskList() {
-    // Leere zunächst die Liste im UI, um sie neu aufzubauen
-    subtaskList.innerHTML = "";
+    // Korrigierte Funktion, um die Subtask-Liste im UI zu aktualisieren
+    function updateSubtaskList() {
+        // Leere zunächst die Liste im UI, um sie neu aufzubauen
+        subtaskList.innerHTML = "";
 
-    // Durchlaufe das Array der Subtasks und erstelle für jede Subtask ein Listenelement im UI
-    subtasks.forEach((subtask, index) => {
-        let li = document.createElement("li");
-        let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = subtask.completed;
-        checkbox.onchange = function() {
-            // Aktualisiere den 'completed'-Status der Subtask, wenn die Checkbox geändert wird
-            subtasks[index].completed = this.checked;
-        };
+        // Durchlaufe das Array der Subtasks und erstelle für jede Subtask ein Listenelement im UI
+        subtasks.forEach((subtask, index) => {
+            let li = document.createElement("li");
+            let checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = subtask.completed;
+            checkbox.onchange = function () {
+                // Aktualisiere den 'completed'-Status der Subtask, wenn die Checkbox geändert wird
+                subtasks[index].completed = this.checked;
+            };
 
-        let text = document.createTextNode(" " + subtask.name);
-        let deleteButton = document.createElement("button");
-        deleteButton.textContent = "Löschen";
-        deleteButton.onclick = function() {
-            // Entferne die Subtask aus dem Array und aktualisiere die Liste, wenn der Löschen-Button geklickt wird
-            removeSubtask(index);
-        };
+            let text = document.createTextNode(" " + subtask.name);
+            let deleteButton = document.createElement("button");
+            deleteButton.textContent = "Löschen";
+            deleteButton.onclick = function () {
+                // Entferne die Subtask aus dem Array und aktualisiere die Liste, wenn der Löschen-Button geklickt wird
+                removeSubtask(index);
+            };
 
-        li.appendChild(text);
-        li.appendChild(deleteButton);
-        subtaskList.appendChild(li);
-    });
-}
-
+            li.appendChild(text);
+            li.appendChild(deleteButton);
+            subtaskList.appendChild(li);
+        });
+    }
 
     // Füge einen Event Listener zum Subtask-Add-Button hinzu, der eine Subtask hinzufügt, wenn der Button geklickt wird
     subtaskAddButton.addEventListener("click", function () {
@@ -234,7 +238,14 @@ function updateSubtaskList() {
         }
 
         // Die Liste der Aufgaben ist die Liste der Aufgaben im localStorage, oder eine leere Liste, wenn es keine Aufgaben im localStorage gibt
-        var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        // loadTasks();
+        // async function loadTasks() {
+        //     let response = await getItem("tasks");
+
+        //     let responseTasks = [response.value || []];
+        //     tasks = JSON.parse(responseTasks);
+        // }
+        // var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         // Die ID der neuen Aufgabe ist eine zufällig generierte ID
         var newTaskId = "task-" + Math.random().toString(36).substr(2, 9);
         // Füge die neue Aufgabe zur Liste der Aufgaben hinzu
@@ -252,8 +263,15 @@ function updateSubtaskList() {
             assignedContacts,
         });
         // Speichere die Liste der Aufgaben im localStorage
-        localStorage.setItem("tasks", JSON.stringify(tasks));
+        // localStorage.setItem("tasks", JSON.stringify(tasks));
+
+        saveTask(tasks);
+        async function saveTask(task) {
+            await setItem("tasks", task);
+        }
+        // setItem("tasks", JSON.stringify(tasks));
+
         // Leite den Benutzer zur board.html Seite um
-        window.location.href = "board.html";
+        // window.location.href = "board.html";
     });
 });
