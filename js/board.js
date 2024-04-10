@@ -353,7 +353,6 @@ function closeEditor() {
     const editTaskInformation = document.getElementById("taskEditorModal");
     const allTaskInformation = document.getElementById("allTaskInformation");
     editTaskInformation.style.display = "none";
-    allTaskInformation.style.display = "flex";
 }
 
 const editTaskButton = document.getElementById("editTaskButton");
@@ -506,6 +505,8 @@ document.getElementById("saveEdit").addEventListener("click", function () {
     } else {
         alert("Aufgabe nicht gefunden.");
     }
+
+
 });
 
 const boardAddTaskButton = document.getElementById("boardAddTaskButton");
@@ -596,5 +597,4 @@ cardOptionsCloseButton.addEventListener("click", function () {
     const moveOption = document.getElementById("moveOption");
     const allTaskInformation = document.getElementById("allTaskInformation");
     moveOption.style.display = "none";
-    allTaskInformation.style.display = "flex";
 });

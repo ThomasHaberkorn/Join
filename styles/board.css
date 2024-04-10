@@ -718,7 +718,7 @@ section {
     border-radius: 10px;
     border: 1px solid var(--Style, #D1D1D1);
     background: #FFF;
-    font-family: "inter", sans-serif;
+    font-family: "inter", sans-serif!important;
 }
 
 #editTitle,
