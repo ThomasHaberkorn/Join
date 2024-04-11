@@ -657,3 +657,41 @@ document.getElementById("editTaskButton").addEventListener("click", function () 
 
     loadEditSubtasks(task); // Laden Sie die Subtasks der ausgewählten Task
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Zuweisung der Event Listener zu den "Move to"-Optionen
+    document.querySelectorAll('.optionsContainerOption').forEach(option => {
+        option.addEventListener('click', function() {
+            const taskId = document.getElementById("allTaskInformation").dataset.taskId;
+            let newStatus = this.id.replace('optionsContainer', ''); // Entfernt "optionsContainer" aus der ID
+            // Konvertiert die ID in den entsprechenden Statuswert
+            newStatus = convertIdToStatus(newStatus);
+            updateTaskStatusAndMove(taskId, newStatus);
+        });
+    });
+});
+
+function convertIdToStatus(id) {
+    switch (id) {
+        case 'ToDo':
+            return 'todo';
+        case 'InProgress':
+            return 'inProgress';
+        case 'Done':
+            return 'done';
+        case 'AwaitFeedback':
+            return 'awaitFeedback';
+        default:
+            return ''; // oder werfen Sie einen Fehler, falls kein passender Status gefunden wurde
+    }
+}
+
+function updateTaskStatusAndMove(taskId, newStatus) {
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    let taskIndex = tasks.findIndex(task => task.id === taskId);
+    if (taskIndex !== -1) {
+        tasks[taskIndex].status = newStatus;
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        window.location.reload(); // Seite neu laden, um Änderungen zu reflektieren
+    }
+}
