@@ -1,21 +1,21 @@
 function rendercontactListHTML(i) {
-  return /*html*/`
+    return /*html*/ `
      <div class="shortContactInfo" onclick="showContact(${i})" id="info${i}">
-          <div id="listContact${i}" class="contactPic">${contacts[i]['firstLetter']}${contacts[i]['lastLetter']}</div>
+          <div id="listContact${i}" class="contactPic">${contacts[i]["firstLetter"]}${contacts[i]["lastLetter"]}</div>
           <div class="shortContactLetters">
-            <div class="singleNameListContact">${contacts[i]['name']}</div>
-            <div class="listMail">${contacts[i]['email']}</div> 
+            <div class="singleNameListContact">${contacts[i]["name"]}</div>
+            <div class="listMail">${contacts[i]["email"]}</div> 
           </div>
         </div>
     `;
 }
 
 function renderShowContactHTML(index) {
-  return /*html*/`
+    return /*html*/ `
   <div class="contactFullUpperSection" id="contactFullUpperSection">
-    <div class="contactFullImage" id="listContactBig${index}">${contacts[index]['firstLetter']}${contacts[index]['lastLetter']}</div>
+    <div class="contactFullImage" id="listContactBig${index}">${contacts[index]["firstLetter"]}${contacts[index]["lastLetter"]}</div>
       <div class="contactNameEditDelete">
-        <div class="contactFullName">${contacts[index]['name']}</div>
+        <div class="contactFullName">${contacts[index]["name"]}</div>
         <div class="contactEditDeleteArea">
           <div onclick="editContact(${index})" class="contactEdit"><div class="existContactEdit"></div>Edit</div>
           <div onclick="deleteContactBig(${index})" class="contactDelete margin16left"><div class="existContactDelete margin16left"></div>Delete</div>
@@ -28,17 +28,17 @@ function renderShowContactHTML(index) {
     <div class="renderMail">
       <p>Email</p>
     </div>
-    <a href="mailto:${contacts[index]['email']}">${contacts[index]['email']}</a>
+    <a href="mailto:${contacts[index]["email"]}">${contacts[index]["email"]}</a>
     <div class="renderPhone">
       <p>Phone</p>
-    <a href="tel:${contacts[index]['phone']}">${contacts[index]['phone']}</a>
+    <a href="tel:${contacts[index]["phone"]}">${contacts[index]["phone"]}</a>
     </div>
   </div>
     `;
 }
 
 function editContactHTML(index) {
-  return /*HTML*/`
+    return /*HTML*/ `
      <div class="contactEditVisible slide-in-right " id="contactEditVisible" onclick="event.stopPropagation()">
      <div class="contactEditCloseResponse" onclick="closeEditContact()"><img src="./assets/img/Close-white.png"></div>
       <div class="contactEditLeft">
@@ -47,7 +47,7 @@ function editContactHTML(index) {
         <div class="contactEditSpace"></div>
       </div>
       <div class="contactEditRight">
-        <div id="contactEditImage${index}" class="contactEditFullImage">${contacts[index]['firstLetter']}${contacts[index]['lastLetter']}</div>
+        <div id="contactEditImage${index}" class="contactEditFullImage">${contacts[index]["firstLetter"]}${contacts[index]["lastLetter"]}</div>
         <div class="contactEditRenderDetailsRight">
           <img src="./assets/img/Close.png" class="contactEditClose" onclick="closeEditContact()">
           <div class="contactEditUserDetails">
@@ -71,11 +71,11 @@ function editContactHTML(index) {
         </div>  
       </div>
     </div>
-    `
+    `;
 }
 
 function addNewContactHTML() {
-  return /*HTML*/`
+    return /*HTML*/ `
   <div class="contactAddVisible slide-in-right " id="contactAddVisible" onclick="event.stopPropagation()">
   <div class="contactAddCloseResponse" onclick="closeAddContact()"><img src="./assets/img/Close-white.png"></div>  
   <div class="contactAddLeft">
@@ -89,7 +89,7 @@ function addNewContactHTML() {
         <div class="contactAddFullImage"><img src="./assets/img/Group13.png"></div>
         <div class="contactAddRenderDetailsRight">
           <img src="./assets/img/Close.png" class="contactAddClose" onclick="closeAddContact()">
-          <form class="contactAddUserDetails" onsubmit="createNewContact()">
+          <form class="contactAddUserDetails" onsubmit="createNewContact(event)"; return false>
             <div class="contactAddInput">
               <input id="contactAddName"  placeholder="Name" minlength="3" type="name" >
               <img src="./assets/img/person.png">
@@ -114,7 +114,7 @@ function addNewContactHTML() {
 }
 
 function rendercontactFullResponsive(index) {
-  return /*HTML*/`
+    return /*HTML*/ `
     <div class="headLineContactResponsive">
       <div class="contactFullResponsiveClose">
         <div class="headLineLeftContactResponsive">Contacts</div>
@@ -123,18 +123,18 @@ function rendercontactFullResponsive(index) {
       <div class="headLineRightContactResponsive">Better with a team</div>
       <div class="headLineSpaceContactHorizontalResponsive"></div>
       <div class="contactFullUpperSectionResponsive">
-        <div class="contactFullImage" id="listContactBigResponsive${index}">${contacts[index]['firstLetter']}${contacts[index]['lastLetter']}</div>
-        <div class="contactFullNameResponsive">${contacts[index]['name']}</div>
+        <div class="contactFullImage" id="listContactBigResponsive${index}">${contacts[index]["firstLetter"]}${contacts[index]["lastLetter"]}</div>
+        <div class="contactFullNameResponsive">${contacts[index]["name"]}</div>
       </div>
       <div class="contactInformationHeadlineResponsive">Contact Information</div>
       <div class="mailPhoneArea">
     <div class="renderMail">
       <p>Email</p>
     </div>
-    <a href="mailto:${contacts[index]['email']}">${contacts[index]['email']}</a>
+    <a href="mailto:${contacts[index]["email"]}">${contacts[index]["email"]}</a>
     <div class="renderPhone">
       <p>Phone</p>
-    <a href="tel:${contacts[index]['phone']}">${contacts[index]['phone']}</a>
+    <a href="tel:${contacts[index]["phone"]}">${contacts[index]["phone"]}</a>
     </div>
   </div>
 </div>
@@ -147,5 +147,5 @@ function rendercontactFullResponsive(index) {
     <div onclick="deleteContact(${index})" class="contactDelete margin16left"><div class="existContactDelete"></div>Delete</div>
   </div>
 </div>
-</div>`
+</div>`;
 }

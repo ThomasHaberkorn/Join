@@ -10,7 +10,7 @@ async function initPirivacyPolicy() {
     await includeW3();
     pirivacyPolicyActive();
     showInitials();
-    checkLoggedUserAlt();
+    // checkLoggedUserAlt();
     adjustSidebarVisibility();
 }
 

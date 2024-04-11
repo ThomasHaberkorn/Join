@@ -182,7 +182,8 @@ function getEarliestDate(tasks) {
 
 async function getTask() {
     const userLevel = sessionStorage.getItem("userLevel");
-    let taskTemp = JSON.parse(localStorage.getItem("tasks"));
+    // let taskTemp = JSON.parse(localStorage.getItem("tasks"));
+    let taskTemp = JSON.parse((await getItem("tasks")).value || "[]");
     if (userLevel === "user") {
         const userTasks = taskTemp.filter((t) => t.userLevel === "user");
         task = userTasks;

@@ -596,6 +596,7 @@
     .summaryDoneInfoCounter {
         line-height: 65.8px;
     }
+
     .tasksNum {
         margin-top: -16px;
         margin-bottom: -24px;
@@ -666,6 +667,9 @@
 @media (max-height: 750px) {
     .loginHeadLogo {
         scale: 0.7;
+    }
+    .summaryHead {
+        margin-bottom: 50px;
     }
 }
 
