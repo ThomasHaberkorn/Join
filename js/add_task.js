@@ -2,21 +2,11 @@ async function initAddSidebar() {
     await includeW3();
     addTaskActive();
     showInitials();
-    checkLoggedUser();
-    loadTasks();
 }
 function addTaskActive() {
     document.getElementById("addTasksum").classList.add("bgfocus");
 }
 
-let tasks = [];
-
-async function loadTasks() {
-    let response = await getItem("tasks");
-
-    let responseTasks = [response.value || []];
-    tasks = JSON.parse(responseTasks);
-}
 // Der gesamte Code wird erst ausgeführt, wenn das gesamte HTML-Dokument geladen ist.
 // Dies stellt sicher, dass alle Elemente, auf die wir zugreifen möchten, bereits existieren.
 document.addEventListener("DOMContentLoaded", function () {
@@ -31,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var subtaskList = document.getElementById("list"); // Die Liste, in der die Subtasks angezeigt werden
     var openDropdown = document.getElementById("openDropdown"); // Der Button zum Öffnen des Dropdown-Menüs
     // Wir erstellen ein Objekt, das die Prioritätsbuttons gruppiert, um später einfacher auf sie zugreifen zu können.
-    var priorityButtons = {Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn};
+    var priorityButtons = { Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn };
     var priority = ""; // Eine Variable, um die ausgewählte Priorität zu speichern
     var subtasks = []; // Ein Array, um die Subtasks zu speichern
 
@@ -112,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
             updateSubtaskList();
         }
 
-
         // Funktion, um eine Subtask aus der Liste zu entfernen
         function removeSubtask(index) {
             // Entferne die Subtask aus dem Array
@@ -121,21 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
             updateSubtaskList();
         }
 
-
-            li.appendChild(checkbox);
-            li.appendChild(text);
-            li.appendChild(deleteButton);
-            subtaskList.appendChild(li);
-        });
-    }
-
-    // Funktion, um eine Subtask aus der Liste zu entfernen
-    function removeSubtask(index) {
-        // Entferne die Subtask aus dem Array
-        subtasks.splice(index, 1);
-        // Aktualisiere die Subtask-Liste im UI
-        updateSubtaskList();
-    }
 
             // Event Listener für das Hinzufügen einer Subtask
             subtaskAddButton.addEventListener("click", function () {
@@ -187,11 +161,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-            li.appendChild(text);
-            li.appendChild(deleteButton);
-            subtaskList.appendChild(li);
-        });
-    }
 
             // Füge einen Event Listener zum Subtask-Add-Button hinzu, der eine Subtask hinzufügt, wenn der Button geklickt wird
             subtaskAddButton.addEventListener("click", function () {
@@ -248,4 +217,3 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.location.href = "board.html";
             });
         });
-

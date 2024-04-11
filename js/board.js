@@ -2,7 +2,6 @@ async function initBoard() {
     await includeW3();
     boardActive();
     showInitials();
-    checkLoggedUser();
 }
 
 function boardActive() {
@@ -10,42 +9,37 @@ function boardActive() {
 }
 
 function toggleSubtaskCompletion(taskId, subtaskIndex, completedStatus) {
-    // let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    let tasks = JSON.parse(getItem("tasks")) || [];
-    let taskIndex = tasks.findIndex((task) => task.id === taskId);
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    let taskIndex = tasks.findIndex(task => task.id === taskId);
     if (taskIndex !== -1) {
         let subtask = tasks[taskIndex].subtasks[subtaskIndex];
         if (subtask) {
             subtask.completed = completedStatus; // Aktualisiere den Erledigungsstatus
-            // localStorage.setItem('tasks', JSON.stringify(tasks)); // Speichere die aktualisierten Tasks
-            setItem("tasks", tasks);
+            localStorage.setItem('tasks', JSON.stringify(tasks)); // Speichere die aktualisierten Tasks
         }
     }
 }
 
 // Eine Funktion, die die Initialen der zugewiesenen Kontakte basierend auf deren IDs zurückgibt
 function getAssignedContactElements(assignedContactIds) {
-    return assignedContactIds
-        .map((contactId) => {
-            const contact = contacts.find((c) => c.userID === contactId);
-            if (contact) {
-                return `<div class="boardContact">
+    return assignedContactIds.map((contactId) => {
+        const contact = contacts.find((c) => c.userID === contactId);
+        if (contact) {
+            return `<div class="boardContact">
                             <div class="item-img" style="background-color: ${contact.color};">
                                 ${contact.firstLetter}${contact.lastLetter}
                             </div>
                         </div>`;
-            }
-            return ""; // Für den Fall, dass kein Kontakt gefunden wird
-        })
-        .join("");
+        }
+        return ''; // Für den Fall, dass kein Kontakt gefunden wird
+    }).join('');
 }
 
 function getAssignedContactDisplay(assignedContactIds) {
-    return assignedContactIds
-        .map((contactId) => {
-            const contact = contacts.find((c) => c.userID === contactId);
-            if (contact) {
-                return `
+    return assignedContactIds.map((contactId) => {
+        const contact = contacts.find((c) => c.userID === contactId);
+        if (contact) {
+            return `
                     <div class="contact-display" style="padding-left: 15px; margin-top: 10px; display: flex; align-items: center; gap: 15px;">
                         <div class="contact-avatar" style="background-color: ${contact.color};">
                             ${contact.firstLetter}${contact.lastLetter}
@@ -53,11 +47,11 @@ function getAssignedContactDisplay(assignedContactIds) {
                         <div class="contact-name">${contact.name}</div>
                     </div>
                 `;
-            }
-            return ""; // Falls kein Kontakt gefunden wird
-        })
-        .join("");
+        }
+        return ''; // Falls kein Kontakt gefunden wird
+    }).join('');
 }
+
 
 // Warte, bis das gesamte HTML-Dokument vollständig geladen ist, bevor der Code ausgeführt wird
 document.addEventListener("DOMContentLoaded", function () {
@@ -65,30 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const taskColumns = document.querySelectorAll(".task-column");
 
     // Lade die Liste der Aufgaben aus dem Local Storage, falls vorhanden, andernfalls setze tasks auf ein leeres Array
-    // let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-    // -----------------------------------
-    let tasks = [];
-    let taskTempUser = [];
-    const userLevel = sessionStorage.getItem("userLevel");
-    // taskTemp = JSON.parse(localStorage.getItem("tasks")) || [];
-    taskTempLoad();
-
-    async function taskTempLoad() {
-        let taskTemp = await getItem("tasks");
-        let taskTempParse = [taskTemp.value || []];
-        taskTempUser = await JSON.parse(taskTempParse);
-    }
-
-    if (userLevel === "user") {
-        const userTasks = taskTempUser.filter((t) => t.userLevel === "user");
-        tasks = userTasks;
-    } else {
-        const userTasks = taskTempUser.filter((t) => t.userLevel === "guest");
-        tasks = userTasks;
-    }
-
-    // -----------------------------------
 
     // Eine Funktion, die eine Karte für eine Aufgabe erstellt, basierend auf den Aufgabeninformationen
     function createTaskCard(task) {
@@ -136,11 +108,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const totalSubtasks = task.subtasks.length;
-        const completedSubtasks = task.subtasks.filter(
-            (subtask) => subtask.completed
-        ).length;
-        const progressPercentage =
-            totalSubtasks === 0 ? 0 : (completedSubtasks / totalSubtasks) * 100;
+        const completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
+        const progressPercentage = totalSubtasks === 0 ? 0 : (completedSubtasks / totalSubtasks) * 100;
         const progressHtml = `
             <div class="subtaskWithProgressBar">
             <div class="progress" style="background-color: #e0e0e0; border-radius: 2px; margin-top: 10px;">
@@ -209,12 +178,8 @@ document.addEventListener("DOMContentLoaded", function () {
             );
             allTaskInformationDueDate.textContent = task.taskDate;
 
-            const allTaskInformationAssignedTo = document.getElementById(
-                "allTaskInformationAssignedTo"
-            );
-            allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(
-                task.assignedContacts
-            );
+            const allTaskInformationAssignedTo = document.getElementById("allTaskInformationAssignedTo");
+            allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(task.assignedContacts);
 
             const allTaskInformationCategory = document.getElementById(
                 "allTaskInformationCategory"
@@ -228,27 +193,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 allTaskInformationCategory.className = "category-userstory";
             }
 
-            const allTaskInformationSubtasks = document.getElementById(
-                "allTaskInformationSubtasks"
-            );
-            allTaskInformationSubtasks.innerHTML = "";
-            allTaskInformationSubtasks.style.listStyle = "none"; // Add this line to set the list style to none
+            const allTaskInformationSubtasks = document.getElementById('allTaskInformationSubtasks');
+            allTaskInformationSubtasks.innerHTML = '';
+            allTaskInformationSubtasks.style.listStyle = 'none'; // Add this line to set the list style to none
             task.subtasks.forEach((subtask, index) => {
-                const subtaskElement = document.createElement("li");
-                const checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
+                const subtaskElement = document.createElement('li');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
                 checkbox.checked = subtask.completed; // Achte darauf, dass dies korrekt auf das completed-Attribut des Subtask-Objekts zugreift
                 checkbox.dataset.index = index; // Speichere den Index für den Zugriff im Event Listener
 
                 // Event Listener für die Änderungen der Checkbox
-                checkbox.addEventListener("change", function () {
+                checkbox.addEventListener('change', function () {
                     toggleSubtaskCompletion(task.id, index, this.checked);
                 });
 
                 subtaskElement.appendChild(checkbox);
-                subtaskElement.appendChild(
-                    document.createTextNode(subtask.name)
-                );
+                subtaskElement.appendChild(document.createTextNode(subtask.name));
                 allTaskInformationSubtasks.appendChild(subtaskElement);
             });
         }
@@ -324,20 +285,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Eine Funktion, die den Status einer Aufgabe im Local Storage aktualisiert
-
-    // ------------------------------------
-
     function updateTaskInLocalStorage(taskId, newStatus) {
-        // let allTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        let allTasks = JSON.parse(getItem("tasks")) || [];
-        let taskIndex = allTasks.findIndex((task) => task.id === taskId);
+        // Finde den Index der Aufgabe in der tasks-Liste basierend auf der taskId
+        let taskIndex = tasks.findIndex((task) => task.id === taskId);
+        // Falls die Aufgabe gefunden wurde
+
         if (taskIndex !== -1) {
-            allTasks[taskIndex].status = newStatus;
-            // localStorage.setItem("tasks", JSON.stringify(allTasks));
-            // setItem("tasks", JSON.stringify(allTasks));
-            setItem("tasks", allTasks);
-        } else {
-            console.log("Aufgabe nicht gefunden");
+            // Aktualisiere den Status der Aufgabe
+            tasks[taskIndex].status = newStatus;
+
+            // Speichere die aktualisierte Liste der Aufgaben im Local Storage
+            localStorage.setItem("tasks", JSON.stringify(tasks));
         }
     }
 
@@ -365,6 +323,8 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('editPriority').value = this.dataset.prio;
         });
     });
+
+
 });
 
 function closeAllTaskInformation() {
@@ -375,8 +335,7 @@ function closeAllTaskInformation() {
 function deleteTask() {
     const allTaskInformation = document.getElementById("allTaskInformation");
     const taskId = allTaskInformation.dataset.taskId; // Hole die gespeicherte ID der Aufgabe
-    // const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    const tasks = JSON.parse(getItem("tasks")) || [];
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     const taskIndex = tasks.findIndex((task) => task.id === taskId); // Finde die Aufgabe basierend auf der ID
     if (taskIndex !== -1) {
         // Wenn die Aufgabe gefunden wurde
@@ -384,9 +343,7 @@ function deleteTask() {
         if (taskCard) {
             taskCard.remove(); // Entferne die Karte der Aufgabe aus dem DOM
             tasks.splice(taskIndex, 1); // Entferne die Aufgabe aus der Liste
-            // localStorage.setItem("tasks", JSON.stringify(tasks)); // Speichere die aktualisierte Liste der Aufgaben
-            // setItem("tasks", JSON.stringify(tasks));
-            setItem("tasks", tasks);
+            localStorage.setItem("tasks", JSON.stringify(tasks)); // Speichere die aktualisierte Liste der Aufgaben
         }
     }
     closeAllTaskInformation(); // Schließe den "All Task Information"-Bereich
@@ -426,8 +383,7 @@ document
         taskEditorModal.style.display = "block";
 
         const taskId = allTaskInformation.dataset.taskId;
-        // const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        const tasks = JSON.parse(getItem("tasks")) || [];
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         const task = tasks.find((task) => task.id === taskId);
 
         if (task) {
@@ -454,9 +410,8 @@ document
                 const div = document.createElement("div");
                 div.className = "checkbox-container";
                 div.innerHTML = `
-                <input class="cursorPointer" type="checkbox" id="${checkboxId} " name="assignedContactsEdit" value="${
-                    contact.userID
-                }" ${isChecked ? "checked" : ""}>
+                <input class="cursorPointer" type="checkbox" id="${checkboxId} " name="assignedContactsEdit" value="${contact.userID
+                    }" ${isChecked ? "checked" : ""}>
                 <label for="${checkboxId}">${contact.name}</label>
             `;
                 dropdownEdit.appendChild(div);
@@ -525,8 +480,7 @@ dropdownEdit.addEventListener("click", function (event) {
 
 document.getElementById("saveEdit").addEventListener("click", function () {
     const taskId = allTaskInformation.dataset.taskId;
-    // let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    let tasks = JSON.parse(getItem("tasks")) || [];
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     const taskIndex = tasks.findIndex((task) => task.id === taskId);
 
     if (taskIndex !== -1) {
@@ -544,8 +498,7 @@ document.getElementById("saveEdit").addEventListener("click", function () {
             )
         ).map((el) => el.value);
 
-        // localStorage.setItem("tasks", JSON.stringify(tasks)); // Speichern des aktualisierten Arrays im Local Storage
-        setItem("tasks", tasks);
+        localStorage.setItem("tasks", JSON.stringify(tasks)); // Speichern des aktualisierten Arrays im Local Storage
 
         closeEditor(); // Schließen des Editors
         // Füge hier eventuell Code hinzu, um die Anzeige zu aktualisieren
@@ -625,6 +578,7 @@ function searchTasks() {
     });
 }
 
+
 const moveTaskButton = document.getElementById("moveTaskButton");
 
 moveTaskButton.addEventListener("click", function () {
@@ -637,9 +591,7 @@ allTaskInformation.addEventListener("click", function () {
     allTaskInformation.style.display = "none";
 });
 
-const cardOptionsCloseButton = document.getElementById(
-    "cardOptionsCloseButton"
-);
+const cardOptionsCloseButton = document.getElementById("cardOptionsCloseButton");
 
 cardOptionsCloseButton.addEventListener("click", function () {
     const moveOption = document.getElementById("moveOption");
@@ -743,4 +695,3 @@ function updateTaskStatusAndMove(taskId, newStatus) {
         window.location.reload(); // Seite neu laden, um Änderungen zu reflektieren
     }
 }
-
