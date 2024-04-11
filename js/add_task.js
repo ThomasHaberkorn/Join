@@ -1,5 +1,6 @@
 async function initAddSidebar() {
     await includeW3();
+
     addTaskActive();
     showInitials();
 }
@@ -192,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Der Status der Aufgabe ist 'todo'
         var status = "todo";
         // Die Liste der Aufgaben ist die Liste der Aufgaben im localStorage, oder eine leere Liste, wenn es keine Aufgaben im localStorage gibt
-        var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        // var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         // Die ID der neuen Aufgabe ist eine zufällig generierte ID
         var newTaskId = "task-" + Math.random().toString(36).substr(2, 9);
         // Füge die neue Aufgabe zur Liste der Aufgaben hinzu
@@ -210,7 +211,8 @@ document.addEventListener("DOMContentLoaded", function () {
             assignedContacts,
         });
         // Speichere die Liste der Aufgaben im localStorage
-        localStorage.setItem("tasks", JSON.stringify(tasks));
+        // localStorage.setItem("tasks", JSON.stringify(tasks));
+        setItem("task", tasks);
         // Leite den Benutzer zur board.html Seite um
         window.location.href = "board.html";
     });
