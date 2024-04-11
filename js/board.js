@@ -598,3 +598,62 @@ cardOptionsCloseButton.addEventListener("click", function () {
     const allTaskInformation = document.getElementById("allTaskInformation");
     moveOption.style.display = "none";
 });
+
+function addEditSubtask() {
+    const subtaskInput = document.getElementById('editSubtaskInput');
+    const subtaskValue = subtaskInput.value.trim();
+    if (subtaskValue) {
+        // Holt die aktuelle Task aus dem Local Storage
+        const taskId = document.getElementById("allTaskInformation").dataset.taskId;
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        let task = tasks.find(task => task.id === taskId);
+        if (!task.subtasks) {
+            task.subtasks = [];
+        }
+        task.subtasks.push({ name: subtaskValue, completed: false });
+        updateEditSubtaskList(task.subtasks);
+        localStorage.setItem('tasks', JSON.stringify(tasks)); // Aktualisiere die Task im Local Storage
+        subtaskInput.value = '';
+    }
+}
+
+function removeEditSubtask(index) {
+    const taskId = document.getElementById("allTaskInformation").dataset.taskId;
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    let task = tasks.find(task => task.id === taskId);
+    task.subtasks.splice(index, 1);
+    updateEditSubtaskList(task.subtasks);
+    localStorage.setItem('tasks', JSON.stringify(tasks)); // Aktualisiere die Task im Local Storage
+}
+
+function updateEditSubtaskList(subtasks) {
+    const list = document.getElementById('editSubtaskList');
+    list.innerHTML = '';
+    subtasks.forEach((subtask, index) => {
+        const li = document.createElement('li');
+        li.textContent = subtask.name;
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.onclick = () => removeEditSubtask(index);
+        li.appendChild(deleteButton);
+        list.appendChild(li);
+    });
+}
+
+document.getElementById('editSubtaskAddButton').addEventListener('click', addEditSubtask);
+
+// Diese Funktion wird aufgerufen, wenn der Task Editor geöffnet wird, um die bestehenden Subtasks zu laden.
+function loadEditSubtasks(task) {
+    updateEditSubtaskList(task.subtasks);
+}
+
+// Aktualisieren Sie die Funktion, die das Task-Editor-Modal öffnet, um die Subtasks zu laden:
+document.getElementById("editTaskButton").addEventListener("click", function () {
+    // Ihr bestehender Code, um das Modal zu öffnen und Task-Details zu laden...
+    
+    const taskId = document.getElementById("allTaskInformation").dataset.taskId;
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const task = tasks.find((task) => task.id === taskId);
+
+    loadEditSubtasks(task); // Laden Sie die Subtasks der ausgewählten Task
+});
