@@ -40,7 +40,7 @@ body {
 
 .loginMainContent {
     width: 1440px;
-    height: 1024px;
+    max-height: 1024px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -138,6 +138,10 @@ body {
     line-height: 19.2px;
     margin-left: 35px;
     cursor: pointer;
+}
+.loginSingUpButton:hover {
+    background-color: #29abe2;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .loginSingUpText {
@@ -279,6 +283,11 @@ body {
     cursor: pointer;
 }
 
+.loginButton:hover {
+    background-color: #29abe2;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .guestLoginButton {
     width: 177px;
     height: 48px;
@@ -290,6 +299,11 @@ body {
     line-height: 25.2px;
     margin-right: 17.5px;
     cursor: pointer;
+}
+
+.guestLoginButton:hover {
+    border: 2px solid #29abe2;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 input[id="loginCheckBoxRememberMe"] + label {
@@ -462,11 +476,12 @@ input[id="loginCheckBoxRememberMe"] {
     margin: 0 0 0 4px;
     color: #a8a8a8;
 }
-
-.signinCheckBoxPrivacyPolicySpan a {
-    text-decoration: none;
+.sighinLinkPrivacyPolicy {
+    margin: 0 0 0 4px;
     color: #29abe2;
     font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .signupButton {
@@ -483,6 +498,11 @@ input[id="loginCheckBoxRememberMe"] {
     margin-right: 17.5px;
     margin-bottom: 48px;
     cursor: pointer;
+}
+
+.signupButton:hover {
+    background-color: #29abe2;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 input[id="signinCheckBoxPrivacyPolicy"] + label {
@@ -518,7 +538,7 @@ input[id="signinCheckBoxPrivacyPolicy"] {
     margin-bottom: 48px;
 }
 
-.loginFooter a {
+.loginFooterLink {
     text-decoration: none;
     font-size: 16px;
     font-weight: 400;
@@ -531,6 +551,7 @@ input[id="signinCheckBoxPrivacyPolicy"] {
 }
 .loginFooterLinkPrivacyP:hover {
     color: #29abe2;
+    font-weight: 700;
 }
 .loginFooterLinkLegalN {
     cursor: pointer;
@@ -538,6 +559,7 @@ input[id="signinCheckBoxPrivacyPolicy"] {
 }
 .loginFooterLinkLegalN:hover {
     color: #29abe2;
+    font-weight: 700;
 }
 
 /* start contact-Section*/

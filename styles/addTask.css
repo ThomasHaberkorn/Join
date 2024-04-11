@@ -317,12 +317,6 @@ form {
     filter: brightness(4);
 }
 
-.yellow {
-    border-radius: 10px;
-    background: #FFA800;
-    color: white;
-    
-}
 
 .yellow img {
     filter: brightness(4);
@@ -641,3 +635,46 @@ input:focus {
     height: 100%;
 }
 
+.subtaskDeleteBtn{
+    background: white;
+    color: black;
+    cursor: pointer;
+    border: none;
+    background-color: lightgrey;
+}
+
+.subtask-list li{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.subtask-list li:hover{
+    background-color: lightgrey;
+}
+
+.subtask-list {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #888888 transparent;
+}
+
+.subtask-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.subtask-list::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.subtask-list::-webkit-scrollbar-thumb {
+    background-color: #888888;
+    border-radius: 4px;
+}
+
+.subtask-list::-webkit-scrollbar-thumb:hover {
+    background-color: #555555;
+}
+
+.subtask-list input[type="checkbox"] {
+    display: none;
+}

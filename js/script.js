@@ -19,10 +19,10 @@ let users;
  * This function is to load the user data from the remote storage.
  */
 async function loadUsers() {
-    let response = await getItem("user");
-
-    let responseUsers = [response.value || []];
-    users = JSON.parse(responseUsers);
+    // let response = await getItem("user");
+    // let responseUsers = [response.value || []];
+    // users = JSON.parse(responseUsers);
+    users = JSON.parse((await getItem("user")).value || "[]");
 }
 
 /**
@@ -69,7 +69,7 @@ function toggleLoginSignup() {
     const loginInnerContent = document.getElementById("loginInnerContent");
     const signinInnerContent = document.getElementById("signinInnerContent");
     const loginSignUp = document.getElementById("loginSignUp");
-
+    sessionStorage.removeItem("sidebarShouldHide");
     if (loginInnerContent.classList.contains("d-none")) {
         loginInnerContent.classList.remove("d-none");
         signinInnerContent.classList.add("d-none");
