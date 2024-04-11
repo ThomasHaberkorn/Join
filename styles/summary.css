@@ -270,3 +270,19 @@ body {
     color: #29abe2;
     text-align: start;
 }
+
+.hoverCont:hover {
+    background-color: #2a3647;
+    color: white;
+    transform: scale(1.05);
+    transition: transform 0.5s;
+    cursor: pointer;
+}
+
+.hoverCont:hover .summaryTodoInfoImg {
+    content: url("/assets/img/todoLogoWhite.png");
+}
+
+.hoverCont:hover .summaryDoneInfoImg {
+    content: url("/assets/img/doneLogoWhite.png");
+}

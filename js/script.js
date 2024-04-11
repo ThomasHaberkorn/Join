@@ -3,6 +3,26 @@ async function init() {
     handleCheckboxAndMessage();
     checkMsgBox();
     moveContainer();
+    checkRememberUser();
+    await loadUsers();
+    // renderUsers();
+}
+
+let users;
+
+// function renderUsers() {
+//     users.splice(0);
+//     console.log(users);
+//     setItem("user", users);
+// }
+/**
+ * This function is to load the user data from the remote storage.
+ */
+async function loadUsers() {
+    // let response = await getItem("user");
+    // let responseUsers = [response.value || []];
+    // users = JSON.parse(responseUsers);
+    users = JSON.parse((await getItem("user")).value || "[]");
 }
 
 /**
@@ -36,7 +56,6 @@ async function sessionStorageFirstTimeTrue() {
 
 function checkMsgBox() {
     let mG = document.getElementById("msgBox").innerHTML;
-
     if (mG == null) {
         mG.classList.add("bcTransp");
     }
@@ -50,7 +69,7 @@ function toggleLoginSignup() {
     const loginInnerContent = document.getElementById("loginInnerContent");
     const signinInnerContent = document.getElementById("signinInnerContent");
     const loginSignUp = document.getElementById("loginSignUp");
-
+    sessionStorage.removeItem("sidebarShouldHide");
     if (loginInnerContent.classList.contains("d-none")) {
         loginInnerContent.classList.remove("d-none");
         signinInnerContent.classList.add("d-none");
@@ -58,7 +77,6 @@ function toggleLoginSignup() {
         loginInnerContent.classList.add("d-none");
         signinInnerContent.classList.remove("d-none");
     }
-
     loginSignUp.classList.toggle("d-none");
 }
 
@@ -87,46 +105,57 @@ async function setLogoAnimationDone() {
     document.getElementById("loginHeadLogo").classList.remove("transformLogo");
 }
 
-// Neue Funktion zum Behandeln der Checkbox und Nachrichtenanzeige
+/**
+ * Function to handle the checkbox and message display
+ */
+
 function handleCheckboxAndMessage() {
     const submitButton = document.querySelector(".signupButton");
     const checkbox = document.getElementById("signinCheckBoxPrivacyPolicy");
-    const msgBox = document.getElementById("msgBox"); // Angenommen, Sie haben ein Element mit dieser ID für die Nachricht
+    const msgBox = document.getElementById("msgBox");
     if (submitButton) {
         // Erstmaliger Check und Button-Status
         submitButton.disabled = !checkbox.checked;
-        submitButton.classList.add(!checkbox.checked ? "bcGray" : ""); // Ternärer Operator für bedingte Klassenaddition
+        submitButton.classList.add(!checkbox.checked ? "bcGray" : ""); // Ternary operator for conditional class addition
 
-        // Event-Listener für Checkbox-Änderungen
+        // Event listener for checkbox changes
         checkbox.addEventListener("change", () => {
             submitButton.disabled = !checkbox.checked;
-            submitButton.classList.toggle("bcGray"); // Umschalten der Klasse basierend auf dem Checkbox-Status
+            submitButton.classList.toggle("bcGray"); // Change the class based on the checkbox status
         });
-
-        // Behandlung der Nachrichtenanzeige aus URL-Parametern
-        const urlParams = new URLSearchParams(window.location.search);
-        const msg = urlParams.get("msg");
-        if (msg) {
-            msgBox.innerHTML = msg;
-            msgBox.classList.remove("d-none");
-        } else {
-            msgBox.classList.add("d-none");
-        }
+        fillMsgBox();
     }
 }
 
-let users = JSON.parse(localStorage.getItem("user")) || []; // Lade vorhandene Nutzer
+/**
+ * Fills the message box with the message from the URL parameters.
+ */
 
-function addUser() {
+function fillMsgBox() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const msg = urlParams.get("msg");
+    if (msg) {
+        msgBox.innerHTML = msg;
+        msgBox.classList.remove("d-none");
+    } else {
+        msgBox.classList.add("d-none");
+    }
+}
+
+/**
+ * check if the user already exists and if the password and the password confirm are the same
+ */
+
+async function addUser() {
     const name = document.getElementById("signinInputName").value;
     const email = document.getElementById("signinInputMail").value;
-    const password = document.getElementById("signinpassword").value;
-    const passwordConfirm = document.getElementById(
-        "signinpasswordConfirm"
-    ).value;
+    const password = document.getElementById("suPWInput").value;
+    const passwordConfirm = document.getElementById("suPWCInput").value;
+    let currentUser = [];
     const existingUser = users.find((user) => user.email === email);
     const confirmPassword = password === passwordConfirm;
     if (existingUser) {
+        currentUser.push({email, password});
         window.location.href =
             "index.html?msg=E-Mail-Adresse bereits registriert!";
         return;
@@ -134,41 +163,98 @@ function addUser() {
     if (!confirmPassword) {
         checkSignupPasswordConfirm();
     } else {
-        signupForward();
+        signupForward(name, email, password);
     }
 }
+
+/**
+ * checkSignupPasswordConfirm function to check if the password and the password confirm are the same
+ */
+
 function checkSignupPasswordConfirm() {
-    document.getElementById("signinpasswordConfirm").classList.add("focus");
+    document
+        .getElementById("signinpasswordConfirm")
+        .classList.add("focusAlert");
     document.getElementById("my-form").innerHTML =
         "Ups! Your password don't match";
 }
 
-function signupForward() {
+/**
+ * signupForward function to save the user data in the local storage and redirect to the index.html
+ */
+
+async function signupForward(a, b, c) {
+    let name = a;
+    let email = b;
+    let password = c;
+    let currentUser = [];
+    let userLevel = "user";
     users.push({
         name,
         email,
         password,
+        userLevel,
     });
-    localStorage.setItem("user", JSON.stringify(users));
+    currentUser.push({email, password});
+    await setItem("user", users);
+    localStorage.setItem("RememberUser", JSON.stringify(currentUser));
+    signupForwardRedirect(email, password);
+}
+
+function signupForwardRedirect(email, password) {
     loginInnerContent.classList.remove("d-none");
+    document.getElementById("loginInputMail").value = email;
+    document.getElementById("loPWInput").value = password;
+    document.getElementById("loginCheckBoxRememberMe").checked = true;
     signinInnerContent.classList.add("d-none");
     window.location.href =
         "index.html?msg=Du hast dich erfolgreich registriert";
 }
 
+/**
+ * Checks if the user has checked the "Remember me" checkbox and saves the user data in the local storage.
+ */
+function checkRememberUser() {
+    let rememberUser = JSON.parse(localStorage.getItem("RememberUser"));
+    if (rememberUser) {
+        document.getElementById("loginInputMail").value = rememberUser[0].email;
+        document.getElementById("loPWInput").value = rememberUser[0].password;
+        document.getElementById("loginCheckBoxRememberMe").checked = true;
+    }
+}
+
+/**
+ * Checks if the user has entered the correct email and password and logs in the user.
+ */
 function login() {
     event.preventDefault(); // Verhindert den standardmäßigen Formular-Submit
     const email = document.getElementById("loginInputMail").value;
-    const password = document.getElementById("loginpassword").value;
+    const password = document.getElementById("loPWInput").value;
     const foundUser = users.find((user) => user.email === email);
+    let checkbox = document.getElementById("loginCheckBoxRememberMe");
+    // if (localStorage.SignupUser) {
+    //     email = JSON.parse(sessionStorage.SignupUser)[0].email;
+    //     password = JSON.parse(sessionStorage.SignupUser)[0].password;
+    //     localStorage.removeItem("SignupUser");
+    // }
 
+    let currentUser = [];
     if (foundUser && password === foundUser.password) {
+        if (checkbox.checked) {
+            currentUser.push({email, password});
+            localStorage.setItem("RememberUser", JSON.stringify(currentUser));
+        }
         sessionStorage.setItem("userName", foundUser.name);
+        sessionStorage.setItem("userLevel", foundUser.userLevel);
         window.location.href = "summary.html";
     } else {
         window.location.href = "index.html?msg=Email oder Passwort falsch";
     }
 }
+
+/**
+ * Logs the user in as a guest.
+ */
 
 function guestLogin() {
     sessionStorage.setItem("userName", "Guest");
@@ -194,3 +280,35 @@ function moveContainer() {
     }
 }
 mediaQuery.addListener(moveContainer);
+
+/**
+ *
+ * @param {*} id take the id of the current event and change the image of the password field
+ * it work for the login and the signup page
+ */
+
+function changeImg(id) {
+    let img = document.getElementById(`${id}`);
+    img.src = "/assets/img/passw-hidden.png";
+    img.style.cursor = "pointer";
+}
+
+function checkPW(id) {
+    event.stopPropagation();
+    let img = document.getElementById(`${id}`);
+    let input = document.getElementById(`${id}Input`);
+    if (input.type === "password") {
+        img.src = "/assets/img/passw-visible.png";
+        input.type = "text";
+        img.style.cursor = "pointer";
+    } else {
+        img.src = "/assets/img/passw-hidden.png";
+        input.type = "password";
+        img.style.cursor = "pointer";
+    }
+}
+
+function removeFocus(id) {
+    let img = document.getElementById(`${id}`);
+    img.src = "/assets/img/lock.png";
+}

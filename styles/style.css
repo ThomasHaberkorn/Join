@@ -5,7 +5,7 @@
     background-color: transparent;
 }
 
-.focus {
+.focusAlert {
     border: 1px solid red !important;
 }
 html {
@@ -32,32 +32,24 @@ body {
     margin-left: 0;
 }
 
+.PasswCont {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
 .loginMainContent {
     width: 1440px;
-    height: 1024px;
+    max-height: 1024px;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #f6f7f8;
 }
 
-/* @keyframes positionAnimation {
-    0% {
-        position: absolute;
-        width: 1440px;
-        height: 1024px;
-    }
-    100% {
-        position: absolute;
-        width: 177px;
-        height: 208px;
-    }
-} */
-
 @keyframes logoAnimation {
     0% {
         transform: scale(1);
-        animation-delay: 1;
         position: absolute;
         top: 170%;
         left: 45%;
@@ -65,7 +57,6 @@ body {
     }
     1% {
         opacity: 1;
-        animation-delay: 2s;
     }
     100% {
         position: absolute;
@@ -125,8 +116,6 @@ body {
     width: 200px;
     height: 244px;
     z-index: 99;
-    /* margin-left: 77px;
-    margin-top: 80px; */
 }
 
 .loginSignUp {
@@ -149,6 +138,10 @@ body {
     line-height: 19.2px;
     margin-left: 35px;
     cursor: pointer;
+}
+.loginSingUpButton:hover {
+    background-color: #29abe2;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .loginSingUpText {
@@ -193,7 +186,6 @@ body {
 
 .loginHeadlineBorder {
     width: 150px;
-
     border-bottom: 3px solid #29abe2;
     border-radius: 8px;
 }
@@ -225,12 +217,11 @@ body {
     transform: translateY(10%);
 }
 
-.loginPassword {
+.inputPassword {
     width: 422px;
     height: 48px;
     gap: 8px;
     margin: 16px 16px 44px 16px;
-    background-image: url(/assets/img/lock.png);
     background-repeat: no-repeat;
     background-position: right;
     background-position: 377px 12px;
@@ -240,7 +231,12 @@ body {
     text-indent: 21px;
 }
 
-.loginPassword::placeholder {
+.passwImg {
+    position: absolute;
+    right: 43px;
+    top: 30px;
+}
+.inputPassword::placeholder {
     font-size: 20px;
     font-weight: 400;
     line-height: 24px;
@@ -287,6 +283,11 @@ body {
     cursor: pointer;
 }
 
+.loginButton:hover {
+    background-color: #29abe2;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .guestLoginButton {
     width: 177px;
     height: 48px;
@@ -298,6 +299,11 @@ body {
     line-height: 25.2px;
     margin-right: 17.5px;
     cursor: pointer;
+}
+
+.guestLoginButton:hover {
+    border: 2px solid #29abe2;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 input[id="loginCheckBoxRememberMe"] + label {
@@ -422,7 +428,6 @@ input[id="loginCheckBoxRememberMe"] {
     width: 422px;
     height: 48px;
     margin: 12px;
-    background-image: url(/assets/img/lock.png);
     background-repeat: no-repeat;
     background-position: right;
     background-position: 377px 12px;
@@ -430,6 +435,14 @@ input[id="loginCheckBoxRememberMe"] {
     border: 1px solid #d1d1d1;
     border-radius: 10px;
     text-indent: 21px;
+}
+
+.suPasswImg {
+    position: absolute;
+    right: 38px;
+    top: 25px;
+    width: 24px;
+    height: 24px;
 }
 
 .signinPassword::placeholder {
@@ -463,11 +476,12 @@ input[id="loginCheckBoxRememberMe"] {
     margin: 0 0 0 4px;
     color: #a8a8a8;
 }
-
-.signinCheckBoxPrivacyPolicySpan a {
-    text-decoration: none;
+.sighinLinkPrivacyPolicy {
+    margin: 0 0 0 4px;
     color: #29abe2;
     font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .signupButton {
@@ -484,6 +498,11 @@ input[id="loginCheckBoxRememberMe"] {
     margin-right: 17.5px;
     margin-bottom: 48px;
     cursor: pointer;
+}
+
+.signupButton:hover {
+    background-color: #29abe2;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 input[id="signinCheckBoxPrivacyPolicy"] + label {
@@ -519,12 +538,28 @@ input[id="signinCheckBoxPrivacyPolicy"] {
     margin-bottom: 48px;
 }
 
-.loginFooter a {
+.loginFooterLink {
     text-decoration: none;
     font-size: 16px;
     font-weight: 400;
     padding: 8px 12px;
     color: #a8a8a8;
+}
+.loginFooterLinkPrivacyP {
+    cursor: pointer;
+    margin-right: 8px;
+}
+.loginFooterLinkPrivacyP:hover {
+    color: #29abe2;
+    font-weight: 700;
+}
+.loginFooterLinkLegalN {
+    cursor: pointer;
+    margin-left: 8px;
+}
+.loginFooterLinkLegalN:hover {
+    color: #29abe2;
+    font-weight: 700;
 }
 
 /* start contact-Section*/

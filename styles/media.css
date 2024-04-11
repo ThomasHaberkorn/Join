@@ -35,9 +35,6 @@
         height: 500px;
         margin-right: 20px;
     }
-    /* .summaryWelcomeContainer {
-        display: none;
-    } */
     .tasksNum {
         margin-top: 5px;
     }
@@ -63,6 +60,20 @@
     }
     .summaryTextH2 {
         font-size: 20px;
+    }
+}
+
+@media (max-height: 780px) and (min-width: 780px) {
+    .summaryMainContainer {
+        margin-top: 55px;
+    }
+    .summaryHead {
+        margin-bottom: 16px;
+    }
+    .row1,
+    .row2,
+    .row3 {
+        height: 150px;
     }
 }
 
@@ -142,6 +153,12 @@
     .helpTextarea {
         height: 83.3vh;
     }
+    .headerHelpLink {
+        display: block !important;
+    }
+    .headerHelp img {
+        display: none;
+    }
 }
 
 @media (max-width: 720px) {
@@ -182,7 +199,7 @@
         height: 48px;
         background-position: 300px 12px;
     }
-    .loginPassword {
+    .inputPassword {
         width: 350px;
         height: 48px;
         background-position: 300px 12px;
@@ -203,6 +220,9 @@
         height: 48px;
         background-position: 300px 12px;
     }
+    .suPasswImg {
+        right: 43px;
+    }
     .loginFooter {
         height: 190px;
     }
@@ -221,6 +241,9 @@
     }
     .summaryWelcomeContainer {
         margin-left: 0px;
+    }
+    .passwImg {
+        right: 47px;
     }
 }
 
@@ -360,7 +383,7 @@
         width: 270px;
         background-position: 240px 12px;
     }
-    .loginPassword {
+    .inputPassword {
         width: 270px;
         margin-bottom: 12px;
         background-position: 240px 12px;
@@ -418,6 +441,12 @@
     .loginLogoPlaceholder {
         width: 120px;
         height: 150px;
+    }
+    .suPasswImg {
+        right: 22px;
+    }
+    .passwImg {
+        right: 26px;
     }
 }
 
@@ -567,6 +596,7 @@
     .summaryDoneInfoCounter {
         line-height: 65.8px;
     }
+
     .tasksNum {
         margin-top: -16px;
         margin-bottom: -24px;
@@ -605,7 +635,7 @@
     .loginInputMail {
         margin: 16px 8px 16px 8px;
     }
-    .loginPassword {
+    .inputPassword {
         margin: 16px 8px 14px 8px;
     }
     .summaryUrgentTaskNextDate {
@@ -614,11 +644,40 @@
     .summaryUrgentTaskInfo {
         font-size: 11px;
     }
+    .passwImg {
+        right: 18px;
+    }
+}
+
+@media (max-height: 870px) {
+    .summaryHead {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-height: 820px) {
+    .summaryHead {
+        margin-bottom: 20px;
+    }
+    .summaryContentContainer {
+        padding-top: 30px;
+    }
 }
 
 @media (max-height: 750px) {
     .loginHeadLogo {
-        scale: 0.75;
-        top: -10px !important;
+        scale: 0.7;
+    }
+    .summaryHead {
+        margin-bottom: 50px;
+    }
+}
+
+@media (max-height: 670px) and (max-width: 380px) {
+    .loginInnerContent {
+        margin-top: 110px;
+    }
+    .loginHeadlineh1 {
+        margin-top: 12px;
     }
 }
