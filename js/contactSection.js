@@ -8,19 +8,28 @@ async function initContact() {
     checkLoggedUser();
 }
 
+/**
+ * show the initials of the contact
+ * @returns
+ */
+
 function contactActive() {
     document.getElementById("contactSum").classList.add("bgfocus");
 }
 
 let contacts = [];
+let previousIndex;
+let contactCount = 0;
+
+/**
+ * load the contacts from the remote storage
+ * @returns
+ */
 
 async function loadContacts() {
     // contacts = await JSON.parse(localStorage.getItem("contacts"));
     contacts = JSON.parse((await getItem("contacts")).value || "[]");
 }
-
-let previousIndex;
-let contactCount = 0;
 
 /**
  * render the contact list
@@ -48,6 +57,7 @@ async function renderContactList() {
 /**
  * sort the contacts by name
  */
+
 function sortContacts() {
     contacts.sort((a, b) => a["name"].localeCompare(b["name"]));
 }
@@ -84,10 +94,12 @@ async function createNewContact(event) {
     await saveContacts();
     await renderContactList();
     closeAddContact();
+    contactSuccessfullCreated();
 }
 
 /**
  * User ID generation
+ * @returns {string} id
  */
 
 function generateUserId() {
@@ -131,12 +143,20 @@ function deleteContact(index) {
     closeContactFullResponsive();
 }
 
+/**
+ * Delete the contact with the given index
+ */
+
 function deleteContactBig(index) {
     contacts.splice(index, 1);
     saveContacts();
     renderContactList();
     document.getElementById("contactFull").style.transform = "translateX(100%)";
 }
+
+/**
+ * Show the contact with the given index    
+ */
 
 function showContact(index) {
     let fullContact = document.getElementById("contactFull");
@@ -172,6 +192,10 @@ function showContact(index) {
     }
 }
 
+/**
+ * remove the mark from the contact list
+ */
+
 function removeMark() {
     for (let i = 0; i < contacts.length; i++) {
         let element = document.getElementById(`info${i}`);
@@ -180,6 +204,11 @@ function removeMark() {
         }
     }
 }
+
+/**
+ * show the contact with the given index in the responsive view
+ */
+
 function showContactResponsive(index) {
     let contactFullResponsive = document.getElementById(
         "contactFullResponsive"
@@ -193,6 +222,10 @@ function showContactResponsive(index) {
         `listContactBigResponsive${index}`
     ).style.backgroundColor = contacts[index]["color"];
 }
+
+/**
+ * show the value of the contact from remotestoarge
+ */
 
 function editContact(index) {
     let contactEdit = document.getElementById("contactEditArea");
@@ -210,6 +243,10 @@ function editContact(index) {
     saveContacts();
 }
 
+/**
+ * close the edit contact area
+ */
+
 function closeEditContact() {
     let contactEditVisible = document.getElementById("contactEditVisible");
     contactEditVisible.classList.add("slide-out-right");
@@ -218,6 +255,10 @@ function closeEditContact() {
         contactEditVisible.innerHTML = "";
     }, 400);
 }
+
+/**
+ * close the contact responsive view
+ */
 
 function closeContactFullResponsive() {
     let contactFullResponsive = document.getElementById(
@@ -231,6 +272,10 @@ function closeContactFullResponsive() {
     }, 400);
 }
 
+/**
+ * auxiliar function to hide the contact responsive view
+ */
+
 function hideContactResponsive() {
     const container = document.getElementById("contactFullResponsive");
     if (window.innerWidth >= 950) {
@@ -240,7 +285,15 @@ function hideContactResponsive() {
     }
 }
 
+/** 
+ *  auxiliar addEventListener to observe the window size
+ */
+
 window.addEventListener("resize", hideContactResponsive);
+
+/**
+ * show the initials of the contact
+ */
 
 function showContactPopupEditDelete() {
     let popupContactSmal = document.getElementById("contactPopupEditDelete");
@@ -250,6 +303,10 @@ function showContactPopupEditDelete() {
     popupContactSmal.classList.remove(`slide-out-right-popup`);
     popupContactSmal.classList.add(`slide-in-right-popup`);
 }
+
+/**
+ * hide the initials of the contact
+ */
 
 function hideContactPopupEditDelete() {
     let popupContactSmal = document.getElementById("contactPopupEditDelete");
@@ -263,13 +320,13 @@ function hideContactPopupEditDelete() {
 }
 
 /**
- *
  * @param {*} index Edit the contact with the given index
  * @returns
  */
 
 function patchEdit(index) {
     index = parseInt(index);
+    
     if (isNaN(index) || index < 0 || index >= contacts.length) {
         console.error("Invalid index");
         return;
@@ -277,10 +334,14 @@ function patchEdit(index) {
     let newName = document.getElementById("contactEditName").value;
     let newMail = document.getElementById("contactEditEmail").value;
     let newPhone = document.getElementById("contactEditPhone").value;
+    let newFirstLetter = newName.charAt(0).toUpperCase();
+    let newLastLetter = newName.split(" ").pop().charAt(0).toUpperCase();
     const updatedContact = {
         name: newName,
         email: newMail,
         phone: newPhone,
+        firstLetter: newFirstLetter,
+        lastLetter: newLastLetter,
     };
     contacts[index] = Object.assign(contacts[index], updatedContact);
     saveContacts();
@@ -308,4 +369,15 @@ function closeAddContact() {
         document.getElementById("contactAddArea").style.display = "none";
         contactAddVisible.innerHTML = "";
     }, 400);
+}
+
+function contactSuccessfullCreated() {
+    let contactSuccess = document.getElementById("contactSuccess");
+    contactSuccess.style.display = "flex";
+    contactSuccess.style.animation = "slideUpAndDown 2s ease-in-out";
+
+    setTimeout(() => {
+        contactSuccess.style.display = "none";
+        contactSuccess.style.animation = ""; // Entfernen Sie die Animation, damit sie beim nächsten Aufruf erneut angewendet werden kann
+    }, 2000);
 }
