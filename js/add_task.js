@@ -174,6 +174,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    let tasks = [];
+
     // Füge einen Event Listener zum Create-Button hinzu, der eine Aufgabe erstellt, wenn der Button geklickt wird
     createBtn.addEventListener("click", function (event) {
         // Verhindere, dass das Formular abgeschickt wird

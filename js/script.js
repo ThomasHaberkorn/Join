@@ -197,7 +197,7 @@ async function signupForward(a, b, c) {
     });
     currentUser.push({email, password});
     await setItem("user", users);
-    // localStorage.setItem("RememberUser", JSON.stringify(currentUser));
+    localStorage.setItem("RememberUser", JSON.stringify(currentUser));
     signupForwardRedirect(email, password);
 }
 
