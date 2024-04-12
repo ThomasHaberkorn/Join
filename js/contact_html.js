@@ -65,8 +65,8 @@ function editContactHTML(index) {
             </div>
           </div>
           <div class="contactEditSaveDelete">
-            <div class="contactEditDelete dispflex" onclick="">Delete</div>
-            <div class="contactEditSave" onclick="patchEdit(${index}); closeEditContact()">Save <img src="./assets/img/check.png"></div>
+            <div class="contactEditDelete dispflex" onclick="deleteContact(${index}); closeEditContact()">Delete</div>
+            <div class="contactEditSave" onclick="patchEdit(${index}); closeEditContact(); closeContactFullResponsive()">Save <img src="./assets/img/check.png"></div>
         </div>
         </div>  
       </div>
@@ -91,11 +91,11 @@ function addNewContactHTML() {
           <img src="./assets/img/Close.png" class="contactAddClose" onclick="closeAddContact()">
           <form class="contactAddUserDetails" onsubmit="createNewContact(event)"; return false>
             <div class="contactAddInput">
-              <input id="contactAddName"  placeholder="Name" minlength="3" type="name" >
+              <input id="contactAddName"  placeholder="Name" minlength="3" required type="name" >
               <img src="./assets/img/person.png">
             </div>
             <div class="contactAddInput">
-              <input id="contactAddEmail" placeholder="Mail" required type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+              <input id="contactAddEmail" placeholder="Mail" required type="email">
               <img src="./assets/img/mail.png">
             </div>
             <div class="contactAddInput">
