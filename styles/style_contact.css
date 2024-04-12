@@ -80,7 +80,7 @@
 .contactPic {
     width: 38px;
     height: 38px;
-    border-radius: 19px;
+    border-radius: 21px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -966,6 +966,43 @@ input:focus {
     background: #2a3647;
 }
 
+.success{
+    display: block;
+    position: fixed;
+    bottom: -100px;
+    height: 74px;
+    max-width: 326px;
+    width: 90%;
+    background-color: #2a3647;
+    color: white;
+    border-radius: 10px;
+    left: 661px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slideUpAndDown{
+    animation: slideUpAndDown 2s ease-in-out forwards;
+    position: fixed;
+    bottom: -100px;
+}
+
+@keyframes slideUpAndDown {
+    0% {
+        bottom: -100px;
+    }
+    10% {
+        bottom: 100px;
+    }
+    90% {
+        bottom: 100px;
+    }
+    100% {
+        bottom: -100px;
+    }
+}
+
 .slide-in-right {
     animation: slide-in-right 0.5s ease-in-out forwards;
     position: absolute;
@@ -1125,7 +1162,8 @@ input:focus {
 
     .contactEditVisible {
         height: 800px;
-        width: 396px;
+        max-width: 396px;
+        width: 100%;
         display: flex;
         flex-direction: column;
         border-radius: 30px;
@@ -1135,7 +1173,8 @@ input:focus {
 
     .contactAddVisible {
         height: 800px;
-        width: 396px;
+        max-width: 396px;
+        width: 100%;
         display: flex;
         flex-direction: column;
         border-radius: 30px;
@@ -1363,6 +1402,10 @@ input:focus {
         background-color: #29abe2;
         margin-left: 1.5rem;
         margin-top: 16px;
+    }
+
+    .success{
+     left: calc(50% - 163px);
     }
 }
 
