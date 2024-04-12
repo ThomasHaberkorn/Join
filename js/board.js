@@ -1,8 +1,8 @@
 async function initBoard() {
     await includeW3();
+    await loadTasks();
     boardActive();
     showInitials();
-    await loadTasks();
 }
 
 function boardActive() {
@@ -385,8 +385,6 @@ function closeEditor() {
     editTaskInformation.style.display = "none";
 }
 
-const editTaskButton = document.getElementById("editTaskButton");
-
 function setTaskEditorCategory(category) {
     const taskEditorCategory = document.getElementById("taskEditorCategory");
     if (category === "Technical Task") {
@@ -412,6 +410,7 @@ document
         taskEditorModal.style.display = "block";
 
         const taskId = allTaskInformation.dataset.taskId;
+
         // const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         const task = tasks.find((task) => task.id === taskId);
 
