@@ -6,10 +6,10 @@ let subtaskInput = document.getElementById("subtask");
 let subtaskAddButton = document.getElementById("subtask-img");
 let subtaskList = document.getElementById("list");
 let openDropdown = document.getElementById("openDropdown");
-let priorityButtons = { Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn };
+let priorityButtons = {Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn};
 let priority = "";
 let subtasks = [];
-let tasks =[];
+let tasks = [];
 
 async function initAddSidebar() {
     await includeW3();
@@ -21,25 +21,21 @@ function addTaskActive() {
     document.getElementById("addTasksum").classList.add("bgfocus");
 }
 
-
 document.addEventListener("DOMContentLoaded", async function () {
     await loadContacts();
     await loadTasks();
     fillContactDropdown();
     fillDropdownList();
     setPriorityLevel();
-
 });
 
-
-
 async function loadContacts() {
-    contacts = JSON.parse((await getItem("contacts")).value || "[]")
-};
+    contacts = JSON.parse((await getItem("contacts")).value || "[]");
+}
 
 async function loadTasks() {
-    tasks = JSON.parse((await getItem("tasks")).value || "[]")
-};
+    tasks = JSON.parse((await getItem("tasks")).value || "[]");
+}
 
 function fillContactDropdown() {
     const dropdown = document.getElementById("dropDownContacts");
@@ -78,7 +74,6 @@ function setPriority(selectedPriority) {
 }
 
 function setPriorityLevel() {
-
     urgentBtn.addEventListener("click", function () {
         setPriority("Urgent");
     });
@@ -88,7 +83,6 @@ function setPriorityLevel() {
     lowBtn.addEventListener("click", function () {
         setPriority("Low");
     });
-
 }
 
 function addSubtask(subtaskName) {
@@ -133,7 +127,7 @@ function updateSubtaskList() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     subtaskAddButton.addEventListener("click", function () {
         let subtaskValue = subtaskInput.value.trim();
         if (subtaskValue) {
@@ -143,8 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     createBtn.addEventListener("click", function (event) {
         event.preventDefault();
         let title = document.getElementById("titleInput").value;
@@ -156,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ].map((input) => input.value);
         let status = "todo";
         let newTaskId = "task-" + Math.random().toString(36).substr(2, 9);
-
+        let userLevel = sessionStorage.getItem("userLevel");
 
         tasks.push({
             id: newTaskId,
@@ -167,12 +160,13 @@ document.addEventListener("DOMContentLoaded", function() {
             priority,
             subtasks,
             status,
-
+            userLevel,
             assignedContacts,
         });
         setItem("tasks", tasks);
 
-        {window.location.href = "board.html";}
+        {
+            window.location.href = "board.html";
+        }
     });
 });
-
