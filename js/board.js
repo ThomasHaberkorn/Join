@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 async function initBoard() {
     await includeW3();
+    await loadTasks();
     boardActive();
     showInitials();
     await loadTasks();
@@ -26,12 +27,15 @@ async function loadTasks() {
         console.error("Fehler beim Laden der Aufgaben:", error);
     }
 }
+let tasks = [];
+
 
 function displayTasks() {
     tasks.forEach(task => {
         if (document.getElementById(task.status)) {
             let taskCard = createTaskCard(task);
             document.getElementById(task.status).appendChild(taskCard);
+
         }
     });
     updateTaskColumns();
@@ -42,10 +46,11 @@ function boardActive() {
 }
 
 function getAssignedContactElements(assignedContactIds) {
-    return assignedContactIds.map((contactId) => {
-        const contact = contacts.find((c) => c.userID === contactId);
-        if (contact) {
-            return `<div class="boardContact">
+    return assignedContactIds
+        .map((contactId) => {
+            const contact = contacts.find((c) => c.userID === contactId);
+            if (contact) {
+                return `<div class="boardContact">
                             <div class="item-img" style="background-color: ${contact.color};">
                                 ${contact.firstLetter}${contact.lastLetter}
                             </div>
@@ -53,13 +58,15 @@ function getAssignedContactElements(assignedContactIds) {
         }
         return '';
     }).join('');
+
 }
 
 function getAssignedContactDisplay(assignedContactIds) {
-    return assignedContactIds.map((contactId) => {
-        const contact = contacts.find((c) => c.userID === contactId);
-        if (contact) {
-            return `
+    return assignedContactIds
+        .map((contactId) => {
+            const contact = contacts.find((c) => c.userID === contactId);
+            if (contact) {
+                return `
                     <div class="contact-display" style="padding-left: 15px; margin-top: 10px; display: flex; align-items: center; gap: 15px;">
                         <div class="contact-avatar" style="background-color: ${contact.color};">
                             ${contact.firstLetter}${contact.lastLetter}
@@ -89,6 +96,7 @@ function createCategoryDiv(task) {
 function createAssignedContactElements(assignedContacts) {
     return getAssignedContactElements(assignedContacts);
 }
+
 
 function getPrioritySymbolHtml(task, prioritySymbols) {
     const prioritySymbol = prioritySymbols[task.priority];
@@ -140,20 +148,24 @@ function setTaskDetails(task) {
     const allTaskInformationTitle = document.getElementById("allTaskInformationTitle");
     allTaskInformationTitle.textContent = task.title;
 
+
     const allTaskInformationDescription = document.getElementById("allTaskInformationDescription");
     allTaskInformationDescription.textContent = task.description;
 
     const allTaskInformationDueDate = document.getElementById("allTaskInformationDueDate");
     allTaskInformationDueDate.textContent = task.taskDate;
 
+
     const allTaskInformationAssignedTo = document.getElementById("allTaskInformationAssignedTo");
     allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(task.assignedContacts);
+
 
     const { className, text } = getCategoryDetails(task.category);
     const allTaskInformationCategory = document.getElementById("allTaskInformationCategory");
     allTaskInformationCategory.textContent = text;
     allTaskInformationCategory.className = className;
 }
+
 
 function setSubtasks(task) {
     const allTaskInformationSubtasks = document.getElementById('allTaskInformationSubtasks');
@@ -175,6 +187,7 @@ function setSubtasks(task) {
         allTaskInformationSubtasks.appendChild(subtaskElement);
     });
 }
+
 
 function openAllTaskInformation(task) {
     setTaskInformation(task);
@@ -256,8 +269,10 @@ function handleDrop(e) {
     const id = e.dataTransfer.getData("text");
     const draggableElement = document.getElementById(id);
 
+
     const newStatus = e.target.closest(".task-column").id;
     draggableElement.dataset.status = newStatus;
+
 
     e.target.closest(".task-column").appendChild(draggableElement);
     updateTaskInRemoteStorage(id, newStatus);
@@ -270,6 +285,7 @@ async function updateTaskInRemoteStorage(taskId, newStatus) {
     if (taskIndex !== -1) {
         tasks[taskIndex].status = newStatus;
         await setItemFromJson('tasks', tasks);
+
     }
 }
 
@@ -297,9 +313,30 @@ function setPriorityValue(element, priority) {
 
 document.querySelectorAll('.edit-prio').forEach(button => {
     button.addEventListener('click', function () {
+<<<<<<< HEAD
         document.querySelectorAll('.edit-prio').forEach(removePriorityClasses);
         addPriorityClass(this, this.dataset.prio);
         setPriorityValue(document.getElementById('editPriority'), this.dataset.prio);
+=======
+        document.querySelectorAll('.edit-prio').forEach(btn => {
+            btn.classList.remove('priority-urgent', 'priority-medium', 'priority-low');
+        });
+
+        switch (this.dataset.prio) {
+            case 'Urgent':
+                this.classList.add('priority-urgent');
+                break;
+            case 'Medium':
+                this.classList.add('priority-medium');
+                break;
+            case 'Low':
+                this.classList.add('priority-low');
+                break;
+        }
+
+        document.getElementById('editPriority').value = this.dataset.prio;
+
+>>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
     });
 });
 
@@ -310,15 +347,19 @@ function closeAllTaskInformation() {
 
 async function deleteTask() {
     const allTaskInformation = document.getElementById("allTaskInformation");
+
     const taskId = allTaskInformation.dataset.taskId;
     let tasks = JSON.parse((await getItem("tasks")).value || "[]");
     const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
     if (taskIndex !== -1) {
         const taskCard = document.getElementById(tasks[taskIndex].id);
         if (taskCard) {
+
             taskCard.remove();
             tasks.splice(taskIndex, 1);
             await setItemFromJson("tasks", tasks);
+
         }
     }
     closeAllTaskInformation();
@@ -351,8 +392,6 @@ function closeEditor() {
     editTaskInformation.style.display = "none";
 }
 
-const editTaskButton = document.getElementById("editTaskButton");
-
 function setTaskEditorCategory(category) {
     const { className, text } = getCategoryDetails(category);
     const taskEditorCategory = document.getElementById("taskEditorCategory");
@@ -367,6 +406,7 @@ function setTaskEditorCategory(category) {
 //     element.style.display = display;
 // }
 
+<<<<<<< HEAD
 // async function getTaskById(taskId) {
 //     const tasks = JSON.parse((await getItem("tasks")).value || []);
 //     return tasks.find((task) => task.id === taskId);
@@ -380,6 +420,47 @@ function setTaskEditorCategory(category) {
 //     const prioritySelect = document.getElementById("editPriority");
 //     prioritySelect.value = task.priority;
 // }
+=======
+        const taskId = allTaskInformation.dataset.taskId;
+
+        const tasks = JSON.parse((await getItem("tasks")).value || []);
+
+        const task = tasks.find((task) => task.id === taskId);
+
+        if (task) {
+            setTaskEditorCategory(task.category);
+            document.getElementById("editTitle").value = task.title;
+            document.getElementById("editDescription").value = task.description;
+            document.getElementById("editDueDate").value = task.taskDate;
+            const prioritySelect = document.getElementById("editPriority");
+            prioritySelect.value = task.priority;
+            const dropdownEdit = document.getElementById(
+                "dropDownContactsEdit"
+            );
+            dropdownEdit.innerHTML = "";
+            contacts.forEach((contact) => {
+                const isChecked = task.assignedContacts.includes(
+                    contact.userID
+                );
+                const checkboxId = `contact-edit-${contact.userID}`;
+                const div = document.createElement("div");
+                div.className = "checkbox-container";
+                div.innerHTML = `
+                <input class="cursorPointer" type="checkbox" id="${checkboxId} " name="assignedContactsEdit" value="${
+                    contact.userID
+                }" ${isChecked ? "checked" : ""}>
+                <label for="${checkboxId}">${contact.name}</label>
+            `;
+                dropdownEdit.appendChild(div);
+            });
+            const openDropdownEdit =
+                document.getElementById("openDropdownEdit");
+            openDropdownEdit.addEventListener("click", function (event) {
+                event.stopPropagation();
+                dropdownEdit.style.display =
+                    dropdownEdit.style.display === "block" ? "none" : "block";
+            });
+>>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // function createContactCheckboxes(task) {
 //     const dropdownEdit = document.getElementById("dropDownContactsEdit");
@@ -414,6 +495,7 @@ function setTaskEditorCategory(category) {
 //     });
 // }
 
+<<<<<<< HEAD
 // function displayAssignedContacts(task) {
 //     const editCheckedUserInitials = document.getElementById('editCheckedUserInitials');
 //     editCheckedUserInitials.innerHTML = '';
@@ -436,6 +518,27 @@ function setTaskEditorCategory(category) {
 
 //     const taskId = allTaskInformation.dataset.taskId;
 //     const task = await getTaskById(taskId);
+=======
+
+            const editCheckedUserInitials = document.getElementById('editCheckedUserInitials');
+            editCheckedUserInitials.innerHTML = '';
+
+
+            task.assignedContacts.forEach((contactId) => {
+                const contact = contacts.find((c) => c.userID === contactId);
+                if (contact) {
+
+                    const initialsDiv = document.createElement('div');
+                    initialsDiv.className = 'userInitilas';
+
+                    initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
+                    initialsDiv.style.backgroundColor = contact.color;
+                    editCheckedUserInitials.appendChild(initialsDiv);
+                }
+            });
+        }
+    });
+>>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 //     if (task) {
 //         fillTaskEditor(task);
@@ -455,9 +558,17 @@ function setTaskEditorCategory(category) {
 //     event.stopPropagation();
 // });
 
+<<<<<<< HEAD
 // dropdownEdit.addEventListener("click", function (event) {
 //     event.stopPropagation();
 // });
+=======
+
+document.getElementById("saveEdit").addEventListener("click", async function () {
+    const taskId = allTaskInformation.dataset.taskId;
+    const tasks = JSON.parse((await getItem("tasks")).value || []);
+    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+>>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // async function getTasks() {
 //     return JSON.parse((await getItem("tasks")).value || []);
@@ -467,6 +578,7 @@ function setTaskEditorCategory(category) {
 //     return tasks.findIndex((task) => task.id === taskId);
 // }
 
+<<<<<<< HEAD
 // function updateTask(task) {
 //     task.title = document.getElementById("editTitle").value;
 //     task.description = document.getElementById("editDescription").value;
@@ -476,6 +588,11 @@ function setTaskEditorCategory(category) {
 //         document.querySelectorAll('#dropDownContactsEdit input[type="checkbox"]:checked')
 //     ).map((el) => el.value);
 // }
+=======
+
+const boardAddTaskButton = document.getElementById("boardAddTaskButton");
+const boardAddTask = document.getElementById("boardAddTask");
+>>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // async function saveTasks(tasks) {
 //     await setItem("tasks", JSON.stringify(tasks));
@@ -537,8 +654,12 @@ function setTaskEditorCategory(category) {
 //     });
 // }
 
+<<<<<<< HEAD
 
 // const moveTaskButton = document.getElementById("moveTaskButton");
+=======
+const moveTaskButton = document.getElementById("moveTaskButton");
+>>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // moveTaskButton.addEventListener("click", function () {
 //     const moveOption = document.getElementById("moveOption");
@@ -550,7 +671,13 @@ function setTaskEditorCategory(category) {
 //     allTaskInformation.style.display = "none";
 // });
 
+<<<<<<< HEAD
 // const cardOptionsCloseButton = document.getElementById("cardOptionsCloseButton");
+=======
+const cardOptionsCloseButton = document.getElementById(
+    "cardOptionsCloseButton"
+);
+>>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // cardOptionsCloseButton.addEventListener("click", function () {
 //     const moveOption = document.getElementById("moveOption");
@@ -584,6 +711,7 @@ function setTaskEditorCategory(category) {
 //     let tasks = JSON.parse((await getItem("tasks")).value || "[]");
 //     let taskIndex = tasks.findIndex(task => task.id === taskId);
 
+<<<<<<< HEAD
 //     if (taskIndex !== -1) {
 //         let task = tasks[taskIndex];
 //         if (task.subtasks && index >= 0 && index < task.subtasks.length) {
@@ -610,15 +738,54 @@ function setTaskEditorCategory(category) {
 // }
 
 // document.getElementById('editSubtaskAddButton').addEventListener('click', addEditSubtask);
+=======
+    if (taskIndex !== -1) {
+        let task = tasks[taskIndex];
+        if (task.subtasks && index >= 0 && index < task.subtasks.length) {
+            task.subtasks.splice(index, 1);
+            updateEditSubtaskList(task.subtasks);
+            await setItemFromJson('tasks', tasks);
+        }
+    }
+
+}
+
+
+function updateEditSubtaskList(subtasks) {
+    const list = document.getElementById("editSubtaskList");
+    list.innerHTML = "";
+    subtasks.forEach((subtask, index) => {
+        const li = document.createElement("li");
+        li.textContent = subtask.name;
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = () => removeEditSubtask(index);
+        li.appendChild(deleteButton);
+        list.appendChild(li);
+    });
+}
+
+document
+    .getElementById("editSubtaskAddButton")
+    .addEventListener("click", addEditSubtask);
+>>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // function loadEditSubtasks(task) {
 //     updateEditSubtaskList(task.subtasks);
 // }
 
+<<<<<<< HEAD
 // document.getElementById("editTaskButton").addEventListener("click", async function () {
 //     const taskId = document.getElementById("allTaskInformation").dataset.taskId;
 //     const tasks = JSON.parse((await getItem("tasks")).value || []);
 //     const task = tasks.find((task) => task.id === taskId);
+=======
+
+document.getElementById("editTaskButton").addEventListener("click", async function () {
+    const taskId = document.getElementById("allTaskInformation").dataset.taskId;
+    const tasks = JSON.parse((await getItem("tasks")).value || []);
+    const task = tasks.find((task) => task.id === taskId);
+>>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 //     loadEditSubtasks(task);
 // });
@@ -639,6 +806,7 @@ function setTaskEditorCategory(category) {
 // });
 
 
+<<<<<<< HEAD
 // function convertIdToStatus(id) {
 //     switch (id) {
 //         case 'ToDo':
@@ -666,6 +834,37 @@ function setTaskEditorCategory(category) {
 //         console.error("Fehler beim Aktualisieren des Task-Status:", error);
 //     }
 // }
+=======
+function convertIdToStatus(id) {
+    switch (id) {
+        case "ToDo":
+            return "todo";
+        case "InProgress":
+            return "inProgress";
+        case "Done":
+            return "done";
+        case "AwaitFeedback":
+            return "awaitFeedback";
+        default:
+            return '';
+
+    }
+}
+
+async function updateTaskStatusAndMove(taskId, newStatus) {
+    try {
+        let tasks = JSON.parse((await getItem("tasks")).value || "[]");
+        let taskIndex = tasks.findIndex(task => task.id === taskId);
+        if (taskIndex !== -1) {
+            tasks[taskIndex].status = newStatus;
+            await setItemFromJson('tasks', tasks);
+        }
+    } catch (error) {
+        console.error("Fehler beim Aktualisieren des Task-Status:", error);
+
+    }
+}
+>>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // async function toggleSubtaskCompletion(taskId, subtaskIndex, completedStatus) {
 //     try {
