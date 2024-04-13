@@ -278,10 +278,12 @@ function closeContactFullResponsive() {
 
 function hideContactResponsive() {
     const container = document.getElementById("contactFullResponsive");
-    if (window.innerWidth >= 950) {
-        container.style.display = "none";
-    } else {
-        container.style.display = "flex";
+    if (container) {
+        if (window.innerWidth >= 950) {
+            container.style.display = "none";
+        } else {
+            container.style.display = "flex";
+        }
     }
 }
 
