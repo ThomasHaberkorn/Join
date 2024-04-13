@@ -141,7 +141,8 @@ body {
 }
 .loginSingUpButton:hover {
     background-color: #29abe2;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: 0.2s;
 }
 
 .loginSingUpText {
@@ -285,7 +286,8 @@ body {
 
 .loginButton:hover {
     background-color: #29abe2;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: 0.2s;
 }
 
 .guestLoginButton {
@@ -303,7 +305,8 @@ body {
 
 .guestLoginButton:hover {
     border: 2px solid #29abe2;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: 0.2s;
 }
 
 input[id="loginCheckBoxRememberMe"] + label {
@@ -502,7 +505,8 @@ input[id="loginCheckBoxRememberMe"] {
 
 .signupButton:hover {
     background-color: #29abe2;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: 0.2s;
 }
 
 input[id="signinCheckBoxPrivacyPolicy"] + label {
