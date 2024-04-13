@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", async function () {
     await loadContacts();
 });
@@ -8,7 +7,7 @@ async function initBoard() {
     await loadTasks();
     boardActive();
     showInitials();
-    await loadTasks();
+
     updateTaskColumns();
     clearTaskColumns();
     displayTasks();
@@ -17,19 +16,28 @@ async function initBoard() {
 const prioritySymbols = {
     Urgent: "./assets/img/urgentSymbol.png",
     Medium: "./assets/img/mediumSymbol.png",
-    Low: "./assets/img/lowSymbol.png"
+    Low: "./assets/img/lowSymbol.png",
 };
 
 const taskColumns = document.querySelectorAll(".task-column");
 
 async function loadTasks() {
     try {
-        tasks = JSON.parse((await getItem("tasks")).value || "[]");
+        const userLevel = sessionStorage.getItem("userLevel");
+        let taskTemp = JSON.parse((await getItem("tasks")).value || "[]");
+        if (userLevel === "user") {
+            const userTasks = taskTemp.filter((t) => t.userLevel === "user");
+            tasks = userTasks;
+        } else {
+            const userTasks = taskTemp.filter(
+                (t) => t.userLevel === "guest" || t.userLevel == null
+            );
+            tasks = userTasks;
+        }
     } catch (error) {
         console.error("Fehler beim Laden der Aufgaben:", error);
     }
 }
-
 
 function displayTasks() {
     tasks.forEach((task) => {
@@ -246,7 +254,13 @@ function createTaskCard(task) {
     const prioritySymbolHtml = getPrioritySymbolHtml(task, prioritySymbols);
     const progressHtml = calculateProgress(task);
 
-    card.innerHTML = createCardHtml(task, categoryDiv, progressHtml, assignedContactElements, prioritySymbolHtml);
+    card.innerHTML = createCardHtml(
+        task,
+        categoryDiv,
+        progressHtml,
+        assignedContactElements,
+        prioritySymbolHtml
+    );
     addEventListenersToCard(card, task);
 
     return card;
@@ -277,7 +291,6 @@ function clearTaskColumns() {
     });
 }
 
-
 taskColumns.forEach((column) => {
     column.addEventListener("dragover", handleDragOver);
     column.addEventListener("drop", handleDrop);
@@ -290,7 +303,6 @@ function handleDragStart(e) {
 function handleDragOver(e) {
     e.preventDefault();
 }
-
 
 function handleDrop(e) {
     e.preventDefault();
@@ -314,21 +326,24 @@ async function updateTaskInRemoteStorage(taskId, newStatus) {
     }
 }
 
-
 function removePriorityClasses(element) {
-    element.classList.remove('priority-urgent', 'priority-medium', 'priority-low');
+    element.classList.remove(
+        "priority-urgent",
+        "priority-medium",
+        "priority-low"
+    );
 }
 
 function addPriorityClass(element, priority) {
     switch (priority) {
-        case 'Urgent':
-            element.classList.add('priority-urgent');
+        case "Urgent":
+            element.classList.add("priority-urgent");
             break;
-        case 'Medium':
-            element.classList.add('priority-medium');
+        case "Medium":
+            element.classList.add("priority-medium");
             break;
-        case 'Low':
-            element.classList.add('priority-low');
+        case "Low":
+            element.classList.add("priority-low");
             break;
     }
 }
@@ -337,12 +352,14 @@ function setPriorityValue(element, priority) {
     element.value = priority;
 }
 
-document.querySelectorAll('.edit-prio').forEach(button => {
-    button.addEventListener('click', function () {
-        document.querySelectorAll('.edit-prio').forEach(removePriorityClasses);
+document.querySelectorAll(".edit-prio").forEach((button) => {
+    button.addEventListener("click", function () {
+        document.querySelectorAll(".edit-prio").forEach(removePriorityClasses);
         addPriorityClass(this, this.dataset.prio);
-        setPriorityValue(document.getElementById('editPriority'), this.dataset.prio);
-
+        setPriorityValue(
+            document.getElementById("editPriority"),
+            this.dataset.prio
+        );
     });
 });
 
@@ -406,7 +423,6 @@ function setTaskEditorCategory(category) {
 //     const element = document.getElementById(elementId);
 //     element.style.display = display;
 // }
-
 
 // async function getTaskById(taskId) {
 //     const tasks = JSON.parse((await getItem("tasks")).value || []);
@@ -489,7 +505,6 @@ function setTaskEditorCategory(category) {
 // const openDropdownEdit = document.getElementById("openDropdownEdit");
 // const dropdownEdit = document.getElementById("dropDownContactsEdit");
 
-
 // openDropdownEdit.addEventListener("click", function (event) {
 //     const isDropdownOpen = dropdownEdit.style.display === "block";
 //     dropdownEdit.style.display = isDropdownOpen ? "none" : "block";
@@ -522,7 +537,6 @@ function setTaskEditorCategory(category) {
 // async function saveTasks(tasks) {
 //     await setItem("tasks", JSON.stringify(tasks));
 // }
-
 
 // document.getElementById("saveEdit").addEventListener("click", async function () {
 //     const taskId = allTaskInformation.dataset.taskId;
@@ -580,8 +594,6 @@ function setTaskEditorCategory(category) {
 //     });
 // }
 
-
-
 // const moveTaskButton = document.getElementById("moveTaskButton");
 
 // moveTaskButton.addEventListener("click", function () {
@@ -622,7 +634,6 @@ function setTaskEditorCategory(category) {
 //     }
 // }
 
-
 // async function removeEditSubtask(index) {
 //     const taskId = document.getElementById("allTaskInformation").dataset.taskId;
 //     let tasks = JSON.parse((await getItem("tasks")).value || "[]");
@@ -637,7 +648,6 @@ function setTaskEditorCategory(category) {
 //         }
 //     }
 // }
-
 
 // function updateEditSubtaskList(subtasks) {
 //     const list = document.getElementById('editSubtaskList');
@@ -667,7 +677,6 @@ function setTaskEditorCategory(category) {
 //     loadEditSubtasks(task);
 // });
 
-
 // document.querySelectorAll('.optionsContainerOption').forEach(option => {
 //     option.addEventListener('click', async function () {
 //         const taskId = document.getElementById("allTaskInformation").dataset.taskId;
@@ -681,7 +690,6 @@ function setTaskEditorCategory(category) {
 //         }
 //     });
 // });
-
 
 // function convertIdToStatus(id) {
 //     switch (id) {
@@ -726,4 +734,3 @@ function setTaskEditorCategory(category) {
 //         console.error("Fehler beim Aktualisieren des Subtask-Erledigungsstatus:", error);
 //     }
 // }
-
