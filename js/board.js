@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 async function initBoard() {
     await includeW3();
+    await loadTasks();
     boardActive();
     showInitials();
     await loadTasks();
@@ -26,12 +27,15 @@ async function loadTasks() {
         console.error("Fehler beim Laden der Aufgaben:", error);
     }
 }
+let tasks = [];
+
 
 function displayTasks() {
     tasks.forEach(task => {
         if (document.getElementById(task.status)) {
             let taskCard = createTaskCard(task);
             document.getElementById(task.status).appendChild(taskCard);
+
         }
     });
     updateTaskColumns();
@@ -42,10 +46,11 @@ function boardActive() {
 }
 
 function getAssignedContactElements(assignedContactIds) {
-    return assignedContactIds.map((contactId) => {
-        const contact = contacts.find((c) => c.userID === contactId);
-        if (contact) {
-            return `<div class="boardContact">
+    return assignedContactIds
+        .map((contactId) => {
+            const contact = contacts.find((c) => c.userID === contactId);
+            if (contact) {
+                return `<div class="boardContact">
                             <div class="item-img" style="background-color: ${contact.color};">
                                 ${contact.firstLetter}${contact.lastLetter}
                             </div>
@@ -53,13 +58,15 @@ function getAssignedContactElements(assignedContactIds) {
         }
         return '';
     }).join('');
+
 }
 
 function getAssignedContactDisplay(assignedContactIds) {
-    return assignedContactIds.map((contactId) => {
-        const contact = contacts.find((c) => c.userID === contactId);
-        if (contact) {
-            return `
+    return assignedContactIds
+        .map((contactId) => {
+            const contact = contacts.find((c) => c.userID === contactId);
+            if (contact) {
+                return `
                     <div class="contact-display" style="padding-left: 15px; margin-top: 10px; display: flex; align-items: center; gap: 15px;">
                         <div class="contact-avatar" style="background-color: ${contact.color};">
                             ${contact.firstLetter}${contact.lastLetter}
@@ -89,6 +96,7 @@ function createCategoryDiv(task) {
 function createAssignedContactElements(assignedContacts) {
     return getAssignedContactElements(assignedContacts);
 }
+
 
 function getPrioritySymbolHtml(task, prioritySymbols) {
     const prioritySymbol = prioritySymbols[task.priority];
@@ -140,20 +148,24 @@ function setTaskDetails(task) {
     const allTaskInformationTitle = document.getElementById("allTaskInformationTitle");
     allTaskInformationTitle.textContent = task.title;
 
+
     const allTaskInformationDescription = document.getElementById("allTaskInformationDescription");
     allTaskInformationDescription.textContent = task.description;
 
     const allTaskInformationDueDate = document.getElementById("allTaskInformationDueDate");
     allTaskInformationDueDate.textContent = task.taskDate;
 
+
     const allTaskInformationAssignedTo = document.getElementById("allTaskInformationAssignedTo");
     allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(task.assignedContacts);
+
 
     const { className, text } = getCategoryDetails(task.category);
     const allTaskInformationCategory = document.getElementById("allTaskInformationCategory");
     allTaskInformationCategory.textContent = text;
     allTaskInformationCategory.className = className;
 }
+
 
 function setSubtasks(task) {
     const allTaskInformationSubtasks = document.getElementById('allTaskInformationSubtasks');
@@ -175,6 +187,7 @@ function setSubtasks(task) {
         allTaskInformationSubtasks.appendChild(subtaskElement);
     });
 }
+
 
 function openAllTaskInformation(task) {
     setTaskInformation(task);
@@ -256,8 +269,10 @@ function handleDrop(e) {
     const id = e.dataTransfer.getData("text");
     const draggableElement = document.getElementById(id);
 
+
     const newStatus = e.target.closest(".task-column").id;
     draggableElement.dataset.status = newStatus;
+
 
     e.target.closest(".task-column").appendChild(draggableElement);
     updateTaskInRemoteStorage(id, newStatus);
@@ -270,6 +285,7 @@ async function updateTaskInRemoteStorage(taskId, newStatus) {
     if (taskIndex !== -1) {
         tasks[taskIndex].status = newStatus;
         await setItemFromJson('tasks', tasks);
+
     }
 }
 
@@ -292,6 +308,7 @@ document.querySelectorAll('.edit-prio').forEach(button => {
         }
 
         document.getElementById('editPriority').value = this.dataset.prio;
+
     });
 });
 
@@ -302,15 +319,19 @@ function closeAllTaskInformation() {
 
 async function deleteTask() {
     const allTaskInformation = document.getElementById("allTaskInformation");
+
     const taskId = allTaskInformation.dataset.taskId;
     let tasks = JSON.parse((await getItem("tasks")).value || "[]");
     const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
     if (taskIndex !== -1) {
         const taskCard = document.getElementById(tasks[taskIndex].id);
         if (taskCard) {
+
             taskCard.remove();
             tasks.splice(taskIndex, 1);
             await setItemFromJson("tasks", tasks);
+
         }
     }
     closeAllTaskInformation();
@@ -343,8 +364,6 @@ function closeEditor() {
     editTaskInformation.style.display = "none";
 }
 
-const editTaskButton = document.getElementById("editTaskButton");
-
 function setTaskEditorCategory(category) {
     const { className, text } = getCategoryDetails(category);
     const taskEditorCategory = document.getElementById("taskEditorCategory");
@@ -364,7 +383,9 @@ document
         taskEditorModal.style.display = "block";
 
         const taskId = allTaskInformation.dataset.taskId;
+
         const tasks = JSON.parse((await getItem("tasks")).value || []);
+
         const task = tasks.find((task) => task.id === taskId);
 
         if (task) {
@@ -386,8 +407,9 @@ document
                 const div = document.createElement("div");
                 div.className = "checkbox-container";
                 div.innerHTML = `
-                <input class="cursorPointer" type="checkbox" id="${checkboxId} " name="assignedContactsEdit" value="${contact.userID
-                    }" ${isChecked ? "checked" : ""}>
+                <input class="cursorPointer" type="checkbox" id="${checkboxId} " name="assignedContactsEdit" value="${
+                    contact.userID
+                }" ${isChecked ? "checked" : ""}>
                 <label for="${checkboxId}">${contact.name}</label>
             `;
                 dropdownEdit.appendChild(div);
@@ -413,20 +435,23 @@ document
                 }
             });
 
+
             const editCheckedUserInitials = document.getElementById('editCheckedUserInitials');
             editCheckedUserInitials.innerHTML = '';
 
-            task.assignedContacts.forEach(contactId => {
-                const contact = contacts.find(c => c.userID === contactId);
+
+            task.assignedContacts.forEach((contactId) => {
+                const contact = contacts.find((c) => c.userID === contactId);
                 if (contact) {
+
                     const initialsDiv = document.createElement('div');
                     initialsDiv.className = 'userInitilas';
+
                     initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
                     initialsDiv.style.backgroundColor = contact.color;
                     editCheckedUserInitials.appendChild(initialsDiv);
                 }
             });
-
         }
     });
 
@@ -443,6 +468,7 @@ openDropdownEdit.addEventListener("click", function (event) {
 dropdownEdit.addEventListener("click", function (event) {
     event.stopPropagation();
 });
+
 
 document.getElementById("saveEdit").addEventListener("click", async function () {
     const taskId = allTaskInformation.dataset.taskId;
@@ -470,6 +496,7 @@ document.getElementById("saveEdit").addEventListener("click", async function () 
     }
     await initBoard();
 });
+
 
 const boardAddTaskButton = document.getElementById("boardAddTaskButton");
 const boardAddTask = document.getElementById("boardAddTask");
@@ -534,7 +561,6 @@ function searchTasks() {
     });
 }
 
-
 const moveTaskButton = document.getElementById("moveTaskButton");
 
 moveTaskButton.addEventListener("click", function () {
@@ -547,7 +573,9 @@ allTaskInformation.addEventListener("click", function () {
     allTaskInformation.style.display = "none";
 });
 
-const cardOptionsCloseButton = document.getElementById("cardOptionsCloseButton");
+const cardOptionsCloseButton = document.getElementById(
+    "cardOptionsCloseButton"
+);
 
 cardOptionsCloseButton.addEventListener("click", function () {
     const moveOption = document.getElementById("moveOption");
@@ -589,28 +617,32 @@ async function removeEditSubtask(index) {
             await setItemFromJson('tasks', tasks);
         }
     }
+
 }
 
 
 function updateEditSubtaskList(subtasks) {
-    const list = document.getElementById('editSubtaskList');
-    list.innerHTML = '';
+    const list = document.getElementById("editSubtaskList");
+    list.innerHTML = "";
     subtasks.forEach((subtask, index) => {
-        const li = document.createElement('li');
+        const li = document.createElement("li");
         li.textContent = subtask.name;
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
         deleteButton.onclick = () => removeEditSubtask(index);
         li.appendChild(deleteButton);
         list.appendChild(li);
     });
 }
 
-document.getElementById('editSubtaskAddButton').addEventListener('click', addEditSubtask);
+document
+    .getElementById("editSubtaskAddButton")
+    .addEventListener("click", addEditSubtask);
 
 function loadEditSubtasks(task) {
     updateEditSubtaskList(task.subtasks);
 }
+
 
 document.getElementById("editTaskButton").addEventListener("click", async function () {
     const taskId = document.getElementById("allTaskInformation").dataset.taskId;
@@ -638,16 +670,17 @@ document.querySelectorAll('.optionsContainerOption').forEach(option => {
 
 function convertIdToStatus(id) {
     switch (id) {
-        case 'ToDo':
-            return 'todo';
-        case 'InProgress':
-            return 'inProgress';
-        case 'Done':
-            return 'done';
-        case 'AwaitFeedback':
-            return 'awaitFeedback';
+        case "ToDo":
+            return "todo";
+        case "InProgress":
+            return "inProgress";
+        case "Done":
+            return "done";
+        case "AwaitFeedback":
+            return "awaitFeedback";
         default:
             return '';
+
     }
 }
 
@@ -661,6 +694,7 @@ async function updateTaskStatusAndMove(taskId, newStatus) {
         }
     } catch (error) {
         console.error("Fehler beim Aktualisieren des Task-Status:", error);
+
     }
 }
 

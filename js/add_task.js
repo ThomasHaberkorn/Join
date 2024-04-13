@@ -13,12 +13,14 @@ let tasks =[];
 
 async function initAddSidebar() {
     await includeW3();
+
     addTaskActive();
     showInitials();
 }
 function addTaskActive() {
     document.getElementById("addTasksum").classList.add("bgfocus");
 }
+
 
 document.addEventListener("DOMContentLoaded", async function () {
     await loadContacts();
@@ -54,6 +56,7 @@ function fillContactDropdown() {
 function fillDropdownList() {
     openDropdown.addEventListener("click", function () {
         let dropdown = document.getElementById("dropDownContacts");
+
         if (
             dropdown.style.display === "none" ||
             dropdown.style.display === ""
@@ -75,6 +78,7 @@ function setPriority(selectedPriority) {
 }
 
 function setPriorityLevel() {
+
     urgentBtn.addEventListener("click", function () {
         setPriority("Urgent");
     });
@@ -84,6 +88,7 @@ function setPriorityLevel() {
     lowBtn.addEventListener("click", function () {
         setPriority("Low");
     });
+
 }
 
 function addSubtask(subtaskName) {
@@ -152,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let status = "todo";
         let newTaskId = "task-" + Math.random().toString(36).substr(2, 9);
 
+
         tasks.push({
             id: newTaskId,
             title,
@@ -169,3 +175,4 @@ document.addEventListener("DOMContentLoaded", function() {
         {window.location.href = "board.html";}
     });
 });
+
