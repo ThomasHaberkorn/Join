@@ -33,7 +33,7 @@
 }
 
 .headerHelpLink {
-    display: none !important;
+    display: none;
 }
 .headerLogoutButton {
     width: 56px;
@@ -72,7 +72,6 @@
 }
 
 .dropdownMenu a {
-    display: block;
     padding: 12px 25px;
     text-decoration: none;
     color: #cdcdcd;
@@ -85,8 +84,15 @@
     background-color: #091931;
     border-radius: 20px;
 }
-/* 
-.headerLogoutButton:hover .dropdownMenu {
+
+#hHPP {
     display: block;
-    transition: 0.5s;
-} */
+}
+
+#hHLN {
+    display: block;
+}
+
+#hLogout {
+    display: block;
+}

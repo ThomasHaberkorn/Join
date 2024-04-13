@@ -67,7 +67,7 @@ function getUserName() {
 /**
  * allocate the tasks to the respective categories
  */
-let task;
+let tasks;
 let todo = 0;
 let inProgress = 0;
 let awaitFeedback = 0;
@@ -79,11 +79,11 @@ let dates = [];
 async function getTasksAndProcess() {
     await getTask();
     countTasks();
-    getUrgendTask(task);
-    dates.push(task);
+    getUrgendTask(tasks);
+    dates.push(tasks);
     taskInBoard = todo + inProgress + awaitFeedback + done;
     allocateTasks();
-    const earliestDate = getEarliestDate(task);
+    const earliestDate = getEarliestDate(tasks);
     allocateEarliestDate(earliestDate);
 }
 
@@ -121,7 +121,7 @@ function allocateTasks() {
  * count the tasks in the respective categories
  */
 function countTasks() {
-    for (i = 0; i < task.length; i++) {
+    for (i = 0; i < tasks.length; i++) {
         const cat = task[i];
         let status = cat["status"];
         if (status == "todo") {
@@ -139,8 +139,8 @@ function countTasks() {
 /**
  * count the urgent tasks from the task array
  */
-function getUrgendTask(task) {
-    const taskCount = task.filter((t) => t.priority === "Urgent");
+function getUrgendTask(tasks) {
+    const taskCount = tasks.filter((t) => t.priority === "Urgent");
     document.getElementById("summaryUrgentTaskCount").innerHTML =
         taskCount.length;
 }
@@ -186,10 +186,10 @@ async function getTask() {
     let taskTemp = JSON.parse((await getItem("tasks")).value || "[]");
     if (userLevel === "user") {
         const userTasks = taskTemp.filter((t) => t.userLevel === "user");
-        task = userTasks;
+        tasks = userTasks;
     } else {
         const userTasks = taskTemp.filter((t) => t.userLevel === "guest");
-        task = userTasks;
+        tasks = userTasks;
     }
 }
 
