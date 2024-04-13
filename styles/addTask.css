@@ -678,3 +678,15 @@ input:focus {
 .subtask-list input[type="checkbox"] {
     display: none;
 }
+
+#category{
+    cursor: pointer;
+}
+
+#taskDate{
+    cursor: pointer;
+}
+
+.contact-checkbox{
+    cursor: pointer;
+}

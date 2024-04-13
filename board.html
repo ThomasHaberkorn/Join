@@ -141,7 +141,7 @@
                 <button type="button" class="btn-select edit-prio" data-prio="Urgent">
                     <p>Urgent</p><img src="./assets/img/addTask/Prio alta.png">
                 </button>
-                <button type="button" class="btn-select edit-prio yellow" data-prio="Medium">
+                <button type="button" class="btn-select edit-prio" data-prio="Medium">
                     <p>Medium</p><img src="./assets/img/addTask/Prio media.png">
                 </button>
                 <button type="button" class="btn-select edit-prio" data-prio="Low">
@@ -212,7 +212,7 @@
                                 <div class="containerDropDown">
                                     <div class="inputDropDown">
                                         <input id="inputDropDown" type="text" placeholder="Select contacts to assign">
-                                        <img id="openDropdown" src="./assets/img/addTask/arrow_drop_downaa.png" alt="">
+                                        <img id="boardOpenDropdown" src="./assets/img/addTask/arrow_drop_downaa.png" alt="">
                                     </div>
 
                                     <div id="dropDownContacts">
@@ -238,13 +238,13 @@
                             <div class="prio">
                                 <p style="margin: 0;">Prio</p>
                                 <div class="prio-selection">
-                                    <button type="button" class="btn-select" id="urgentBtn">
+                                    <button type="button" class="btn-select" id="boardUrgentBtn">
                                         <p>Urgent</p><img src="./assets/img/addTask/Prio alta.png">
                                     </button>
-                                    <button type="button" class="btn-select yellow" id="mediumBtn">
+                                    <button type="button" class="btn-select yellow" id="boardMediumBtn">
                                         <p>Medium</p><img src="./assets/img/addTask/Prio media.png">
                                     </button>
-                                    <button type="button" class="btn-select" id="lowBtn">
+                                    <button type="button" class="btn-select" id="boardLowBtn">
                                         <p>Low</p><img src="./assets/img/addTask/Capa 2 (4).png">
                                     </button>
                                 </div>
@@ -260,12 +260,12 @@
                             </div>
                             <div class="subtask">
                                 <p style="margin: 0;">Subtasks</p>
-                                <input id="subtask" type="text" placeholder="Add new subtask">
+                                <input id="boardSubtask" type="text" placeholder="Add new subtask">
                                 <div class="pngs">
-                                    <img src="./assets/img/addTask/Subtasks icons11.png" id="subtask-img">
+                                    <img src="./assets/img/addTask/Subtasks icons11.png" id="boardSubtask-img">
 
                                 </div>
-                                <ul class="subtask-list" id="list"></ul>
+                                <ul class="subtask-list" id="boardList"></ul>
                             </div>
                         </div>
 
@@ -280,7 +280,7 @@
                 </div>
                 <div class="btn-position">
                     <button type="button" class="btn-clear">Clear X</button>
-                    <button class="btn" id="create-btn">Create Task <img
+                    <button type="submit" class="btn" id="boardCreate-btn">Create Task <img
                             src="./assets/img/addTask/check (1).png"></button>
                 </div>
             </section>
@@ -308,9 +308,10 @@
 
 
     <script src="js/storage.js"></script>
-    <script src="js/add_task.js"></script>
+      <script src="js/boardFeatures.js"></script>
     <script src="js/contactSection.js"></script>
     <script src="js/board.js"></script>
+    <script src="js/boardTaskManager.js"></script>
 
     </body">
 
