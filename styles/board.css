@@ -39,7 +39,9 @@
     justify-content: space-between;
     margin-bottom: 50px;
     margin-left: 24px;
+    margin-right: 24px;
     font-size: xx-large;
+    width: 100%;
 }
 
 #boardContainerUpperPartRight {
@@ -926,9 +928,10 @@ section {
     display: none;
 }
 
-<<<<<<< HEAD
 input[type="checkbox"] {
     cursor: pointer;
 }
-=======
->>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
+
+.task-board{
+    margin-top: 80px;
+}

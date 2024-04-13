@@ -1,10 +1,3 @@
-const prioritySymbols = {
-    Urgent: "./assets/img/urgentSymbol.png",
-    Medium: "./assets/img/mediumSymbol.png",
-    Low: "./assets/img/lowSymbol.png"
-};
-const taskColumns = document.querySelectorAll(".task-column");
-
 document.addEventListener("DOMContentLoaded", async function () {
     await loadContacts();
 });
@@ -20,6 +13,14 @@ async function initBoard() {
     displayTasks();
 }
 
+const prioritySymbols = {
+    Urgent: "./assets/img/urgentSymbol.png",
+    Medium: "./assets/img/mediumSymbol.png",
+    Low: "./assets/img/lowSymbol.png"
+};
+
+const taskColumns = document.querySelectorAll(".task-column");
+
 async function loadTasks() {
     try {
         tasks = JSON.parse((await getItem("tasks")).value || "[]");
@@ -27,8 +28,6 @@ async function loadTasks() {
         console.error("Fehler beim Laden der Aufgaben:", error);
     }
 }
-let tasks = [];
-
 
 function displayTasks() {
     tasks.forEach(task => {
@@ -313,30 +312,9 @@ function setPriorityValue(element, priority) {
 
 document.querySelectorAll('.edit-prio').forEach(button => {
     button.addEventListener('click', function () {
-<<<<<<< HEAD
         document.querySelectorAll('.edit-prio').forEach(removePriorityClasses);
         addPriorityClass(this, this.dataset.prio);
         setPriorityValue(document.getElementById('editPriority'), this.dataset.prio);
-=======
-        document.querySelectorAll('.edit-prio').forEach(btn => {
-            btn.classList.remove('priority-urgent', 'priority-medium', 'priority-low');
-        });
-
-        switch (this.dataset.prio) {
-            case 'Urgent':
-                this.classList.add('priority-urgent');
-                break;
-            case 'Medium':
-                this.classList.add('priority-medium');
-                break;
-            case 'Low':
-                this.classList.add('priority-low');
-                break;
-        }
-
-        document.getElementById('editPriority').value = this.dataset.prio;
-
->>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
     });
 });
 
@@ -406,7 +384,6 @@ function setTaskEditorCategory(category) {
 //     element.style.display = display;
 // }
 
-<<<<<<< HEAD
 // async function getTaskById(taskId) {
 //     const tasks = JSON.parse((await getItem("tasks")).value || []);
 //     return tasks.find((task) => task.id === taskId);
@@ -420,47 +397,6 @@ function setTaskEditorCategory(category) {
 //     const prioritySelect = document.getElementById("editPriority");
 //     prioritySelect.value = task.priority;
 // }
-=======
-        const taskId = allTaskInformation.dataset.taskId;
-
-        const tasks = JSON.parse((await getItem("tasks")).value || []);
-
-        const task = tasks.find((task) => task.id === taskId);
-
-        if (task) {
-            setTaskEditorCategory(task.category);
-            document.getElementById("editTitle").value = task.title;
-            document.getElementById("editDescription").value = task.description;
-            document.getElementById("editDueDate").value = task.taskDate;
-            const prioritySelect = document.getElementById("editPriority");
-            prioritySelect.value = task.priority;
-            const dropdownEdit = document.getElementById(
-                "dropDownContactsEdit"
-            );
-            dropdownEdit.innerHTML = "";
-            contacts.forEach((contact) => {
-                const isChecked = task.assignedContacts.includes(
-                    contact.userID
-                );
-                const checkboxId = `contact-edit-${contact.userID}`;
-                const div = document.createElement("div");
-                div.className = "checkbox-container";
-                div.innerHTML = `
-                <input class="cursorPointer" type="checkbox" id="${checkboxId} " name="assignedContactsEdit" value="${
-                    contact.userID
-                }" ${isChecked ? "checked" : ""}>
-                <label for="${checkboxId}">${contact.name}</label>
-            `;
-                dropdownEdit.appendChild(div);
-            });
-            const openDropdownEdit =
-                document.getElementById("openDropdownEdit");
-            openDropdownEdit.addEventListener("click", function (event) {
-                event.stopPropagation();
-                dropdownEdit.style.display =
-                    dropdownEdit.style.display === "block" ? "none" : "block";
-            });
->>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // function createContactCheckboxes(task) {
 //     const dropdownEdit = document.getElementById("dropDownContactsEdit");
@@ -495,7 +431,6 @@ function setTaskEditorCategory(category) {
 //     });
 // }
 
-<<<<<<< HEAD
 // function displayAssignedContacts(task) {
 //     const editCheckedUserInitials = document.getElementById('editCheckedUserInitials');
 //     editCheckedUserInitials.innerHTML = '';
@@ -518,27 +453,6 @@ function setTaskEditorCategory(category) {
 
 //     const taskId = allTaskInformation.dataset.taskId;
 //     const task = await getTaskById(taskId);
-=======
-
-            const editCheckedUserInitials = document.getElementById('editCheckedUserInitials');
-            editCheckedUserInitials.innerHTML = '';
-
-
-            task.assignedContacts.forEach((contactId) => {
-                const contact = contacts.find((c) => c.userID === contactId);
-                if (contact) {
-
-                    const initialsDiv = document.createElement('div');
-                    initialsDiv.className = 'userInitilas';
-
-                    initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
-                    initialsDiv.style.backgroundColor = contact.color;
-                    editCheckedUserInitials.appendChild(initialsDiv);
-                }
-            });
-        }
-    });
->>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 //     if (task) {
 //         fillTaskEditor(task);
@@ -558,17 +472,9 @@ function setTaskEditorCategory(category) {
 //     event.stopPropagation();
 // });
 
-<<<<<<< HEAD
 // dropdownEdit.addEventListener("click", function (event) {
 //     event.stopPropagation();
 // });
-=======
-
-document.getElementById("saveEdit").addEventListener("click", async function () {
-    const taskId = allTaskInformation.dataset.taskId;
-    const tasks = JSON.parse((await getItem("tasks")).value || []);
-    const taskIndex = tasks.findIndex((task) => task.id === taskId);
->>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // async function getTasks() {
 //     return JSON.parse((await getItem("tasks")).value || []);
@@ -578,7 +484,6 @@ document.getElementById("saveEdit").addEventListener("click", async function () 
 //     return tasks.findIndex((task) => task.id === taskId);
 // }
 
-<<<<<<< HEAD
 // function updateTask(task) {
 //     task.title = document.getElementById("editTitle").value;
 //     task.description = document.getElementById("editDescription").value;
@@ -588,11 +493,6 @@ document.getElementById("saveEdit").addEventListener("click", async function () 
 //         document.querySelectorAll('#dropDownContactsEdit input[type="checkbox"]:checked')
 //     ).map((el) => el.value);
 // }
-=======
-
-const boardAddTaskButton = document.getElementById("boardAddTaskButton");
-const boardAddTask = document.getElementById("boardAddTask");
->>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // async function saveTasks(tasks) {
 //     await setItem("tasks", JSON.stringify(tasks));
@@ -654,12 +554,8 @@ const boardAddTask = document.getElementById("boardAddTask");
 //     });
 // }
 
-<<<<<<< HEAD
 
 // const moveTaskButton = document.getElementById("moveTaskButton");
-=======
-const moveTaskButton = document.getElementById("moveTaskButton");
->>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // moveTaskButton.addEventListener("click", function () {
 //     const moveOption = document.getElementById("moveOption");
@@ -671,13 +567,7 @@ const moveTaskButton = document.getElementById("moveTaskButton");
 //     allTaskInformation.style.display = "none";
 // });
 
-<<<<<<< HEAD
 // const cardOptionsCloseButton = document.getElementById("cardOptionsCloseButton");
-=======
-const cardOptionsCloseButton = document.getElementById(
-    "cardOptionsCloseButton"
-);
->>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // cardOptionsCloseButton.addEventListener("click", function () {
 //     const moveOption = document.getElementById("moveOption");
@@ -711,7 +601,6 @@ const cardOptionsCloseButton = document.getElementById(
 //     let tasks = JSON.parse((await getItem("tasks")).value || "[]");
 //     let taskIndex = tasks.findIndex(task => task.id === taskId);
 
-<<<<<<< HEAD
 //     if (taskIndex !== -1) {
 //         let task = tasks[taskIndex];
 //         if (task.subtasks && index >= 0 && index < task.subtasks.length) {
@@ -738,54 +627,15 @@ const cardOptionsCloseButton = document.getElementById(
 // }
 
 // document.getElementById('editSubtaskAddButton').addEventListener('click', addEditSubtask);
-=======
-    if (taskIndex !== -1) {
-        let task = tasks[taskIndex];
-        if (task.subtasks && index >= 0 && index < task.subtasks.length) {
-            task.subtasks.splice(index, 1);
-            updateEditSubtaskList(task.subtasks);
-            await setItemFromJson('tasks', tasks);
-        }
-    }
-
-}
-
-
-function updateEditSubtaskList(subtasks) {
-    const list = document.getElementById("editSubtaskList");
-    list.innerHTML = "";
-    subtasks.forEach((subtask, index) => {
-        const li = document.createElement("li");
-        li.textContent = subtask.name;
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.onclick = () => removeEditSubtask(index);
-        li.appendChild(deleteButton);
-        list.appendChild(li);
-    });
-}
-
-document
-    .getElementById("editSubtaskAddButton")
-    .addEventListener("click", addEditSubtask);
->>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // function loadEditSubtasks(task) {
 //     updateEditSubtaskList(task.subtasks);
 // }
 
-<<<<<<< HEAD
 // document.getElementById("editTaskButton").addEventListener("click", async function () {
 //     const taskId = document.getElementById("allTaskInformation").dataset.taskId;
 //     const tasks = JSON.parse((await getItem("tasks")).value || []);
 //     const task = tasks.find((task) => task.id === taskId);
-=======
-
-document.getElementById("editTaskButton").addEventListener("click", async function () {
-    const taskId = document.getElementById("allTaskInformation").dataset.taskId;
-    const tasks = JSON.parse((await getItem("tasks")).value || []);
-    const task = tasks.find((task) => task.id === taskId);
->>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 //     loadEditSubtasks(task);
 // });
@@ -806,7 +656,6 @@ document.getElementById("editTaskButton").addEventListener("click", async functi
 // });
 
 
-<<<<<<< HEAD
 // function convertIdToStatus(id) {
 //     switch (id) {
 //         case 'ToDo':
@@ -834,37 +683,6 @@ document.getElementById("editTaskButton").addEventListener("click", async functi
 //         console.error("Fehler beim Aktualisieren des Task-Status:", error);
 //     }
 // }
-=======
-function convertIdToStatus(id) {
-    switch (id) {
-        case "ToDo":
-            return "todo";
-        case "InProgress":
-            return "inProgress";
-        case "Done":
-            return "done";
-        case "AwaitFeedback":
-            return "awaitFeedback";
-        default:
-            return '';
-
-    }
-}
-
-async function updateTaskStatusAndMove(taskId, newStatus) {
-    try {
-        let tasks = JSON.parse((await getItem("tasks")).value || "[]");
-        let taskIndex = tasks.findIndex(task => task.id === taskId);
-        if (taskIndex !== -1) {
-            tasks[taskIndex].status = newStatus;
-            await setItemFromJson('tasks', tasks);
-        }
-    } catch (error) {
-        console.error("Fehler beim Aktualisieren des Task-Status:", error);
-
-    }
-}
->>>>>>> 38f0f6028c121b6a2b13eae2a0804d0c838423dd
 
 // async function toggleSubtaskCompletion(taskId, subtaskIndex, completedStatus) {
 //     try {
