@@ -1,40 +1,16 @@
-let createBtn = document.getElementById("create-btn");
-let urgentBtn = document.getElementById("urgentBtn");
-let mediumBtn = document.getElementById("mediumBtn");
-let lowBtn = document.getElementById("lowBtn");
-let subtaskInput = document.getElementById("subtask");
-let subtaskAddButton = document.getElementById("subtask-img");
-let subtaskList = document.getElementById("list");
-let openDropdown = document.getElementById("openDropdown");
-let priorityButtons = {Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn};
+let createBtn = document.getElementById("boardCreate-btn");
+let urgentBtn = document.getElementById("boardUrgentBtn");
+let mediumBtn = document.getElementById("boardMediumBtn");
+let lowBtn = document.getElementById("boardLowBtn");
+let subtaskInput = document.getElementById("boardSubtask");
+let subtaskAddButton = document.getElementById("boardSubtask-img");
+let subtaskList = document.getElementById("boardList");
+let openDropdown = document.getElementById("boardOpenDropdown");
+let priorityButtons = { Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn };
 let priority = "";
 let subtasks = [];
-let tasks = [];
+let tasks =[];
 
-async function initAddSidebar() {
-    await includeW3();
-    addTaskActive();
-    showInitials();
-}
-function addTaskActive() {
-    document.getElementById("addTasksum").classList.add("bgfocus");
-}
-
-document.addEventListener("DOMContentLoaded", async function () {
-    await loadContacts();
-    await loadTasks();
-    fillContactDropdown();
-    fillDropdownList();
-    setPriorityLevel();
-});
-
-async function loadContacts() {
-    contacts = JSON.parse((await getItem("contacts")).value || "[]");
-}
-
-async function loadTasks() {
-    tasks = JSON.parse((await getItem("tasks")).value || "[]");
-}
 
 function fillContactDropdown() {
     const dropdown = document.getElementById("dropDownContacts");
@@ -73,6 +49,7 @@ function setPriority(selectedPriority) {
 }
 
 function setPriorityLevel() {
+
     urgentBtn.addEventListener("click", function () {
         setPriority("Urgent");
     });
@@ -82,6 +59,7 @@ function setPriorityLevel() {
     lowBtn.addEventListener("click", function () {
         setPriority("Low");
     });
+
 }
 
 function addSubtask(subtaskName) {
@@ -126,7 +104,7 @@ function updateSubtaskList() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     subtaskAddButton.addEventListener("click", function () {
         let subtaskValue = subtaskInput.value.trim();
         if (subtaskValue) {
@@ -138,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 document.addEventListener("DOMContentLoaded", function() {
-    let form = document.querySelector(".addTaskContentContainer");
+    let form = document.querySelector(".boardAddTaskContentContainer");
 
     if (form) {
         form.addEventListener("submit", function (event) {
@@ -149,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let taskDate = document.getElementById("taskDate").value;
             let category = document.getElementById("category").value;
             let assignedContacts = [...document.querySelectorAll(".contact-checkbox:checked")].map(input => input.value);
-            let userLevel = sessionStorage.getItem("userLevel");
+
             let newTaskId = "task-" + Math.random().toString(36).substr(2, 9);
 
             tasks.push({
@@ -160,15 +138,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 category,
                 priority,
                 subtasks,
-               userLevel,
                 status: "todo",
                 assignedContacts,
             });
 
             setItem("tasks", tasks);
-
             window.location.href = "board.html";
         });
     }
-
 });
+
