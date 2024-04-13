@@ -932,3 +932,7 @@ section {
 .task-column::-webkit-scrollbar {
     display: none;
 }
+
+input[type="checkbox"] {
+    cursor: pointer;
+}
