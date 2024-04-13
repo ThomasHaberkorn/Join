@@ -921,3 +921,14 @@ section {
     background: #2A3647;
     color: white;
 }
+
+.task-column {
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.task-column::-webkit-scrollbar {
+    display: none;
+}
