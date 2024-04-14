@@ -20,6 +20,7 @@
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-around;
+    margin: 0;
     width: 20%;
 }
 
@@ -37,11 +38,12 @@
     align-content: center;
     align-items: center;
     justify-content: space-between;
+    margin-top: 120px;
     margin-bottom: 50px;
-    margin-left: 24px;
-    margin-right: 24px;
+    margin-left: 40px;
+    margin-right: 40px;
     font-size: xx-large;
-    width: 100%;
+    width: 90%;
 }
 
 #boardContainerUpperPartRight {
@@ -140,11 +142,9 @@ h2 {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-around;
-    width: 84vw;
+    width: 100%;
     flex-grow: 1;
-    /* Erlaubt dem Board Task Container, den verfügbaren Platz zu füllen */
     overflow-y: auto;
-    /* Fügt bei Bedarf Scrollbalken hinzu */
 }
 
 figure {
@@ -268,7 +268,7 @@ section {
 }
 
 .task-column {
-    width: 100%;
+    width: 90%;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -932,6 +932,137 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-.task-board{
+.task-board {
     margin-top: 80px;
+}
+
+#taskBoard {
+    width: 100%;
+}
+
+@media (max-width: 1230px) {
+    .allTasksHeader {
+        height: 48px;
+    }
+
+    .progress {
+        width: 60px;
+        margin-top: 0;
+    }
+
+    .category-technical {
+        width: 80%;
+    }
+
+    .category-userstory {
+        width: 80%;
+    }
+
+    .item-img{
+        width: 25px;
+        height: 25px;
+    
+    }
+
+}
+
+@media (max-width: 1600px) {
+    .progress {
+        margin-right: 8px
+    }
+}
+
+@media (max-width: 985px) {
+    #boardContainer {
+        height: 100%;
+    }
+
+    .no-task-message {
+        font-size: smaller;
+    }
+
+    h2 {
+        font-size: smaller;
+    }
+
+    h1 {
+        font-size: 40px!important;
+    }
+
+    #boardSearchbar{
+        height: 40px;
+        width: 100px;
+    }
+
+    #boardContainerUpperPart{
+        justify-content: space-around;
+    }
+
+    #boardContainerUpperPartRight{
+        margin-left: 8px;
+    }
+
+    .category-technical {
+        width: 50%;
+        font-size: smaller;
+    }
+
+    .category-userstory {
+        width: 50%;
+        font-size: smaller;
+    }
+
+}
+
+@media (max-width: 1133px) {
+    .task-card {
+        height: 300px;
+    }
+}
+
+@media (max-width: 859px) {
+    .no-task-message {
+        text-align: center;
+    }
+}
+
+@media (max-width:750px){
+    .task-column{
+        display: flex;
+        flex-direction: row;
+    }
+    .contentContainer{
+        padding: 0;
+    }
+
+    #taskBoard{
+        margin: 0;
+        width: 100%;
+        height: 80%;
+    }
+
+    #boardContainerUpperPart{
+        margin: 0;
+    }
+
+    .boardTaskContainer{
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        height: 60vh;
+        width: 80vw;
+    }
+
+    .allTasks{
+        width: 100vw;
+    }
+
+    .task-card{
+        width: 200px;
+        margin: 16px;
+    }
+
+    .allTasksHeader{
+        width: 80%;
+    }
 }
