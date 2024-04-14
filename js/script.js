@@ -19,9 +19,6 @@ let users;
  * This function is to load the user data from the remote storage.
  */
 async function loadUsers() {
-    // let response = await getItem("user");
-    // let responseUsers = [response.value || []];
-    // users = JSON.parse(responseUsers);
     users = JSON.parse((await getItem("user")).value || "[]");
 }
 
@@ -257,7 +254,8 @@ function login() {
  */
 
 function guestLogin() {
-    sessionStorage.setItem("userName", "Guest");
+    sessionStorage.setItem("userName", "guest");
+    sessionStorage.setItem("userLevel", "guest");
     window.location.href = "summary.html";
 }
 

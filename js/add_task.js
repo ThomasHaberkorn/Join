@@ -6,10 +6,10 @@ let subtaskInput = document.getElementById("subtask");
 let subtaskAddButton = document.getElementById("subtask-img");
 let subtaskList = document.getElementById("list");
 let openDropdown = document.getElementById("openDropdown");
-let priorityButtons = { Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn };
+let priorityButtons = {Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn};
 let priority = "";
 let subtasks = [];
-let tasks =[];
+let tasks = [];
 
 async function initAddSidebar() {
     await includeW3();
@@ -26,26 +26,34 @@ document.addEventListener("DOMContentLoaded", async function () {
     fillContactDropdown();
     fillDropdownList();
     setPriorityLevel();
-
 });
 
 async function loadContacts() {
-    contacts = JSON.parse((await getItem("contacts")).value || "[]")
-};
+    contacts = JSON.parse((await getItem("contacts")).value || "[]");
+}
 
 async function loadTasks() {
-    tasks = JSON.parse((await getItem("tasks")).value || "[]")
-};
+    tasks = JSON.parse((await getItem("tasks")).value || "[]");
+}
 
 function fillContactDropdown() {
     const dropdown = document.getElementById("dropDownContacts");
     contacts.forEach((contact) => {
-        const div = document.createElement("div");
-        div.innerHTML = `
+        if (contact.userID) {
+            const div = document.createElement("div");
+            div.innerHTML = `
                         <input type="checkbox" class="contact-checkbox" id="contact-${contact.userID}" name="assignedContacts" value="${contact.userID}">
                         <label for="contact-${contact.userID}">${contact.name}</label>
                     `;
-        dropdown.appendChild(div);
+            dropdown.appendChild(div);
+        } else {
+            const div = document.createElement("div");
+            div.innerHTML = `
+                            <input type="checkbox" class="contact-checkbox" id="contact-${contact.id}" name="assignedContacts" value="${contact.id}">
+                            <label for="contact-${contact.id}">${contact.name}</label>
+                        `;
+            dropdown.appendChild(div);
+        }
     });
 }
 
@@ -74,7 +82,6 @@ function setPriority(selectedPriority) {
 }
 
 function setPriorityLevel() {
-
     urgentBtn.addEventListener("click", function () {
         setPriority("Urgent");
     });
@@ -84,7 +91,6 @@ function setPriorityLevel() {
     lowBtn.addEventListener("click", function () {
         setPriority("Low");
     });
-
 }
 
 function addSubtask(subtaskName) {
@@ -129,7 +135,7 @@ function updateSubtaskList() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     subtaskAddButton.addEventListener("click", function () {
         let subtaskValue = subtaskInput.value.trim();
         if (subtaskValue) {
@@ -139,38 +145,40 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+// document.addEventListener("DOMContentLoaded", function() {
+async function addTask(event) {
+    // let form = document.querySelector(".addTaskContentContainer");
 
-document.addEventListener("DOMContentLoaded", function() {
-    let form = document.querySelector(".addTaskContentContainer");
+    // if (form) {
+    // form.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-    if (form) {
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
+    let title = document.getElementById("titleInput").value;
+    let description = document.getElementById("descriptionInput").value;
+    let taskDate = document.getElementById("taskDate").value;
+    let category = document.getElementById("category").value;
+    let assignedContacts = [
+        ...document.querySelectorAll(".contact-checkbox:checked"),
+    ].map((input) => input.value);
+    let userLevel = sessionStorage.getItem("userLevel");
+    let newTaskId = "task-" + Math.random().toString(36).substr(2, 9);
 
-            let title = document.getElementById("titleInput").value;
-            let description = document.getElementById("descriptionInput").value;
-            let taskDate = document.getElementById("taskDate").value;
-            let category = document.getElementById("category").value;
-            let assignedContacts = [...document.querySelectorAll(".contact-checkbox:checked")].map(input => input.value);
+    tasks.push({
+        id: newTaskId,
+        title,
+        description,
+        taskDate,
+        category,
+        priority,
+        subtasks,
+        userLevel,
+        status: "todo",
+        assignedContacts,
+    });
 
-            let newTaskId = "task-" + Math.random().toString(36).substr(2, 9);
+    await setItem("tasks", tasks);
 
-            tasks.push({
-                id: newTaskId,
-                title,
-                description,
-                taskDate,
-                category,
-                priority,
-                subtasks,
-                status: "todo",
-                assignedContacts,
-            });
-
-            setItem("tasks", tasks);
-
-            window.location.href = "board.html";
-        });
-    }
-});
-
+    window.location.href = "board.html";
+    // });
+    // }
+}
