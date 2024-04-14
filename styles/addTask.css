@@ -592,13 +592,14 @@ input:focus {
 
 
     .buttons-and-text {
-        width: 86vw;
         margin-bottom: 10px;
     }
 
     .btn-clear {
         display: none;
     }
+
+
 }
 
 @media (max-width: 430px) {
@@ -610,6 +611,18 @@ input:focus {
 
     .headline {
         font-size: 32px;
+    }
+}
+
+@media (max-width: 750px) {
+    .addTaskContentContainer {
+        padding-left: 0;
+        overflow: auto;
+        max-height: calc(100vh - 80px);
+    }
+
+    .vertical-menu{
+        overflow-y: auto;
     }
 }
 
@@ -763,30 +776,29 @@ input:focus {
     border: none;
     background-color: transparent;
     cursor: pointer;
-    margin-left: 5px; /* Für ein wenig Abstand zwischen den Buttons */
+    margin-left: 5px; 
 }
 
 .subtaskEditBtn img, .subtaskDeleteBtn img {
-    width: 20px; /* Beispielgröße */
+    width: 20px;
     height: 20px;
 }
 
-/* Stil für das bearbeitbare Textfeld */
 input[type="text"][disabled] {
     background: transparent;
     border: none;
-    color: black; /* oder eine andere Farbe Ihrer Wahl */
+    color: black;
 }
 
 .subtask-list li {
     display: flex;
-    align-items: center; /* Zentriert die Inhalte vertikal */
-    gap: 10px; /* Fügt einen Abstand zwischen den Elementen innerhalb der li hinzu */
+    align-items: center;
+    gap: 10px; 
 }
 
 .subtask-list li input[type="text"] {
-    flex-grow: 1; /* Lässt das Textfeld den verfügbaren Platz ausfüllen */
-    margin-right: 10px; /* Fügt einen rechten Abstand zum Textfeld hinzu */
+    flex-grow: 1; 
+    margin-right: 10px; 
 }
 
 .subtask-list li button {
@@ -797,7 +809,7 @@ input[type="text"][disabled] {
 }
 
 .subtask-list li img {
-    width: 20px; /* Setzt eine feste Breite für die Bilder */
-    height: 20px; /* Setzt eine feste Höhe für die Bilder */
-    display: block; /* Stellt sicher, dass die Bilder korrekt angezeigt werden */
+    width: 20px; 
+    height: 20px; 
+    display: block; 
 }

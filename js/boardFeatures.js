@@ -272,6 +272,7 @@ document.querySelectorAll('.optionsContainerOption').forEach(option => {
         const moveOption = document.getElementById("moveOption");
         if (moveOption) {
             moveOption.style.display = "none";
+            allTaskInformation.style.display = "none";
         }
     });
 });
