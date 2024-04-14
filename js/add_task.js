@@ -10,6 +10,7 @@ let priorityButtons = {Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn};
 let priority = "";
 let subtasks = [];
 let tasks = [];
+let currentTaskStatus = "todo";
 
 async function initAddSidebar() {
     await includeW3();
@@ -268,7 +269,7 @@ async function addTask(event) {
         priority,
         subtasks,
         userLevel,
-        status: "todo",
+        status: currentTaskStatus,
         assignedContacts,
     });
 
@@ -318,3 +319,14 @@ function clearSubtaskInput() {
     document.getElementById("subtask").value = "";
     document.getElementById("clear-subtask").style.display = "none";
 }
+
+document.querySelectorAll('.custom-checkbox input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        const imgElement = this.nextElementSibling; // Nimm das nächste Element (das img-Tag)
+        if (this.checked) {
+            imgElement.src = "assets/img/checkboxChecked.png";
+        } else {
+            imgElement.src = "assets/img/checkbox.png";
+        }
+    });
+});

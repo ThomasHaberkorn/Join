@@ -44,7 +44,7 @@
                             <figure class="allTasks">
                                 <div class="allTasksHeader">
                                     <h2>To Do</h2>
-                                    <img class="boardPlusButton" id="boardPlusButtonToDo"
+                                    <img class="boardPlusButton" id="boardPlusButtonToDo" onclick="openAddTaskWithStatus('todo')"
                                         src="./assets/img/plusbutton.png" data-status="todo">
                                 </div>
                                 <article id="todo" class="task-column">
@@ -53,7 +53,7 @@
                             <figure class="allTasks">
                                 <div class="allTasksHeader">
                                     <h2>In Progress</h2>
-                                    <img class="boardPlusButton" id="boardPlusButtonInProgress"
+                                    <img class="boardPlusButton" id="boardPlusButtonInProgress" onclick="openAddTaskWithStatus('inProgress')"
                                         src="./assets/img/plusbutton.png" data-status="inProgress">
                                 </div>
                                 <article id="inProgress" class="task-column">
@@ -62,7 +62,7 @@
                             <figure class="allTasks">
                                 <div class="allTasksHeader">
                                     <h2>Await Feedback</h2>
-                                    <img class="boardPlusButton" id="boardPlusButtonAwaitFeedback"
+                                    <img class="boardPlusButton" id="boardPlusButtonAwaitFeedback" onclick="openAddTaskWithStatus('awaitFeedback')"
                                         src="./assets/img/plusbutton.png" data-status="awaitFeedback">
                                 </div>
                                 <article id="awaitFeedback" class="task-column">
@@ -71,8 +71,6 @@
                             <figure class="allTasks">
                                 <div class="allTasksHeader">
                                     <h2>Done</h2>
-                                    <img class="boardPlusButton" id="boardPlusButtonDone"
-                                        src="./assets/img/plusbutton.png" data-status="done">
                                 </div>
                                 <article id="done" class="task-column">
                                 </article>
@@ -188,11 +186,12 @@
     </div>
 
     <div id="boardAddTask">
-        <form class="boardAddTaskContentContainer">
-            <button id="boardAddTaskCloseButton">x</button>
+        <button id="boardAddTaskCloseButton" onclick="closeBoardAddTask()">X</button>
+        <form  onsubmit="addTask(event)" class="boardAddTask">
             <div class="tasks">
                 <div class="headline">
                     <h2>Add Task</h2>
+                    
                 </div>
                 <div class="vertical-menu">
                     <div class="position-left-right">
@@ -210,13 +209,14 @@
                             <div class="contact">
                                 <label for="contacts">Assigned to</label>
                                 <div class="containerDropDown">
-                                    <div class="inputDropDown">
-                                        <input id="inputDropDown" type="text" placeholder="Select contacts to assign">
-                                        <img onclick="fillDropdownList(); fillContactDropdown()" id="boardOpenDropdown" src="./assets/img/addTask/arrow_drop_downaa.png"
+                                    <div class="inputDropDown"onclick="fillDropdownList(); loadCheckedUserInitials()">
+                                        <input id="inputDropDown" type="text"
+                                            placeholder="Select contacts to assign">
+                                        <img  id="openDropdown" src="./assets/img/addTask/arrow_drop_downaa.png"
                                             alt="">
                                     </div>
 
-                                    <div onclick="" id="dropDownContacts">
+                                    <div id="dropDownContacts">
 
                                     </div>
                                 </div>
@@ -239,13 +239,13 @@
                             <div class="prio">
                                 <p style="margin: 0;">Prio</p>
                                 <div class="prio-selection">
-                                    <button type="button" class="btn-select" id="boardUrgentBtn">
+                                    <button type="button" class="btn-select" id="urgentBtn">
                                         <p>Urgent</p><img src="./assets/img/addTask/Prio alta.png">
                                     </button>
-                                    <button type="button" class="btn-select yellow" id="boardMediumBtn">
+                                    <button type="button" class="btn-select priority-medium-selected" id="mediumBtn">
                                         <p>Medium</p><img src="./assets/img/addTask/Prio media.png">
                                     </button>
-                                    <button type="button" class="btn-select" id="boardLowBtn">
+                                    <button type="button" class="btn-select" id="lowBtn">
                                         <p>Low</p><img src="./assets/img/addTask/Capa 2 (4).png">
                                     </button>
                                 </div>
@@ -261,13 +261,14 @@
                             </div>
                             <div class="subtask">
                                 <p style="margin: 0;">Subtasks</p>
-                                <input id="boardSubtask" type="text" placeholder="Add new subtask">
+                                <input id="subtask" type="text" placeholder="Add new subtask" oninput="showClearButton(this.value)">
                                 <div class="pngs">
-                                    <img src="./assets/img/addTask/Subtasks icons11.png" id="boardSubtask-img">
-
+                                    <img src="./assets/img/addTask/Subtasks icons11.png" id="subtask-img">
+                                    <img id="clear-subtask" style="display: none; cursor: pointer;" onclick="clearSubtaskInput()" src="assets\img\delete.png">
                                 </div>
-                                <ul class="subtask-list" id="boardList"></ul>
+                                <ul class="subtask-list" id="list"></ul>
                             </div>
+                            
                         </div>
 
                     </div>
@@ -280,8 +281,8 @@
                     <p>This field is required</p>
                 </div>
                 <div class="btn-position">
-                    <button type="button" class="btn-clear">Clear X</button>
-                    <button class="btn" id="boardCreate-btn" onclick="addTask(event)">Create Task <img
+                    <button type="button" id="addTaskClearButton" onclick="removeCurrentInputValues()" class="btn-clear">Clear X</button>
+                    <button type="submit" class="btn" id="create-btn">Create Task <img
                             src="./assets/img/addTask/check (1).png"></button>
                 </div>
             </section>

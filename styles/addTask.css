@@ -813,3 +813,17 @@ input[type="text"][disabled] {
     height: 20px; 
     display: block; 
 }
+
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.custom-checkbox img {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.nameWithCheckbox label {
+    cursor: pointer;
+}

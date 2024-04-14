@@ -901,6 +901,16 @@ section {
     width: 100%;
 }
 
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.custom-checkbox img {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
 #saveEditModal {
     margin-top: 16px;
     display: flex;

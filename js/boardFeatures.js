@@ -145,9 +145,7 @@ const boardAddTaskCloseButton = document.getElementById(
     "boardAddTaskCloseButton"
 );
 
-boardAddTaskCloseButton.addEventListener("click", function () {
-    boardAddTask.style.display = "none";
-});
+
 
 document.getElementById("searchTask").addEventListener("input", function () {
     searchTasks();
