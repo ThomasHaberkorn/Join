@@ -24,7 +24,6 @@ function fillContactDropdown() {
 }
 
 function fillDropdownList() {
-    openDropdown.addEventListener("click", function () {
         let dropdown = document.getElementById("dropDownContacts");
 
         if (
@@ -35,7 +34,6 @@ function fillDropdownList() {
         } else {
             dropdown.style.display = "none";
         }
-    });
 }
 
 function setPriority(selectedPriority) {

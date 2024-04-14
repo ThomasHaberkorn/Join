@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     await loadContacts();
     await loadTasks();
     fillContactDropdown();
-    fillDropdownList();
     setPriorityLevel();
 });
 
@@ -39,38 +38,55 @@ async function loadTasks() {
 function fillContactDropdown() {
     const dropdown = document.getElementById("dropDownContacts");
     contacts.forEach((contact) => {
-        if (contact.userID) {
-            const div = document.createElement("div");
-            div.innerHTML = `
-                        <input type="checkbox" class="contact-checkbox" id="contact-${contact.userID}" name="assignedContacts" value="${contact.userID}">
-                        <label for="contact-${contact.userID}">${contact.name}</label>
-                    `;
-            dropdown.appendChild(div);
-        } else {
-            const div = document.createElement("div");
-            div.innerHTML = `
-                            <input type="checkbox" class="contact-checkbox" id="contact-${contact.id}" name="assignedContacts" value="${contact.id}">
-                            <label for="contact-${contact.id}">${contact.name}</label>
-                        `;
-            dropdown.appendChild(div);
+        const div = document.createElement("div");
+        div.classList.add("itemAndCheckbox");
+        const initials = `${contact.firstLetter}${contact.lastLetter}`;
+        div.innerHTML = `
+            <div class="userInitials" style="background-color: ${contact.color};">${initials}</div>
+            <div id="nameWithCheckbox">
+                <label for="contact-${contact.userID}">${contact.name}</label>
+                <input type="checkbox" class="contact-checkbox" id="contact-${contact.userID}" name="assignedContacts" value="${contact.userID}">
+            </div>
+        `;
+        dropdown.appendChild(div);
+    });
+}
+
+
+// function fillDropdownList() {
+//     let dropdown = document.getElementById("dropDownContacts");
+
+//     if (
+//         dropdown.style.display === "none" ||
+//         dropdown.style.display === ""
+//     ) {
+//         dropdown.style.display = "block";
+//     } else {
+//         dropdown.style.display = "none";
+//     }
+// }
+
+
+function loadCheckedUserInitials() {
+    const editCheckedUserInitials = document.getElementById('checkedUserInitials');
+    editCheckedUserInitials.innerHTML = ''; // Bereinigen Sie den Container vor dem Hinzufügen neuer Initialen
+
+    // Durchlaufen Sie alle Checkboxen und prüfen Sie, ob sie markiert sind
+    document.querySelectorAll('.contact-checkbox:checked').forEach(checkbox => {
+        // Finden Sie den entsprechenden Kontakt basierend auf der userID der Checkbox
+        const contact = contacts.find(c => c.userID === checkbox.value);
+        if (contact) {
+            // Erstellen Sie ein Element für die Initialen des Kontakts
+            const initialsDiv = document.createElement('div');
+            initialsDiv.className = 'userInitials';
+            initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
+            initialsDiv.style.backgroundColor = contact.color;
+            editCheckedUserInitials.appendChild(initialsDiv);
         }
     });
 }
 
-function fillDropdownList() {
-    openDropdown.addEventListener("click", function () {
-        let dropdown = document.getElementById("dropDownContacts");
 
-        if (
-            dropdown.style.display === "none" ||
-            dropdown.style.display === ""
-        ) {
-            dropdown.style.display = "block";
-        } else {
-            dropdown.style.display = "none";
-        }
-    });
-}
 
 function setPriority(selectedPriority) {
     priority = selectedPriority;
@@ -181,4 +197,20 @@ async function addTask(event) {
     window.location.href = "board.html";
     // });
     // }
+}
+
+
+
+function fillDropdownList() {
+    let dropdown = document.getElementById("dropDownContacts");
+    let checkedUserInitials = document.getElementById("checkedUserInitials");
+
+    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+        checkedUserInitials.style.display = "none";
+    } else {
+        dropdown.style.display = "none";
+        checkedUserInitials.style.display = "flex";
+        loadCheckedUserInitials();
+    }
 }

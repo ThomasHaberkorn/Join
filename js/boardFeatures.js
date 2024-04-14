@@ -183,10 +183,10 @@ moveTaskButton.addEventListener("click", function () {
     moveOption.style.display = "block";
 });
 
-const allTaskInformation = document.getElementById("allTaskInformation");
-allTaskInformation.addEventListener("click", function () {
-    allTaskInformation.style.display = "none";
-});
+// const allTaskInformation = document.getElementById("allTaskInformation");
+// allTaskInformation.addEventListener("click", function () {
+//     allTaskInformation.style.display = "none";
+// });
 
 const cardOptionsCloseButton = document.getElementById("cardOptionsCloseButton");
 

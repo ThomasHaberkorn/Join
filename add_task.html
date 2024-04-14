@@ -30,7 +30,7 @@
         </div>
         <div class="w3Header">
             <div w3-include-html="header.html"></div>
-            <form class="addTaskContentContainer">
+            <form  onsubmit="addTask(event)" class="addTaskContentContainer">
                 <div class="tasks">
                     <div class="headline">
                         <h2>Add Task</h2>
@@ -51,10 +51,10 @@
                                 <div class="contact">
                                     <label for="contacts">Assigned to</label>
                                     <div class="containerDropDown">
-                                        <div class="inputDropDown">
+                                        <div class="inputDropDown"onclick="fillDropdownList(); loadCheckedUserInitials()">
                                             <input id="inputDropDown" type="text"
                                                 placeholder="Select contacts to assign">
-                                            <img id="openDropdown" src="./assets/img/addTask/arrow_drop_downaa.png"
+                                            <img  id="openDropdown" src="./assets/img/addTask/arrow_drop_downaa.png"
                                                 alt="">
                                         </div>
 
@@ -124,7 +124,7 @@
                     <div class="btn-position">
                         <button type="button" id="addTaskClearButton" class="btn-clear">Clear X</button>
                         <!-- <button type="submit" class="btn" id="create-btn">Create Task <img -->
-                        <button class="btn" id="create-btn" onclick="addTask(event)">Create Task <img
+                        <button type="submit" class="btn" id="create-btn">Create Task <img
                                 src="./assets/img/addTask/check (1).png"></button>
                     </div>
                 </section>

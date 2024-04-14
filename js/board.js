@@ -366,6 +366,7 @@ document.querySelectorAll(".edit-prio").forEach((button) => {
 function closeAllTaskInformation() {
     const allTaskInformation = document.getElementById("allTaskInformation");
     allTaskInformation.style.display = "none";
+    initBoard();
 }
 
 async function deleteTask() {
