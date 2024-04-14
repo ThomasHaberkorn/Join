@@ -55,6 +55,7 @@ function fillContactDropdown() {
     });
 }
 
+
 function handleCheckboxChange(checkbox) {
     const itemAndCheckbox = checkbox.closest('.itemAndCheckbox');
     if (checkbox.checked) {

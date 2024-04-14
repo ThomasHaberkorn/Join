@@ -675,9 +675,7 @@ section {
     cursor: pointer;
 }
 
-#dropDownContactsEdit {
-    display: none;
-}
+
 
 #editModalTitleDiv {
     width: 100%;
@@ -822,6 +820,7 @@ section {
     align-items: start;
     width: 100%;
     margin-bottom: 24px;
+    background-color: #FEFEFE!important;
 }
 
 .userInitilas {
@@ -882,6 +881,15 @@ section {
 
 #editSubtaskAddButton {
     cursor: pointer;
+    display: flex;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    border: 1px solid #2a3647;
+    background: #2a3647;
+    color: white;
 }
 
 #editSubtaskList {
@@ -896,9 +904,17 @@ section {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    cursor: pointer;
     margin-bottom: 10px;
     width: 100%;
+}
+
+
+#editSubtaskList button {
+    cursor: pointer;
+}
+
+#editSubtaskList button:hover {
+    font-weight: 700;
 }
 
 .custom-checkbox input[type="checkbox"] {
@@ -957,7 +973,17 @@ input[type="checkbox"] {
     margin: 0;
 }
 
+#dropDownContactsEdit{
+    margin-top: 8px;
+    overflow-y: scroll;
+    max-height: 140px;
+}
 
+.nameWithCheckbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
 
 @media (max-width: 1230px) {
