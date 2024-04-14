@@ -642,7 +642,7 @@ input:focus {
     color: black;
     cursor: pointer;
     border: none;
-    background-color: lightgrey;
+    background-color: transparent;
 }
 
 .subtask-list li {
@@ -707,6 +707,7 @@ input:focus {
     justify-content: center;
     align-items: center;
     margin-right: 5px;
+    font-size: smaller;
 }
 
 .itemAndCheckbox{
@@ -714,18 +715,89 @@ input:focus {
     justify-content: space-between;
     width: 100%;
     margin-bottom: 4px;
+    margin-top: 4px;
+    border-radius: 8px;
 }
 
 .itemAndCheckbox:hover {
     background-color: rgb(236, 236, 236);
 }
 
-.itemAndCheckbox label {
-    cursor: pointer;
-}
-
-#nameWithCheckbox{
+.nameWithCheckbox{
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+
+.checkedItemAndCheckbox {
+    background-color: #2A3647;
+    color: white;
+}
+
+.checkedItemAndCheckbox:hover {
+    background-color: #2A3647;
+}
+
+.priority-urgent-selected {
+    background-color: #FF3D00;
+    color: white;
+}
+
+.priority-medium-selected {
+    background-color: #FFA800;
+    color: white;
+}
+
+.priority-low-selected {
+    background-color: #7AE229;
+    color: white;
+}
+
+.pngs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subtaskEditBtn, .subtaskDeleteBtn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 5px; /* Für ein wenig Abstand zwischen den Buttons */
+}
+
+.subtaskEditBtn img, .subtaskDeleteBtn img {
+    width: 20px; /* Beispielgröße */
+    height: 20px;
+}
+
+/* Stil für das bearbeitbare Textfeld */
+input[type="text"][disabled] {
+    background: transparent;
+    border: none;
+    color: black; /* oder eine andere Farbe Ihrer Wahl */
+}
+
+.subtask-list li {
+    display: flex;
+    align-items: center; /* Zentriert die Inhalte vertikal */
+    gap: 10px; /* Fügt einen Abstand zwischen den Elementen innerhalb der li hinzu */
+}
+
+.subtask-list li input[type="text"] {
+    flex-grow: 1; /* Lässt das Textfeld den verfügbaren Platz ausfüllen */
+    margin-right: 10px; /* Fügt einen rechten Abstand zum Textfeld hinzu */
+}
+
+.subtask-list li button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.subtask-list li img {
+    width: 20px; /* Setzt eine feste Breite für die Bilder */
+    height: 20px; /* Setzt eine feste Höhe für die Bilder */
+    display: block; /* Stellt sicher, dass die Bilder korrekt angezeigt werden */
 }

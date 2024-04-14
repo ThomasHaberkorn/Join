@@ -25,7 +25,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     await loadTasks();
     fillContactDropdown();
     setPriorityLevel();
+    setPriority('Medium');
 });
+
 
 async function loadContacts() {
     contacts = JSON.parse((await getItem("contacts")).value || "[]");
@@ -43,14 +45,25 @@ function fillContactDropdown() {
         const initials = `${contact.firstLetter}${contact.lastLetter}`;
         div.innerHTML = `
             <div class="userInitials" style="background-color: ${contact.color};">${initials}</div>
-            <div id="nameWithCheckbox">
+            <div class="nameWithCheckbox">
                 <label for="contact-${contact.userID}">${contact.name}</label>
-                <input type="checkbox" class="contact-checkbox" id="contact-${contact.userID}" name="assignedContacts" value="${contact.userID}">
+                <input type="checkbox" class="contact-checkbox" id="contact-${contact.userID}" name="assignedContacts" value="${contact.userID}" onchange="handleCheckboxChange(this)">
             </div>
         `;
         dropdown.appendChild(div);
     });
 }
+
+function handleCheckboxChange(checkbox) {
+    const itemAndCheckbox = checkbox.closest('.itemAndCheckbox');
+    if (checkbox.checked) {
+        itemAndCheckbox.classList.add('checkedItemAndCheckbox');
+    } else {
+        itemAndCheckbox.classList.remove('checkedItemAndCheckbox');
+    }
+}
+
+
 
 
 // function fillDropdownList() {
@@ -88,14 +101,51 @@ function loadCheckedUserInitials() {
 
 
 
+function resetButtons() {
+    Object.values(priorityButtons).forEach((button) => {
+        button.classList.remove("priority-urgent-selected", "priority-medium-selected", "priority-low-selected");
+        resetButtonImage(button);
+    });
+}
+
+function resetButtonImage(button) {
+    const imgElement = button.querySelector('img');
+    if (imgElement) {
+        if (button === urgentBtn) {
+            imgElement.src = "assets/img/addTask/Prio alta.png";
+        } else if (button === mediumBtn) {
+            imgElement.src = "assets/img/addTask/Prio media.png";
+        } else if (button === lowBtn) {
+            imgElement.src = "assets/img/addTask/Capa 2 (4).png";
+        }
+    }
+}
+
+function updateSelectedButton(selectedPriority) {
+    switch (selectedPriority) {
+        case 'Urgent':
+            urgentBtn.classList.add("priority-urgent-selected");
+            urgentBtn.querySelector('img').src = "assets/img/selectedUrgent.png";
+            break;
+        case 'Medium':
+            mediumBtn.classList.add("priority-medium-selected");
+            mediumBtn.querySelector('img').src = "assets/img/selectedMedium.png";
+            break;
+        case 'Low':
+            lowBtn.classList.add("priority-low-selected");
+            lowBtn.querySelector('img').src = "assets/img/selectedLow.png";
+            break;
+    }
+}
+
 function setPriority(selectedPriority) {
     priority = selectedPriority;
-
-    Object.values(priorityButtons).forEach((button) => {
-        button.classList.remove("selected-priority");
-    });
-    priorityButtons[selectedPriority].classList.add("selected-priority");
+    resetButtons();
+    updateSelectedButton(selectedPriority);
 }
+
+
+
 
 function setPriorityLevel() {
     urgentBtn.addEventListener("click", function () {
@@ -136,16 +186,46 @@ function updateSubtaskList() {
             subtasks[index].completed = this.checked;
         };
 
-        let text = document.createTextNode(" " + subtask.name);
+        let textInput = document.createElement("input");
+        textInput.type = "text";
+        textInput.value = subtask.name;
+        textInput.disabled = true;
+
+        let editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.classList.add("subtaskEditBtn");
+        let editIcon = document.createElement("img");
+        editIcon.src = "assets/img/edit.png";
+        editIcon.alt = "Edit";
+        editButton.appendChild(editIcon);
+
+        editButton.onclick = function () {
+            if (textInput.disabled) {
+                textInput.disabled = false;
+                textInput.focus();
+                editIcon.src = "assets/img/check (2).png";
+            } else {
+                subtasks[index].name = textInput.value.trim();
+                textInput.disabled = true;
+                editIcon.src = "assets/img/edit.png";
+                updateSubtaskList();
+            }
+        };
+
         let deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
+        deleteButton.type = "button";
         deleteButton.classList.add("subtaskDeleteBtn");
+        let deleteIcon = document.createElement("img");
+        deleteIcon.src = "assets/img/delete.png";
+        deleteIcon.alt = "Delete";
+        deleteButton.appendChild(deleteIcon);
         deleteButton.onclick = function () {
             removeSubtask(index);
         };
 
         li.appendChild(checkbox);
-        li.appendChild(text);
+        li.appendChild(textInput);
+        li.appendChild(editButton);
         li.appendChild(deleteButton);
         subtaskList.appendChild(li);
     });
@@ -213,4 +293,28 @@ function fillDropdownList() {
         checkedUserInitials.style.display = "flex";
         loadCheckedUserInitials();
     }
+}
+
+function removeCurrentInputValues() {
+    document.getElementById("titleInput").value = "";
+    document.getElementById("descriptionInput").value = "";
+    document.getElementById("taskDate").value = "";
+    document.getElementById("category").value = "";
+    document.querySelectorAll(".contact-checkbox:checked").forEach((checkbox) => {
+        checkbox.checked = false;
+    });
+    subtaskInput.value = "";
+    subtasks = [];
+    setPriority('Medium');
+    loadCheckedUserInitials();
+    updateSubtaskList();
+}
+
+function showClearButton(value) {
+    document.getElementById("clear-subtask").style.display = value ? "inline" : "none";
+}
+
+function clearSubtaskInput() {
+    document.getElementById("subtask").value = "";
+    document.getElementById("clear-subtask").style.display = "none";
 }

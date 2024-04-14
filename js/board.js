@@ -247,12 +247,11 @@ function addEventListenersToCard(card, task) {
 function createTaskCard(task) {
     let card = createCardElement(task);
     let categoryDiv = createCategoryDiv(task);
-    let subtasksHtml = createSubtasksHtml(task.subtasks);
-    const assignedContactElements = createAssignedContactElements(
-        task.assignedContacts
-    );
+    
+    let progressHtml = task.subtasks && task.subtasks.length > 0 ? calculateProgress(task) : '';
+    
+    const assignedContactElements = createAssignedContactElements(task.assignedContacts);
     const prioritySymbolHtml = getPrioritySymbolHtml(task, prioritySymbols);
-    const progressHtml = calculateProgress(task);
 
     card.innerHTML = createCardHtml(
         task,
@@ -265,6 +264,7 @@ function createTaskCard(task) {
 
     return card;
 }
+
 
 function updateTaskColumns() {
     document.querySelectorAll(".task-column").forEach((column) => {

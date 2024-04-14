@@ -940,6 +940,9 @@ input[type="checkbox"] {
     width: 100%;
 }
 
+
+
+
 @media (max-width: 1230px) {
     .allTasksHeader {
         height: 48px;
