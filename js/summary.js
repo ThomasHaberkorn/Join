@@ -122,7 +122,7 @@ function allocateTasks() {
  */
 function countTasks() {
     for (i = 0; i < tasks.length; i++) {
-        const cat = task[i];
+        const cat = tasks[i];
         let status = cat["status"];
         if (status == "todo") {
             todo++;
@@ -188,7 +188,9 @@ async function getTask() {
         const userTasks = taskTemp.filter((t) => t.userLevel === "user");
         tasks = userTasks;
     } else {
-        const userTasks = taskTemp.filter((t) => t.userLevel === "guest");
+        const userTasks = taskTemp.filter(
+            (t) => t.userLevel === "guest" || t.userLevel == null
+        );
         tasks = userTasks;
     }
 }
