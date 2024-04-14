@@ -25,32 +25,55 @@ function createContactCheckboxes(task) {
     contacts.forEach((contact) => {
         const isChecked = task.assignedContacts.includes(contact.userID);
         const checkboxId = `contact-edit-${contact.userID}`;
+
         const div = document.createElement("div");
-        div.className = "checkbox-container";
+        div.classList.add("itemAndCheckbox");
+        if (isChecked) {
+            div.classList.add("checkedItemAndCheckbox");
+        }
+
+        const initials = `${contact.firstLetter}${contact.lastLetter}`;
         div.innerHTML = `
-            <input class="cursorPointer" type="checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${contact.userID}" ${isChecked ? "checked" : ""}>
-            <label for="${checkboxId}">${contact.name}</label>
+            <div class="userInitials" style="background-color: ${contact.color};">${initials}</div>
+            <div class="nameWithCheckbox">
+                <label for="${checkboxId}">${contact.name}</label>
+                <input type="checkbox" class="contact-checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${contact.userID}" ${isChecked ? "checked" : ""} onchange="handleCheckboxChange(this)">
+            </div>
         `;
+
         dropdownEdit.appendChild(div);
     });
 }
 
-function addDropdownListeners() {
+function toggleDropdownEdit() {
     const dropdownEdit = document.getElementById("dropDownContactsEdit");
-    const openDropdownEdit = document.getElementById("openDropdownEdit");
-    openDropdownEdit.addEventListener("click", function (event) {
-        event.stopPropagation();
-        dropdownEdit.style.display = dropdownEdit.style.display === "block" ? "none" : "block";
-    });
-    dropdownEdit.addEventListener("click", function (event) {
-        event.stopPropagation();
-    });
-    document.addEventListener("click", function (event) {
-        if (dropdownEdit.style.display === "block" && !event.target.matches("#openDropdownEdit")) {
-            dropdownEdit.style.display = "none";
-        }
-    });
+
+    if (dropdownEdit.style.display === "none" || dropdownEdit.style.display === "") {
+        dropdownEdit.style.display = "block";
+    } else {
+        dropdownEdit.style.display = "none";
+    }
 }
+
+
+
+
+// function addDropdownListeners() {
+//     const dropdownEdit = document.getElementById("dropDownContactsEdit");
+//     const openDropdownEdit = document.getElementById("openDropdownEdit");
+//     openDropdownEdit.addEventListener("click", function (event) {
+//         event.stopPropagation();
+//         dropdownEdit.style.display = dropdownEdit.style.display === "block" ? "none" : "block";
+//     });
+//     dropdownEdit.addEventListener("click", function (event) {
+//         event.stopPropagation();
+//     });
+//     document.addEventListener("click", function (event) {
+//         if (dropdownEdit.style.display === "block" && !event.target.matches("#openDropdownEdit")) {
+//             dropdownEdit.style.display = "none";
+//         }
+//     });
+// }
 
 function displayAssignedContacts(task) {
     const editCheckedUserInitials = document.getElementById('editCheckedUserInitials');
@@ -78,7 +101,7 @@ document.getElementById("editTaskButton").addEventListener("click", async functi
     if (task) {
         fillTaskEditor(task);
         createContactCheckboxes(task);
-        addDropdownListeners();
+        // addDropdownListeners();
         displayAssignedContacts(task);
     }
 });
@@ -86,12 +109,12 @@ document.getElementById("editTaskButton").addEventListener("click", async functi
 const openDropdownEdit = document.getElementById("openDropdownEdit");
 const dropdownEdit = document.getElementById("dropDownContactsEdit");
 
-openDropdownEdit.addEventListener("click", function (event) {
-    const isDropdownOpen = dropdownEdit.style.display === "block";
-    dropdownEdit.style.display = isDropdownOpen ? "none" : "block";
+// openDropdownEdit.addEventListener("click", function (event) {
+//     const isDropdownOpen = dropdownEdit.style.display === "block";
+//     dropdownEdit.style.display = isDropdownOpen ? "none" : "block";
 
-    event.stopPropagation();
-});
+//     event.stopPropagation();
+// });
 
 dropdownEdit.addEventListener("click", function (event) {
     event.stopPropagation();
@@ -145,9 +168,7 @@ const boardAddTaskCloseButton = document.getElementById(
     "boardAddTaskCloseButton"
 );
 
-boardAddTaskCloseButton.addEventListener("click", function () {
-    boardAddTask.style.display = "none";
-});
+
 
 document.getElementById("searchTask").addEventListener("input", function () {
     searchTasks();
@@ -183,10 +204,10 @@ moveTaskButton.addEventListener("click", function () {
     moveOption.style.display = "block";
 });
 
-const allTaskInformation = document.getElementById("allTaskInformation");
-allTaskInformation.addEventListener("click", function () {
-    allTaskInformation.style.display = "none";
-});
+// const allTaskInformation = document.getElementById("allTaskInformation");
+// allTaskInformation.addEventListener("click", function () {
+//     allTaskInformation.style.display = "none";
+// });
 
 const cardOptionsCloseButton = document.getElementById("cardOptionsCloseButton");
 
@@ -272,6 +293,7 @@ document.querySelectorAll('.optionsContainerOption').forEach(option => {
         const moveOption = document.getElementById("moveOption");
         if (moveOption) {
             moveOption.style.display = "none";
+            allTaskInformation.style.display = "none";
         }
     });
 });

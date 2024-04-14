@@ -247,12 +247,11 @@ function addEventListenersToCard(card, task) {
 function createTaskCard(task) {
     let card = createCardElement(task);
     let categoryDiv = createCategoryDiv(task);
-    let subtasksHtml = createSubtasksHtml(task.subtasks);
-    const assignedContactElements = createAssignedContactElements(
-        task.assignedContacts
-    );
+    
+    let progressHtml = task.subtasks && task.subtasks.length > 0 ? calculateProgress(task) : '';
+    
+    const assignedContactElements = createAssignedContactElements(task.assignedContacts);
     const prioritySymbolHtml = getPrioritySymbolHtml(task, prioritySymbols);
-    const progressHtml = calculateProgress(task);
 
     card.innerHTML = createCardHtml(
         task,
@@ -265,6 +264,7 @@ function createTaskCard(task) {
 
     return card;
 }
+
 
 function updateTaskColumns() {
     document.querySelectorAll(".task-column").forEach((column) => {
@@ -327,23 +327,25 @@ async function updateTaskInRemoteStorage(taskId, newStatus) {
 }
 
 function removePriorityClasses(element) {
-    element.classList.remove(
-        "priority-urgent",
-        "priority-medium",
-        "priority-low"
-    );
+    element.classList.remove("priority-urgent", "priority-medium", "priority-low");
+    document.querySelector(`.edit-prio[data-prio='Urgent'] img`).src = "./assets/img/addTask/Prio alta.png";
+    document.querySelector(`.edit-prio[data-prio='Medium'] img`).src = "./assets/img/addTask/Prio media.png";
+    document.querySelector(`.edit-prio[data-prio='Low'] img`).src = "./assets/img/addTask/Capa 2 (4).png";
 }
 
 function addPriorityClass(element, priority) {
     switch (priority) {
         case "Urgent":
             element.classList.add("priority-urgent");
+            element.querySelector('img').src = "./assets/img/selectedUrgent.png";
             break;
         case "Medium":
             element.classList.add("priority-medium");
+            element.querySelector('img').src = "./assets/img/selectedMedium.png";
             break;
         case "Low":
             element.classList.add("priority-low");
+            element.querySelector('img').src = "./assets/img/selectedLow.png";
             break;
     }
 }
@@ -366,6 +368,7 @@ document.querySelectorAll(".edit-prio").forEach((button) => {
 function closeAllTaskInformation() {
     const allTaskInformation = document.getElementById("allTaskInformation");
     allTaskInformation.style.display = "none";
+    initBoard();
 }
 
 async function deleteTask() {
