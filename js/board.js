@@ -1,45 +1,80 @@
+document.addEventListener("DOMContentLoaded", async function () {
+    await loadContacts();
+});
+
 async function initBoard() {
     await includeW3();
+    await loadTasks();
     boardActive();
     showInitials();
+
+    updateTaskColumns();
+    clearTaskColumns();
+    displayTasks();
+}
+
+const prioritySymbols = {
+    Urgent: "./assets/img/urgentSymbol.png",
+    Medium: "./assets/img/mediumSymbol.png",
+    Low: "./assets/img/lowSymbol.png",
+};
+
+const taskColumns = document.querySelectorAll(".task-column");
+
+async function loadTasks() {
+    try {
+        const userLevel = sessionStorage.getItem("userLevel");
+        let taskTemp = JSON.parse((await getItem("tasks")).value || "[]");
+        if (userLevel === "user") {
+            const userTasks = taskTemp.filter((t) => t.userLevel === "user");
+            tasks = userTasks;
+        } else {
+            const userTasks = taskTemp.filter(
+                (t) => t.userLevel === "guest" || t.userLevel == null
+            );
+            tasks = userTasks;
+        }
+    } catch (error) {
+        console.error("Fehler beim Laden der Aufgaben:", error);
+    }
+}
+
+function displayTasks() {
+    tasks.forEach((task) => {
+        if (document.getElementById(task.status)) {
+            let taskCard = createTaskCard(task);
+            document.getElementById(task.status).appendChild(taskCard);
+        }
+    });
+    updateTaskColumns();
 }
 
 function boardActive() {
     document.getElementById("boardSum").classList.add("bgfocus");
 }
 
-function toggleSubtaskCompletion(taskId, subtaskIndex, completedStatus) {
-    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    let taskIndex = tasks.findIndex(task => task.id === taskId);
-    if (taskIndex !== -1) {
-        let subtask = tasks[taskIndex].subtasks[subtaskIndex];
-        if (subtask) {
-            subtask.completed = completedStatus; // Aktualisiere den Erledigungsstatus
-            localStorage.setItem('tasks', JSON.stringify(tasks)); // Speichere die aktualisierten Tasks
-        }
-    }
-}
-
-// Eine Funktion, die die Initialen der zugewiesenen Kontakte basierend auf deren IDs zurückgibt
 function getAssignedContactElements(assignedContactIds) {
-    return assignedContactIds.map((contactId) => {
-        const contact = contacts.find((c) => c.userID === contactId);
-        if (contact) {
-            return `<div class="boardContact">
+    return assignedContactIds
+        .map((contactId) => {
+            const contact = contacts.find((c) => c.userID === contactId);
+            if (contact) {
+                return `<div class="boardContact">
                             <div class="item-img" style="background-color: ${contact.color};">
                                 ${contact.firstLetter}${contact.lastLetter}
                             </div>
                         </div>`;
-        }
-        return ''; // Für den Fall, dass kein Kontakt gefunden wird
-    }).join('');
+            }
+            return "";
+        })
+        .join("");
 }
 
 function getAssignedContactDisplay(assignedContactIds) {
-    return assignedContactIds.map((contactId) => {
-        const contact = contacts.find((c) => c.userID === contactId);
-        if (contact) {
-            return `
+    return assignedContactIds
+        .map((contactId) => {
+            const contact = contacts.find((c) => c.userID === contactId);
+            if (contact) {
+                return `
                     <div class="contact-display" style="padding-left: 15px; margin-top: 10px; display: flex; align-items: center; gap: 15px;">
                         <div class="contact-avatar" style="background-color: ${contact.color};">
                             ${contact.firstLetter}${contact.lastLetter}
@@ -47,306 +82,351 @@ function getAssignedContactDisplay(assignedContactIds) {
                         <div class="contact-name">${contact.name}</div>
                     </div>
                 `;
-        }
-        return ''; // Falls kein Kontakt gefunden wird
-    }).join('');
+            }
+            return "";
+        })
+        .join("");
 }
 
+function createSubtasksHtml(subtasks) {
+    let subtasksHtml = '<ul class="task-card-subtasks">';
+    subtasks.forEach((subtask) => {
+        subtasksHtml += `<li>${subtask}</li>`;
+    });
+    subtasksHtml += "</ul>";
+    return subtasksHtml;
+}
 
-// Warte, bis das gesamte HTML-Dokument vollständig geladen ist, bevor der Code ausgeführt wird
-document.addEventListener("DOMContentLoaded", function () {
-    // Erfasse alle Spalten für Aufgaben aus dem HTML-Dokument und speichere sie in der Variable taskColumns
-    const taskColumns = document.querySelectorAll(".task-column");
+function createCategoryDiv(task) {
+    const {className, text} = getCategoryDetails(task.category);
+    return `<div class="${className}">${text}</div>`;
+}
 
-    // Lade die Liste der Aufgaben aus dem Local Storage, falls vorhanden, andernfalls setze tasks auf ein leeres Array
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+function createAssignedContactElements(assignedContacts) {
+    return getAssignedContactElements(assignedContacts);
+}
 
+function getPrioritySymbolHtml(task, prioritySymbols) {
+    const prioritySymbol = prioritySymbols[task.priority];
+    return prioritySymbol
+        ? `<img src="${prioritySymbol}" class="priority-symbol" alt="${task.priority}" style="margin-left: 10px;">`
+        : "";
+}
 
-    // Eine Funktion, die eine Karte für eine Aufgabe erstellt, basierend auf den Aufgabeninformationen
-    function createTaskCard(task) {
-        // Erstelle ein neues Artikel-Element für die Aufgabenkarte
-        let card = document.createElement("article");
-        card.className = "task-card";
-        // Setze die ID der Karte auf die ID der Aufgabe oder eine zufällig generierte ID
-        card.id = task.id || "task-" + Math.random().toString(36).substr(2, 9);
-        card.setAttribute("draggable", true);
-        card.dataset.status = task.status;
+function calculateProgress(task) {
+    const totalSubtasks = task.subtasks.length;
+    const completedSubtasks = task.subtasks.filter(
+        (subtask) => subtask.completed
+    ).length;
+    const progressPercentage =
+        totalSubtasks === 0 ? 0 : (completedSubtasks / totalSubtasks) * 100;
 
-        // Bestimme die CSS-Klasse basierend auf der Kategorie der Aufgabe
-        let categoryClass =
-            task.category === "Technical Task"
-                ? "category-technical"
-                : "category-userstory";
-        let categoryDiv = `<div class="${categoryClass}">${task.category}</div>`;
+    return `
+        <div class="subtaskWithProgressBar">
+        <div class="progress" style="background-color: #e0e0e0; border-radius: 2px; margin-top: 10px;">
+            <div class="progress-bar" style="width: ${progressPercentage}%"></div>
+        </div>
+        <div class="subtaskNextToProgressBar";">${completedSubtasks}/${totalSubtasks} Subtasks</div>
+        </div>
+    `;
+}
 
-        // Erstelle HTML für die Subtask-Liste
+// <div class="subtaskWithProgressBar">
+//  <div class="progress" style="background-color: #e0e0e0; border-radius: 2px; margin-top: 10px;">
+//  <div class="progress-bar" style="width: ${progressPercentage}%"></div>
+// </div>
+// <div class="subtaskNextToProgressBar";">${completedSubtasks}/${totalSubtasks} Subtasks</div>
+// </div>
 
-        let subtasksHtml = '<ul class="task-card-subtasks">';
-        task.subtasks.forEach((subtask) => {
-            subtasksHtml += `<li>${subtask}</li>`;
+function createCardHtml(
+    task,
+    categoryDiv,
+    progressHtml,
+    assignedContactElements,
+    prioritySymbolHtml
+) {
+    return `
+        <div class="task-card-header">${categoryDiv}</div>
+        <div class="task-card-title">${task.title}</div>
+        <div class="task-card-description">${task.description}</div>
+        </div>${progressHtml} <!-- Progress-Bar und Subtasks-Anzeige einfügen -->
+        <div class="prioAndContact">
+            <div style="display: flex;">${assignedContactElements}</div>
+            ${prioritySymbolHtml} <!-- Füge das Prioritätssymbol hinzu -->
+        </div>
+    `;
+}
+
+function setTaskInformation(task) {
+    const allTaskInformation = document.getElementById("allTaskInformation");
+    allTaskInformation.dataset.taskId = task.id;
+    allTaskInformation.style.display = "flex";
+}
+
+function setPriorityInformation(task) {
+    const prioritySymbol = prioritySymbols[task.priority];
+    const prioritySymbolHtml = prioritySymbol
+        ? `<img src="${prioritySymbol}" class="priority-symbol" alt="${task.priority}" style="vertical-align: middle; margin-left: 5px;">`
+        : "";
+    const allTaskInformationPriority = document.getElementById(
+        "allTaskInformationPriority"
+    );
+    allTaskInformationPriority.innerHTML = task.priority + prioritySymbolHtml;
+}
+
+function setTaskDetails(task) {
+    const allTaskInformationTitle = document.getElementById(
+        "allTaskInformationTitle"
+    );
+    allTaskInformationTitle.textContent = task.title;
+
+    const allTaskInformationDescription = document.getElementById(
+        "allTaskInformationDescription"
+    );
+    allTaskInformationDescription.textContent = task.description;
+
+    const allTaskInformationDueDate = document.getElementById(
+        "allTaskInformationDueDate"
+    );
+    allTaskInformationDueDate.textContent = task.taskDate;
+
+    const allTaskInformationAssignedTo = document.getElementById(
+        "allTaskInformationAssignedTo"
+    );
+    allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(
+        task.assignedContacts
+    );
+
+    const {className, text} = getCategoryDetails(task.category);
+    const allTaskInformationCategory = document.getElementById(
+        "allTaskInformationCategory"
+    );
+    allTaskInformationCategory.textContent = text;
+    allTaskInformationCategory.className = className;
+}
+
+function setSubtasks(task) {
+    const allTaskInformationSubtasks = document.getElementById(
+        "allTaskInformationSubtasks"
+    );
+    allTaskInformationSubtasks.innerHTML = "";
+    allTaskInformationSubtasks.style.listStyle = "none";
+    task.subtasks.forEach((subtask, index) => {
+        const subtaskElement = document.createElement("li");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = subtask.completed;
+        checkbox.dataset.index = index;
+
+        checkbox.addEventListener("change", function () {
+            toggleSubtaskCompletion(task.id, index, this.checked);
         });
 
-        subtasksHtml += "</ul>";
+        subtaskElement.appendChild(checkbox);
+        subtaskElement.appendChild(document.createTextNode(subtask.name));
+        allTaskInformationSubtasks.appendChild(subtaskElement);
+    });
+}
 
-        // Erfasse die Initialen der zugewiesenen Kontakte
-        const assignedContactElements = getAssignedContactElements(
-            task.assignedContacts
+function openAllTaskInformation(task) {
+    setTaskInformation(task);
+    setPriorityInformation(task);
+    setTaskDetails(task);
+    setSubtasks(task);
+}
+
+function createCardElement(task) {
+    let card = document.createElement("article");
+    card.className = "task-card";
+    card.id = task.id || "task-" + Math.random().toString(36).substr(2, 9);
+    card.setAttribute("draggable", true);
+    card.dataset.status = task.status;
+    return card;
+}
+
+function addEventListenersToCard(card, task) {
+    card.addEventListener("dragstart", handleDragStart);
+    card.addEventListener("click", function () {
+        openAllTaskInformation(task);
+    });
+}
+
+function createTaskCard(task) {
+    let card = createCardElement(task);
+    let categoryDiv = createCategoryDiv(task);
+
+    let progressHtml =
+        task.subtasks && task.subtasks.length > 0
+            ? calculateProgress(task)
+            : "";
+
+    const assignedContactElements = createAssignedContactElements(
+        task.assignedContacts
+    );
+    const prioritySymbolHtml = getPrioritySymbolHtml(task, prioritySymbols);
+
+    card.innerHTML = createCardHtml(
+        task,
+        categoryDiv,
+        progressHtml,
+        assignedContactElements,
+        prioritySymbolHtml
+    );
+    addEventListenersToCard(card, task);
+
+    return card;
+}
+
+function updateTaskColumns() {
+    document.querySelectorAll(".task-column").forEach((column) => {
+        const hasTasks = Array.from(column.children).some((child) =>
+            child.classList.contains("task-card")
         );
+        const hasNoTaskMessage = !!column.querySelector(".no-task-message");
 
-        // Zuordnung von Prioritäten zu Bildern
-        const prioritySymbols = {
-            Urgent: "./assets/img/urgentSymbol.png", // Pfad zum Bild für hohe Priorität
-            Medium: "./assets/img/mediumSymbol.png", // Pfad zum Bild für mittlere Priorität
-            Low: "./assets/img/lowSymbol.png" // Pfad zum Bild für niedrige Priorität
-        };
-
-        // Wählen Sie das entsprechende Symbol basierend auf der Task-Priorität
-        const prioritySymbol = prioritySymbols[task.priority];
-
-        // HTML für das Prioritätssymbol, wenn eine Priorität gesetzt ist
-        const prioritySymbolHtml = prioritySymbol ? `<img src="${prioritySymbol}" class="priority-symbol" alt="${task.priority}" style="margin-left: 10px;">` : '';
-
-
-        const totalSubtasks = task.subtasks.length;
-        const completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
-        const progressPercentage = totalSubtasks === 0 ? 0 : (completedSubtasks / totalSubtasks) * 100;
-        const progressHtml = `
-            <div class="subtaskWithProgressBar">
-            <div class="progress" style="background-color: #e0e0e0; border-radius: 2px; margin-top: 10px;">
-                <div class="progress-bar" style="width: ${progressPercentage}%"></div>
-            </div>
-            <div class="subtaskNextToProgressBar";">${completedSubtasks}/${totalSubtasks} Subtasks</div>
-            </div>
-        `;
-
-        // Setze den HTML-Inhalt der Aufgabenkarte
-        card.innerHTML = `
-            <div class="task-card-header">${categoryDiv}</div>
-            <div class="task-card-title">${task.title}</div>
-            <div class="task-card-description">${task.description}</div>
-            </div>${progressHtml} <!-- Progress-Bar und Subtasks-Anzeige einfügen -->
-            <div class="prioAndContact">
-                <div style="display: flex;">${assignedContactElements}</div>
-                ${prioritySymbolHtml} <!-- Füge das Prioritätssymbol hinzu -->
-            </div>
-        `;
-
-        card.addEventListener("dragstart", handleDragStart);
-
-        function openAllTaskInformation(task) {
-            // Definiere allTaskInformation zuerst, bevor du darauf zugreifst
-            const allTaskInformation =
-                document.getElementById("allTaskInformation");
-
-            // Jetzt, wo allTaskInformation definiert ist, kannst du darauf zugreifen und dessen Eigenschaften setzen
-            allTaskInformation.dataset.taskId = task.id; // Speichere die ID der Aufgabe
-
-            // Zeige den "All Task Information" Bereich an
-            allTaskInformation.style.display = "flex";
-
-            // Zuordnung von Prioritäten zu Bildern
-            const prioritySymbols = {
-                Urgent: "./assets/img/urgentSymbol.png", // Pfad zum Bild für hohe Priorität
-                Medium: "./assets/img/mediumSymbol.png", // Pfad zum Bild für mittlere Priorität
-                Low: "./assets/img/lowSymbol.png" // Pfad zum Bild für niedrige Priorität
-            };
-
-            // Wählen Sie das entsprechende Symbol basierend auf der Task-Priorität
-            const prioritySymbol = prioritySymbols[task.priority];
-
-            // HTML für das Prioritätssymbol, wenn eine Priorität gesetzt ist
-            const prioritySymbolHtml = prioritySymbol ? `<img src="${prioritySymbol}" class="priority-symbol" alt="${task.priority}" style="vertical-align: middle; margin-left: 5px;">` : '';
-
-            const allTaskInformationPriority = document.getElementById("allTaskInformationPriority");
-            // Stellen Sie sicher, dass Sie sowohl den Prioritätstext als auch das Bild (wenn vorhanden) anzeigen
-            allTaskInformationPriority.innerHTML = task.priority + prioritySymbolHtml;
-
-            // Setze den Titel, Beschreibung, Priorität, Fälligkeitsdatum, zugewiesene Person, Kategorie, Status und Subtasks
-            // basierend auf der übergebenen Aufgabe (task)
-            const allTaskInformationTitle = document.getElementById(
-                "allTaskInformationTitle"
-            );
-            allTaskInformationTitle.textContent = task.title;
-
-            const allTaskInformationDescription = document.getElementById(
-                "allTaskInformationDescription"
-            );
-            allTaskInformationDescription.textContent = task.description;
-
-            const allTaskInformationDueDate = document.getElementById(
-                "allTaskInformationDueDate"
-            );
-            allTaskInformationDueDate.textContent = task.taskDate;
-
-            const allTaskInformationAssignedTo = document.getElementById("allTaskInformationAssignedTo");
-            allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(task.assignedContacts);
-
-            const allTaskInformationCategory = document.getElementById(
-                "allTaskInformationCategory"
-            );
-
-            if (task.category === "Technical Task") {
-                allTaskInformationCategory.textContent = "Technical Task";
-                allTaskInformationCategory.className = "category-technical";
-            } else {
-                allTaskInformationCategory.textContent = "User Story";
-                allTaskInformationCategory.className = "category-userstory";
-            }
-
-            const allTaskInformationSubtasks = document.getElementById('allTaskInformationSubtasks');
-            allTaskInformationSubtasks.innerHTML = '';
-            allTaskInformationSubtasks.style.listStyle = 'none'; // Add this line to set the list style to none
-            task.subtasks.forEach((subtask, index) => {
-                const subtaskElement = document.createElement('li');
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.checked = subtask.completed; // Achte darauf, dass dies korrekt auf das completed-Attribut des Subtask-Objekts zugreift
-                checkbox.dataset.index = index; // Speichere den Index für den Zugriff im Event Listener
-
-                // Event Listener für die Änderungen der Checkbox
-                checkbox.addEventListener('change', function () {
-                    toggleSubtaskCompletion(task.id, index, this.checked);
-                });
-
-                subtaskElement.appendChild(checkbox);
-                subtaskElement.appendChild(document.createTextNode(subtask.name));
-                allTaskInformationSubtasks.appendChild(subtaskElement);
-            });
-        }
-
-        // Füge einen Event Listener für den Klick auf die Aufgabenkarte hinzu
-        card.addEventListener("click", function () {
-            // Angenommen, 'task' ist die Aufgabe, die die Karte repräsentiert
-            openAllTaskInformation(task);
-        });
-
-        return card;
-    }
-
-    // Iteriere über die vorhandenen Aufgaben und füge sie den entsprechenden Spalten im Board hinzu
-    tasks.forEach((task) => {
-        if (document.getElementById(task.status)) {
-            let taskCard = createTaskCard(task);
-            document.getElementById(task.status).appendChild(taskCard);
+        if (!hasTasks && !hasNoTaskMessage) {
+            let noTaskMessage = document.createElement("div");
+            noTaskMessage.className = "no-task-message";
+            noTaskMessage.textContent = "No task available";
+            column.appendChild(noTaskMessage);
+        } else if (hasTasks && hasNoTaskMessage) {
+            let noTaskMessage = column.querySelector(".no-task-message");
+            column.removeChild(noTaskMessage);
         }
     });
+}
 
-    // Eine Funktion, die die Anzeige der Spalten aktualisiert, um anzuzeigen, ob sie Aufgaben enthalten oder nicht
-    function updateTaskColumns() {
-        document.querySelectorAll(".task-column").forEach((column) => {
-            const hasTasks = Array.from(column.children).some((child) =>
-                child.classList.contains("task-card")
-            );
-            const hasNoTaskMessage = !!column.querySelector(".no-task-message");
+function clearTaskColumns() {
+    document.querySelectorAll(".task-column").forEach((column) => {
+        column.innerHTML = ""; // Entfernt alle Kinder-Elemente der Spalte
+    });
+}
 
-            if (!hasTasks && !hasNoTaskMessage) {
-                let noTaskMessage = document.createElement("div");
-                noTaskMessage.className = "no-task-message";
-                noTaskMessage.textContent = "No task available";
-                column.appendChild(noTaskMessage);
-            } else if (hasTasks && hasNoTaskMessage) {
-                let noTaskMessage = column.querySelector(".no-task-message");
-                column.removeChild(noTaskMessage);
-            }
-        });
-    }
+taskColumns.forEach((column) => {
+    column.addEventListener("dragover", handleDragOver);
+    column.addEventListener("drop", handleDrop);
+});
 
-    // Aktualisiere die Anzeige der Spalten
+function handleDragStart(e) {
+    e.dataTransfer.setData("text/plain", e.target.id);
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+}
+
+function handleDrop(e) {
+    e.preventDefault();
+    const id = e.dataTransfer.getData("text");
+    const draggableElement = document.getElementById(id);
+
+    const newStatus = e.target.closest(".task-column").id;
+    draggableElement.dataset.status = newStatus;
+
+    e.target.closest(".task-column").appendChild(draggableElement);
+    updateTaskInRemoteStorage(id, newStatus);
     updateTaskColumns();
+}
 
-    // Füge Event Listener für Drag-and-Drop-Operationen zu den Spalten hinzu
-    taskColumns.forEach((column) => {
-        column.addEventListener("dragover", handleDragOver);
-        column.addEventListener("drop", handleDrop);
+async function updateTaskInRemoteStorage(taskId, newStatus) {
+    let tasks = JSON.parse((await getItem("tasks")).value || "[]");
+    let taskIndex = tasks.findIndex((task) => task.id === taskId);
+    if (taskIndex !== -1) {
+        tasks[taskIndex].status = newStatus;
+        await setItemFromJson("tasks", tasks);
+    }
+}
+
+function removePriorityClasses(element) {
+    element.classList.remove(
+        "priority-urgent",
+        "priority-medium",
+        "priority-low"
+    );
+    document.querySelector(`.edit-prio[data-prio='Urgent'] img`).src =
+        "./assets/img/addTask/Prio alta.png";
+    document.querySelector(`.edit-prio[data-prio='Medium'] img`).src =
+        "./assets/img/addTask/Prio media.png";
+    document.querySelector(`.edit-prio[data-prio='Low'] img`).src =
+        "./assets/img/addTask/Capa 2 (4).png";
+}
+
+function addPriorityClass(element, priority) {
+    switch (priority) {
+        case "Urgent":
+            element.classList.add("priority-urgent");
+            element.querySelector("img").src =
+                "./assets/img/selectedUrgent.png";
+            break;
+        case "Medium":
+            element.classList.add("priority-medium");
+            element.querySelector("img").src =
+                "./assets/img/selectedMedium.png";
+            break;
+        case "Low":
+            element.classList.add("priority-low");
+            element.querySelector("img").src = "./assets/img/selectedLow.png";
+            break;
+    }
+}
+
+function setPriorityValue(element, priority) {
+    element.value = priority;
+}
+
+document.querySelectorAll(".edit-prio").forEach((button) => {
+    button.addEventListener("click", function () {
+        document.querySelectorAll(".edit-prio").forEach(removePriorityClasses);
+        addPriorityClass(this, this.dataset.prio);
+        setPriorityValue(
+            document.getElementById("editPriority"),
+            this.dataset.prio
+        );
     });
-
-    // Eine Funktion, die aufgerufen wird, wenn ein Drag-and-Drop-Vorgang gestartet wird
-    function handleDragStart(e) {
-        e.dataTransfer.setData("text/plain", e.target.id);
-    }
-
-    // Eine Funktion, die aufgerufen wird, wenn eine Element über eine Drop-Zone bewegt wird
-    function handleDragOver(e) {
-        e.preventDefault();
-    }
-
-    // Eine Funktion, die aufgerufen wird, wenn ein Element in eine Drop-Zone gezogen wird
-    function handleDrop(e) {
-        e.preventDefault();
-        const id = e.dataTransfer.getData("text");
-        const draggableElement = document.getElementById(id);
-
-        const newStatus = e.target.closest(".task-column").id;
-        draggableElement.dataset.status = newStatus;
-
-        e.target.closest(".task-column").appendChild(draggableElement);
-        updateTaskInLocalStorage(id, newStatus);
-        updateTaskColumns();
-    }
-
-    // Eine Funktion, die den Status einer Aufgabe im Local Storage aktualisiert
-    function updateTaskInLocalStorage(taskId, newStatus) {
-        // Finde den Index der Aufgabe in der tasks-Liste basierend auf der taskId
-        let taskIndex = tasks.findIndex((task) => task.id === taskId);
-        // Falls die Aufgabe gefunden wurde
-
-        if (taskIndex !== -1) {
-            // Aktualisiere den Status der Aufgabe
-            tasks[taskIndex].status = newStatus;
-
-            // Speichere die aktualisierte Liste der Aufgaben im Local Storage
-            localStorage.setItem("tasks", JSON.stringify(tasks));
-        }
-    }
-
-    document.querySelectorAll('.edit-prio').forEach(button => {
-        button.addEventListener('click', function () {
-            // Entferne zunächst die spezifischen Farbklassen von allen Buttons
-            document.querySelectorAll('.edit-prio').forEach(btn => {
-                btn.classList.remove('priority-urgent', 'priority-medium', 'priority-low');
-            });
-
-            // Füge die entsprechende Farbklasse basierend auf dem data-prio Attribut hinzu
-            switch (this.dataset.prio) {
-                case 'Urgent':
-                    this.classList.add('priority-urgent');
-                    break;
-                case 'Medium':
-                    this.classList.add('priority-medium');
-                    break;
-                case 'Low':
-                    this.classList.add('priority-low');
-                    break;
-            }
-
-            // Aktualisiere den Wert des versteckten Inputs mit der gewählten Priorität
-            document.getElementById('editPriority').value = this.dataset.prio;
-        });
-    });
-
-
 });
 
 function closeAllTaskInformation() {
     const allTaskInformation = document.getElementById("allTaskInformation");
     allTaskInformation.style.display = "none";
+    initBoard();
 }
 
-function deleteTask() {
+async function deleteTask() {
     const allTaskInformation = document.getElementById("allTaskInformation");
-    const taskId = allTaskInformation.dataset.taskId; // Hole die gespeicherte ID der Aufgabe
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    const taskIndex = tasks.findIndex((task) => task.id === taskId); // Finde die Aufgabe basierend auf der ID
+
+    const taskId = allTaskInformation.dataset.taskId;
+    let tasks = JSON.parse((await getItem("tasks")).value || "[]");
+    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
     if (taskIndex !== -1) {
-        // Wenn die Aufgabe gefunden wurde
         const taskCard = document.getElementById(tasks[taskIndex].id);
         if (taskCard) {
-            taskCard.remove(); // Entferne die Karte der Aufgabe aus dem DOM
-            tasks.splice(taskIndex, 1); // Entferne die Aufgabe aus der Liste
-            localStorage.setItem("tasks", JSON.stringify(tasks)); // Speichere die aktualisierte Liste der Aufgaben
+            taskCard.remove();
+            tasks.splice(taskIndex, 1);
+            await setItemFromJson("tasks", tasks);
         }
     }
-    closeAllTaskInformation(); // Schließe den "All Task Information"-Bereich
+    closeAllTaskInformation();
+    await initBoard();
+}
+
+function getCategoryDetails(taskCategory) {
+    if (taskCategory === "Technical Task") {
+        return {
+            text: "Technical Task",
+            className: "category-technical",
+        };
+    } else if (taskCategory === "User Story") {
+        return {
+            text: "User Story",
+            className: "category-userstory",
+        };
+    } else {
+        return {
+            text: "Category not set",
+            className: "category-default",
+        };
+    }
 }
 
 function closeEditor() {
@@ -355,343 +435,325 @@ function closeEditor() {
     editTaskInformation.style.display = "none";
 }
 
-const editTaskButton = document.getElementById("editTaskButton");
-
 function setTaskEditorCategory(category) {
+    const {className, text} = getCategoryDetails(category);
     const taskEditorCategory = document.getElementById("taskEditorCategory");
-    if (category === "Technical Task") {
-        taskEditorCategory.textContent = "Technical Task";
-        taskEditorCategory.className = "category-technical"; // Setzen Sie hier die richtige Klasse für das Design
-    } else if (category === "User Story") {
-        taskEditorCategory.textContent = "User Story";
-        taskEditorCategory.className = "category-userstory"; // Setzen Sie hier die richtige Klasse für das Design
-    } else {
-        // Standard oder Fehlerbehandlung, falls notwendig
-        taskEditorCategory.textContent = "Category not set";
-        taskEditorCategory.className = "category-default"; // Eine Standardklasse, falls die Kategorie unbekannt ist
-    }
+    taskEditorCategory.textContent = text;
+    taskEditorCategory.className = className;
 }
 
+// function toggleDisplay(elementId, display) {
+//     const element = document.getElementById(elementId);
+//     element.style.display = display;
+// }
 
-document
-    .getElementById("editTaskButton")
-    .addEventListener("click", function () {
-        const allTaskInformation =
-            document.getElementById("allTaskInformation");
-        const taskEditorModal = document.getElementById("taskEditorModal");
-        allTaskInformation.style.display = "none";
-        taskEditorModal.style.display = "block";
+// async function getTaskById(taskId) {
+//     const tasks = JSON.parse((await getItem("tasks")).value || []);
+//     return tasks.find((task) => task.id === taskId);
+// }
 
-        const taskId = allTaskInformation.dataset.taskId;
-        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        const task = tasks.find((task) => task.id === taskId);
+// function fillTaskEditor(task) {
+//     setTaskEditorCategory(task.category);
+//     document.getElementById("editTitle").value = task.title;
+//     document.getElementById("editDescription").value = task.description;
+//     document.getElementById("editDueDate").value = task.taskDate;
+//     const prioritySelect = document.getElementById("editPriority");
+//     prioritySelect.value = task.priority;
+// }
 
-        if (task) {
-            setTaskEditorCategory(task.category); // Aufruf der neuen Funktion mit der aktuellen Kategorie der Aufgabe
-            document.getElementById("editTitle").value = task.title;
-            document.getElementById("editDescription").value = task.description;
-            document.getElementById("editDueDate").value = task.taskDate;
+// function createContactCheckboxes(task) {
+//     const dropdownEdit = document.getElementById("dropDownContactsEdit");
+//     dropdownEdit.innerHTML = "";
+//     contacts.forEach((contact) => {
+//         const isChecked = task.assignedContacts.includes(contact.userID);
+//         const checkboxId = `contact-edit-${contact.userID}`;
+//         const div = document.createElement("div");
+//         div.className = "checkbox-container";
+//         div.innerHTML = `
+//             <input class="cursorPointer" type="checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${contact.userID}" ${isChecked ? "checked" : ""}>
+//             <label for="${checkboxId}">${contact.name}</label>
+//         `;
+//         dropdownEdit.appendChild(div);
+//     });
+// }
 
-            // Setze die Priorität in der Bearbeitungsansicht entsprechend der Aufgabe
-            const prioritySelect = document.getElementById("editPriority");
-            // Korrigiere die Annahme über die Werte der Optionen im Select-Element
-            prioritySelect.value = task.priority; // Vorausgesetzt die Werte sind 'Low', 'Medium', 'High'
+// function addDropdownListeners() {
+//     const dropdownEdit = document.getElementById("dropDownContactsEdit");
+//     const openDropdownEdit = document.getElementById("openDropdownEdit");
+//     openDropdownEdit.addEventListener("click", function (event) {
+//         event.stopPropagation();
+//         dropdownEdit.style.display = dropdownEdit.style.display === "block" ? "none" : "block";
+//     });
+//     dropdownEdit.addEventListener("click", function (event) {
+//         event.stopPropagation();
+//     });
+//     document.addEventListener("click", function (event) {
+//         if (dropdownEdit.style.display === "block" && !event.target.matches("#openDropdownEdit")) {
+//             dropdownEdit.style.display = "none";
+//         }
+//     });
+// }
 
-            // Dropdown mit Kontakten dynamisch befüllen
-            const dropdownEdit = document.getElementById(
-                "dropDownContactsEdit"
-            );
-            dropdownEdit.innerHTML = ""; // Vorhandene Inhalte löschen
-            contacts.forEach((contact) => {
-                const isChecked = task.assignedContacts.includes(
-                    contact.userID
-                );
-                const checkboxId = `contact-edit-${contact.userID}`;
-                const div = document.createElement("div");
-                div.className = "checkbox-container";
-                div.innerHTML = `
-                <input class="cursorPointer" type="checkbox" id="${checkboxId} " name="assignedContactsEdit" value="${contact.userID
-                    }" ${isChecked ? "checked" : ""}>
-                <label for="${checkboxId}">${contact.name}</label>
-            `;
-                dropdownEdit.appendChild(div);
-            });
+// function displayAssignedContacts(task) {
+//     const editCheckedUserInitials = document.getElementById('editCheckedUserInitials');
+//     editCheckedUserInitials.innerHTML = '';
+//     task.assignedContacts.forEach(contactId => {
+//         const contact = contacts.find(c => c.userID === contactId);
+//         if (contact) {
+//             const initialsDiv = document.createElement('div');
+//             initialsDiv.className = 'userInitilas';
+//             initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
+//             initialsDiv.style.backgroundColor = contact.color;
+//             editCheckedUserInitials.appendChild(initialsDiv);
+//         }
+//     });
+// }
 
-            // Öffnen/Schließen des Dropdowns mit korrektem Event Handling
-            const openDropdownEdit =
-                document.getElementById("openDropdownEdit");
-            openDropdownEdit.addEventListener("click", function (event) {
-                event.stopPropagation(); // Verhindere, dass das Klick-Event weiter nach oben im DOM propagiert wird
-                dropdownEdit.style.display =
-                    dropdownEdit.style.display === "block" ? "none" : "block";
-            });
+// document.getElementById("editTaskButton").addEventListener("click", async function () {
+//     const allTaskInformation = document.getElementById("allTaskInformation");
+//     toggleDisplay("allTaskInformation", "none");
+//     toggleDisplay("taskEditorModal", "block");
 
-            // Verhindern, dass das Dropdown schließt, wenn innerhalb des Dropdowns geklickt wird
-            dropdownEdit.addEventListener("click", function (event) {
-                event.stopPropagation();
-            });
+//     const taskId = allTaskInformation.dataset.taskId;
+//     const task = await getTaskById(taskId);
 
-            // Füge einen globalen Event Listener hinzu, um das Dropdown zu schließen, wenn außerhalb geklickt wird
-            document.addEventListener("click", function (event) {
-                if (
-                    dropdownEdit.style.display === "block" &&
-                    !event.target.matches("#openDropdownEdit")
-                ) {
-                    dropdownEdit.style.display = "none";
-                }
-            });
+//     if (task) {
+//         fillTaskEditor(task);
+//         createContactCheckboxes(task);
+//         addDropdownListeners();
+//         displayAssignedContacts(task);
+//     }
+// });
 
-            // Lösche vorhandene Initialen
-            const editCheckedUserInitials = document.getElementById('editCheckedUserInitials');
-            editCheckedUserInitials.innerHTML = '';
+// const openDropdownEdit = document.getElementById("openDropdownEdit");
+// const dropdownEdit = document.getElementById("dropDownContactsEdit");
 
-            task.assignedContacts.forEach(contactId => {
-                const contact = contacts.find(c => c.userID === contactId);
-                if (contact) {
-                    const initialsDiv = document.createElement('div');
-                    initialsDiv.className = 'userInitilas'; // Stellen Sie sicher, dass diese Klasse Ihren CSS-Styles entspricht
-                    initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
-                    initialsDiv.style.backgroundColor = contact.color; // Setze die Hintergrundfarbe des Divs auf die Farbe des Kontakts
-                    editCheckedUserInitials.appendChild(initialsDiv);
-                }
-            });
+// openDropdownEdit.addEventListener("click", function (event) {
+//     const isDropdownOpen = dropdownEdit.style.display === "block";
+//     dropdownEdit.style.display = isDropdownOpen ? "none" : "block";
 
-        }
-    });
+//     event.stopPropagation();
+// });
 
-// Entferne den direkten onclick-Handler von openDropdownEdit, da ein Event Listener hinzugefügt wurde
+// dropdownEdit.addEventListener("click", function (event) {
+//     event.stopPropagation();
+// });
 
-// Annahme, openDropdownEdit ist der Pfeil/das Icon, mit dem das Dropdown geöffnet und geschlossen wird.
-const openDropdownEdit = document.getElementById("openDropdownEdit");
-const dropdownEdit = document.getElementById("dropDownContactsEdit");
+// async function getTasks() {
+//     return JSON.parse((await getItem("tasks")).value || []);
+// }
 
-openDropdownEdit.addEventListener("click", function (event) {
-    const isDropdownOpen = dropdownEdit.style.display === "block";
-    dropdownEdit.style.display = isDropdownOpen ? "none" : "block";
+// function getTaskIndex(tasks, taskId) {
+//     return tasks.findIndex((task) => task.id === taskId);
+// }
 
-    // Verhindert, dass das Klick-Event weiter nach oben im DOM propagiert wird
-    event.stopPropagation();
-});
+// function updateTask(task) {
+//     task.title = document.getElementById("editTitle").value;
+//     task.description = document.getElementById("editDescription").value;
+//     task.taskDate = document.getElementById("editDueDate").value;
+//     task.priority = document.getElementById("editPriority").value;
+//     task.assignedContacts = Array.from(
+//         document.querySelectorAll('#dropDownContactsEdit input[type="checkbox"]:checked')
+//     ).map((el) => el.value);
+// }
 
-// Verhindere, dass das Dropdown schließt, wenn innerhalb des Dropdowns geklickt wird
-dropdownEdit.addEventListener("click", function (event) {
-    event.stopPropagation();
-});
+// async function saveTasks(tasks) {
+//     await setItem("tasks", JSON.stringify(tasks));
+// }
 
-document.getElementById("saveEdit").addEventListener("click", function () {
-    const taskId = allTaskInformation.dataset.taskId;
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+// document.getElementById("saveEdit").addEventListener("click", async function () {
+//     const taskId = allTaskInformation.dataset.taskId;
+//     const tasks = await getTasks();
+//     const taskIndex = getTaskIndex(tasks, taskId);
 
-    if (taskIndex !== -1) {
-        // Aktualisiere die Task im Array
-        tasks[taskIndex].title = document.getElementById("editTitle").value;
-        tasks[taskIndex].description =
-            document.getElementById("editDescription").value;
-        tasks[taskIndex].taskDate =
-            document.getElementById("editDueDate").value;
-        tasks[taskIndex].priority =
-            document.getElementById("editPriority").value;
-        tasks[taskIndex].assignedContacts = Array.from(
-            document.querySelectorAll(
-                '#dropDownContactsEdit input[type="checkbox"]:checked'
-            )
-        ).map((el) => el.value);
+//     if (taskIndex !== -1) {
+//         updateTask(tasks[taskIndex]);
+//         await saveTasks(tasks);
+//         closeEditor();
+//     } else {
+//         alert("Aufgabe nicht gefunden.");
+//     }
+//     await initBoard();
+// });
 
-        localStorage.setItem("tasks", JSON.stringify(tasks)); // Speichern des aktualisierten Arrays im Local Storage
+// const boardAddTaskButton = document.getElementById("boardAddTaskButton");
+// const boardAddTask = document.getElementById("boardAddTask");
 
-        closeEditor(); // Schließen des Editors
-        // Füge hier eventuell Code hinzu, um die Anzeige zu aktualisieren
-    } else {
-        alert("Aufgabe nicht gefunden.");
-    }
+// boardAddTaskButton.addEventListener("click", function () {
+//     boardAddTask.style.display = "block";
+// });
 
+// const boardAddTaskCloseButton = document.getElementById(
+//     "boardAddTaskCloseButton"
+// );
 
-});
+// boardAddTaskCloseButton.addEventListener("click", function () {
+//     boardAddTask.style.display = "none";
+// });
 
-const boardAddTaskButton = document.getElementById("boardAddTaskButton");
-const boardAddTask = document.getElementById("boardAddTask");
+// document.getElementById("searchTask").addEventListener("input", function () {
+//     searchTasks();
+// });
 
-boardAddTaskButton.addEventListener("click", function () {
-    boardAddTask.style.display = "block";
-});
+// function searchTasks() {
+//     const searchValue = document
+//         .getElementById("searchTask")
+//         .value.toLowerCase();
+//     const taskCards = document.querySelectorAll(".task-card");
 
-const boardAddTaskCloseButton = document.getElementById(
-    "boardAddTaskCloseButton"
-);
+//     taskCards.forEach((card) => {
+//         const title = card
+//             .querySelector(".task-card-title")
+//             .textContent.toLowerCase();
+//         const description = card
+//             .querySelector(".task-card-description")
+//             .textContent.toLowerCase();
 
-boardAddTaskCloseButton.addEventListener("click", function () {
-    boardAddTask.style.display = "none";
-});
+//         if (title.includes(searchValue) || description.includes(searchValue)) {
+//             card.style.display = "";
+//         } else {
+//             card.style.display = "none";
+//         }
+//     });
+// }
 
-function searchTasks() {
-    const searchValue = document
-        .getElementById("boardSearchbar")
-        .value.toLowerCase();
-    const taskCards = document.querySelectorAll(".task-card");
+// const moveTaskButton = document.getElementById("moveTaskButton");
 
-    taskCards.forEach((card) => {
-        const title = card
-            .querySelector(".task-card-title")
-            .textContent.toLowerCase();
-        const description = card
-            .querySelector(".task-card-description")
-            .textContent.toLowerCase();
+// moveTaskButton.addEventListener("click", function () {
+//     const moveOption = document.getElementById("moveOption");
+//     moveOption.style.display = "block";
+// });
 
-        if (title.includes(searchValue) || description.includes(searchValue)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
-    });
-}
+// const allTaskInformation = document.getElementById("allTaskInformation");
+// allTaskInformation.addEventListener("click", function () {
+//     allTaskInformation.style.display = "none";
+// });
 
-document.getElementById("searchTask").addEventListener("input", function () {
-    searchTasks();
-});
+// const cardOptionsCloseButton = document.getElementById("cardOptionsCloseButton");
 
-function searchTasks() {
-    // Hole den aktuellen Wert des Suchfelds und wandele ihn in Kleinbuchstaben um
-    const searchValue = document
-        .getElementById("searchTask")
-        .value.toLowerCase();
+// cardOptionsCloseButton.addEventListener("click", function () {
+//     const moveOption = document.getElementById("moveOption");
+//     const allTaskInformation = document.getElementById("allTaskInformation");
+//     moveOption.style.display = "none";
+// });
 
-    // Wähle alle Aufgabenkarten aus
-    const taskCards = document.querySelectorAll(".task-card");
+// async function addEditSubtask() {
+//     const subtaskInput = document.getElementById('editSubtaskInput');
+//     const subtaskValue = subtaskInput.value.trim();
+//     if (subtaskValue) {
+//         const taskId = document.getElementById("allTaskInformation").dataset.taskId;
+//         let tasks = JSON.parse((await getItem("tasks")).value || "[]");
+//         let taskIndex = tasks.findIndex(task => task.id === taskId);
+//         if (taskIndex !== -1) {
+//             let task = tasks[taskIndex];
+//             if (!task.subtasks) {
+//                 task.subtasks = [];
+//             }
+//             task.subtasks.push({ name: subtaskValue, completed: false });
+//             updateEditSubtaskList(task.subtasks);
+//             await setItemFromJson('tasks', tasks);
+//             subtaskInput.value = '';
+//         }
+//     }
+// }
 
-    // Durchlaufe jede Karte und prüfe, ob der Titel oder die Beschreibung den Suchbegriff enthält
-    taskCards.forEach((card) => {
-        // Hole den Text des Titels und der Beschreibung und wandele sie in Kleinbuchstaben um
-        const title = card
-            .querySelector(".task-card-title")
-            .textContent.toLowerCase();
-        const description = card
-            .querySelector(".task-card-description")
-            .textContent.toLowerCase();
+// async function removeEditSubtask(index) {
+//     const taskId = document.getElementById("allTaskInformation").dataset.taskId;
+//     let tasks = JSON.parse((await getItem("tasks")).value || "[]");
+//     let taskIndex = tasks.findIndex(task => task.id === taskId);
 
-        // Prüfe, ob der Titel oder die Beschreibung den Suchbegriff enthält
-        if (title.includes(searchValue) || description.includes(searchValue)) {
-            card.style.display = ""; // Zeige die Karte an, wenn sie den Suchbegriff enthält
-        } else {
-            card.style.display = "none"; // Verberge die Karte, wenn sie den Suchbegriff nicht enthält
-        }
-    });
-}
+//     if (taskIndex !== -1) {
+//         let task = tasks[taskIndex];
+//         if (task.subtasks && index >= 0 && index < task.subtasks.length) {
+//             task.subtasks.splice(index, 1);
+//             updateEditSubtaskList(task.subtasks);
+//             await setItemFromJson('tasks', tasks);
+//         }
+//     }
+// }
 
+// function updateEditSubtaskList(subtasks) {
+//     const list = document.getElementById('editSubtaskList');
+//     list.innerHTML = '';
+//     subtasks.forEach((subtask, index) => {
+//         const li = document.createElement('li');
+//         li.textContent = subtask.name;
+//         const deleteButton = document.createElement('button');
+//         deleteButton.textContent = 'Delete';
+//         deleteButton.onclick = () => removeEditSubtask(index);
+//         li.appendChild(deleteButton);
+//         list.appendChild(li);
+//     });
+// }
 
-const moveTaskButton = document.getElementById("moveTaskButton");
+// document.getElementById('editSubtaskAddButton').addEventListener('click', addEditSubtask);
 
-moveTaskButton.addEventListener("click", function () {
-    const moveOption = document.getElementById("moveOption");
-    moveOption.style.display = "block";
-});
+// function loadEditSubtasks(task) {
+//     updateEditSubtaskList(task.subtasks);
+// }
 
-const allTaskInformation = document.getElementById("allTaskInformation");
-allTaskInformation.addEventListener("click", function () {
-    allTaskInformation.style.display = "none";
-});
+// document.getElementById("editTaskButton").addEventListener("click", async function () {
+//     const taskId = document.getElementById("allTaskInformation").dataset.taskId;
+//     const tasks = JSON.parse((await getItem("tasks")).value || []);
+//     const task = tasks.find((task) => task.id === taskId);
 
-const cardOptionsCloseButton = document.getElementById("cardOptionsCloseButton");
+//     loadEditSubtasks(task);
+// });
 
-cardOptionsCloseButton.addEventListener("click", function () {
-    const moveOption = document.getElementById("moveOption");
-    const allTaskInformation = document.getElementById("allTaskInformation");
-    moveOption.style.display = "none";
-});
+// document.querySelectorAll('.optionsContainerOption').forEach(option => {
+//     option.addEventListener('click', async function () {
+//         const taskId = document.getElementById("allTaskInformation").dataset.taskId;
+//         let newStatus = this.id.replace('optionsContainer', '');
+//         newStatus = convertIdToStatus(newStatus);
+//         await updateTaskStatusAndMove(taskId, newStatus);
+//         await initBoard();
+//         const moveOption = document.getElementById("moveOption");
+//         if (moveOption) {
+//             moveOption.style.display = "none";
+//         }
+//     });
+// });
 
-function addEditSubtask() {
-    const subtaskInput = document.getElementById('editSubtaskInput');
-    const subtaskValue = subtaskInput.value.trim();
-    if (subtaskValue) {
-        // Holt die aktuelle Task aus dem Local Storage
-        const taskId = document.getElementById("allTaskInformation").dataset.taskId;
-        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        let task = tasks.find(task => task.id === taskId);
-        if (!task.subtasks) {
-            task.subtasks = [];
-        }
-        task.subtasks.push({ name: subtaskValue, completed: false });
-        updateEditSubtaskList(task.subtasks);
-        localStorage.setItem('tasks', JSON.stringify(tasks)); // Aktualisiere die Task im Local Storage
-        subtaskInput.value = '';
-    }
-}
+// function convertIdToStatus(id) {
+//     switch (id) {
+//         case 'ToDo':
+//             return 'todo';
+//         case 'InProgress':
+//             return 'inProgress';
+//         case 'Done':
+//             return 'done';
+//         case 'AwaitFeedback':
+//             return 'awaitFeedback';
+//         default:
+//             return '';
+//     }
+// }
 
-function removeEditSubtask(index) {
-    const taskId = document.getElementById("allTaskInformation").dataset.taskId;
-    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    let task = tasks.find(task => task.id === taskId);
-    task.subtasks.splice(index, 1);
-    updateEditSubtaskList(task.subtasks);
-    localStorage.setItem('tasks', JSON.stringify(tasks)); // Aktualisiere die Task im Local Storage
-}
+// async function updateTaskStatusAndMove(taskId, newStatus) {
+//     try {
+//         let tasks = JSON.parse((await getItem("tasks")).value || "[]");
+//         let taskIndex = tasks.findIndex(task => task.id === taskId);
+//         if (taskIndex !== -1) {
+//             tasks[taskIndex].status = newStatus;
+//             await setItemFromJson('tasks', tasks);
+//         }
+//     } catch (error) {
+//         console.error("Fehler beim Aktualisieren des Task-Status:", error);
+//     }
+// }
 
-function updateEditSubtaskList(subtasks) {
-    const list = document.getElementById('editSubtaskList');
-    list.innerHTML = '';
-    subtasks.forEach((subtask, index) => {
-        const li = document.createElement('li');
-        li.textContent = subtask.name;
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.onclick = () => removeEditSubtask(index);
-        li.appendChild(deleteButton);
-        list.appendChild(li);
-    });
-}
-
-document.getElementById('editSubtaskAddButton').addEventListener('click', addEditSubtask);
-
-// Diese Funktion wird aufgerufen, wenn der Task Editor geöffnet wird, um die bestehenden Subtasks zu laden.
-function loadEditSubtasks(task) {
-    updateEditSubtaskList(task.subtasks);
-}
-
-// Aktualisieren Sie die Funktion, die das Task-Editor-Modal öffnet, um die Subtasks zu laden:
-document.getElementById("editTaskButton").addEventListener("click", function () {
-    // Ihr bestehender Code, um das Modal zu öffnen und Task-Details zu laden...
-    
-    const taskId = document.getElementById("allTaskInformation").dataset.taskId;
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    const task = tasks.find((task) => task.id === taskId);
-
-    loadEditSubtasks(task); // Laden Sie die Subtasks der ausgewählten Task
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Zuweisung der Event Listener zu den "Move to"-Optionen
-    document.querySelectorAll('.optionsContainerOption').forEach(option => {
-        option.addEventListener('click', function() {
-            const taskId = document.getElementById("allTaskInformation").dataset.taskId;
-            let newStatus = this.id.replace('optionsContainer', ''); // Entfernt "optionsContainer" aus der ID
-            // Konvertiert die ID in den entsprechenden Statuswert
-            newStatus = convertIdToStatus(newStatus);
-            updateTaskStatusAndMove(taskId, newStatus);
-        });
-    });
-});
-
-function convertIdToStatus(id) {
-    switch (id) {
-        case 'ToDo':
-            return 'todo';
-        case 'InProgress':
-            return 'inProgress';
-        case 'Done':
-            return 'done';
-        case 'AwaitFeedback':
-            return 'awaitFeedback';
-        default:
-            return ''; // oder werfen Sie einen Fehler, falls kein passender Status gefunden wurde
-    }
-}
-
-function updateTaskStatusAndMove(taskId, newStatus) {
-    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    let taskIndex = tasks.findIndex(task => task.id === taskId);
-    if (taskIndex !== -1) {
-        tasks[taskIndex].status = newStatus;
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-        window.location.reload(); // Seite neu laden, um Änderungen zu reflektieren
-    }
-}
+// async function toggleSubtaskCompletion(taskId, subtaskIndex, completedStatus) {
+//     try {
+//         let tasks = JSON.parse((await getItem("tasks")).value || "[]");
+//         let taskIndex = tasks.findIndex(task => task.id === taskId);
+//         if (taskIndex !== -1) {
+//             let subtask = tasks[taskIndex].subtasks[subtaskIndex];
+//             if (subtask) {
+//                 subtask.completed = completedStatus;
+//                 await setItemFromJson('tasks', tasks);
+//             }
+//         }
+//     } catch (error) {
+//         console.error("Fehler beim Aktualisieren des Subtask-Erledigungsstatus:", error);
+//     }
+// }

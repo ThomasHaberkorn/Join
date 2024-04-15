@@ -254,9 +254,12 @@ async function addTask(event) {
     let description = document.getElementById("descriptionInput").value;
     let taskDate = document.getElementById("taskDate").value;
     // let category = document.getElementById("category").value;
+    // let category =
+    //     document.getElementsByClassName("dropdown-selected").textContent;
     let categoryElement =
         document.getElementsByClassName("dropdown-selected")[0]; // Zugriff auf das erste Element mit dieser Klasse
     let category = categoryElement.textContent.trim(); // trim() entfernt unnötige Leerzeichen
+
     let assignedContacts = [
         ...document.querySelectorAll(".contact-checkbox:checked"),
     ].map((input) => input.value);
@@ -329,7 +332,7 @@ document
     .querySelectorAll('.custom-checkbox input[type="checkbox"]')
     .forEach((checkbox) => {
         checkbox.addEventListener("change", function () {
-            const imgElement = this.nextElementSibling; // Nimm das nächste Element (das img-Tag)
+            const imgElement = this.nextElementSibling;
             if (this.checked) {
                 imgElement.src = "assets/img/checkboxChecked.png";
             } else {
@@ -337,3 +340,12 @@ document
             }
         });
     });
+
+function closeBoardAddTask() {
+    document.getElementById("boardAddTask").style.display = "none";
+}
+
+function openAddTaskWithStatus(status) {
+    currentTaskStatus = status;
+    document.getElementById("boardAddTask").style.display = "block";
+}

@@ -88,7 +88,7 @@ async function createNewContact(event) {
         phone: document.getElementById("contactAddPhone").value,
         firstLetter: name.charAt(0).toUpperCase(),
         lastLetter: lastName.charAt(0).toUpperCase(),
-        id: generateUserId(),
+        userID: generateUserId(),
     };
     contacts.push(newContact);
     await saveContacts();
@@ -155,7 +155,7 @@ function deleteContactBig(index) {
 }
 
 /**
- * Show the contact with the given index    
+ * Show the contact with the given index
  */
 
 function showContact(index) {
@@ -278,14 +278,16 @@ function closeContactFullResponsive() {
 
 function hideContactResponsive() {
     const container = document.getElementById("contactFullResponsive");
-    if (window.innerWidth >= 950) {
-        container.style.display = "none";
-    } else {
-        container.style.display = "flex";
+    if (container) {
+        if (window.innerWidth >= 950) {
+            container.style.display = "none";
+        } else {
+            container.style.display = "flex";
+        }
     }
 }
 
-/** 
+/**
  *  auxiliar addEventListener to observe the window size
  */
 
@@ -326,7 +328,7 @@ function hideContactPopupEditDelete() {
 
 function patchEdit(index) {
     index = parseInt(index);
-    
+
     if (isNaN(index) || index < 0 || index >= contacts.length) {
         console.error("Invalid index");
         return;
