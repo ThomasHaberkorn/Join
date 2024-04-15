@@ -2,7 +2,7 @@
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
-    cursor: grab;
+    cursor: pointer;
     align-items: flex-start;
     gap: 24px;
     padding: 16px;
@@ -10,9 +10,18 @@
     margin-top: 8px;
     align-self: stretch;
     border-radius: 24px;
-    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.08);
     width: 80%;
     height: 263px;
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.task-card:hover {
+    transform: rotate(7deg);
+    /* z-index: 1000; */
 }
 
 .allTasks {
@@ -21,7 +30,7 @@
     flex-wrap: nowrap;
     justify-content: space-around;
     margin: 0;
-    width: 20%;
+    width: 24%;
 }
 
 .mainContainer {
@@ -120,6 +129,7 @@ h1 {
     width: 24px;
     height: 24px;
     cursor: pointer;
+    margin-right: 20px;
 }
 
 h2 {
@@ -179,6 +189,7 @@ section {
     font-size: 16px;
     font-style: normal;
     max-height: 35px;
+    min-height: 19.2px;
     overflow: hidden;
     font-weight: 400;
     line-height: 120%;
@@ -269,17 +280,35 @@ section {
 }
 
 .task-column {
+    position: relative;
+    /* z-index: 1; */
     width: 90%;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    overflow-y: auto;
+    align-items: center;
+
     margin: 10px;
     height: 100%;
     border-radius: 4px;
     padding: 10px;
+    max-height: 500px;
+    overflow-y: auto;
+    /* scrollbar-width: none;
+    -ms-overflow-style: none; */
 }
+
+/* .task-column {
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+} */
+
+/* .task-column::-webkit-scrollbar {
+    display: none;
+} */
 
 .no-task-message {
     display: flex;
@@ -303,7 +332,7 @@ section {
     width: 30%;
     height: 60%;
     background-color: white;
-    z-index: 1000;
+    z-index: 100;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
@@ -312,9 +341,9 @@ section {
     overflow: auto;
 }
 
-#allTaskInformation::-webkit-scrollbar {
+/* #allTaskInformation::-webkit-scrollbar {
     display: none;
-}
+} */
 
 #allTaskInformationButton {
     background: white;
@@ -329,7 +358,7 @@ section {
     width: 30%;
     height: 60%;
     background-color: white;
-    z-index: 1000;
+    z-index: 500;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
@@ -341,12 +370,20 @@ section {
 }
 
 #boardAddTask {
-    display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.boardAddTaskInnerContent {
     position: fixed;
     width: 70%;
     height: 80%;
     background-color: white;
-    z-index: 1000;
     justify-content: center;
     align-items: center;
     top: 50%;
@@ -365,8 +402,8 @@ section {
     background: #2a3647;
     color: white;
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 32px;
+    right: 32px;
     cursor: pointer;
 }
 
@@ -675,8 +712,6 @@ section {
     cursor: pointer;
 }
 
-
-
 #editModalTitleDiv {
     width: 100%;
 }
@@ -820,7 +855,7 @@ section {
     align-items: start;
     width: 100%;
     margin-bottom: 24px;
-    background-color: #FEFEFE!important;
+    background-color: #fefefe !important;
 }
 
 .userInitilas {
@@ -908,7 +943,6 @@ section {
     width: 100%;
 }
 
-
 #editSubtaskList button {
     cursor: pointer;
 }
@@ -948,18 +982,6 @@ section {
     color: white;
 }
 
-
-.task-column {
-    max-height: 500px;
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.task-column::-webkit-scrollbar {
-    display: none;
-}
-
 input[type="checkbox"] {
     cursor: pointer;
 }
@@ -973,7 +995,7 @@ input[type="checkbox"] {
     margin: 0;
 }
 
-#dropDownContactsEdit{
+#dropDownContactsEdit {
     margin-top: 8px;
     overflow-y: scroll;
     max-height: 140px;
@@ -985,41 +1007,58 @@ input[type="checkbox"] {
     gap: 10px;
 }
 
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Helle graue Farbe für den Hintergrund */
+    border-radius: 12px; /* Abgerundete Ecken für das Track */
+}
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Dunkelgraue Farbe für den Thumb */
+    border-radius: 10px; /* Abgerundete Ecken für den Thumb */
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Dunklere Farbe beim Hover */
+}
+
+@media (max-width: 1600px) {
+    .progress {
+        margin-right: 8px;
+    }
+}
 
 @media (max-width: 1230px) {
-    .allTasksHeader {
-        height: 48px !important;
-    }
-
-    .progress {
+    /* .progress {
         width: 60px;
         margin-top: 0;
-    }
+    } */
 
-    .category-technical {
+    /* .category-technical {
         width: 80%;
     }
 
     .category-userstory {
         width: 80%;
-    }
-
-    .item-img {
-        width: 25px;
-        height: 25px;
-
-    }
-
-}
-
-@media (max-width: 1600px) {
-    .progress {
-        margin-right: 8px
-    }
+    } */
 }
 
 @media (max-width: 985px) {
-    #boardContainerUpperPart{
+    .task-card {
+        min-width: 150px !important;
+        max-width: 150px !important;
+        height: 200px;
+    }
+
+    /* .category-technical {
+        width: 80px;
+    }
+
+    .category-userstory {
+        width: 80px;
+    } */
+
+    #boardContainerUpperPart {
         display: flex;
         flex-direction: column;
     }
@@ -1055,20 +1094,20 @@ input[type="checkbox"] {
     }
 
     .category-technical {
-        width: 50%;
+        width: 85%;
         font-size: smaller;
     }
 
     .category-userstory {
-        width: 50%;
+        width: 85%;
         font-size: smaller;
     }
 
-}
-
-@media (max-width: 1133px) {
-    .task-card {
-        height: 300px;
+    .progress {
+        margin-top: 0 !important;
+    }
+    .subtaskWithProgressBar {
+        margin-bottom: -5px;
     }
 }
 
@@ -1078,13 +1117,13 @@ input[type="checkbox"] {
     }
 }
 
-@media (max-width:750px) {
+@media (max-width: 750px) {
     .task-column {
         display: flex;
         flex-direction: row;
     }
 
-    #allTaskInformation{
+    #allTaskInformation {
         width: 70%;
         height: 50%;
     }

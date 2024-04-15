@@ -26,9 +26,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     await loadTasks();
     fillContactDropdown();
     setPriorityLevel();
-    setPriority('Medium');
+    setPriority("Medium");
 });
-
 
 async function loadContacts() {
     contacts = JSON.parse((await getItem("contacts")).value || "[]");
@@ -56,16 +55,13 @@ function fillContactDropdown() {
 }
 
 function handleCheckboxChange(checkbox) {
-    const itemAndCheckbox = checkbox.closest('.itemAndCheckbox');
+    const itemAndCheckbox = checkbox.closest(".itemAndCheckbox");
     if (checkbox.checked) {
-        itemAndCheckbox.classList.add('checkedItemAndCheckbox');
+        itemAndCheckbox.classList.add("checkedItemAndCheckbox");
     } else {
-        itemAndCheckbox.classList.remove('checkedItemAndCheckbox');
+        itemAndCheckbox.classList.remove("checkedItemAndCheckbox");
     }
 }
-
-
-
 
 // function fillDropdownList() {
 //     let dropdown = document.getElementById("dropDownContacts");
@@ -80,37 +76,42 @@ function handleCheckboxChange(checkbox) {
 //     }
 // }
 
-
 function loadCheckedUserInitials() {
-    const editCheckedUserInitials = document.getElementById('checkedUserInitials');
-    editCheckedUserInitials.innerHTML = ''; // Bereinigen Sie den Container vor dem Hinzufügen neuer Initialen
+    const editCheckedUserInitials = document.getElementById(
+        "checkedUserInitials"
+    );
+    editCheckedUserInitials.innerHTML = ""; // Bereinigen Sie den Container vor dem Hinzufügen neuer Initialen
 
     // Durchlaufen Sie alle Checkboxen und prüfen Sie, ob sie markiert sind
-    document.querySelectorAll('.contact-checkbox:checked').forEach(checkbox => {
-        // Finden Sie den entsprechenden Kontakt basierend auf der userID der Checkbox
-        const contact = contacts.find(c => c.userID === checkbox.value);
-        if (contact) {
-            // Erstellen Sie ein Element für die Initialen des Kontakts
-            const initialsDiv = document.createElement('div');
-            initialsDiv.className = 'userInitials';
-            initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
-            initialsDiv.style.backgroundColor = contact.color;
-            editCheckedUserInitials.appendChild(initialsDiv);
-        }
-    });
+    document
+        .querySelectorAll(".contact-checkbox:checked")
+        .forEach((checkbox) => {
+            // Finden Sie den entsprechenden Kontakt basierend auf der userID der Checkbox
+            const contact = contacts.find((c) => c.userID === checkbox.value);
+            if (contact) {
+                // Erstellen Sie ein Element für die Initialen des Kontakts
+                const initialsDiv = document.createElement("div");
+                initialsDiv.className = "userInitials";
+                initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
+                initialsDiv.style.backgroundColor = contact.color;
+                editCheckedUserInitials.appendChild(initialsDiv);
+            }
+        });
 }
-
-
 
 function resetButtons() {
     Object.values(priorityButtons).forEach((button) => {
-        button.classList.remove("priority-urgent-selected", "priority-medium-selected", "priority-low-selected");
+        button.classList.remove(
+            "priority-urgent-selected",
+            "priority-medium-selected",
+            "priority-low-selected"
+        );
         resetButtonImage(button);
     });
 }
 
 function resetButtonImage(button) {
-    const imgElement = button.querySelector('img');
+    const imgElement = button.querySelector("img");
     if (imgElement) {
         if (button === urgentBtn) {
             imgElement.src = "assets/img/addTask/Prio alta.png";
@@ -124,17 +125,19 @@ function resetButtonImage(button) {
 
 function updateSelectedButton(selectedPriority) {
     switch (selectedPriority) {
-        case 'Urgent':
+        case "Urgent":
             urgentBtn.classList.add("priority-urgent-selected");
-            urgentBtn.querySelector('img').src = "assets/img/selectedUrgent.png";
+            urgentBtn.querySelector("img").src =
+                "assets/img/selectedUrgent.png";
             break;
-        case 'Medium':
+        case "Medium":
             mediumBtn.classList.add("priority-medium-selected");
-            mediumBtn.querySelector('img').src = "assets/img/selectedMedium.png";
+            mediumBtn.querySelector("img").src =
+                "assets/img/selectedMedium.png";
             break;
-        case 'Low':
+        case "Low":
             lowBtn.classList.add("priority-low-selected");
-            lowBtn.querySelector('img').src = "assets/img/selectedLow.png";
+            lowBtn.querySelector("img").src = "assets/img/selectedLow.png";
             break;
     }
 }
@@ -144,9 +147,6 @@ function setPriority(selectedPriority) {
     resetButtons();
     updateSelectedButton(selectedPriority);
 }
-
-
-
 
 function setPriorityLevel() {
     urgentBtn.addEventListener("click", function () {
@@ -253,7 +253,10 @@ async function addTask(event) {
     let title = document.getElementById("titleInput").value;
     let description = document.getElementById("descriptionInput").value;
     let taskDate = document.getElementById("taskDate").value;
-    let category = document.getElementById("category").value;
+    // let category = document.getElementById("category").value;
+    let categoryElement =
+        document.getElementsByClassName("dropdown-selected")[0]; // Zugriff auf das erste Element mit dieser Klasse
+    let category = categoryElement.textContent.trim(); // trim() entfernt unnötige Leerzeichen
     let assignedContacts = [
         ...document.querySelectorAll(".contact-checkbox:checked"),
     ].map((input) => input.value);
@@ -280,8 +283,6 @@ async function addTask(event) {
     // }
 }
 
-
-
 function fillDropdownList() {
     let dropdown = document.getElementById("dropDownContacts");
     let checkedUserInitials = document.getElementById("checkedUserInitials");
@@ -301,18 +302,22 @@ function removeCurrentInputValues() {
     document.getElementById("descriptionInput").value = "";
     document.getElementById("taskDate").value = "";
     document.getElementById("category").value = "";
-    document.querySelectorAll(".contact-checkbox:checked").forEach((checkbox) => {
-        checkbox.checked = false;
-    });
+    document
+        .querySelectorAll(".contact-checkbox:checked")
+        .forEach((checkbox) => {
+            checkbox.checked = false;
+        });
     subtaskInput.value = "";
     subtasks = [];
-    setPriority('Medium');
+    setPriority("Medium");
     loadCheckedUserInitials();
     updateSubtaskList();
 }
 
 function showClearButton(value) {
-    document.getElementById("clear-subtask").style.display = value ? "inline" : "none";
+    document.getElementById("clear-subtask").style.display = value
+        ? "inline"
+        : "none";
 }
 
 function clearSubtaskInput() {
@@ -320,13 +325,15 @@ function clearSubtaskInput() {
     document.getElementById("clear-subtask").style.display = "none";
 }
 
-document.querySelectorAll('.custom-checkbox input[type="checkbox"]').forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-        const imgElement = this.nextElementSibling; // Nimm das nächste Element (das img-Tag)
-        if (this.checked) {
-            imgElement.src = "assets/img/checkboxChecked.png";
-        } else {
-            imgElement.src = "assets/img/checkbox.png";
-        }
+document
+    .querySelectorAll('.custom-checkbox input[type="checkbox"]')
+    .forEach((checkbox) => {
+        checkbox.addEventListener("change", function () {
+            const imgElement = this.nextElementSibling; // Nimm das nächste Element (das img-Tag)
+            if (this.checked) {
+                imgElement.src = "assets/img/checkboxChecked.png";
+            } else {
+                imgElement.src = "assets/img/checkbox.png";
+            }
+        });
     });
-});
