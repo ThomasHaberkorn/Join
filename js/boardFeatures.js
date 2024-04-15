@@ -1,5 +1,3 @@
-
-
 function toggleDisplay(elementId, display) {
     const element = document.getElementById(elementId);
     element.style.display = display;
@@ -34,10 +32,14 @@ function createContactCheckboxes(task) {
 
         const initials = `${contact.firstLetter}${contact.lastLetter}`;
         div.innerHTML = `
-            <div class="userInitials" style="background-color: ${contact.color};">${initials}</div>
+            <div class="userInitials" style="background-color: ${
+                contact.color
+            };">${initials}</div>
             <div class="nameWithCheckbox">
                 <label for="${checkboxId}">${contact.name}</label>
-                <input type="checkbox" class="contact-checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${contact.userID}" ${isChecked ? "checked" : ""} onchange="handleCheckboxChange(this)">
+                <input type="checkbox" class="contact-checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${
+            contact.userID
+        }" ${isChecked ? "checked" : ""} onchange="handleCheckboxChange(this)">
             </div>
         `;
 
@@ -48,15 +50,15 @@ function createContactCheckboxes(task) {
 function toggleDropdownEdit() {
     const dropdownEdit = document.getElementById("dropDownContactsEdit");
 
-    if (dropdownEdit.style.display === "none" || dropdownEdit.style.display === "") {
+    if (
+        dropdownEdit.style.display === "none" ||
+        dropdownEdit.style.display === ""
+    ) {
         dropdownEdit.style.display = "block";
     } else {
         dropdownEdit.style.display = "none";
     }
 }
-
-
-
 
 // function addDropdownListeners() {
 //     const dropdownEdit = document.getElementById("dropDownContactsEdit");
@@ -76,13 +78,15 @@ function toggleDropdownEdit() {
 // }
 
 function displayAssignedContacts(task) {
-    const editCheckedUserInitials = document.getElementById('editCheckedUserInitials');
-    editCheckedUserInitials.innerHTML = '';
-    task.assignedContacts.forEach(contactId => {
-        const contact = contacts.find(c => c.userID === contactId);
+    const editCheckedUserInitials = document.getElementById(
+        "editCheckedUserInitials"
+    );
+    editCheckedUserInitials.innerHTML = "";
+    task.assignedContacts.forEach((contactId) => {
+        const contact = contacts.find((c) => c.userID === contactId);
         if (contact) {
-            const initialsDiv = document.createElement('div');
-            initialsDiv.className = 'userInitilas';
+            const initialsDiv = document.createElement("div");
+            initialsDiv.className = "userInitilas";
             initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
             initialsDiv.style.backgroundColor = contact.color;
             editCheckedUserInitials.appendChild(initialsDiv);
@@ -90,21 +94,24 @@ function displayAssignedContacts(task) {
     });
 }
 
-document.getElementById("editTaskButton").addEventListener("click", async function () {
-    const allTaskInformation = document.getElementById("allTaskInformation");
-    toggleDisplay("allTaskInformation", "none");
-    toggleDisplay("taskEditorModal", "block");
+document
+    .getElementById("editTaskButton")
+    .addEventListener("click", async function () {
+        const allTaskInformation =
+            document.getElementById("allTaskInformation");
+        toggleDisplay("allTaskInformation", "none");
+        toggleDisplay("taskEditorModal", "block");
 
-    const taskId = allTaskInformation.dataset.taskId;
-    const task = await getTaskById(taskId);
+        const taskId = allTaskInformation.dataset.taskId;
+        const task = await getTaskById(taskId);
 
-    if (task) {
-        fillTaskEditor(task);
-        createContactCheckboxes(task);
-        // addDropdownListeners();
-        displayAssignedContacts(task);
-    }
-});
+        if (task) {
+            fillTaskEditor(task);
+            createContactCheckboxes(task);
+            // addDropdownListeners();
+            displayAssignedContacts(task);
+        }
+    });
 
 const openDropdownEdit = document.getElementById("openDropdownEdit");
 const dropdownEdit = document.getElementById("dropDownContactsEdit");
@@ -134,7 +141,9 @@ function updateTask(task) {
     task.taskDate = document.getElementById("editDueDate").value;
     task.priority = document.getElementById("editPriority").value;
     task.assignedContacts = Array.from(
-        document.querySelectorAll('#dropDownContactsEdit input[type="checkbox"]:checked')
+        document.querySelectorAll(
+            '#dropDownContactsEdit input[type="checkbox"]:checked'
+        )
     ).map((el) => el.value);
 }
 
@@ -142,20 +151,22 @@ async function saveTasks(tasks) {
     await setItem("tasks", JSON.stringify(tasks));
 }
 
-document.getElementById("saveEdit").addEventListener("click", async function () {
-    const taskId = allTaskInformation.dataset.taskId;
-    const tasks = await getTasks();
-    const taskIndex = getTaskIndex(tasks, taskId);
+document
+    .getElementById("saveEdit")
+    .addEventListener("click", async function () {
+        const taskId = allTaskInformation.dataset.taskId;
+        const tasks = await getTasks();
+        const taskIndex = getTaskIndex(tasks, taskId);
 
-    if (taskIndex !== -1) {
-        updateTask(tasks[taskIndex]);
-        await saveTasks(tasks);
-        closeEditor();
-    } else {
-        alert("Aufgabe nicht gefunden.");
-    }
-    await initBoard();
-});
+        if (taskIndex !== -1) {
+            updateTask(tasks[taskIndex]);
+            await saveTasks(tasks);
+            closeEditor();
+        } else {
+            alert("Aufgabe nicht gefunden.");
+        }
+        await initBoard();
+    });
 
 const boardAddTaskButton = document.getElementById("boardAddTaskButton");
 const boardAddTask = document.getElementById("boardAddTask");
@@ -167,8 +178,6 @@ boardAddTaskButton.addEventListener("click", function () {
 const boardAddTaskCloseButton = document.getElementById(
     "boardAddTaskCloseButton"
 );
-
-
 
 document.getElementById("searchTask").addEventListener("input", function () {
     searchTasks();
@@ -196,7 +205,6 @@ function searchTasks() {
     });
 }
 
-
 const moveTaskButton = document.getElementById("moveTaskButton");
 
 moveTaskButton.addEventListener("click", function () {
@@ -209,7 +217,9 @@ moveTaskButton.addEventListener("click", function () {
 //     allTaskInformation.style.display = "none";
 // });
 
-const cardOptionsCloseButton = document.getElementById("cardOptionsCloseButton");
+const cardOptionsCloseButton = document.getElementById(
+    "cardOptionsCloseButton"
+);
 
 cardOptionsCloseButton.addEventListener("click", function () {
     const moveOption = document.getElementById("moveOption");
@@ -218,75 +228,79 @@ cardOptionsCloseButton.addEventListener("click", function () {
 });
 
 async function addEditSubtask() {
-    const subtaskInput = document.getElementById('editSubtaskInput');
+    const subtaskInput = document.getElementById("editSubtaskInput");
     const subtaskValue = subtaskInput.value.trim();
     if (subtaskValue) {
-        const taskId = document.getElementById("allTaskInformation").dataset.taskId;
+        const taskId =
+            document.getElementById("allTaskInformation").dataset.taskId;
         let tasks = JSON.parse((await getItem("tasks")).value || "[]");
-        let taskIndex = tasks.findIndex(task => task.id === taskId);
+        let taskIndex = tasks.findIndex((task) => task.id === taskId);
         if (taskIndex !== -1) {
             let task = tasks[taskIndex];
             if (!task.subtasks) {
                 task.subtasks = [];
             }
-            task.subtasks.push({ name: subtaskValue, completed: false });
+            task.subtasks.push({name: subtaskValue, completed: false});
             updateEditSubtaskList(task.subtasks);
-            await setItemFromJson('tasks', tasks);
-            subtaskInput.value = '';
+            await setItemFromJson("tasks", tasks);
+            subtaskInput.value = "";
         }
     }
 }
 
-
 async function removeEditSubtask(index) {
     const taskId = document.getElementById("allTaskInformation").dataset.taskId;
     let tasks = JSON.parse((await getItem("tasks")).value || "[]");
-    let taskIndex = tasks.findIndex(task => task.id === taskId);
+    let taskIndex = tasks.findIndex((task) => task.id === taskId);
 
     if (taskIndex !== -1) {
         let task = tasks[taskIndex];
         if (task.subtasks && index >= 0 && index < task.subtasks.length) {
             task.subtasks.splice(index, 1);
             updateEditSubtaskList(task.subtasks);
-            await setItemFromJson('tasks', tasks);
+            await setItemFromJson("tasks", tasks);
         }
     }
 }
 
-
 function updateEditSubtaskList(subtasks) {
-    const list = document.getElementById('editSubtaskList');
-    list.innerHTML = '';
+    const list = document.getElementById("editSubtaskList");
+    list.innerHTML = "";
     subtasks.forEach((subtask, index) => {
-        const li = document.createElement('li');
+        const li = document.createElement("li");
         li.textContent = subtask.name;
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
         deleteButton.onclick = () => removeEditSubtask(index);
         li.appendChild(deleteButton);
         list.appendChild(li);
     });
 }
 
-document.getElementById('editSubtaskAddButton').addEventListener('click', addEditSubtask);
+document
+    .getElementById("editSubtaskAddButton")
+    .addEventListener("click", addEditSubtask);
 
 function loadEditSubtasks(task) {
     updateEditSubtaskList(task.subtasks);
 }
 
-document.getElementById("editTaskButton").addEventListener("click", async function () {
-    const taskId = document.getElementById("allTaskInformation").dataset.taskId;
-    const tasks = JSON.parse((await getItem("tasks")).value || []);
-    const task = tasks.find((task) => task.id === taskId);
+document
+    .getElementById("editTaskButton")
+    .addEventListener("click", async function () {
+        const taskId =
+            document.getElementById("allTaskInformation").dataset.taskId;
+        const tasks = JSON.parse((await getItem("tasks")).value || []);
+        const task = tasks.find((task) => task.id === taskId);
 
-    loadEditSubtasks(task);
-});
+        loadEditSubtasks(task);
+    });
 
-
-document.querySelectorAll('.optionsContainerOption').forEach(option => {
-    option.addEventListener('click', async function () {
-        const taskId = document.getElementById("allTaskInformation").dataset.taskId;
-        let newStatus = this.id.replace('optionsContainer', '');
+document.querySelectorAll(".optionsContainerOption").forEach((option) => {
+    option.addEventListener("click", async function () {
+        const taskId =
+            document.getElementById("allTaskInformation").dataset.taskId;
+        let newStatus = this.id.replace("optionsContainer", "");
         newStatus = convertIdToStatus(newStatus);
         await updateTaskStatusAndMove(taskId, newStatus);
         await initBoard();
@@ -298,29 +312,28 @@ document.querySelectorAll('.optionsContainerOption').forEach(option => {
     });
 });
 
-
 function convertIdToStatus(id) {
     switch (id) {
-        case 'ToDo':
-            return 'todo';
-        case 'InProgress':
-            return 'inProgress';
-        case 'Done':
-            return 'done';
-        case 'AwaitFeedback':
-            return 'awaitFeedback';
+        case "ToDo":
+            return "todo";
+        case "InProgress":
+            return "inProgress";
+        case "Done":
+            return "done";
+        case "AwaitFeedback":
+            return "awaitFeedback";
         default:
-            return '';
+            return "";
     }
 }
 
 async function updateTaskStatusAndMove(taskId, newStatus) {
     try {
         let tasks = JSON.parse((await getItem("tasks")).value || "[]");
-        let taskIndex = tasks.findIndex(task => task.id === taskId);
+        let taskIndex = tasks.findIndex((task) => task.id === taskId);
         if (taskIndex !== -1) {
             tasks[taskIndex].status = newStatus;
-            await setItemFromJson('tasks', tasks);
+            await setItemFromJson("tasks", tasks);
         }
     } catch (error) {
         console.error("Fehler beim Aktualisieren des Task-Status:", error);
@@ -330,15 +343,32 @@ async function updateTaskStatusAndMove(taskId, newStatus) {
 async function toggleSubtaskCompletion(taskId, subtaskIndex, completedStatus) {
     try {
         let tasks = JSON.parse((await getItem("tasks")).value || "[]");
-        let taskIndex = tasks.findIndex(task => task.id === taskId);
+        let taskIndex = tasks.findIndex((task) => task.id === taskId);
         if (taskIndex !== -1) {
             let subtask = tasks[taskIndex].subtasks[subtaskIndex];
             if (subtask) {
                 subtask.completed = completedStatus;
-                await setItemFromJson('tasks', tasks);
+                await setItemFromJson("tasks", tasks);
             }
         }
     } catch (error) {
-        console.error("Fehler beim Aktualisieren des Subtask-Erledigungsstatus:", error);
+        console.error(
+            "Fehler beim Aktualisieren des Subtask-Erledigungsstatus:",
+            error
+        );
     }
 }
+
+// document.addEventListener("DOMContentLoaded", () => {
+//     const taskCards = document.querySelectorAll(".task-card");
+
+//     taskCards.forEach((card) => {
+//         card.addEventListener("mouseenter", () => {
+//             console.log("Mouse entered:", card);
+//         });
+
+//         card.addEventListener("mouseleave", () => {
+//             console.log("Mouse left:", card);
+//         });
+//     });
+// });

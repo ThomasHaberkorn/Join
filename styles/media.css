@@ -1,3 +1,49 @@
+@media (max-width: 1450px) {
+    .allTasks {
+        width: 110%;
+    }
+    .allTasks::-webkit-scrollbar {
+        display: none;
+    }
+    .allTasksHeader {
+        width: 20%;
+    }
+    .task-column {
+        flex-direction: row;
+        /* width: 1440px; */
+        overflow-x: scroll;
+    }
+    .task-card {
+        margin-left: 8px;
+        margin-right: 8px;
+        min-width: 250px;
+        max-width: 250px;
+    }
+
+    .boardTaskContainer {
+        flex-direction: column;
+    }
+    .boardTaskContainer::-webkit-scrollbar {
+        display: none;
+    }
+
+    ::-webkit-scrollbar {
+        height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: #f1f1f1; /* Helle graue Farbe für den Hintergrund */
+        border-radius: 12px; /* Abgerundete Ecken für das Track */
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: #888; /* Dunkelgraue Farbe für den Thumb */
+        border-radius: 10px; /* Abgerundete Ecken für den Thumb */
+        border: 35x solid #f1f1f1; /* Erzeugt einen Rand, der den Thumb vom Track absetzt */
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #555; /* Dunklere Farbe beim Hover */
+    }
+}
+
 @media screen and (max-width: 1220px) {
     .summaryTextJoin {
         font-size: 50px;
