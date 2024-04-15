@@ -5,27 +5,43 @@ async function init() {
     moveContainer();
     checkRememberUser();
     await loadUsers();
+    await loadContacts();
     // renderUsers();
 }
 
 let users;
+
+/**
+ * This function is for deleting all users from the for the key "user" in the remote storage.
+ * !!! USE WITH CAUTION !!!
+ */
 
 // function renderUsers() {
 //     users.splice(0);
 //     console.log(users);
 //     setItem("user", users);
 // }
+
 /**
- * This function is to load the user data from the remote storage.
+ * Loads users from remote storage and updates the global `users` array.
+ * If no data is found, initializes the array as empty.
  */
 async function loadUsers() {
     users = JSON.parse((await getItem("user")).value || "[]");
 }
 
 /**
+ * Loads contacts from remote storage and updates the global `contacts` array.
+ * If no data is found, initializes the array as empty.
+ */
+async function loadContacts() {
+    contacts = JSON.parse((await getItem("contacts")).value || "[]");
+}
+
+/**
  * Checks the session storage to see if the page has already been loaded.
  * The animation is displayed the first time the page is loaded;
- * no animation is displayed the next time the page is loaded
+ * no animation is displayed the next time the page is loaded in the same session.
  */
 
 async function sessionStorageFirstTimeTrue() {
@@ -48,15 +64,21 @@ async function sessionStorageFirstTimeTrue() {
 }
 
 /**
- * Checks the message box for content. If it is empty, the message box is hidden.
+ * Checks if the message box is empty and applies a transparency class if it is.
+ * Assumes an element with the ID "msgBox" exists in the DOM.
  */
-
 function checkMsgBox() {
-    let mG = document.getElementById("msgBox").innerHTML;
-    if (mG == null) {
+    let mG = document.getElementById("msgBox");
+    if (!mG.innerHTML) {
         mG.classList.add("bcTransp");
     }
 }
+// function checkMsgBox() {
+//     let mG = document.getElementById("msgBox").innerHTML;
+//     if (mG == null) {
+//         mG.classList.add("bcTransp");
+//     }
+// }
 
 /**
  * switch from Log in to Sign up in the index.html
@@ -169,9 +191,7 @@ async function addUser() {
  */
 
 function checkSignupPasswordConfirm() {
-    document
-        .getElementById("signinpasswordConfirm")
-        .classList.add("focusAlert");
+    document.getElementById("suPWCInput").classList.add("focusAlert");
     document.getElementById("my-form").innerHTML =
         "Ups! Your password don't match";
 }
@@ -186,16 +206,43 @@ async function signupForward(a, b, c) {
     let password = c;
     let currentUser = [];
     let userLevel = "user";
-    users.push({
+    let lastName = name.split(" ").pop();
+    // users.push({
+    //     color: getRandomColor(),
+    //     name,
+    //     email,
+    //     password,
+    //     userLevel,
+    //     firstLetter: name.charAt(0).toUpperCase(),
+    //     lastLetter: lastName.charAt(0).toUpperCase(),
+    //     userID: generateUserId(),
+    // });
+    signupForwardPush(name, email, password, userLevel, lastName);
+    currentUser.push({email, password});
+    await setItem("user", users);
+    await setItem("contacts", contacts);
+    localStorage.setItem("RememberUser", JSON.stringify(currentUser));
+    signupForwardRedirect(email, password);
+}
+
+function signupForwardPush(name, email, password, userLevel, lastName) {
+    let fullName = name.split(" ");
+    let capitalizedPart = fullName.map(
+        (part) => part.charAt(0).toUpperCase() + part.slice(1)
+    );
+    name = capitalizedPart.join(" ");
+    const userObj = {
+        color: getRandomColor(),
         name,
         email,
         password,
         userLevel,
-    });
-    currentUser.push({email, password});
-    await setItem("user", users);
-    localStorage.setItem("RememberUser", JSON.stringify(currentUser));
-    signupForwardRedirect(email, password);
+        firstLetter: name.charAt(0).toUpperCase(),
+        lastLetter: lastName.charAt(0).toUpperCase(),
+        userID: generateUserId(),
+    };
+    users.push(userObj);
+    contacts.push(userObj);
 }
 
 function signupForwardRedirect(email, password) {
