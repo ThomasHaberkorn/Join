@@ -12,11 +12,9 @@ async function initContact() {
  * show the initials of the contact
  * @returns
  */
-
 function contactActive() {
     document.getElementById("contactSum").classList.add("bgfocus");
 }
-
 let contacts = [];
 let previousIndex;
 let contactCount = 0;
@@ -25,7 +23,6 @@ let contactCount = 0;
  * load the contacts from the remote storage
  * @returns
  */
-
 async function loadContacts() {
     // contacts = await JSON.parse(localStorage.getItem("contacts"));
     contacts = JSON.parse((await getItem("contacts")).value || "[]");
@@ -34,14 +31,13 @@ async function loadContacts() {
 /**
  * render the contact list
  */
-
 async function renderContactList() {
     let list = document.getElementById("listArea");
     list.innerHTML = "";
     let uniqueFirstLetters = new Set();
     sortContacts();
     for (i = 0; i < contacts.length; i++) {
-        let firstLetter = contacts[i]["name"].charAt(0);
+        let firstLetter = contacts[i]["name"].charAt(0).toUpperCase();
         if (!uniqueFirstLetters.has(firstLetter)) {
             uniqueFirstLetters.add(firstLetter);
             list.innerHTML += `
@@ -57,7 +53,6 @@ async function renderContactList() {
 /**
  * sort the contacts by name
  */
-
 function sortContacts() {
     contacts.sort((a, b) => a["name"].localeCompare(b["name"]));
 }
@@ -65,7 +60,6 @@ function sortContacts() {
 /**
  * show the add new contact screen
  */
-
 function addNewContactScreen() {
     let addNewContact = document.getElementById("contactAddArea");
     addNewContact.style.display = "flex";
@@ -76,7 +70,6 @@ function addNewContactScreen() {
 /**
  * Create a new contact
  */
-
 async function createNewContact(event) {
     event.preventDefault();
     let name = document.getElementById("contactAddName").value;
@@ -101,7 +94,6 @@ async function createNewContact(event) {
  * User ID generation
  * @returns {string} id
  */
-
 function generateUserId() {
     const date = new Date();
     const year = date.getFullYear();
@@ -122,7 +114,6 @@ function generateUserId() {
 /**
  * Create a random color
  */
-
 function getRandomColor() {
     const getRandomHex = () =>
         Math.floor(Math.random() * 128)
@@ -134,13 +125,13 @@ function getRandomColor() {
 /**
  * Delete the contact with the given index
  */
-
 function deleteContact(index) {
     contacts.splice(index, 1);
     saveContacts();
     renderContactList();
     hideContactPopupEditDelete();
     closeContactFullResponsive();
+    closeContact(index);
 }
 
 /**
@@ -157,7 +148,6 @@ function deleteContactBig(index) {
 /**
  * Show the contact with the given index
  */
-
 function showContact(index) {
     let fullContact = document.getElementById("contactFull");
     fullContact.style.transition = "transform 0.4s ease";
@@ -165,24 +155,16 @@ function showContact(index) {
     if (previousIndex == index) {
         fullContact.style.transform = "translateX(100%)";
         previousIndex = -1;
-        document
-            .getElementById(`info${index}`)
-            .classList.remove("contactListShowActive");
+        document.getElementById(`info${index}`).classList.remove("contactListShowActive");
     } else {
         removeMark();
-        document
-            .getElementById(`info${index}`)
-            .classList.add("contactListShowActive");
-        document
-            .getElementById(`info${index}`)
-            .classList.add("contactListShowActive:hover");
+        document.getElementById(`info${index}`).classList.add("contactListShowActive");
+        document.getElementById(`info${index}`).classList.add("contactListShowActive:hover");
         setTimeout(() => {
             fullContact.innerHTML = "";
             fullContact.innerHTML += renderShowContactHTML(index);
             fullContact.style.transform = "translateX(0)";
-            document.getElementById(
-                `listContactBig${index}`
-            ).style.backgroundColor = contacts[index]["color"];
+            document.getElementById(`listContactBig${index}`).style.backgroundColor = contacts[index]["color"];
         }, 400);
         if (window.innerWidth >= 950) {
         } else {
@@ -193,9 +175,22 @@ function showContact(index) {
 }
 
 /**
+ * Close the contact with the given index
+ * @param {*} index 
+ */
+function closeContact(index) {
+    let fullContact = document.getElementById("contactFull");
+    fullContact.style.transition = "transform 0.4s ease";
+    fullContact.style.transform = "translateX(100%)";
+    document
+        .getElementById(`info${index}`)
+        .classList.remove("contactListShowActive");
+    previousIndex = -1;
+}
+
+/**
  * remove the mark from the contact list
  */
-
 function removeMark() {
     for (let i = 0; i < contacts.length; i++) {
         let element = document.getElementById(`info${i}`);
@@ -208,7 +203,6 @@ function removeMark() {
 /**
  * show the contact with the given index in the responsive view
  */
-
 function showContactResponsive(index) {
     let contactFullResponsive = document.getElementById(
         "contactFullResponsive"
@@ -226,7 +220,6 @@ function showContactResponsive(index) {
 /**
  * show the value of the contact from remotestoarge
  */
-
 function editContact(index) {
     let contactEdit = document.getElementById("contactEditArea");
     contactEdit.style.display = "flex";
@@ -246,7 +239,6 @@ function editContact(index) {
 /**
  * close the edit contact area
  */
-
 function closeEditContact() {
     let contactEditVisible = document.getElementById("contactEditVisible");
     contactEditVisible.classList.add("slide-out-right");
@@ -259,7 +251,6 @@ function closeEditContact() {
 /**
  * close the contact responsive view
  */
-
 function closeContactFullResponsive() {
     let contactFullResponsive = document.getElementById(
         "contactFullResponsive"
@@ -275,7 +266,6 @@ function closeContactFullResponsive() {
 /**
  * auxiliar function to hide the contact responsive view
  */
-
 function hideContactResponsive() {
     const container = document.getElementById("contactFullResponsive");
     if (container) {
@@ -290,13 +280,11 @@ function hideContactResponsive() {
 /**
  *  auxiliar addEventListener to observe the window size
  */
-
 window.addEventListener("resize", hideContactResponsive);
 
 /**
  * show the initials of the contact
  */
-
 function showContactPopupEditDelete() {
     let popupContactSmal = document.getElementById("contactPopupEditDelete");
     let popupAuxContainer = document.getElementById("popupAuxContainer");
@@ -309,10 +297,12 @@ function showContactPopupEditDelete() {
 /**
  * hide the initials of the contact
  */
-
 function hideContactPopupEditDelete() {
     let popupContactSmal = document.getElementById("contactPopupEditDelete");
     let popupAuxContainer = document.getElementById("popupAuxContainer");
+    if (!popupContactSmal || !popupAuxContainer) {
+        return; // Beendet die Funktion, wenn die Elemente nicht existieren
+    }
     popupContactSmal.classList.remove(`slide-in-right-popup`);
     popupContactSmal.classList.add(`slide-out-right-popup`);
     setTimeout(() => {
@@ -325,14 +315,8 @@ function hideContactPopupEditDelete() {
  * @param {*} index Edit the contact with the given index
  * @returns
  */
-
 function patchEdit(index) {
     index = parseInt(index);
-
-    if (isNaN(index) || index < 0 || index >= contacts.length) {
-        console.error("Invalid index");
-        return;
-    }
     let newName = document.getElementById("contactEditName").value;
     let newMail = document.getElementById("contactEditEmail").value;
     let newPhone = document.getElementById("contactEditPhone").value;
@@ -354,10 +338,7 @@ function patchEdit(index) {
 /**
  * save the contacts in the remote storage
  */
-
 async function saveContacts() {
-    // let contactsJSON = JSON.stringify(contacts);
-    // localStorage.setItem("contacts", contactsJSON);
     await setItem("contacts", contacts);
 }
 
@@ -373,13 +354,15 @@ function closeAddContact() {
     }, 400);
 }
 
+/**
+ * close the contact responsive view
+  */
 function contactSuccessfullCreated() {
     let contactSuccess = document.getElementById("contactSuccess");
     contactSuccess.style.display = "flex";
     contactSuccess.style.animation = "slideUpAndDown 2s ease-in-out";
-
     setTimeout(() => {
         contactSuccess.style.display = "none";
-        contactSuccess.style.animation = ""; // Entfernen Sie die Animation, damit sie beim nächsten Aufruf erneut angewendet werden kann
+        contactSuccess.style.animation = "";
     }, 2000);
 }

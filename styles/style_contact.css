@@ -14,7 +14,7 @@
     width: 37%;
     height: calc(100vh - 81px);
     background-color: white;
-    box-shadow: 4px 6px 6px 0px rgb(0, 0, 0, 0.2);
+    box-shadow: 4px 6px 6px 0px rgb(0, 0, 0, 0.25);
     overflow: scroll;
     position: relative;
     top: 81px;
@@ -163,7 +163,7 @@
 
 .addNewContactButton:hover {
     background-color: #29abe2;
-    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.2);
+    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.25);
     transition: 100ms ease-in-out;
 }
 
@@ -278,7 +278,8 @@
     height: 24px;
     margin-right: 8px;
     background-image: url("../assets/img/edit.png");
-    
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .contactEdit {
@@ -306,6 +307,8 @@
     height: 24px;
     margin-right: 8px;
     background-image: url("../assets/img/delete.png");
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .contactEditDeleteArea {
@@ -398,7 +401,7 @@
     display: none;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 5;
 }
 
@@ -491,7 +494,7 @@
     display: none;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 5;
 }
 
@@ -599,7 +602,7 @@
 
 .contactCreateButton:hover {
     background-color: #29abe2;
-    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.2);
+    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.25);
     transition: 100ms ease-in-out;
 }
 
@@ -625,7 +628,7 @@
 
 .contactCancelButton:hover {
     border: 2px #29abe2 solid;
-    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.2);
+    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.25);
     transition: 100ms ease-in-out;
 }
 
@@ -789,7 +792,7 @@ input:focus {
 
 .contactEditDelete:hover {
     border: 2px #29abe2 solid;
-    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.2);
+    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.25);
     transition: 100ms ease-in-out;
 }
 
@@ -810,7 +813,7 @@ input:focus {
 
 .contactEditSave:hover {
     background-color: #29abe2;
-    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.2);
+    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.25);
     transition: 100ms ease-in-out;
 }
 
@@ -932,7 +935,7 @@ input:focus {
     right: 100px;
     background-color: #ffffff;
     border-radius: 20px 20px 0 20px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -954,7 +957,7 @@ input:focus {
 
 .editContactButtonSmall:hover {
     background-color: #29abe2;
-    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.2);
+    box-shadow: 0px 6px 6px 0px rgb(0, 0, 0, 0.25);
 }
 
 .contactListShowActive {
@@ -980,6 +983,16 @@ input:focus {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#contactAddPhone::-webkit-inner-spin-button,
+#contactAddPhone::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#contactAddPhone {
+    -moz-appearance: textfield;
 }
 
 .slideUpAndDown{
