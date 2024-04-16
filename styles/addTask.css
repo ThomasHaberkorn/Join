@@ -187,6 +187,18 @@ p {
     border-radius: 10px;
     border: 1px solid var(--Style, #d1d1d1);
     background: #fff;
+    color: lightgray;
+    font-weight: 400;
+    font-size: 20px;
+    width: 100%;
+
+    &::-webkit-calendar-picker-indicator {
+        position: fixed;
+        right: 10rem;
+        font-size: 24px;
+        color: lightgray;
+        justify-content: space-between;
+    }
 }
 
 .prio {
@@ -318,11 +330,15 @@ li:hover .editImg {
 #category {
     width: 100%;
     font-size: 20px;
-    -webkit-appearance: none; /* Für Chrome und Safari */
-    -moz-appearance: none; /* Für Firefox */
-    appearance: none; /* Standard */
+    -webkit-appearance: none;
+    /* Für Chrome und Safari */
+    -moz-appearance: none;
+    /* Für Firefox */
+    appearance: none;
+    /* Standard */
     background: url("/assets/img/custom-arrow.png") 97% center no-repeat !important;
-    background-size: 8px 8px; /* Passende Größe des Pfeils */
+    background-size: 8px 8px;
+    /* Passende Größe des Pfeils */
     padding-right: 20px;
     cursor: pointer;
 }
@@ -332,6 +348,7 @@ option {
     line-height: 35px;
     padding: 5px 0;
 }
+
 /* .categoryOption {
     padding: 10px;
     font-size: 20px;
