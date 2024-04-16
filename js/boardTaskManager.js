@@ -14,12 +14,12 @@ let currentTaskStatus = "todo";
 
 async function initAddSidebar() {
     await includeW3();
-    addTaskActive();
+    // addTaskActive();
     showInitials();
 }
-function addTaskActive() {
-    document.getElementById("addTasksum").classList.add("bgfocus");
-}
+// function addTaskActive() {
+//     document.getElementById("addTasksum").classList.add("bgfocus");
+// }
 
 document.addEventListener("DOMContentLoaded", async function () {
     await loadContacts();
