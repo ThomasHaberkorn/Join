@@ -190,11 +190,10 @@ p {
     color: lightgray;
     font-weight: 400;
     font-size: 20px;
-    width: 100%;
-
+    width: 94%;
     &::-webkit-calendar-picker-indicator {
         position: fixed;
-        right: 10rem;
+        right: 5%;
         font-size: 24px;
         color: lightgray;
         justify-content: space-between;
