@@ -54,7 +54,11 @@ function boardActive() {
 }
 
 function getAssignedContactElements(assignedContactIds) {
-    return assignedContactIds
+    const maxVisibleContacts = 3;
+    const additionalContacts = assignedContactIds.length - maxVisibleContacts;
+
+    const contactsHtml = assignedContactIds
+        .slice(0, maxVisibleContacts)
         .map((contactId) => {
             const contact = contacts.find((c) => c.userID === contactId);
             if (contact) {
@@ -67,6 +71,12 @@ function getAssignedContactElements(assignedContactIds) {
             return "";
         })
         .join("");
+
+    if (additionalContacts > 0) {
+        return contactsHtml + `<div class="boardContact additional-contacts">+${additionalContacts}</div>`;
+    }
+
+    return contactsHtml;
 }
 
 function getAssignedContactDisplay(assignedContactIds) {
