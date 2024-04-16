@@ -25,6 +25,7 @@
 
     .boardTaskContainer {
         flex-direction: column;
+        width: 95%;
     }
     .boardTaskContainer::-webkit-scrollbar {
         display: none;
@@ -40,10 +41,27 @@
     ::-webkit-scrollbar-thumb {
         background-color: #888; /* Dunkelgraue Farbe für den Thumb */
         border-radius: 10px; /* Abgerundete Ecken für den Thumb */
-        border: 35x solid #f1f1f1; /* Erzeugt einen Rand, der den Thumb vom Track absetzt */
     }
     ::-webkit-scrollbar-thumb:hover {
         background-color: #555; /* Dunklere Farbe beim Hover */
+    }
+}
+
+@media (max-width: 1300px) {
+    .btn-select {
+        gap: 4px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .btn-select p {
+        width: unset;
+        font-size: 14px;
+        width: 60px;
+    }
+
+    .btn-select img {
+        margin: 0;
     }
 }
 
@@ -68,6 +86,24 @@
     }
 }
 
+@media (max-width: 1150px) {
+    .btn-select {
+        gap: 4px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .btn-select p {
+        width: unset;
+        font-size: 14px;
+        width: 50px;
+    }
+
+    .btn-select img {
+        margin: 0;
+    }
+}
+
 @media (min-width: 1051px) {
     .summaryWelcomeContainer {
         display: block;
@@ -87,6 +123,10 @@
     .tasksNum {
         margin-top: 5px;
     }
+    .taskEditorScrollbarContainer {
+        margin-left: -20px;
+        width: 115%;
+    }
 }
 
 @media (max-width: 950px) {
@@ -102,8 +142,8 @@
         transition: 0.4s;
     }
 
-    .tasks{
-        margin-top: 80px!important;
+    .tasks {
+        margin-top: 80px !important;
     }
 }
 
@@ -211,6 +251,15 @@
     }
     .headerHelp img {
         display: none;
+    }
+    .alltaskContent {
+        top: 47%;
+        transition: 0.3s;
+    }
+    .moveOptionContent {
+        top: 46%;
+        left: 49.5%;
+        transition: 0.3s;
     }
 }
 
@@ -501,6 +550,40 @@
     .passwImg {
         right: 26px;
     }
+    .taskEditorScrollbarContainer {
+        margin-left: -5px;
+        width: 109%;
+    }
+    .taskEditorModalContent {
+        min-width: 260px;
+        padding: 24px;
+        transition: 0.3s;
+    }
+    #editInputDropdown {
+        width: 89%;
+    }
+    #editSubtaskInputWrap {
+        width: 89%;
+    }
+    #boardContainerUpperPartRight {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .alltaskContent {
+        width: 277px;
+        padding: 18px;
+    }
+    .allTaskInformationLowerButtons {
+        margin-top: 35px;
+    }
+    .space-between {
+        margin-top: 5px;
+    }
+    .moveOptionContent {
+        width: 260px;
+        top: 46%;
+        left: 50%;
+    }
 }
 
 @media screen and (max-width: 419px) {
@@ -699,6 +782,12 @@
     }
     .passwImg {
         right: 18px;
+    }
+    #boardAddTaskButton {
+        padding: 8px 12px;
+    }
+    #boardSearchbar {
+        width: 145px;
     }
 }
 

@@ -152,7 +152,7 @@ h2 {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-around;
-    width: 100%;
+    width: 90%;
     flex-grow: 1;
     overflow-y: auto;
     height: 60vh;
@@ -193,6 +193,7 @@ section {
     overflow: hidden;
     font-weight: 400;
     line-height: 120%;
+    font-size: 18px;
 }
 
 .category-technical {
@@ -200,10 +201,11 @@ section {
     color: white;
     display: flex;
     padding: 4px 16px;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
     border-radius: 8px;
     width: 120px;
+    font-size: 18px;
 }
 
 .category-userstory {
@@ -214,6 +216,8 @@ section {
     align-items: flex-start;
     gap: 10px;
     border-radius: 8px;
+    display: flex;
+    align-items: center;
 }
 
 .emptyBoardTask {
@@ -288,7 +292,7 @@ section {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-        margin: 10px;
+    margin: 10px;
     height: 100%;
     border-radius: 4px;
     padding: 10px;
@@ -298,9 +302,9 @@ section {
     -ms-overflow-style: none; */
 }
 
-.task-column::-webkit-scrollbar {
+/* .task-column::-webkit-scrollbar {
     display: none;
-}
+} */
 
 /* .task-column {
     max-height: 500px;
@@ -331,17 +335,31 @@ section {
 
 #allTaskInformation {
     display: none;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    z-index: 1000;
+}
+
+.alltaskContent {
     position: fixed;
-    width: 30%;
-    height: 60%;
+    width: 300px;
+    height: 70%;
     background-color: white;
     z-index: 100;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-    padding: 60px;
+    padding: 35px;
     border-radius: 24px;
     overflow: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* #allTaskInformation::-webkit-scrollbar {
@@ -357,19 +375,34 @@ section {
 
 #taskEditorModal {
     display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.taskEditorModalContent {
     position: fixed;
+    min-width: 300px;
     width: 30%;
     height: 60%;
     background-color: white;
-    z-index: 500;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    padding: 60px;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
     border-radius: 24px;
-    scrollbar-width: thin;
-    scrollbar-color: rgb(209, 209, 209) white;
-    overflow-y: scroll;
+    padding: 40px;
+}
+
+.taskEditorScrollbarContainer {
+    width: 104%;
+    height: 100%;
+    overflow-y: auto;
 }
 
 #boardAddTask {
@@ -428,7 +461,12 @@ section {
     white-space: normal;
     height: 100%;
     gap: 10px;
-    width: 90%;
+}
+
+#allTaskInformationSubtasks {
+    min-height: 80px;
+    max-height: 80px;
+    overflow-y: auto;
 }
 
 .display-flex {
@@ -455,7 +493,7 @@ section {
 #modalDate {
     display: flex;
     gap: 25px;
-    width: 348px;
+    width: 100%;
     height: 19px;
     margin-bottom: 10px;
 }
@@ -497,7 +535,7 @@ section {
 #modalSubtasks {
     font-size: 18px;
     color: rgba(66, 82, 110, 1);
-    width: 348px;
+    width: 100%;
     margin-top: 5px;
 }
 
@@ -538,7 +576,7 @@ section {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-top: 20px;
+    margin-top: 55px;
     gap: 14px;
 }
 
@@ -548,6 +586,7 @@ section {
     gap: 5px;
     color: rgba(42, 54, 71, 1);
     border: none;
+    font-size: 20px;
 }
 
 .item-img {
@@ -564,7 +603,7 @@ section {
     font-weight: 500;
 }
 
-#emptySubtaskWithProgressBar{
+#emptySubtaskWithProgressBar {
     display: flex;
     align-items: center;
     margin-bottom: 24px;
@@ -572,7 +611,7 @@ section {
     width: 100%;
 }
 
-.additional-contacts{
+.additional-contacts {
     font-size: 15px;
     border-radius: 50%;
     border: 2px solid white;
@@ -590,9 +629,7 @@ section {
 #allTaskInformationAssignedTo {
     min-height: 170px;
     max-height: 170px;
-    scrollbar-width: thin;
-    scrollbar-color: rgb(209, 209, 209) white;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .contact-display {
@@ -618,16 +655,42 @@ section {
 }
 
 #moveOption {
-    display: none;
-    position: fixed;
-    width: 30%;
-    height: 60%;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    z-index: 1000;
+    /* display: none;
+    position: absolute;
+    width: 270px;
+    height: 52%;
     background-color: white;
     z-index: 1000;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-    padding: 60px;
+    padding: 20px;
+    border: 2px solid #000000;
+    border-radius: 24px; */
+}
+
+.moveOptionContent {
+    position: absolute;
+    width: 270px;
+    height: 52%;
+    background-color: white;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    top: 49%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid #000000;
     border-radius: 24px;
 }
 
@@ -641,8 +704,9 @@ section {
 #cardoptions {
     display: flex;
     justify-content: space-between;
-    min-width: 80%;
-    max-width: 80%;
+    min-width: 100%;
+    max-width: 100%;
+    margin-bottom: 30px;
 }
 
 #bigcard-header {
@@ -651,20 +715,29 @@ section {
     margin-bottom: 10px;
 }
 
-#options-container {
+.options-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 50%;
 }
 
 .optionsContainerOption {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     margin-top: 10px;
+    width: 85%;
+    font-size: 30px;
+    color: white;
+    background-color: #43556e;
+    border-radius: 10px;
 }
 
 .optionsContainerOption:hover {
-    background-color: #f6f7f8;
+    background-color: #4f658194;
     border-radius: 10px;
 }
 
@@ -716,7 +789,7 @@ section {
     border-radius: 10px;
     border: 1px solid var(--Style, #d1d1d1);
     background: #fff;
-    width: 100%;
+    width: 97%;
     margin-top: 8px;
 }
 
@@ -731,7 +804,7 @@ section {
     border: 1px solid var(--Style, #d1d1d1);
     background: rgb(255, 255, 255);
     resize: none;
-    width: 100%;
+    width: 97%;
 }
 
 #taskEditorModal input[type="date"] {
@@ -784,7 +857,7 @@ section {
 #editDescription,
 #editDueDate {
     box-sizing: border-box;
-    width: 100%;
+    width: 97%;
     /* Ensure full-width */
     margin: 8px 0;
     /* Example margin */
@@ -842,7 +915,7 @@ section {
     border-radius: 10px;
     background: var(--white, #fff);
     box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
-    width: 100%;
+    width: 97%;
 }
 
 #editInputDropdown {
@@ -853,7 +926,7 @@ section {
     border-radius: 10px;
     border: 1px solid var(--Style, #d1d1d1);
     background: var(--white, #fff);
-    width: 100%;
+    width: 92%;
 }
 
 .dimmed-background {
@@ -866,7 +939,6 @@ section {
     z-index: 1;
     display: none;
 }
-
 
 .input-dropdown-edit {
     display: flex;
@@ -892,7 +964,9 @@ section {
     display: flex;
     align-items: start;
     width: 100%;
-    margin-bottom: 24px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 8px;
     background-color: #fefefe !important;
 }
 
@@ -919,7 +993,7 @@ section {
     border-radius: 10px;
     background: var(--white, #fff);
     box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
-    width: 100%;
+    width: 97%;
 }
 
 #editSubtaskInputWrap {
@@ -930,7 +1004,7 @@ section {
     border-radius: 10px;
     border: 1px solid var(--Style, #d1d1d1);
     background: var(--white, #fff);
-    width: 100%;
+    width: 92%;
     margin-bottom: 8px;
 }
 
@@ -978,11 +1052,17 @@ section {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
-    width: 100%;
+    width: 96%;
+    margin-left: 8px;
 }
+
+/* #editSubtaskList::-webkit-scrollbar-track {
+    border-radius: 12px;
+} */
 
 #editSubtaskList button {
     cursor: pointer;
+    margin-right: 4px;
 }
 
 #editSubtaskList button:hover {
@@ -1018,6 +1098,7 @@ section {
     border: 1px solid #2a3647;
     background: #2a3647;
     color: white;
+    margin-right: 20px;
 }
 
 input[type="checkbox"] {
@@ -1066,35 +1147,12 @@ input[type="checkbox"] {
     }
 }
 
-@media (max-width: 1230px) {
-    /* .progress {
-        width: 60px;
-        margin-top: 0;
-    } */
-
-    /* .category-technical {
-        width: 80%;
-    }
-
-    .category-userstory {
-        width: 80%;
-    } */
-}
-
 @media (max-width: 985px) {
     .task-card {
         min-width: 150px !important;
         max-width: 150px !important;
         height: 200px;
     }
-
-    /* .category-technical {
-        width: 80px;
-    }
-
-    .category-userstory {
-        width: 80px;
-    } */
 
     #boardContainerUpperPart {
         display: flex;
@@ -1131,15 +1189,15 @@ input[type="checkbox"] {
         margin-right: 8px;
     }
 
-    .category-technical {
+    /* .category-technical {
         width: 85%;
         font-size: smaller;
-    }
+    } */
 
-    .category-userstory {
+    /* .category-userstory {
         width: 85%;
         font-size: smaller;
-    }
+    } */
 
     .progress {
         margin-top: 0 !important;
@@ -1161,20 +1219,20 @@ input[type="checkbox"] {
         flex-direction: row;
     }
 
-    #allTaskInformation {
+    /* #allTaskInformation {
         width: 70%;
         height: 50%;
-    }
+    } */
 
-    #taskEditorModal {
+    /* #taskEditorModal {
         width: 70%;
         height: 50%;
-    }
+    } */
 
-    #moveOption {
+    /* #moveOption {
         width: 70%;
         height: 50%;
-    }
+    } */
 
     .contentContainer {
         padding: 0;
@@ -1192,7 +1250,7 @@ input[type="checkbox"] {
         margin-bottom: 16px;
     }
 
-    #sidebarMainContainer{
+    #sidebarMainContainer {
         z-index: +100;
     }
 

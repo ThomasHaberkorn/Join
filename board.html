@@ -84,109 +84,118 @@
             </div>
         </div>
     </div>
-    <div id="allTaskInformation">
-        <div id="allTaskInformationInner">
-            <div class="display-flex space-between">
-                <div id="allTaskInformationCategory"></div>
-                <button id="allTaskInformationButton" onclick="closeAllTaskInformation()">X</button>
-            </div>
-            <div id="allTaskInformationTitle"></div>
-            <div id="allTaskInformationDescription"></div>
-            <div id="modalDate">
-                <div id="modalDateDueDate">Due Date:</div>
-                <div id="allTaskInformationDueDate"></div>
-            </div>
-            <div id="modalPriority">
-                <div id="modalPriorityText">Priority:</div>
-                <div id="allTaskInformationPriority"></div>
-            </div>
-            <div id="modalAssignedTo">Assigned To: <br></div>
-            <div id="allTaskInformationAssignedTo"></div>
-            <div id="modalSubtasks"> Subtasks <br> </div>
-            <div id="allTaskInformationSubtasks"></div>
-            <div class="allTaskInformationLowerButtons">
-                <button class="cursorPointer allTaskInformationLowerButton" id="deleteTaskButton"
-                    onclick="deleteTask()">Delete</button>
-                <button class="cursorPointer allTaskInformationLowerButton" id="editTaskButton">Edit</button>
-                <button class="cursorPointer allTaskInformationLowerButton" id="moveTaskButton">Move</button>
+
+    <div id="allTaskInformation" onclick="closeAllTaskInformation()">
+        <div class="alltaskContent" onclick="event.stopPropagation()">
+            <div id="allTaskInformationInner">
+                <div class="display-flex space-between">
+                    <div id="allTaskInformationCategory"></div>
+                    <button id="allTaskInformationButton" onclick="closeAllTaskInformation()"><img
+                            src="/assets/img/Close.png"> </button>
+                </div>
+                <div id="allTaskInformationTitle"></div>
+                <div id="allTaskInformationDescription"></div>
+                <div id="modalDate">
+                    <div id="modalDateDueDate">Due Date:</div>
+                    <div id="allTaskInformationDueDate"></div>
+                </div>
+                <div id="modalPriority">
+                    <div id="modalPriorityText">Priority:</div>
+                    <div id="allTaskInformationPriority"></div>
+                </div>
+                <div id="modalAssignedTo">Assigned To: <br></div>
+                <div id="allTaskInformationAssignedTo"></div>
+                <div id="modalSubtasks"> Subtasks <br> </div>
+                <div id="allTaskInformationSubtasks"></div>
+                <div class="allTaskInformationLowerButtons">
+                    <button class="cursorPointer allTaskInformationLowerButton" id="deleteTaskButton"
+                        onclick="deleteTask()">Delete</button>
+                    <button class="cursorPointer allTaskInformationLowerButton" id="editTaskButton">Edit</button>
+                    <button class="cursorPointer allTaskInformationLowerButton" id="moveTaskButton">Move</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="taskEditorModal">
-        <div class="display-flex space-between">
-            <div id="taskEditorCategory"></div>
-            <button class="cursorPointer" onclick="closeEditor()">X</button>
-        </div>
-        <div id="taskEditorModalTitle">
-            <div id="editModalTitleDiv">
-                <p>Title</p>
-                <input id="editTitle" type="text" placeholder="Title">
-            </div>
-        </div>
-        <div id="taskEditorModalDescription">
-            <div id="taskEditorModalDescriptionDiv">
-                <p>Description</p>
-                <textarea id="editDescription" placeholder="Description"></textarea>
-            </div>
-        </div>
-        <div id="modalEditDueDate">
-            <p>Due date</p>
-            <input class="cursorPointer" id="editDueDate" type="date" placeholder="Due Date">
-        </div>
-
-        <div id="modalPrioOverall">
-            <p>Prio</p>
-            <input type="hidden" id="editPriority" value="">
-            <div id="modalEditPrioButtons" class="prio-selection">
-                <button type="button" class="btn-select edit-prio" data-prio="Urgent">
-                    <p>Urgent</p><img src="./assets/img/addTask/Prio alta.png">
-                </button>
-                <button type="button" class="btn-select edit-prio" data-prio="Medium">
-                    <p>Medium</p><img src="./assets/img/addTask/Prio media.png">
-                </button>
-                <button type="button" class="btn-select edit-prio" data-prio="Low">
-                    <p>Low</p><img src="./assets/img/addTask/Capa 2 (4).png">
-                </button>
-            </div>
-        </div>
-
-        <div id="modalEditAssignedTo">
-            <p>Assigned To</p>
-            <div id="editContainerInputDropdown">
-                <div id="editInputDropdown">
-                    <div class="contact-dropdown-edit">
-                        <div class="input-dropdown-edit">
-                            <input id="inputDropdownEdit" type="text" placeholder="Select contacts to assign" readonly>
-                            <img id="openDropdownEdit" src="./assets/img/addTask/arrow_drop_downaa.png" alt=""
-                                onclick="toggleDropdownEdit()">
-                        </div>
-                        <div id="dropDownContactsEdit" class="dropdown-content-edit" style="display: none">
-                        </div>
+    <div id="taskEditorModal" onclick="closeEditor()">
+        <div class="taskEditorModalContent" onclick="event.stopPropagation()">
+            <div class="taskEditorScrollbarContainer">
+                <div class="display-flex space-between">
+                    <div id="taskEditorCategory"></div>
+                    <button class="cursorPointer" onclick="closeEditor()"><img src="/assets/img/Close.png"
+                            alt="Close Button"></button>
+                </div>
+                <div id="taskEditorModalTitle">
+                    <div id="editModalTitleDiv">
+                        <p>Title</p>
+                        <input id="editTitle" type="text" placeholder="Title">
                     </div>
                 </div>
-                <div id="editCheckedUserInitials"></div>
-            </div>
-            <div id="editModalSubtasks">
-                <p>Subtasks</p>
-                <div id="editModalSubtasksInner">
-                    <div id="editSubtaskInputWrap">
-                        <div id="subtask-dropdown-edit">
-                            <div id="subtask-input-dropdown-edit">
-                                <input id="editSubtaskInput" type="text" placeholder="Add new subtask">
-                                <button id="editSubtaskAddButton">Add</button>
+                <div id="taskEditorModalDescription">
+                    <div id="taskEditorModalDescriptionDiv">
+                        <p>Description</p>
+                        <textarea id="editDescription" placeholder="Description"></textarea>
+                    </div>
+                </div>
+                <div id="modalEditDueDate">
+                    <p>Due date</p>
+                    <input class="cursorPointer" id="editDueDate" type="date" placeholder="Due Date">
+                </div>
+
+                <div id="modalPrioOverall">
+                    <p>Prio</p>
+                    <input type="hidden" id="editPriority" value="">
+                    <div id="modalEditPrioButtons" class="prio-selection">
+                        <button type="button" class="btn-select edit-prio" data-prio="Urgent">
+                            <p>Urgent</p><img src="./assets/img/addTask/Prio alta.png">
+                        </button>
+                        <button type="button" class="btn-select edit-prio" data-prio="Medium">
+                            <p>Medium</p><img src="./assets/img/addTask/Prio media.png">
+                        </button>
+                        <button type="button" class="btn-select edit-prio" data-prio="Low">
+                            <p>Low</p><img src="./assets/img/addTask/Capa 2 (4).png">
+                        </button>
+                    </div>
+                </div>
+
+                <div id="modalEditAssignedTo">
+                    <p>Assigned To</p>
+                    <div id="editContainerInputDropdown">
+                        <div id="editInputDropdown">
+                            <div class="contact-dropdown-edit">
+                                <div class="input-dropdown-edit">
+                                    <input id="inputDropdownEdit" type="text" placeholder="Select contacts to assign"
+                                        readonly>
+                                    <img id="openDropdownEdit" src="./assets/img/addTask/arrow_drop_downaa.png" alt=""
+                                        onclick="toggleDropdownEdit()">
+                                </div>
+                                <div id="dropDownContactsEdit" class="dropdown-content-edit" style="display: none">
+                                </div>
                             </div>
                         </div>
+                        <div id="editCheckedUserInitials"></div>
                     </div>
-                    <ul id="editSubtaskList" class="subtask-list"></ul>
+                    <div id="editModalSubtasks">
+                        <p>Subtasks</p>
+                        <div id="editModalSubtasksInner">
+                            <div id="editSubtaskInputWrap">
+                                <div id="subtask-dropdown-edit">
+                                    <div id="subtask-input-dropdown-edit">
+                                        <input id="editSubtaskInput" type="text" placeholder="Add new subtask">
+                                        <button id="editSubtaskAddButton">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul id="editSubtaskList" class="subtask-list"></ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="saveEditModal">
+                    <button class="cursorPointer" id="saveEdit">OK</button>
                 </div>
             </div>
-
         </div>
-        <div id="saveEditModal">
-            <button class="cursorPointer" id="saveEdit">OK</button>
-        </div>
-
     </div>
 
     <div id="boardAddTask" style="display: none;" onclick="closeBoardAddTask()">
@@ -319,18 +328,25 @@
         </div>
     </div>
 
-    <div id="moveOption">
-        <div id="cardoptions">
-            <span id="bigcard-header">Move to</span>
-            <button id="cardOptionsCloseButton">X</button>
-        </div>
-        <div class="options-container">
-            <div class="cursorPointer optionsContainerOption" id="optionsContainerToDo" class="option-point">To Do</div>
-            <div class="cursorPointer optionsContainerOption" id="optionsContainerInProgress" class="option-point">In
-                Progress</div>
-            <div class="cursorPointer optionsContainerOption" id="optionsContainerAwaitFeedback" class="option-point">
-                Await Feedback</div>
-            <div class="cursorPointer optionsContainerOption" id="optionsContainerDone" class="option-point">Done</div>
+    <div id="moveOption" style="display: none;" onclick="moveOptionClose()">
+        <div class="moveOptionContent" onclick="event.stopPropagation()">
+            <div id="cardoptions">
+                <span id="bigcard-header">Move to</span>
+                <button id="cardOptionsCloseButton" onclick="moveOptionClose()"><img src="/assets/img/Close.png"
+                        alt="Close Button"></button>
+            </div>
+            <div class="options-container">
+                <div class="cursorPointer optionsContainerOption" id="optionsContainerToDo" class="option-point">To Do
+                </div>
+                <div class="cursorPointer optionsContainerOption" id="optionsContainerInProgress" class="option-point">
+                    In
+                    Progress</div>
+                <div class="cursorPointer optionsContainerOption" id="optionsContainerAwaitFeedback"
+                    class="option-point">
+                    Await Feedback</div>
+                <div class="cursorPointer optionsContainerOption" id="optionsContainerDone" class="option-point">Done
+                </div>
+            </div>
         </div>
     </div>
     </div>
