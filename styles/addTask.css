@@ -20,6 +20,7 @@ body {
     align-items: center;
     padding-left: 232px;
     background-color: #f6f7f8;
+    max-width: 1300px;
 }
 
 ::placeholder {
@@ -30,6 +31,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 90%;
+    max-width: 1250px;
 }
 
 .headline {
@@ -192,11 +194,10 @@ p {
     font-size: 20px;
     width: 94%;
     &::-webkit-calendar-picker-indicator {
-        position: fixed;
-        right: 5%;
+        position: relative;
+     right: -100%;
         font-size: 24px;
         color: lightgray;
-        justify-content: space-between;
     }
 }
 
@@ -438,7 +439,7 @@ form {
 .pngs {
     position: relative;
     top: -40px;
-    left: calc(85%);
+    left: 92%;
     cursor: pointer;
 }
 

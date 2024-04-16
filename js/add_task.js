@@ -338,7 +338,7 @@ document
         });
     });
 
-function toggleDropdown(event) {
+/* function toggleDropdown(event) {
     const options = document.querySelector(".dropdown-options");
     const arrow = document.querySelector(".dropdown-arrow");
     const isOpen = options.style.display === "block";
@@ -411,3 +411,4 @@ function initializeDropdown() {
 // Initialize the dropdown once the document is fully loaded
 // document.addEventListener("DOMContentLoaded", initializeDropdown);
 document.addEventListener("DOMContentLoaded", initializeDropdown);
+ */
