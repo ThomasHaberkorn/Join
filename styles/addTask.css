@@ -212,7 +212,7 @@ p {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
+    width: 98%;
 }
 
 .btn-select {
@@ -262,11 +262,12 @@ p {
     overflow-y: auto;
     max-height: 100px;
     width: 100%;
+    overflow-y: auto;
 }
 
-.subtask-list::-webkit-scrollbar {
+/* .subtask-list::-webkit-scrollbar {
     display: none;
-}
+} */
 
 .editImg {
     display: none;
@@ -278,7 +279,7 @@ li:hover .editImg {
 }
 
 .containerSelectDropDown {
-    width: 100%;
+    width: 99%;
     border: 1px solid black;
     border-radius: 10px;
 }
@@ -598,28 +599,27 @@ input:focus {
     border-radius: 50%;
 }
 
+.userInitials {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3px;
+    margin-left: 3px;
+    font-size: smaller;
+}
+
 .userName {
     width: 100%;
     padding-left: 20px;
     text-align: start;
 }
 
-@media (max-width: 1150px) and (min-width: 900px) {
-    .btn-select {
-        gap: 4px;
-        padding-left: 8px;
-        padding-right: 8px;
-    }
-
-    .btn-select p {
-        width: unset;
-        font-size: 14px;
-        width: 50px;
-    }
-
-    .btn-select img {
-        margin: 0;
-    }
+.dropdown-arrow {
+    margin-left: -21px;
 }
 
 @media (max-width: 900px) {
@@ -755,29 +755,6 @@ input:focus {
     background-color: lightgrey;
 }
 
-.subtask-list {
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #888888 transparent;
-}
-
-.subtask-list::-webkit-scrollbar {
-    width: 8px;
-}
-
-.subtask-list::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-.subtask-list::-webkit-scrollbar-thumb {
-    background-color: #888888;
-    border-radius: 4px;
-}
-
-.subtask-list::-webkit-scrollbar-thumb:hover {
-    background-color: #555555;
-}
-
 .subtask-list input[type="checkbox"] {
     display: none;
 }
@@ -793,19 +770,6 @@ input:focus {
 
 #inputDropDown {
     cursor: pointer;
-}
-
-.userInitials {
-    width: 35px;
-    height: 30px;
-    border-radius: 15px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 12px;
-    margin-left: 12px;
-    font-size: smaller;
 }
 
 .itemAndCheckbox {
