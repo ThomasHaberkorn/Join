@@ -1,11 +1,16 @@
 .headerMainContainer {
-    width: 792px;
-    height: 96px;
-    background-color: #ffffff;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    box-shadow: 0px 5px 6px -3px rgb(0, 0, 0, 0.2);
+    justify-content: space-between;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+    height: 4.9rem;
+    top: 0;
+    left: 14.5rem;
+    right: 0;
+    position: fixed;
+    z-index: 5;
+    box-sizing: initial !important;
 }
 
 .headerHeadline {
@@ -24,8 +29,12 @@
 .headerHelp {
     width: 32px;
     height: 32px;
+    cursor: pointer;
 }
 
+.headerHelpLink {
+    display: none;
+}
 .headerLogoutButton {
     width: 56px;
     height: 56px;
@@ -36,10 +45,54 @@
     align-items: center;
     margin-right: 40px;
     margin-left: 16px;
+    position: relative;
+    cursor: pointer;
 }
 
 .headerUserProfileInitials {
-    width: 30px;
+    width: 50px;
     height: 15px;
     color: #29abe2;
+    display: inline-block;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 15px;
+    text-align: center;
+}
+
+.dropdownMenu {
+    position: absolute;
+    width: 150px;
+    top: 125%;
+    left: -120px;
+    z-index: 1;
+    background-color: #2a3647;
+    border-radius: 20px 0 20px 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdownMenu a {
+    padding: 12px 25px;
+    text-decoration: none;
+    color: #cdcdcd;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+}
+
+.dropdownMenu a:hover {
+    background-color: #091931;
+    border-radius: 20px;
+}
+
+#hHPP {
+    display: block;
+}
+
+#hHLN {
+    display: block;
+}
+
+#hLogout {
+    display: block;
 }

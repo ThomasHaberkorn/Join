@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="display.css">
-    <link rel="stylesheet" href="sidebar.css">
-    <link rel="stylesheet" href="header.css">
+    <!-- <link rel="stylesheet" href="styles/style.css"> -->
+    <link rel="stylesheet" href="styles/display.css">
+    <link rel="stylesheet" href="styles/media.css">
+    <link rel="stylesheet" href="styles/sidebar.css">
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
     <script src="js/script.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/add_task.js"></script>
-    <script src="js/contacts.js"></script>
-    <script src="js/contactSection.js"></script>
+    <!-- <script src="js/storage.js"></script> -->
+    <!-- <script src="js/add_task.js"></script> -->
+    <script src="js/w3.js"></script>
+    <!-- <script src="js/contactSection.js"></script> -->
+    <!-- <script src="http://www.w3schools.com/lib/w3data.js"></script> -->
 </head>
 
 <body>
@@ -22,32 +23,34 @@
         <div class="sidebarImgContainer">
             <img src="/assets/img/join-logo-white.png" alt="Join-Logo">
         </div>
-        <div class="sibebarNavContainer">
-            <div class="sidebarSummary sidebarLinkStyle" onclick="">
+
+        <div class="sibebarNavContainer" id="sibebarNavContainer">
+            <div class="sidebarSummary sidebarLinkStyle" id="sumSidebar" onclick="linkToSummary()">
                 <img src="/assets/img/sidebarSummaryIcons.png" alt="Summary Icon">
                 <p class="sidebarSummaryText">Summary</p>
             </div>
-            <div class="sidebarAddTask sidebarLinkStyle" onclick="">
+            <div class="sidebarAddTask sidebarLinkStyle" id="addTasksum" onclick="linkToAddTask()">
                 <img src="/assets/img/sidebarAddTaskIcons.png" alt="Add Task Icon">
                 <p class="sidebarAddTask">Add Task</p>
             </div>
-            <div class="sidebarBoard sidebarLinkStyle" onclick="">
+            <div class="sidebarBoard sidebarLinkStyle" id="boardSum" onclick="linkToBoard()">
                 <img src="/assets/img/sidebarBoardIcons.png" alt="Board Icon">
                 <p class="sidebarBoard">Board</p>
             </div>
-            <div class="sidebarContacts sidebarLinkStyle" onclick="">
+            <div class="sidebarContacts sidebarLinkStyle" id="contactSum" onclick="linkToContact()">
                 <img src="/assets/img/sidebarContactsIcons.png" alt="Contact Icon">
                 <p class="sidebarContact">Contact</p>
             </div>
 
         </div>
         <div class="sidebarFooter">
-            <div class="sidebarFooterContent">
-                <div class="sidebarFooterPrivacyPolicyContainer">
-                    <a href="" class="sidebarFooterPrivacyPolicy">Privacy Policy</a>
+            <div class="sidebarFooterContent ">
+                <div class="privacyPolicyContainer " id="privacyPolicyContainer">
+                    <div class="sidebarFooterPrivacyPolicyContainer" onclick="linkToPrivacyPolicy()">Privacy Policy
+                    </div>
                 </div>
-                <div class="sidebarFooterLegalNoticeContainer">
-                    <a href="" class="sidebarFooterLegalNotice">Legal notice</a>
+                <div class="legalNoticeContainer " id="legalNoticeContainer">
+                    <div class="sidebarFooterLegalNoticeContainer" onclick="linkToLegalNotice()">Legal notice</div>
                 </div>
             </div>
         </div>

@@ -1,0 +1,825 @@
+@media (max-width: 1450px) {
+    .allTasks {
+        width: 110%;
+    }
+    .allTasks::-webkit-scrollbar {
+        display: none;
+    }
+    .allTasksHeader {
+        width: 200px;
+        margin-bottom: 0;
+        margin-top: 20px;
+    }
+    .task-column {
+        flex-direction: row;
+        /* width: 1440px; */
+        overflow-x: scroll;
+        margin-top: 0;
+    }
+    .task-card {
+        margin-left: 8px;
+        margin-right: 8px;
+        min-width: 250px;
+        max-width: 250px;
+    }
+
+    .boardTaskContainer {
+        flex-direction: column;
+        width: 95%;
+    }
+    .boardTaskContainer::-webkit-scrollbar {
+        display: none;
+    }
+
+    ::-webkit-scrollbar {
+        height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: #f1f1f1; /* Helle graue Farbe für den Hintergrund */
+        border-radius: 12px; /* Abgerundete Ecken für das Track */
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: #888; /* Dunkelgraue Farbe für den Thumb */
+        border-radius: 10px; /* Abgerundete Ecken für den Thumb */
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #555; /* Dunklere Farbe beim Hover */
+    }
+}
+
+@media (max-width: 1300px) {
+    .btn-select {
+        gap: 4px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .btn-select p {
+        width: unset;
+        font-size: 14px;
+        width: 60px;
+    }
+
+    .btn-select img {
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 1220px) {
+    .summaryTextJoin {
+        font-size: 50px;
+        margin-left: 20px;
+        transition: 0.4s;
+    }
+    .summaryTextH2 {
+        font-size: 24px;
+    }
+    .summaryWelcomeDaytimeContainer {
+        font-size: 36px;
+    }
+    .summaryWelcomeContainer {
+        margin-left: 40px;
+    }
+    .summaryInfoContentContainer {
+        margin-left: 20px;
+        transition: 0.4s;
+    }
+}
+
+@media (max-width: 1150px) {
+    .btn-select {
+        gap: 4px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .btn-select p {
+        width: unset;
+        font-size: 14px;
+        width: 50px;
+    }
+
+    .btn-select img {
+        margin: 0;
+    }
+}
+
+@media (min-width: 1051px) {
+    .summaryWelcomeContainer {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .row3,
+    .row2,
+    .row1 {
+        height: 140px;
+    }
+    .summaryInfoContentContainer {
+        height: 500px;
+        margin-right: 20px;
+    }
+    .tasksNum {
+        margin-top: 5px;
+    }
+    .taskEditorScrollbarContainer {
+        margin-left: -20px;
+        width: 115%;
+    }
+}
+
+@media (max-width: 950px) {
+    .signinInnerContent {
+        margin-top: 190px;
+        transition: 0.4s;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .headerHeadline {
+        margin-left: 64px !important;
+        transition: 0.4s;
+    }
+
+    .tasks {
+        margin-top: 80px !important;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .summaryTextJoin {
+        font-size: 45px;
+    }
+    .summaryTextH2 {
+        font-size: 20px;
+    }
+}
+
+@media (max-height: 780px) and (min-width: 780px) {
+    .summaryMainContainer {
+        margin-top: 55px;
+    }
+    .summaryHead {
+        margin-bottom: 16px;
+    }
+    .row1,
+    .row2,
+    .row3 {
+        height: 150px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .headerHeadline {
+        display: none;
+    }
+    .headerHeadlineImage {
+        display: block !important;
+        margin-left: 16px;
+        margin-top: 5px;
+    }
+    .headerHeadlineImage img {
+        width: 32px;
+        height: 39px;
+    }
+    .summaryMainContent {
+        display: block;
+    }
+    .w3Sidebar {
+        position: absolute;
+        top: auto;
+        right: 0;
+    }
+    .sidebarMainContainer {
+        width: 100vw !important;
+        height: 80px !important;
+        display: flex;
+        position: relative !important;
+    }
+    .summaryContentContainer {
+        padding-left: 0;
+    }
+
+    .helpContentContainer {
+        padding-left: 0;
+    }
+    .headerMainContainer {
+        left: 0 !important;
+    }
+    .sidebarImgContainer {
+        display: none !important;
+    }
+    .sidebarFooter {
+        display: none !important;
+    }
+    .sibebarNavContainer {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        margin-bottom: 0 !important;
+        margin-top: 3px;
+    }
+    .sidebarLinkStyle {
+        width: auto !important;
+        flex-direction: column;
+        border-radius: 16px;
+        width: 80px !important;
+        height: 76px !important;
+        justify-content: center;
+    }
+    .sidebarLinkStyle img {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    .helpPosContainer {
+        height: 83%;
+        margin-left: 0;
+    }
+    .helpHeadline {
+        margin-top: 70px;
+    }
+
+    .helpArrowLeft {
+        padding-top: 49px;
+    }
+    .helpTextarea {
+        height: 83.3vh;
+    }
+    .headerHelpLink {
+        display: block !important;
+    }
+    .headerHelp img {
+        display: none;
+    }
+    .alltaskContent {
+        top: 47%;
+        transition: 0.3s;
+    }
+    .moveOptionContent {
+        top: 46%;
+        left: 49.5%;
+        transition: 0.3s;
+    }
+}
+
+@media (max-width: 720px) {
+    .loginMainContent {
+        height: 926px;
+    }
+    .loginInnerContent {
+        width: 396px;
+        height: 515px;
+    }
+
+    .loginHeadlineh1 {
+        margin-top: 32px;
+        font-size: 47px;
+        line-height: 56.4px;
+    }
+    .signinHeadlineh1 {
+        margin-top: 32px;
+        font-size: 47px;
+        line-height: 56.4px;
+    }
+    .signupVectorImg {
+        margin-left: -50px;
+        margin-right: 40px;
+        transition: 0.3s;
+    }
+    .loginLogo img {
+        width: 128px;
+        height: 154px;
+        transition: 0.4s;
+    }
+    .signinInnerContent {
+        width: 396px;
+        height: 595px;
+    }
+    .loginInputMail {
+        width: 350px;
+        height: 48px;
+        background-position: 300px 12px;
+    }
+    .inputPassword {
+        width: 350px;
+        height: 48px;
+        background-position: 300px 12px;
+        margin-bottom: 30px;
+    }
+    .signinInputName {
+        width: 350px;
+        height: 48px;
+        background-position: 300px 14px;
+    }
+    .signinInputMail {
+        width: 350px;
+        height: 48px;
+        background-position: 300px 12px;
+    }
+    .signinPassword {
+        width: 350px;
+        height: 48px;
+        background-position: 300px 12px;
+    }
+    .suPasswImg {
+        right: 43px;
+    }
+    .loginFooter {
+        height: 190px;
+    }
+    .loginCheckBox {
+        margin-bottom: 20px;
+    }
+    .loginSignUp {
+        position: relative;
+        width: 100%;
+        margin-top: 50px;
+        display: flex;
+    }
+    #msgBox {
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+    .summaryWelcomeContainer {
+        margin-left: 0px;
+    }
+    .passwImg {
+        right: 47px;
+    }
+}
+
+@media (max-width: 555px) {
+    .loginSingUpText {
+        width: 146px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .summaryContentContainer {
+        height: 800px;
+        padding-top: 40px;
+        transition: 0.4s;
+    }
+    .summaryHead {
+        flex-direction: column;
+        align-items: start;
+    }
+    .summaryTextH2 {
+        margin-left: 20px;
+    }
+
+    .summaryInfoContentContainer {
+        height: 500px;
+    }
+    .summaryInfoContainer {
+        width: 90vw;
+    }
+    .summaryTextJoinBoarder {
+        display: none;
+    }
+    .summaryTextJoinBoarder2 {
+        border-right: 0;
+        border-top: 3px solid #29abe2;
+        height: 3px;
+        width: 90px;
+        margin-top: 10px;
+        margin-left: 20px;
+    }
+
+    .helpContentContainer {
+        height: 800px;
+        padding-top: 40px;
+        transition: 0.4s;
+    }
+    .helpPosContainer {
+        padding-left: 40px;
+        padding-right: 40px;
+        transition: 0.4s;
+    }
+    .helpHeadline {
+        font-size: 47px;
+        margin-top: 48px;
+    }
+    .helpArrowLeft {
+        padding-top: 27px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .infoContentText1 {
+        font-size: 55px;
+        margin-bottom: -10px;
+    }
+    .infoContentText2 {
+        font-size: 20px;
+    }
+    .infoContentImg {
+        width: 60px;
+        height: 60px;
+    }
+    .summaryTodoInfoContainer {
+        gap: 30px;
+    }
+    .summaryDoneInfoContainer {
+        gap: 30px;
+    }
+    .row1,
+    .row2,
+    .row3 {
+        height: 110px;
+        gap: 25px;
+    }
+    .tasksNum {
+        margin-top: -7px;
+        margin-bottom: -13px;
+        font-size: 55px;
+    }
+    .summaryUrgentBorder {
+        height: 80px;
+    }
+    .summaryUrgentTaskCount {
+        font-size: 55px;
+        line-height: 60px;
+    }
+    .summaryUrgentTaskNextDate {
+        margin-left: 0;
+    }
+    .summaryUrgentTaskInfo {
+        margin-left: 0;
+    }
+    .summaryUrgentTaskDateContainer {
+        width: 60%;
+    }
+    .summaryUrgentTaskCount {
+        margin: 0 5px;
+    }
+}
+
+@media (max-width: 450px) {
+    .summaryUrgentTaskCount {
+        font-size: 50px;
+        line-height: 55px;
+    }
+    .summaryUrgentText {
+        font-size: 16px;
+        line-height: 19.2px;
+    }
+    .summaryUrgentTaskNextDate {
+        margin-right: 10px;
+        font-size: 18px;
+    }
+    .summaryUrgentTaskInfo {
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 430px) {
+    .loginInnerContent {
+        width: 290px;
+    }
+    .signinInnerContent {
+        width: 290px;
+    }
+    .loginInputMail {
+        width: 270px;
+        background-position: 240px 12px;
+    }
+    .inputPassword {
+        width: 270px;
+        margin-bottom: 12px;
+        background-position: 240px 12px;
+    }
+
+    .loginSignUp {
+        margin-right: 30px;
+        transition: 0.3s;
+        margin-top: 24px;
+    }
+    .signinInputName {
+        width: 270px;
+        background-position: 240px 14px;
+        margin: 10px;
+    }
+    .signinInputMail {
+        width: 270px;
+        background-position: 240px 12px;
+        margin: 10px;
+    }
+    .signinPassword {
+        width: 270px;
+        background-position: 240px 12px;
+        margin: 10px;
+    }
+    .signupVectorImg {
+        margin-left: -40px;
+        margin-right: 30px;
+        transition: 0.3s;
+    }
+    .loginButtons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .loginButton {
+        width: 180px;
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+    .guestLoginButton {
+        margin-right: 0;
+        width: 180px;
+        margin-bottom: 10px;
+    }
+
+    .loginCheckBox {
+        margin-bottom: 8px;
+    }
+    #msgBox {
+        margin-top: 8px;
+        margin-bottom: 10px;
+    }
+
+    .loginLogoPlaceholder {
+        width: 120px;
+        height: 150px;
+    }
+    .suPasswImg {
+        right: 22px;
+    }
+    .passwImg {
+        right: 26px;
+    }
+    .taskEditorScrollbarContainer {
+        margin-left: -5px;
+        width: 109%;
+    }
+    .taskEditorModalContent {
+        min-width: 260px;
+        padding: 24px;
+        transition: 0.3s;
+    }
+    #editInputDropdown {
+        width: 89%;
+    }
+    #editSubtaskInputWrap {
+        width: 89%;
+    }
+    #boardContainerUpperPartRight {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .alltaskContent {
+        width: 277px;
+        padding: 18px;
+    }
+    .allTaskInformationLowerButtons {
+        margin-top: 35px;
+    }
+    .space-between {
+        margin-top: 5px;
+    }
+    .moveOptionContent {
+        width: 260px;
+        top: 46%;
+        left: 50%;
+    }
+}
+
+@media screen and (max-width: 419px) {
+    .row1,
+    .row2,
+    .row3 {
+        height: 90px;
+        gap: 10px;
+    }
+    .infoContentText1 {
+        font-size: 45px;
+        margin-top: -15px;
+        margin-bottom: -15px;
+    }
+    .infoContentText2 {
+        font-size: 20px;
+    }
+    .infoContentImg {
+        width: 50px;
+        height: 50px;
+    }
+    .summaryTodoInfoContainer {
+        gap: 20px;
+    }
+    .summaryDoneInfoContainer {
+        gap: 20px;
+    }
+    .helpPosContainer {
+        padding-left: 16px;
+        padding-right: 16px;
+        transition: 0.4s;
+    }
+    .tasksNum {
+        margin-top: -13px;
+        margin-bottom: -18px;
+        font-size: 45px;
+    }
+    .taskDesc {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .sidebarLinkStyle img {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    .sidebarLinkStyle p {
+        font-size: 12px;
+    }
+    .loginInnerContent {
+        margin-top: 70px;
+        transition: 0.4s;
+        height: 420px;
+        transition: 0.4s;
+    }
+    .loginLogoFrame {
+        transform: scale(0.42);
+        margin-top: -20px;
+        transition: 0.4s;
+    }
+    .signinHeadlineh1 {
+        margin-top: 14px;
+        font-size: 44px;
+        line-height: 36.4px;
+        transition: 0.4s;
+    }
+    .signupVectorImg {
+        margin-top: -8px;
+        transition: 0.4s;
+    }
+    .signinCheckBox {
+        margin-top: 10px;
+        margin-bottom: 12px;
+        transition: 0.4s;
+    }
+    .signinInnerContent {
+        height: 490px;
+        margin-top: 110px;
+        transition: 0.4s;
+    }
+    .loginFooter {
+        margin-top: 10px;
+        height: 30px;
+    }
+    .loginCheckBox {
+        margin-left: 85px;
+        transition: 0.4s;
+    }
+    .summaryUrgentBorder {
+        height: 60px;
+    }
+    .summaryUrgentTaskCount {
+        line-height: 48px;
+    }
+    .summaryUrgentTaskNextDate {
+        font-size: 16px;
+    }
+    .summaryUrgentTaskInfo {
+        font-size: 14px;
+    }
+    .summaryUrgentTaskCount {
+        margin: 0 7px;
+    }
+    .summaryUrgentLogo {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media screen and (max-width: 376px) {
+    .helpContentContainer {
+        height: 650px;
+    }
+    .row1,
+    .row2,
+    .row3 {
+        height: 80px;
+        gap: 10px;
+    }
+    .summaryInfoContentContainer {
+        height: 315px;
+    }
+    .summaryContentContainer {
+        height: 550px;
+    }
+    .infoContentText1 {
+        font-size: 35px;
+        margin-top: -15px;
+        margin-bottom: -15px;
+    }
+    .infoContentText2 {
+        font-size: 12px;
+    }
+    .infoContentImg {
+        width: 40px;
+        height: 40px;
+    }
+    .summaryTodoInfoContainer {
+        gap: 10px;
+    }
+    .summaryDoneInfoContainer {
+        gap: 10px;
+    }
+    .summaryTodoInfoCounter {
+        line-height: 65.8px;
+    }
+    .summaryDoneInfoCounter {
+        line-height: 65.8px;
+    }
+
+    .tasksNum {
+        margin-top: -16px;
+        margin-bottom: -24px;
+        font-size: 30px;
+    }
+    .taskDesc {
+        font-size: 14px;
+        line-height: 16px;
+    }
+    .summaryUrgentTaskCount {
+        font-size: 35px;
+        line-height: 40px;
+    }
+    .summaryUrgentText {
+        font-size: 14px;
+        line-height: 16px;
+    }
+    .summaryUrgentLogo {
+        width: 40px;
+        height: 40px;
+    }
+    .summaryUrgentTaskNextDate {
+        font-size: 14px;
+    }
+    .summaryUrgentTaskInfo {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 335px) {
+    .signupVectorImg {
+        margin-left: -20px;
+        margin-right: 15px;
+        transition: 0.3s;
+    }
+    .loginInputMail {
+        margin: 16px 8px 16px 8px;
+    }
+    .inputPassword {
+        margin: 16px 8px 14px 8px;
+    }
+    .summaryUrgentTaskNextDate {
+        font-size: 13px;
+    }
+    .summaryUrgentTaskInfo {
+        font-size: 11px;
+    }
+    .passwImg {
+        right: 18px;
+    }
+    #boardAddTaskButton {
+        padding: 8px 12px;
+    }
+    #boardSearchbar {
+        width: 145px;
+    }
+}
+
+@media (max-height: 870px) {
+    .summaryHead {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-height: 820px) {
+    .summaryHead {
+        margin-bottom: 20px;
+    }
+    .summaryContentContainer {
+        padding-top: 30px;
+    }
+}
+
+@media (max-height: 750px) {
+    .loginHeadLogo {
+        scale: 0.7;
+    }
+    .summaryHead {
+        margin-bottom: 50px;
+    }
+}
+
+@media (max-height: 670px) and (max-width: 380px) {
+    .loginInnerContent {
+        margin-top: 110px;
+    }
+    .loginHeadlineh1 {
+        margin-top: 12px;
+    }
+}

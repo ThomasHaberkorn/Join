@@ -1,7 +1,13 @@
+.bgfocus {
+    background-color: #091931;
+    pointer-events: none;
+}
+
 .sidebarMainContainer {
     width: 232px;
-    height: 1024px;
+    height: 100vh;
     background-color: #2a3647;
+    position: fixed;
 }
 
 .sibebarNavContainer {
@@ -26,13 +32,11 @@
     display: flex;
     align-items: center;
     margin-bottom: 16px;
+    cursor: pointer;
 }
 
 .sidebarLinkStyle:hover {
     background-color: #2a3e59;
-}
-.sidebarLinkStyle:active {
-    background-color: #091931;
 }
 
 .sidebarLinkStyle p:active {
@@ -56,10 +60,10 @@
 
 .sidebarFooter {
     width: 232px;
-    height: 317px;
-    padding-top: 243px;
-    display: flex;
-    justify-content: center;
+    bottom: 64px;
+    position: fixed;
+    bottom: 64px;
+    position: fixed;
 }
 
 .sidebarFooterContent {
@@ -67,25 +71,25 @@
     display: flex;
     flex-direction: column;
 }
-.sidebarFooter a {
-    color: #cdcdcd;
-    text-decoration: none;
-    margin-left: 60px;
-}
 
-.sidebarFooter a:hover {
+.sidebarFooterPrivacyPolicyContainer:hover,
+.sidebarFooterLegalNoticeContainer:hover {
     color: #29abe2;
 }
 
 .sidebarFooterPrivacyPolicyContainer,
 .sidebarFooterLegalNoticeContainer {
-    width: 232px;
     height: 35px;
     display: flex;
     align-items: center;
+    color: #cdcdcd;
+    padding-left: 60px;
+    cursor: pointer;
 }
 
-.sidebarFooterPrivacyPolicyContainer:active,
-.sidebarFooterLegalNoticeContainer:active {
-    background-color: #091931;
+#sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
 }

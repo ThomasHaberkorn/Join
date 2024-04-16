@@ -1,0 +1,863 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+}
+
+.addTaskContentContainer {
+    height: 100dvh;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 232px;
+    background-color: #f6f7f8;
+}
+
+::placeholder {
+    font-family: "Inter", sans-serif;
+}
+
+.tasks {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.headline {
+    font-size: 61px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+}
+
+.headline h2 {
+    font-size: 63px;
+    margin-top: 30px;
+    line-height: 73.2px;
+    font-weight: 700;
+    /* margin: 0;
+    margin-top: 15px;*/
+    margin-bottom: 20px;
+}
+
+.position-left-right {
+    display: flex;
+    width: 100%;
+    height: 70%;
+    justify-content: space-evenly;
+}
+
+.left-selection {
+    display: flex;
+    gap: 40px;
+    width: 100%;
+    flex-direction: column;
+}
+
+::placeholder {
+    color: var(--Style, #d1d1d1);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+p {
+    margin: 0;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.title input {
+    display: flex;
+    padding: 12px 21px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px solid var(--Style, #d1d1d1);
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.description textarea {
+    display: flex;
+    height: 118px;
+    padding: 16px;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px solid var(--Style, #d1d1d1);
+    background: rgb(255, 255, 255);
+    resize: none;
+}
+
+.contact {
+    display: flex;
+    height: 80px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.contact label {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.contact select {
+    display: flex;
+    padding: 12px 16px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    border: transparent;
+    background: var(--white, #fff);
+}
+
+.contact select:focus {
+    outline: none;
+}
+
+.checkBox {
+    pointer-events: none;
+}
+
+.checked {
+    background-color: rgb(42, 54, 71);
+    color: white;
+}
+
+.middle-line {
+    width: 0px;
+    color: lightgrey;
+    border: 1px solid;
+    margin: 0px 20px 0px 20px;
+}
+
+.right-selection {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+    width: 100%;
+}
+
+.date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.date input {
+    display: flex;
+    padding: 12px 16px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px solid var(--Style, #d1d1d1);
+    background: #fff;
+}
+
+.prio {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.prio-selection {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 98%;
+}
+
+.btn-select {
+    display: flex;
+    padding: 16px 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    border-radius: 10px;
+    border-color: white;
+    background: var(--white, #fff);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.btn-select p {
+    width: 72px;
+}
+
+.btn-select img {
+    margin-left: 3px;
+}
+
+.placeholder-chance {
+    color: var(--Style, #d1d1d1);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.subtask {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+}
+
+.subtask-list {
+    padding-left: 0;
+    margin: 0;
+    overflow-y: auto;
+    max-height: 100px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+/* .subtask-list::-webkit-scrollbar {
+    display: none;
+} */
+
+.editImg {
+    display: none;
+}
+
+li:hover .deleteImg,
+li:hover .editImg {
+    display: inline;
+}
+
+.containerSelectDropDown {
+    width: 99%;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+/* --------------------------------------------------------------------------*/
+
+.dropdown {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+.dropdown-selected {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.dropdown-options {
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 44px;
+    border-radius: 0 0 10px 10px;
+}
+
+.dropdown-option {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.dropdown-option:hover {
+    background-color: #f1f1f1;
+}
+
+/* ================================================================= */
+
+#category {
+    width: 100%;
+    font-size: 20px;
+    -webkit-appearance: none; /* Für Chrome und Safari */
+    -moz-appearance: none; /* Für Firefox */
+    appearance: none; /* Standard */
+    background: url("/assets/img/custom-arrow.png") 97% center no-repeat !important;
+    background-size: 8px 8px; /* Passende Größe des Pfeils */
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+option {
+    font-size: 25px;
+    line-height: 35px;
+    padding: 5px 0;
+}
+/* .categoryOption {
+    padding: 10px;
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+} */
+
+.success {
+    display: flex;
+    height: 74px;
+    padding: 0px 25px;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background: var(--Version-2-main-color, #2a3647);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    bottom: 100vh;
+    /* Startposition unten außerhalb des sichtbaren Bereichs */
+    left: 50%;
+    /* Zentrieren horizontal */
+    transform: translateX(-50%);
+    /* Zentrieren horizontal */
+    transition: bottom 0.5s ease, background-color 0.5s ease;
+    /* Animationseffekte hinzufügen */
+}
+
+.hidden {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    gap: 12px;
+}
+
+.button-position {
+    overflow-y: hidden;
+    cursor: pointer;
+}
+
+.red {
+    border-radius: 10px;
+    background: #ff3d00;
+    color: white;
+}
+
+.red img {
+    filter: brightness(4);
+}
+
+.yellow img {
+    filter: brightness(4);
+}
+
+.green {
+    border-radius: 10px;
+    background: #7ae229;
+    color: white;
+}
+
+.green img {
+    filter: brightness(4);
+}
+
+.subtask input {
+    display: flex;
+    padding: 12px 16px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px solid var(--Style, #d1d1d1);
+    background: #fff;
+}
+
+.pngs {
+    position: relative;
+    top: -40px;
+    left: calc(85%);
+    cursor: pointer;
+}
+
+.list {
+    margin: 0;
+}
+
+.buttons-and-text {
+    bottom: 50px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.required-text {
+    display: flex;
+    align-items: center;
+}
+
+.wrong-text {
+    position: relative;
+    top: -24px;
+    left: 12px;
+    margin: 0;
+    color: #ff001f;
+    opacity: 0.7;
+}
+
+.wrong-border {
+    border-radius: 10px;
+    border: 1px solid #ff001f;
+    background: #fff;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: right 10px center;
+}
+
+.btn-position {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.btn {
+    padding: 9px;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: rgb(42, 54, 71);
+    color: white;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:hover {
+    background-color: rgb(41, 171, 226);
+    box-shadow: 0px 6px 3px lightgray;
+    color: white;
+    border: none;
+}
+
+.btn-clear {
+    padding: 12px;
+    border-radius: 10px;
+    border: solid 1px #2a3647;
+    font-size: 18px;
+    cursor: pointer;
+    color: rgb(42, 54, 71);
+    background-color: transparent;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.btn-clear:hover {
+    border-color: rgb(41, 171, 226);
+    color: rgb(41, 171, 226);
+    box-shadow: 0px 6px 3px lightgray;
+}
+
+.containerDropDown {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background: var(--white, #fff);
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+    width: 100%;
+    z-index: 999;
+}
+
+.inputDropDown {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--Style, #d1d1d1);
+    background: var(--white, #fff);
+}
+
+.inputDropDown img {
+    cursor: pointer;
+}
+
+.inputDropDown input {
+    width: 100%;
+    border: none;
+    color: var(--black, #000);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+input:focus {
+    outline: none;
+}
+
+.displayNone {
+    display: none;
+}
+
+#dropDownContacts {
+    overflow-y: scroll;
+    max-height: 140px;
+}
+
+#checkedUserInitials {
+    display: flex;
+    gap: 5px;
+}
+
+.dropDownContent {
+    display: flex;
+    padding: 7px 16px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.userInitilas {
+    height: 42px;
+    width: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--white, #fff);
+    margin-right: 8px;
+    background-color: aqua;
+    border-radius: 50%;
+}
+
+.userInitials {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3px;
+    margin-left: 3px;
+    font-size: smaller;
+}
+
+.userName {
+    width: 100%;
+    padding-left: 20px;
+    text-align: start;
+}
+
+.dropdown-arrow {
+    margin-left: -21px;
+}
+
+@media (max-width: 900px) {
+    .tasks {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        overflow-y: hidden;
+    }
+
+    .tasks h2 {
+        margin: 0;
+    }
+
+    .headline {
+        font-size: 40px;
+        margin-top: 30px;
+    }
+
+    .vertical-menu {
+        width: 100%;
+        overflow-y: auto;
+    }
+
+    .vertical-menu::-webkit-scrollbar {
+        display: none;
+    }
+
+    .position-left-right {
+        display: flex;
+        height: unset;
+        flex-direction: column;
+    }
+
+    .left-selection {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 20px;
+        gap: 20px;
+    }
+
+    #dropDownContacts {
+        max-height: 230px;
+        z-index: 999;
+        background-color: white;
+    }
+
+    .hiden-deleteimg {
+        left: 78vw;
+        top: -72px;
+    }
+
+    .right-selection {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .buttons-and-text {
+        margin-bottom: 10px;
+    }
+
+    .btn-clear {
+        display: none;
+    }
+}
+
+@media (max-width: 430px) {
+    .prio-selection {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .headline {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 750px) {
+    .addTaskContentContainer {
+        padding-left: 0;
+        overflow: auto;
+        max-height: calc(100vh - 80px);
+    }
+
+    .vertical-menu {
+        overflow-y: auto;
+    }
+}
+
+.selected-priority {
+    border: 2px solid #007bff;
+    /* Blauer Rahmen */
+    background-color: #e7f1ff;
+    /* Hellblaue Füllung */
+}
+
+.delete-subtask {
+    margin-left: 10px;
+    color: red;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+#dropDownContacts {
+    display: none;
+}
+
+.mainContainer {
+    width: 100%;
+    height: 100%;
+}
+
+.subtaskDeleteBtn {
+    background: white;
+    color: black;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+
+.subtask-list li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.subtask-list li:hover {
+    background-color: lightgrey;
+}
+
+.subtask-list input[type="checkbox"] {
+    display: none;
+}
+
+#taskDate {
+    cursor: pointer;
+}
+
+.contact-checkbox {
+    cursor: pointer;
+    margin-right: 28px;
+}
+
+#inputDropDown {
+    cursor: pointer;
+}
+
+.itemAndCheckbox {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 6px;
+    margin-top: 6px;
+    border-radius: 8px;
+}
+
+.itemAndCheckbox:hover {
+    background-color: rgb(236, 236, 236);
+}
+
+.nameWithCheckbox {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.checkedItemAndCheckbox {
+    background-color: #2a3647;
+    color: white;
+}
+
+.checkedItemAndCheckbox:hover {
+    background-color: #2a3647;
+}
+
+.priority-urgent-selected {
+    background-color: #ff3d00;
+    color: white;
+}
+
+.priority-medium-selected {
+    background-color: #ffa800;
+    color: white;
+}
+
+.priority-low-selected {
+    background-color: #7ae229;
+    color: white;
+}
+
+.pngs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subtaskEditBtn,
+.subtaskDeleteBtn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.subtaskEditBtn img,
+.subtaskDeleteBtn img {
+    width: 20px;
+    height: 20px;
+}
+
+input[type="text"][disabled] {
+    background: transparent;
+    border: none;
+    color: black;
+}
+
+.subtask-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.subtask-list li input[type="text"] {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.subtask-list li button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.subtask-list li img {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.custom-checkbox img {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.nameWithCheckbox label {
+    cursor: pointer;
+}

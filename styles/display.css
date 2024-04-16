@@ -2,13 +2,22 @@
     display: none;
 }
 
-.dispflex {
+.d-noneIMP {
+    display: none !important;
+}
+
+.d-flex {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.dispflexFD {
+.d-SpAroundCe {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.d-flDirCol {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -18,5 +27,11 @@
 .dispflexSpaBe {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.d-ColCe {
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }

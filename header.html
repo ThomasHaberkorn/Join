@@ -5,25 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="display.css">
-    <link rel="stylesheet" href="sidebar.css">
-    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="styles/display.css">
+    <link rel="stylesheet" href="styles/media.css">
+    <link rel="stylesheet" href="styles/header.css">
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
     <script src="js/script.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/add_task.js"></script>
-    <script src="js/contacts.js"></script>
-    <script src="js/contactSection.js"></script>
+    <script src="js/w3.js"></script>
 </head>
 
 <body>
     <div class="headerMainContainer">
+        <div class="headerHeadlineImage d-none">
+            <img src="assets/img/joinIconklein.png" alt="" class="headerHeadlineImg">
+        </div>
         <div class="headerHeadline">Kanban Project Management Tool</div>
         <div class="headerInfoContainer">
-            <div class="headerHelp"><img src="assets/img/help.png" alt="to Help Page" onclick=""></div>
-            <div class="headerLogoutButton" id="headerLogoutButton">
+            <div class="headerHelp"><img src="assets/img/help.png" alt="to Help Page" onclick="linkToHelp()"></div>
+            <div class="headerLogoutButton" id="headerLogoutButton" onmouseover="showMenu()" onmouseleave="hideMenu()">
                 <div class="headerUserProfileInitials" id="headerUserProfileInitials"></div>
+                <div class="dropdownMenu d-none" id="dropdownMenu" onmouseleave="hideMenu()">
+                    <a href="#" class="headerHelpLink" id="headerHelpLink">Help</a>
+                    <a href="#" id="hHPP" onclick="linkToPrivacyPolicy()">Privacy Policy</a>
+                    <a href="#" id="hHLN" onclick="linkToLegalNotice()">Legal Notice</a>
+                    <a href="#" id="hLogout" onclick="logout()">Logout</a>
+                </div>
             </div>
         </div>
     </div>
