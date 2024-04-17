@@ -275,7 +275,8 @@
     width: 24px;
     height: 24px;
     margin-right: 8px;
-    background-image: url("../assets/img/edit.png");
+    margin-bottom: 4px;
+    background-image: url("../assets/img/edit1.png");
     background-repeat: no-repeat;
 }
 
@@ -290,19 +291,20 @@
 
 .contactEdit:hover {
     color: #29abe2;
-    /* .existContactEdit {
-        background-image: url("../assets/img/edit-blue.png");
-    } */
+    .existContactEdit {
+        background-image: url("../assets/img/edit-blue1.png");
+    }
 }
 
 .existContactEdit:hover {
-    background-image: url("../assets/img/edit-blue.png");
+    background-image: url("../assets/img/edit-blue1.png");
 }
 
 .existContactDelete {
     width: 24px;
     height: 24px;
     margin-right: 8px;
+    margin-bottom: 4px;
     background-image: url("../assets/img/delete.png");
     background-repeat: no-repeat;
 }
@@ -1155,7 +1157,8 @@ input:focus {
     }
 
     .contactEditVisible {
-        height: 800px;
+        max-height: 800px;
+        height: 100%;
         max-width: 396px;
         width: 100%;
         display: flex;
@@ -1166,7 +1169,8 @@ input:focus {
     }
 
     .contactAddVisible {
-        height: 800px;
+        max-height: 800px;
+        height: 100%;
         max-width: 396px;
         width: 100%;
         display: flex;
