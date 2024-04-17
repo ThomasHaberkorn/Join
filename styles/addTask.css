@@ -12,7 +12,7 @@ body {
     font-family: "Inter", sans-serif;
 }
 
-.addTaskContentContainer {
+/* .addTaskContentContainer {
     height: 100dvh;
     bottom: 0;
     display: flex;
@@ -20,6 +20,21 @@ body {
     align-items: center;
     padding-left: 232px;
     background-color: #f6f7f8;
+    max-width: 1000px;
+} */
+
+.addTaskContentContainer {
+    height: 89dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f6f7f8;
+    position: fixed;
+    left: 232px;
+    top: 78px;
+    /* bottom: 0; */
+    width: 100%;
+    max-width: 977px;
 }
 
 ::placeholder {
@@ -497,7 +512,7 @@ form {
     cursor: pointer;
     color: rgb(42, 54, 71);
     background-color: transparent;
-    height: 5vh;
+    /* height: 5vh; */
     display: flex;
     justify-content: center;
     align-items: center;
