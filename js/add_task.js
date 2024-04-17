@@ -331,9 +331,9 @@ document
         checkbox.addEventListener("change", function () {
             const imgElement = this.nextElementSibling; // Nimm das nächste Element (das img-Tag)
             if (this.checked) {
-                imgElement.src = "assets/img/checkboxChecked.png";
+                imgElement.src = "./assets/img/checkboxChecked.png";
             } else {
-                imgElement.src = "assets/img/checkbox.png";
+                imgElement.src = "./assets/img/checkbox.png";
             }
         });
     });
@@ -345,8 +345,8 @@ function toggleDropdown(event) {
 
     options.style.display = isOpen ? "none" : "block";
     arrow.src = isOpen
-        ? "/assets/img/custom-arrow.png"
-        : "/assets/img/custom-arrow-up.png";
+        ? "./assets/img/custom-arrow.png"
+        : "./assets/img/custom-arrow-up.png";
 
     // Stoppt die Propagation des Events, um Doppeltrigger zu verhindern
     event.stopPropagation();
@@ -360,7 +360,7 @@ function selectOption(event) {
     document.querySelector(".dropdown-selected").textContent = selectedText;
     document.querySelector(".dropdown-options").style.display = "none";
     document.getElementById("category").value = selectedValue;
-    arrow.src = "/assets/img/custom-arrow.png";
+    arrow.src = "./assets/img/custom-arrow.png";
 }
 
 function setupDropdownListeners() {
@@ -381,7 +381,7 @@ function setupDropdownListeners() {
         const arrow = document.querySelector(".dropdown-arrow");
         if (options.style.display === "block") {
             options.style.display = "none";
-            arrow.src = "/assets/img/custom-arrow.png";
+            arrow.src = "./assets/img/custom-arrow.png";
         }
     });
 }
