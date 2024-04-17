@@ -411,3 +411,8 @@ function initializeDropdown() {
 // Initialize the dropdown once the document is fully loaded
 // document.addEventListener("DOMContentLoaded", initializeDropdown);
 document.addEventListener("DOMContentLoaded", initializeDropdown);
+
+function closeDropdown() {
+    fillDropdownList();
+    document.getElementById("dropDownContacts").style.display = "none";
+}

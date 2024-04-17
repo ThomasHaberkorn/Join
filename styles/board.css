@@ -1255,13 +1255,13 @@ input[type="checkbox"] {
         z-index: +100;
     }
 
-    .boardTaskContainer {
+    /* .boardTaskContainer {
         display: flex;
         flex-direction: column;
         overflow: auto;
         height: 60vh;
         width: 100%;
-    }
+    } */
 
     .allTasks {
         width: 100vw;
