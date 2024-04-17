@@ -24,6 +24,7 @@
     }
 
     .boardTaskContainer {
+        display: block;
         flex-direction: column;
         width: 95%;
     }
@@ -86,6 +87,36 @@
     }
 }
 
+@media (max-width: 1180px) {
+    .position-left-right {
+        flex-direction: column;
+    }
+    .middle-line {
+        display: none;
+    }
+    .addTaskContentContainer {
+        overflow-y: auto;
+        justify-content: start;
+        width: 83%;
+    }
+    .addTaskContentContainer::-webkit-scrollbar {
+        display: none;
+    }
+    .left-selection {
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+    .right-selection {
+        gap: 20px;
+    }
+    .pngs {
+        left: calc(95%);
+    }
+    .contact {
+        margin-bottom: 30px;
+    }
+}
+
 @media (max-width: 1150px) {
     .btn-select {
         gap: 4px;
@@ -101,6 +132,9 @@
 
     .btn-select img {
         margin: 0;
+    }
+    .addTaskContentContainer {
+        width: 79%;
     }
 }
 
@@ -134,6 +168,12 @@
         margin-top: 190px;
         transition: 0.4s;
     }
+    .addTaskContentContainer {
+        width: 75%;
+    }
+    .pngs {
+        left: calc(93%);
+    }
 }
 
 @media screen and (max-width: 900px) {
@@ -141,9 +181,8 @@
         margin-left: 64px !important;
         transition: 0.4s;
     }
-
-    .tasks {
-        margin-top: 80px !important;
+    .addTaskContentContainer {
+        width: 73%;
     }
 }
 
@@ -153,6 +192,9 @@
     }
     .summaryTextH2 {
         font-size: 20px;
+    }
+    .addTaskContentContainer {
+        width: 71%;
     }
 }
 
@@ -260,6 +302,15 @@
         top: 46%;
         left: 49.5%;
         transition: 0.3s;
+    }
+    .addTaskContentContainer {
+        top: 50px;
+        left: 0;
+        width: 100%;
+        height: 89%;
+    }
+    .middle-line {
+        display: none;
     }
 }
 
@@ -403,6 +454,9 @@
     }
     .helpArrowLeft {
         padding-top: 27px;
+    }
+    .pngs {
+        left: calc(91%);
     }
 }
 
@@ -789,11 +843,26 @@
     #boardSearchbar {
         width: 145px;
     }
+    .pngs {
+        left: calc(89%);
+    }
+}
+
+@media (max-height: 930px) {
+    .summaryHead {
+        margin-bottom: 20px;
+    }
+    .addTaskContentContainer {
+        height: 85%;
+    }
 }
 
 @media (max-height: 870px) {
     .summaryHead {
         margin-bottom: 20px;
+    }
+    .addTaskContentContainer {
+        height: 83%;
     }
 }
 
@@ -815,6 +884,9 @@
 @media (max-height: 770px) {
     .contactEditCloseResponse {
         top: 3.5rem;
+    }
+    .addTaskContentContainer {
+        height: 81%;
     }
 }
 
@@ -845,11 +917,12 @@
     .right-selection {
         gap: 30px;
     }
-    .addTaskContentContainer {
-        margin-top: 15px;
-    }
+
     form {
         gap: 0;
+    }
+    .middle-line {
+        height: 400px;
     }
 }
 
@@ -859,6 +932,9 @@
     }
     .right-selection {
         gap: 20px;
+    }
+    .middle-line {
+        height: 380px;
     }
 }
 
@@ -883,6 +959,9 @@
     }
     .right-selection {
         gap: 10px;
+    }
+    .middle-line {
+        height: 360px;
     }
 }
 

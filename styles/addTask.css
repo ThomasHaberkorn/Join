@@ -24,7 +24,7 @@ body {
 } */
 
 .addTaskContentContainer {
-    height: 89dvh;
+    height: 89%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -176,6 +176,7 @@ p {
     color: lightgrey;
     border: 1px solid;
     margin: 0px 20px 0px 20px;
+    height: 420px;
 }
 
 .right-selection {
@@ -434,13 +435,6 @@ form {
     background: #fff;
 }
 
-.pngs {
-    position: relative;
-    top: -40px;
-    left: calc(85%);
-    cursor: pointer;
-}
-
 .list {
     margin: 0;
 }
@@ -567,8 +561,12 @@ input:focus {
 }
 
 #dropDownContacts {
+    display: none;
     overflow-y: scroll;
     max-height: 140px;
+}
+#dropDownContacts::-webkit-scrollbar {
+    width: 6px;
 }
 
 #checkedUserInitials {
@@ -621,7 +619,7 @@ input:focus {
 }
 
 @media (max-width: 900px) {
-    .tasks {
+    /* .tasks {
         display: flex;
         flex-direction: column;
         width: 90%;
@@ -640,13 +638,9 @@ input:focus {
     .vertical-menu {
         width: 100%;
         overflow-y: auto;
-    }
+    } */
 
-    .vertical-menu::-webkit-scrollbar {
-        display: none;
-    }
-
-    .position-left-right {
+    /* .position-left-right {
         display: flex;
         height: unset;
         flex-direction: column;
@@ -658,26 +652,26 @@ input:focus {
         justify-content: space-between;
         margin-top: 20px;
         gap: 20px;
-    }
+    } */
 
-    #dropDownContacts {
+    /* #dropDownContacts {
         max-height: 230px;
         z-index: 999;
         background-color: white;
-    }
+    } */
 
     .hiden-deleteimg {
         left: 78vw;
         top: -72px;
     }
 
-    .right-selection {
+    /* .right-selection {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         gap: 20px;
         margin-top: 20px;
-    }
+    } */
 
     .buttons-and-text {
         margin-bottom: 10px;
@@ -724,10 +718,6 @@ input:focus {
     border: none;
     background: none;
     cursor: pointer;
-}
-
-#dropDownContacts {
-    display: none;
 }
 
 .mainContainer {
@@ -813,10 +803,17 @@ input:focus {
     color: white;
 }
 
-.pngs {
+/* .pngs {
     display: flex;
     justify-content: center;
     align-items: center;
+} */
+
+.pngs {
+    position: relative;
+    top: -40px;
+    left: calc(91%);
+    cursor: pointer;
 }
 
 .subtaskEditBtn,
@@ -875,4 +872,5 @@ input[type="text"][disabled] {
 
 .nameWithCheckbox label {
     cursor: pointer;
+    width: 100%;
 }
