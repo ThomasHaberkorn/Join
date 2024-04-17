@@ -41,7 +41,7 @@ async function renderContactList() {
     let uniqueFirstLetters = new Set();
     sortContacts();
     for (i = 0; i < contacts.length; i++) {
-        let firstLetter = contacts[i]["name"].charAt(0);
+        let firstLetter = contacts[i]["name"].charAt(0).toUpperCase();
         if (!uniqueFirstLetters.has(firstLetter)) {
             uniqueFirstLetters.add(firstLetter);
             list.innerHTML += `
