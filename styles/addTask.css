@@ -20,6 +20,7 @@ body {
     align-items: center;
     padding-left: 232px;
     background-color: #f6f7f8;
+    max-width: 1000px;
 }
 
 ::placeholder {
