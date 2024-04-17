@@ -1157,7 +1157,8 @@ input:focus {
     }
 
     .contactEditVisible {
-        height: 800px;
+        max-height: 800px;
+        height: 100%;
         max-width: 396px;
         width: 100%;
         display: flex;
@@ -1168,7 +1169,8 @@ input:focus {
     }
 
     .contactAddVisible {
-        height: 800px;
+        max-height: 800px;
+        height: 100%;
         max-width: 396px;
         width: 100%;
         display: flex;
