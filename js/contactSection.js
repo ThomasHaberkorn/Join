@@ -242,7 +242,6 @@ function showContactResponsive(index) {
 /**
  * show the value of the contact from remotestoarge
  */
-
 function editContact(index) {
     let contactEdit = document.getElementById("contactEditArea");
     contactEdit.style.display = "flex";
@@ -262,7 +261,6 @@ function editContact(index) {
 /**
  * close the edit contact area
  */
-
 function closeEditContact() {
     let contactEditVisible = document.getElementById("contactEditVisible");
     contactEditVisible.classList.add("slide-out-right");
@@ -275,7 +273,6 @@ function closeEditContact() {
 /**
  * close the contact responsive view
  */
-
 function closeContactFullResponsive() {
     let contactFullResponsive = document.getElementById(
         "contactFullResponsive"
@@ -291,7 +288,6 @@ function closeContactFullResponsive() {
 /**
  * auxiliar function to hide the contact responsive view
  */
-
 function hideContactResponsive() {
     const container = document.getElementById("contactFullResponsive");
     if (container) {
@@ -306,13 +302,11 @@ function hideContactResponsive() {
 /**
  *  auxiliar addEventListener to observe the window size
  */
-
 window.addEventListener("resize", hideContactResponsive);
 
 /**
  * show the initials of the contact
  */
-
 function showContactPopupEditDelete() {
     let popupContactSmal = document.getElementById("contactPopupEditDelete");
     let popupAuxContainer = document.getElementById("popupAuxContainer");
@@ -374,8 +368,6 @@ function patchEdit(index) {
  */
 
 async function saveContacts() {
-    // let contactsJSON = JSON.stringify(contacts);
-    // localStorage.setItem("contacts", contactsJSON);
     await setItem("contacts", contacts);
 }
 
