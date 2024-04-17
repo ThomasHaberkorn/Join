@@ -47,18 +47,18 @@ function createContactCheckboxes(task) {
     });
 }
 
-function toggleDropdownEdit() {
-    const dropdownEdit = document.getElementById("dropDownContactsEdit");
+// function toggleDropdownEdit() {
+//     const dropdownEdit = document.getElementById("dropDownContactsEdit");
 
-    if (
-        dropdownEdit.style.display === "none" ||
-        dropdownEdit.style.display === ""
-    ) {
-        dropdownEdit.style.display = "block";
-    } else {
-        dropdownEdit.style.display = "none";
-    }
-}
+//     if (
+//         dropdownEdit.style.display === "none" ||
+//         dropdownEdit.style.display === ""
+//     ) {
+//         dropdownEdit.style.display = "block";
+//     } else {
+//         dropdownEdit.style.display = "none";
+//     }
+// }
 
 // function addDropdownListeners() {
 //     const dropdownEdit = document.getElementById("dropDownContactsEdit");

@@ -804,6 +804,18 @@
     .summaryContentContainer {
         padding-top: 30px;
     }
+    .signinInnerContent {
+        height: 590px;
+        margin-top: 125px;
+    }
+}
+
+@media (max-height: 800px) {
+}
+@media (max-height: 770px) {
+    .contactEditCloseResponse {
+        top: 3.5rem;
+    }
 }
 
 @media (max-height: 750px) {
@@ -811,7 +823,75 @@
         scale: 0.7;
     }
     .summaryHead {
-        margin-bottom: 50px;
+        margin-bottom: 0px;
+    }
+}
+
+@media (max-height: 720px) {
+    .row1,
+    .row2,
+    .row3 {
+        height: 130px;
+    }
+    .tasksNum {
+        margin-top: 0px;
+    }
+    .summaryInfoContentContainer {
+        height: 540px;
+    }
+    .left-selection {
+        gap: 30px;
+    }
+    .right-selection {
+        gap: 30px;
+    }
+    .addTaskContentContainer {
+        margin-top: 15px;
+    }
+    form {
+        gap: 0;
+    }
+}
+
+@media (max-height: 690px) {
+    .left-selection {
+        gap: 20px;
+    }
+    .right-selection {
+        gap: 20px;
+    }
+}
+
+@media (max-height: 680px) {
+    .contactEditCloseResponse {
+        top: 5.5rem;
+    }
+}
+
+@media (max-height: 670px) {
+    .summaryInfoContentContainer {
+        height: 500px;
+    }
+    .summaryMainContainer {
+        margin-top: 30px;
+    }
+    .sidebarImgContainer {
+        height: 250px !important;
+    }
+    .left-selection {
+        gap: 10px;
+    }
+    .right-selection {
+        gap: 10px;
+    }
+}
+
+@media (max-height: 650px) {
+    .summaryInfoContentContainer {
+        height: 460px;
+    }
+    .summaryMainContainer {
+        margin-top: 10px;
     }
 }
 
