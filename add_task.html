@@ -30,7 +30,7 @@
         </div>
         <div class="w3Header">
             <div w3-include-html="header.html"></div>
-            <form onsubmit="addTask(event)" class="addTaskContentContainer">
+            <form onsubmit="addTask(event)" class="addTaskContentContainer" onclick="closeDropdown()">
                 <div class="tasks">
                     <div class="headline">
                         <h2>Add Task</h2>
@@ -50,7 +50,7 @@
 
                                 <div class="contact">
                                     <label for="contacts">Assigned to</label>
-                                    <div class="containerDropDown">
+                                    <div class="containerDropDown" onclick=" event.stopPropagation()">
                                         <div class="inputDropDown"
                                             onclick="fillDropdownList(); loadCheckedUserInitials()">
                                             <input id="inputDropDown" type="text"
