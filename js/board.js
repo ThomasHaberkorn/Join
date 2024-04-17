@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 async function initBoard() {
     await includeW3();
-    await loadTasks();
+    await sortTasks();
     boardActive();
     showInitials();
 
@@ -21,7 +21,7 @@ const prioritySymbols = {
 
 const taskColumns = document.querySelectorAll(".task-column");
 
-async function loadTasks() {
+async function sortTasks() {
     try {
         const userLevel = sessionStorage.getItem("userLevel");
         let taskTemp = JSON.parse((await getItem("tasks")).value || "[]");
@@ -73,7 +73,10 @@ function getAssignedContactElements(assignedContactIds) {
         .join("");
 
     if (additionalContacts > 0) {
-        return contactsHtml + `<div class="boardContact additional-contacts">+${additionalContacts}</div>`;
+        return (
+            contactsHtml +
+            `<div class="boardContact additional-contacts">+${additionalContacts}</div>`
+        );
     }
 
     return contactsHtml;
