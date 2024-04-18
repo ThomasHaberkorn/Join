@@ -256,9 +256,14 @@ async function addTask(event) {
     // let category = document.getElementById("category").value;
     // let category =
     //     document.getElementsByClassName("dropdown-selected").textContent;
-    let categoryElement =
-        document.getElementsByClassName("dropdown-selected")[0]; // Zugriff auf das erste Element mit dieser Klasse
-    let category = categoryElement.textContent.trim(); // trim() entfernt unnötige Leerzeichen
+    let categoryElement = document.querySelector(".dropdown-selected");
+    let category = categoryElement.textContent.trim();
+
+    // Überprüfen, ob eine Kategorie ausgewählt wurde
+    if (!category || category === "Select task Category") {
+        alert("Bitte wählen Sie eine Kategorie aus dem Dropdown-Menü aus.");
+        return; // Beendet die Funktion, wenn keine Kategorie ausgewählt wurde
+    }
 
     let assignedContacts = [
         ...document.querySelectorAll(".contact-checkbox:checked"),
@@ -348,6 +353,8 @@ function closeBoardAddTask() {
 function openAddTaskWithStatus(status) {
     currentTaskStatus = status;
     document.getElementById("boardAddTask").style.display = "block";
+    document.getElementById('boardCheckedUserInitials').innerHTML = '';
+
 }
 
 document.addEventListener('mousedown', function(event) {
