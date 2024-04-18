@@ -1,26 +1,49 @@
+/**
+ * This file contains the implementation of the board functionality.
+ * It includes functions for initializing the board, sorting tasks, displaying tasks, and creating task cards.
+ * It also defines constants for priority symbols and selects task columns.
+ * @file FILEPATH: /c:/Users/Karim/Desktop/DA/Join/Join/js/board.js
+ */
 document.addEventListener("DOMContentLoaded", async function () {
     await loadContacts();
 });
 
+/**
+ * Initializes the board by performing various tasks.
+ * @returns {Promise<void>} A promise that resolves when the board is initialized.
+ */
 async function initBoard() {
     await includeW3();
     await sortTasks();
     boardActive();
     showInitials();
-
     updateTaskColumns();
     clearTaskColumns();
     displayTasks();
 }
 
+/**
+ * Object containing priority symbols and their corresponding image paths.
+ * @type {Object.<string, string>}
+ */
 const prioritySymbols = {
     Urgent: "./assets/img/urgentSymbol.png",
     Medium: "./assets/img/mediumSymbol.png",
     Low: "./assets/img/lowSymbol.png",
 };
 
+/**
+ * Represents a collection of task columns.
+ * @type {NodeListOf<Element>}
+ */
 const taskColumns = document.querySelectorAll(".task-column");
 
+/**
+ * Sorts the tasks based on the user level.
+ * If the user level is "user", it filters the tasks that have a userLevel of "user".
+ * If the user level is not "user", it filters the tasks that have a userLevel of "guest" or null.
+ * @returns {Promise<void>} A promise that resolves when the tasks are sorted.
+ */
 async function sortTasks() {
     try {
         const userLevel = sessionStorage.getItem("userLevel");
@@ -39,6 +62,9 @@ async function sortTasks() {
     }
 }
 
+/**
+ * Displays tasks on the board.
+ */
 function displayTasks() {
     tasks.forEach((task) => {
         if (document.getElementById(task.status)) {
@@ -49,10 +75,18 @@ function displayTasks() {
     updateTaskColumns();
 }
 
+/**
+ * Makes the boardSum element active by adding the "bgfocus" class.
+ */
 function boardActive() {
     document.getElementById("boardSum").classList.add("bgfocus");
 }
 
+/**
+ * Retrieves the HTML elements for the assigned contacts.
+ * @param {Array} assignedContactIds - The array of assigned contact IDs.
+ * @returns {string} - The HTML elements representing the assigned contacts.
+ */
 function getAssignedContactElements(assignedContactIds) {
     const maxVisibleContacts = 3;
     const additionalContacts = assignedContactIds.length - maxVisibleContacts;
@@ -82,6 +116,12 @@ function getAssignedContactElements(assignedContactIds) {
     return contactsHtml;
 }
 
+/**
+ * Returns the HTML markup for displaying assigned contacts.
+ *
+ * @param {Array} assignedContactIds - An array of contact IDs.
+ * @returns {string} - The HTML markup for displaying assigned contacts.
+ */
 function getAssignedContactDisplay(assignedContactIds) {
     return assignedContactIds
         .map((contactId) => {
@@ -101,6 +141,12 @@ function getAssignedContactDisplay(assignedContactIds) {
         .join("");
 }
 
+/**
+ * Creates HTML markup for a list of subtasks.
+ *
+ * @param {Array} subtasks - An array of subtasks.
+ * @returns {string} - The HTML markup for the subtasks.
+ */
 function createSubtasksHtml(subtasks) {
     let subtasksHtml = '<ul class="task-card-subtasks">';
     subtasks.forEach((subtask) => {
@@ -110,15 +156,33 @@ function createSubtasksHtml(subtasks) {
     return subtasksHtml;
 }
 
+/**
+ * Creates a category div based on the given task.
+ * @param {object} task - The task object.
+ * @returns {string} The HTML string representing the category div.
+ */
 function createCategoryDiv(task) {
     const {className, text} = getCategoryDetails(task.category);
     return `<div class="${className}">${text}</div>`;
 }
 
+/**
+ * Creates assigned contact elements based on the given assigned contacts.
+ *
+ * @param {Array} assignedContacts - The array of assigned contacts.
+ * @returns {Array} - The array of assigned contact elements.
+ */
 function createAssignedContactElements(assignedContacts) {
     return getAssignedContactElements(assignedContacts);
 }
 
+/**
+ * Returns the HTML representation of the priority symbol for a task.
+ *
+ * @param {object} task - The task object.
+ * @param {object} prioritySymbols - The priority symbols object.
+ * @returns {string} The HTML representation of the priority symbol.
+ */
 function getPrioritySymbolHtml(task, prioritySymbols) {
     const prioritySymbol = prioritySymbols[task.priority];
     return prioritySymbol
@@ -126,6 +190,13 @@ function getPrioritySymbolHtml(task, prioritySymbols) {
         : "";
 }
 
+/**
+ * Calculates the progress of a task based on its subtasks.
+ * @param {Object} task - The task object.
+ * @param {Array} task.subtasks - An array of subtasks.
+ * @param {boolean} task.subtasks.completed - Indicates whether the subtask is completed or not.
+ * @returns {string} - The HTML representation of the progress bar and subtask count.
+ */
 function calculateProgress(task) {
     const totalSubtasks = task.subtasks.length;
     const completedSubtasks = task.subtasks.filter(
@@ -144,6 +215,16 @@ function calculateProgress(task) {
     `;
 }
 
+/**
+ * Creates the HTML markup for a task card.
+ *
+ * @param {Object} task - The task object.
+ * @param {string} categoryDiv - The category div HTML.
+ * @param {string} progressHtml - The progress HTML.
+ * @param {string} assignedContactElements - The assigned contact elements HTML.
+ * @param {string} prioritySymbolHtml - The priority symbol HTML.
+ * @returns {string} - The HTML markup for the task card.
+ */
 function createCardHtml(
     task,
     categoryDiv,
@@ -163,12 +244,22 @@ function createCardHtml(
     `;
 }
 
+/**
+ * Sets the task information in the DOM.
+ * 
+ * @param {Object} task - The task object containing the task information.
+ */
 function setTaskInformation(task) {
     const allTaskInformation = document.getElementById("allTaskInformation");
     allTaskInformation.dataset.taskId = task.id;
     allTaskInformation.style.display = "flex";
 }
 
+/**
+ * Sets the priority information for a task.
+ *
+ * @param {object} task - The task object containing the priority information.
+ */
 function setPriorityInformation(task) {
     const prioritySymbol = prioritySymbols[task.priority];
     const prioritySymbolHtml = prioritySymbol
@@ -180,6 +271,17 @@ function setPriorityInformation(task) {
     allTaskInformationPriority.innerHTML = task.priority + prioritySymbolHtml;
 }
 
+/**
+ * Sets the task details on the UI.
+ *
+ * @param {Object} task - The task object containing the details.
+ * @param {string} task.title - The title of the task.
+ * @param {string} task.description - The description of the task.
+ * @param {string} task.taskDate - The due date of the task.
+ * @param {Array} task.assignedContacts - The contacts assigned to the task.
+ * @param {string} task.category - The category of the task.
+ * @returns {void}
+ */
 function setTaskDetails(task) {
     const allTaskInformationTitle = document.getElementById(
         "allTaskInformationTitle"
@@ -211,6 +313,17 @@ function setTaskDetails(task) {
     allTaskInformationCategory.className = className;
 }
 
+/**
+ * Sets the subtasks for a given task.
+ * 
+ * @param {Object} task - The task object.
+ * @param {string} task.id - The ID of the task.
+ * @param {Array} task.subtasks - An array of subtasks.
+ * @param {string} task.subtasks.name - The name of the subtask.
+ * @param {boolean} task.subtasks.completed - Indicates whether the subtask is completed or not.
+ * 
+ * @returns {void}
+ */
 function setSubtasks(task) {
     const allTaskInformationSubtasks = document.getElementById(
         "allTaskInformationSubtasks"
@@ -234,6 +347,10 @@ function setSubtasks(task) {
     });
 }
 
+/**
+ * Opens all task information.
+ * @param {Object} task - The task object.
+ */
 function openAllTaskInformation(task) {
     setTaskInformation(task);
     setPriorityInformation(task);
@@ -241,6 +358,13 @@ function openAllTaskInformation(task) {
     setSubtasks(task);
 }
 
+/**
+ * Creates a card element for a task.
+ * @param {Object} task - The task object.
+ * @param {string} task.id - The unique identifier for the task.
+ * @param {string} task.status - The status of the task.
+ * @returns {HTMLElement} The created card element.
+ */
 function createCardElement(task) {
     let card = document.createElement("article");
     card.className = "task-card";
@@ -250,6 +374,12 @@ function createCardElement(task) {
     return card;
 }
 
+/**
+ * Adds event listeners to a card element.
+ *
+ * @param {HTMLElement} card - The card element to attach event listeners to.
+ * @param {Task} task - The task associated with the card.
+ */
 function addEventListenersToCard(card, task) {
     card.addEventListener("dragstart", handleDragStart);
     card.addEventListener("click", function () {
@@ -257,193 +387,3 @@ function addEventListenersToCard(card, task) {
     });
 }
 
-function createTaskCard(task) {
-    let card = createCardElement(task);
-    let categoryDiv = createCategoryDiv(task);
-
-    let progressHtml =
-        task.subtasks && task.subtasks.length > 0
-            ? calculateProgress(task)
-            : "";
-
-    const assignedContactElements = createAssignedContactElements(
-        task.assignedContacts
-    );
-    const prioritySymbolHtml = getPrioritySymbolHtml(task, prioritySymbols);
-
-    card.innerHTML = createCardHtml(
-        task,
-        categoryDiv,
-        progressHtml,
-        assignedContactElements,
-        prioritySymbolHtml
-    );
-    addEventListenersToCard(card, task);
-
-    return card;
-}
-
-function updateTaskColumns() {
-    document.querySelectorAll(".task-column").forEach((column) => {
-        const hasTasks = Array.from(column.children).some((child) =>
-            child.classList.contains("task-card")
-        );
-        const hasNoTaskMessage = !!column.querySelector(".no-task-message");
-
-        if (!hasTasks && !hasNoTaskMessage) {
-            let noTaskMessage = document.createElement("div");
-            noTaskMessage.className = "no-task-message";
-            noTaskMessage.textContent = "No task available";
-            column.appendChild(noTaskMessage);
-        } else if (hasTasks && hasNoTaskMessage) {
-            let noTaskMessage = column.querySelector(".no-task-message");
-            column.removeChild(noTaskMessage);
-        }
-    });
-}
-
-function clearTaskColumns() {
-    document.querySelectorAll(".task-column").forEach((column) => {
-        column.innerHTML = "";
-    });
-}
-
-taskColumns.forEach((column) => {
-    column.addEventListener("dragover", handleDragOver);
-    column.addEventListener("drop", handleDrop);
-});
-
-function handleDragStart(e) {
-    e.dataTransfer.setData("text/plain", e.target.id);
-}
-
-function handleDragOver(e) {
-    e.preventDefault();
-}
-
-function handleDrop(e) {
-    e.preventDefault();
-    const id = e.dataTransfer.getData("text");
-    const draggableElement = document.getElementById(id);
-
-    const newStatus = e.target.closest(".task-column").id;
-    draggableElement.dataset.status = newStatus;
-
-    e.target.closest(".task-column").appendChild(draggableElement);
-    updateTaskInRemoteStorage(id, newStatus);
-    updateTaskColumns();
-}
-
-async function updateTaskInRemoteStorage(taskId, newStatus) {
-    let tasks = JSON.parse((await getItem("tasks")).value || "[]");
-    let taskIndex = tasks.findIndex((task) => task.id === taskId);
-    if (taskIndex !== -1) {
-        tasks[taskIndex].status = newStatus;
-        await setItemFromJson("tasks", tasks);
-    }
-}
-
-function removePriorityClasses(element) {
-    element.classList.remove(
-        "priority-urgent",
-        "priority-medium",
-        "priority-low"
-    );
-    document.querySelector(`.edit-prio[data-prio='Urgent'] img`).src =
-        "./assets/img/addTask/Prio alta.png";
-    document.querySelector(`.edit-prio[data-prio='Medium'] img`).src =
-        "./assets/img/addTask/Prio media.png";
-    document.querySelector(`.edit-prio[data-prio='Low'] img`).src =
-        "./assets/img/addTask/Capa 2 (4).png";
-}
-
-function addPriorityClass(element, priority) {
-    switch (priority) {
-        case "Urgent":
-            element.classList.add("priority-urgent");
-            element.querySelector("img").src =
-                "./assets/img/selectedUrgent.png";
-            break;
-        case "Medium":
-            element.classList.add("priority-medium");
-            element.querySelector("img").src =
-                "./assets/img/selectedMedium.png";
-            break;
-        case "Low":
-            element.classList.add("priority-low");
-            element.querySelector("img").src = "./assets/img/selectedLow.png";
-            break;
-    }
-}
-
-function setPriorityValue(element, priority) {
-    element.value = priority;
-}
-
-document.querySelectorAll(".edit-prio").forEach((button) => {
-    button.addEventListener("click", function () {
-        document.querySelectorAll(".edit-prio").forEach(removePriorityClasses);
-        addPriorityClass(this, this.dataset.prio);
-        setPriorityValue(
-            document.getElementById("editPriority"),
-            this.dataset.prio
-        );
-    });
-});
-
-function closeAllTaskInformation() {
-    const allTaskInformation = document.getElementById("allTaskInformation");
-    allTaskInformation.style.display = "none";
-    initBoard();
-}
-
-async function deleteTask() {
-    const allTaskInformation = document.getElementById("allTaskInformation");
-
-    const taskId = allTaskInformation.dataset.taskId;
-    let tasks = JSON.parse((await getItem("tasks")).value || "[]");
-    const taskIndex = tasks.findIndex((task) => task.id === taskId);
-
-    if (taskIndex !== -1) {
-        const taskCard = document.getElementById(tasks[taskIndex].id);
-        if (taskCard) {
-            taskCard.remove();
-            tasks.splice(taskIndex, 1);
-            await setItemFromJson("tasks", tasks);
-        }
-    }
-    closeAllTaskInformation();
-    await initBoard();
-}
-
-function getCategoryDetails(taskCategory) {
-    if (taskCategory === "Technical Task") {
-        return {
-            text: "Technical Task",
-            className: "category-technical",
-        };
-    } else if (taskCategory === "User Story") {
-        return {
-            text: "User Story",
-            className: "category-userstory",
-        };
-    } else {
-        return {
-            text: "Category not set",
-            className: "category-default",
-        };
-    }
-}
-
-function closeEditor() {
-    const editTaskInformation = document.getElementById("taskEditorModal");
-    const allTaskInformation = document.getElementById("allTaskInformation");
-    editTaskInformation.style.display = "none";
-}
-
-function setTaskEditorCategory(category) {
-    const {className, text} = getCategoryDetails(category);
-    const taskEditorCategory = document.getElementById("taskEditorCategory");
-    taskEditorCategory.textContent = text;
-    taskEditorCategory.className = className;
-}
