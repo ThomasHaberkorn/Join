@@ -47,36 +47,6 @@ function createContactCheckboxes(task) {
     });
 }
 
-// function toggleDropdownEdit() {
-//     const dropdownEdit = document.getElementById("dropDownContactsEdit");
-
-//     if (
-//         dropdownEdit.style.display === "none" ||
-//         dropdownEdit.style.display === ""
-//     ) {
-//         dropdownEdit.style.display = "block";
-//     } else {
-//         dropdownEdit.style.display = "none";
-//     }
-// }
-
-// function addDropdownListeners() {
-//     const dropdownEdit = document.getElementById("dropDownContactsEdit");
-//     const openDropdownEdit = document.getElementById("openDropdownEdit");
-//     openDropdownEdit.addEventListener("click", function (event) {
-//         event.stopPropagation();
-//         dropdownEdit.style.display = dropdownEdit.style.display === "block" ? "none" : "block";
-//     });
-//     dropdownEdit.addEventListener("click", function (event) {
-//         event.stopPropagation();
-//     });
-//     document.addEventListener("click", function (event) {
-//         if (dropdownEdit.style.display === "block" && !event.target.matches("#openDropdownEdit")) {
-//             dropdownEdit.style.display = "none";
-//         }
-//     });
-// }
-
 function displayAssignedContacts(task) {
     const editCheckedUserInitials = document.getElementById(
         "editCheckedUserInitials"
@@ -115,13 +85,6 @@ document
 
 const openDropdownEdit = document.getElementById("openDropdownEdit");
 const dropdownEdit = document.getElementById("dropDownContactsEdit");
-
-// openDropdownEdit.addEventListener("click", function (event) {
-//     const isDropdownOpen = dropdownEdit.style.display === "block";
-//     dropdownEdit.style.display = isDropdownOpen ? "none" : "block";
-
-//     event.stopPropagation();
-// });
 
 dropdownEdit.addEventListener("click", function (event) {
     event.stopPropagation();
@@ -211,21 +174,6 @@ moveTaskButton.addEventListener("click", function () {
     const moveOption = document.getElementById("moveOption");
     moveOption.style.display = "block";
 });
-
-// const allTaskInformation = document.getElementById("allTaskInformation");
-// allTaskInformation.addEventListener("click", function () {
-//     allTaskInformation.style.display = "none";
-// });
-
-// const cardOptionsCloseButton = document.getElementById(
-//     "cardOptionsCloseButton"
-// );
-
-// cardOptionsCloseButton.addEventListener("click", function () {
-//     const moveOption = document.getElementById("moveOption");
-//     const allTaskInformation = document.getElementById("allTaskInformation");
-//     moveOption.style.display = "none";
-// });
 
 function moveOptionClose() {
     document.getElementById("moveOption").style.display = "none";
@@ -363,20 +311,6 @@ async function toggleSubtaskCompletion(taskId, subtaskIndex, completedStatus) {
     }
 }
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     const taskCards = document.querySelectorAll(".task-card");
-
-//     taskCards.forEach((card) => {
-//         card.addEventListener("mouseenter", () => {
-//             console.log("Mouse entered:", card);
-//         });
-
-//         card.addEventListener("mouseleave", () => {
-//             console.log("Mouse left:", card);
-//         });
-//     });
-// });
-
 function toggleDropdown(event) {
     const options = document.querySelector(".dropdown-options");
     const arrow = document.querySelector(".dropdown-arrow");
@@ -386,8 +320,6 @@ function toggleDropdown(event) {
     arrow.src = isOpen
         ? "/assets/img/custom-arrow.png"
         : "/assets/img/custom-arrow-up.png";
-
-    // Stoppt die Propagation des Events, um Doppeltrigger zu verhindern
     event.stopPropagation();
 }
 
@@ -414,7 +346,6 @@ function setupDropdownListeners() {
         option.addEventListener("click", selectOption);
     });
 
-    // Fügt einen Listener zum Fenster hinzu, um das Dropdown zu schließen, wenn außerhalb geklickt wird
     window.addEventListener("click", function () {
         const options = document.querySelector(".dropdown-options");
         const arrow = document.querySelector(".dropdown-arrow");
@@ -447,6 +378,4 @@ function initializeDropdown() {
         .addEventListener("keydown", handleKeyboardAccessibility);
 }
 
-// Initialize the dropdown once the document is fully loaded
-// document.addEventListener("DOMContentLoaded", initializeDropdown);
 document.addEventListener("DOMContentLoaded", initializeDropdown);
