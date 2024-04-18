@@ -64,19 +64,6 @@ function handleCheckboxChange(checkbox) {
     }
 }
 
-// function fillDropdownList() {
-//     let dropdown = document.getElementById("dropDownContacts");
-
-//     if (
-//         dropdown.style.display === "none" ||
-//         dropdown.style.display === ""
-//     ) {
-//         dropdown.style.display = "block";
-//     } else {
-//         dropdown.style.display = "none";
-//     }
-// }
-
 function loadCheckedUserInitials() {
     const editCheckedUserInitials = document.getElementById(
         "checkedUserInitials"
@@ -243,7 +230,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// document.addEventListener("DOMContentLoaded", function() {
 async function addTask(event) {
     event.preventDefault(); // Verhindert das standardmäßige Absenden des Formulars
 

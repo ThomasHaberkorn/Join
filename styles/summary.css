@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .radius30 {
@@ -269,6 +269,7 @@ body {
     line-height: 76.8px;
     color: #29abe2;
     text-align: start;
+    max-width: 320px;
 }
 
 .hoverCont:hover {
