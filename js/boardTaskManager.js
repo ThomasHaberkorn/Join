@@ -6,12 +6,20 @@ let subtaskInput = document.getElementById("subtask");
 let subtaskAddButton = document.getElementById("subtask-img");
 let subtaskList = document.getElementById("list");
 let openDropdown = document.getElementById("openDropdown");
+/**
+ * Object representing priority buttons.
+ * @type {Object.<string, HTMLElement>}
+ */
 let priorityButtons = {Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn};
 let priority = "";
 let subtasks = [];
 let tasks = [];
 let currentTaskStatus = "todo";
 
+/**
+ * Initializes the add sidebar.
+ * @returns {Promise<void>} A promise that resolves when the add sidebar is initialized.
+ */
 async function initAddSidebar() {
     await includeW3();
     showInitials();
@@ -25,14 +33,25 @@ document.addEventListener("DOMContentLoaded", async function () {
     setPriority("Medium");
 });
 
+/**
+ * Loads contacts from storage and assigns them to the 'contacts' variable.
+ * @returns {Promise<void>} A promise that resolves once the contacts are loaded.
+ */
 async function loadContacts() {
     contacts = JSON.parse((await getItem("contacts")).value || "[]");
 }
 
+/**
+ * Loads tasks from storage and assigns them to the 'tasks' variable.
+ * @returns {Promise<void>} A promise that resolves once the tasks are loaded.
+ */
 async function loadTasks() {
     tasks = JSON.parse((await getItem("tasks")).value || "[]");
 }
 
+/**
+ * Fills the contact dropdown with contact items.
+ */
 function fillContactDropdown() {
     const dropdown = document.getElementById("boardDropDownContacts");
     contacts.forEach((contact) => {
@@ -50,6 +69,10 @@ function fillContactDropdown() {
     });
 }
 
+/**
+ * Handles the change event of a checkbox.
+ * @param {HTMLInputElement} checkbox - The checkbox element.
+ */
 function handleCheckboxChange(checkbox) {
     const itemAndCheckbox = checkbox.closest(".itemAndCheckbox");
     if (checkbox.checked) {
@@ -59,6 +82,9 @@ function handleCheckboxChange(checkbox) {
     }
 }
 
+/**
+ * Loads the checked user initials into the specified element.
+ */
 function loadCheckedUserInitials() {
     const editCheckedUserInitials = document.getElementById(
         "boardCheckedUserInitials"
@@ -79,6 +105,9 @@ function loadCheckedUserInitials() {
         });
 }
 
+/**
+ * Resets the buttons by removing the selected classes and resetting the button images.
+ */
 function resetButtons() {
     Object.values(priorityButtons).forEach((button) => {
         button.classList.remove(
@@ -90,6 +119,10 @@ function resetButtons() {
     });
 }
 
+/**
+ * Resets the image of a button based on its priority.
+ * @param {HTMLElement} button - The button element to reset the image for.
+ */
 function resetButtonImage(button) {
     const imgElement = button.querySelector("img");
     if (imgElement) {
@@ -103,6 +136,10 @@ function resetButtonImage(button) {
     }
 }
 
+/**
+ * Updates the selected button based on the given priority.
+ * @param {string} selectedPriority - The selected priority.
+ */
 function updateSelectedButton(selectedPriority) {
     switch (selectedPriority) {
         case "Urgent":
@@ -122,12 +159,21 @@ function updateSelectedButton(selectedPriority) {
     }
 }
 
+/**
+ * Sets the priority of the task.
+ *
+ * @param {string} selectedPriority - The selected priority for the task.
+ * @returns {void}
+ */
 function setPriority(selectedPriority) {
     priority = selectedPriority;
     resetButtons();
     updateSelectedButton(selectedPriority);
 }
 
+/**
+ * Sets the priority level for the task based on the button clicked.
+ */
 function setPriorityLevel() {
     urgentBtn.addEventListener("click", function () {
         setPriority("Urgent");
@@ -140,6 +186,10 @@ function setPriorityLevel() {
     });
 }
 
+/**
+ * Adds a subtask to the subtasks array and updates the subtask list.
+ * @param {string} subtaskName - The name of the subtask to be added.
+ */
 function addSubtask(subtaskName) {
     let subtask = {
         name: subtaskName,
@@ -150,11 +200,18 @@ function addSubtask(subtaskName) {
     updateSubtaskList();
 }
 
+/**
+ * Removes a subtask from the subtasks array at the specified index.
+ * @param {number} index - The index of the subtask to remove.
+ */
 function removeSubtask(index) {
     subtasks.splice(index, 1);
     updateSubtaskList();
 }
 
+/**
+ * Updates the subtask list in the HTML based on the subtasks array.
+ */
 function updateSubtaskList() {
     subtaskList.innerHTML = "";
 
@@ -212,6 +269,10 @@ function updateSubtaskList() {
     });
 }
 
+ /**
+* Represents the value of a subtask.
+* @type {string}
+*/
 document.addEventListener("DOMContentLoaded", function () {
     subtaskAddButton.addEventListener("click", function () {
         let subtaskValue = subtaskInput.value.trim();
@@ -222,6 +283,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+/**
+ * Adds a new task to the task list.
+ * 
+ * @param {Event} event - The event object triggered by the form submission.
+ * @returns {Promise<void>} - A promise that resolves when the task is added successfully.
+ */
 async function addTask(event) {
     event.preventDefault();
 
@@ -276,6 +343,9 @@ async function addTask(event) {
     window.location.href = "board.html";
 }
 
+/**
+ * Fills the dropdown list with options and toggles the visibility of the dropdown and checked user initials.
+ */
 function fillDropdownList() {
     let dropdown = document.getElementById("boardDropDownContacts");
     let checkedUserInitials = document.getElementById(
@@ -292,6 +362,9 @@ function fillDropdownList() {
     }
 }
 
+/**
+ * Removes the current input values from the form.
+ */
 function removeCurrentInputValues() {
     document.getElementById("titleInput").value = "";
     document.getElementById("descriptionInput").value = "";
@@ -309,132 +382,14 @@ function removeCurrentInputValues() {
     updateSubtaskList();
 }
 
+/**
+ * Shows or hides the clear button based on the given value.
+ *
+ * @param {boolean} value - The value indicating whether to show or hide the clear button.
+ */
 function showClearButton(value) {
     document.getElementById("clear-subtask").style.display = value
         ? "inline"
         : "none";
 }
 
-function clearSubtaskInput() {
-    document.getElementById("subtask").value = "";
-    document.getElementById("clear-subtask").style.display = "none";
-}
-
-document
-    .querySelectorAll('.custom-checkbox input[type="checkbox"]')
-    .forEach((checkbox) => {
-        checkbox.addEventListener("change", function () {
-            const imgElement = this.nextElementSibling;
-            if (this.checked) {
-                imgElement.src = "assets/img/checkboxChecked.png";
-            } else {
-                imgElement.src = "assets/img/checkbox.png";
-            }
-        });
-    });
-
-function closeBoardAddTask() {
-    document.getElementById("boardAddTask").style.display = "none";
-}
-
-function openAddTaskWithStatus(status) {
-    currentTaskStatus = status;
-    document.getElementById("boardAddTask").style.display = "block";
-    document.getElementById("boardCheckedUserInitials").innerHTML = "";
-}
-
-document.addEventListener(
-    "mousedown",
-    function (event) {
-        var dropdown = document.getElementById("boardDropDownContacts");
-        var inputDropDown = document.getElementById("inputDropDown");
-        var openDropdown = document.getElementById("openDropdown");
-        var boardCheckedUserInitials = document.getElementById(
-            "boardCheckedUserInitials"
-        );
-
-        if (dropdown) {
-            var isClickInsideDropdown = dropdown.contains(event.target);
-            var isClickInsideInputDropDown =
-                inputDropDown && inputDropDown.contains(event.target);
-            var isClickInsideOpenDropdown =
-                openDropdown && openDropdown.contains(event.target);
-            var dropdownDisplay = window.getComputedStyle(dropdown).display;
-
-            if (
-                !isClickInsideDropdown &&
-                !isClickInsideInputDropDown &&
-                !isClickInsideOpenDropdown &&
-                dropdownDisplay === "block"
-            ) {
-                dropdown.style.display = "none";
-                boardCheckedUserInitials.style.display = "flex";
-                loadCheckedUserInitials();
-            }
-        }
-    },
-    true
-);
-
-document.addEventListener(
-    "mousedown",
-    function (event) {
-        var dropdown = document.getElementById("dropDownContactsEdit");
-        var contactDropdownEdit = document.getElementById(
-            "contact-dropdown-edit"
-        );
-        var inputDropdownEdit = document.getElementById("input-dropdown-edit");
-        var openDropdownEdit = document.getElementById("openDropdownEdit");
-        var editInputDropdown = document.getElementById("editInputDropdown");
-
-        if (dropdown) {
-            var isClickInsideDropdown = dropdown.contains(event.target);
-            var isClickInsideContactDropdownEdit =
-                contactDropdownEdit &&
-                contactDropdownEdit.contains(event.target);
-            var isClickInsideInputDropdownEdit =
-                inputDropdownEdit && inputDropdownEdit.contains(event.target);
-            var isClickInsideOpenDropdownEdit =
-                openDropdownEdit && openDropdownEdit.contains(event.target);
-            var isClickInsideEditInputDropdown =
-                editInputDropdown && editInputDropdown.contains(event.target);
-            var dropdownDisplay = window.getComputedStyle(dropdown).display;
-
-            if (
-                !isClickInsideDropdown &&
-                !isClickInsideContactDropdownEdit &&
-                !isClickInsideInputDropdownEdit &&
-                !isClickInsideOpenDropdownEdit &&
-                !isClickInsideEditInputDropdown &&
-                dropdownDisplay === "block"
-            ) {
-                dropdown.style.display = "none";
-                updateEditCheckedUserInitials();
-            }
-        }
-    },
-    true
-);
-
-function updateEditCheckedUserInitials() {
-    const dropdownEdit = document.getElementById("dropDownContactsEdit");
-    const editCheckedUserInitials = document.getElementById(
-        "editCheckedUserInitials"
-    );
-    editCheckedUserInitials.innerHTML = "";
-
-    const checkboxes = dropdownEdit.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach((checkbox) => {
-        if (checkbox.checked) {
-            const contactId = checkbox.value;
-            const contact = contacts.find((c) => c.userID === contactId);
-            if (contact) {
-                const initialsDiv = document.createElement("div");
-                initialsDiv.className = "userInitials";
-                initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
-                initialsDiv.style.backgroundColor = contact.color;
-                editCheckedUserInitials.appendChild(initialsDiv);
-            }
-        }
-    });
-}
