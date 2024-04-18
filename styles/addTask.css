@@ -6,9 +6,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-body {
     font-family: "Inter", sans-serif;
 }
 
@@ -111,6 +108,9 @@ p {
     border: 1px solid var(--Style, #d1d1d1);
     background: #fff;
     box-sizing: border-box;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 400;
 }
 
 .description {
@@ -131,6 +131,9 @@ p {
     border: 1px solid var(--Style, #d1d1d1);
     background: rgb(255, 255, 255);
     resize: none;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 400;
 }
 
 .contact {
@@ -203,6 +206,9 @@ p {
     border-radius: 10px;
     border: 1px solid var(--Style, #d1d1d1);
     background: #fff;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 400;
 }
 
 .prio {
@@ -433,6 +439,9 @@ form {
     border-radius: 10px;
     border: 1px solid var(--Style, #d1d1d1);
     background: #fff;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 400;
 }
 
 .list {

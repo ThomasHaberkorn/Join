@@ -882,9 +882,9 @@
 @media (max-height: 800px) {
 }
 @media (max-height: 770px) {
-    .contactEditCloseResponse {
+    /* .contactEditCloseResponse {
         top: 3.5rem;
-    }
+    } */
     .addTaskContentContainer {
         height: 81%;
     }
@@ -939,9 +939,9 @@
 }
 
 @media (max-height: 680px) {
-    .contactEditCloseResponse {
+    /* .contactEditCloseResponse {
         top: 5.5rem;
-    }
+    } */
 }
 
 @media (max-height: 670px) {
