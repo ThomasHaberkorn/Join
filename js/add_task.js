@@ -17,6 +17,7 @@ async function initAddSidebar() {
     addTaskActive();
     showInitials();
 }
+
 function addTaskActive() {
     document.getElementById("addTasksum").classList.add("bgfocus");
 }
@@ -249,10 +250,27 @@ async function addTask(event) {
     let category = document.getElementById("category").value;
 
     // Überprüfen, ob eine Kategorie ausgewählt wurde
-    if (!category) {
-        alert("Bitte wählen Sie eine Kategorie aus."); // Einfache Fehlermeldung, kann durch elegantere Benutzeroberflächenelemente ersetzt werden
-        return; // Beendet die Ausführung der Funktion, um das Erstellen des Tasks zu verhindern
+if (!category) {
+    // Finden oder erstellen Sie das Element für die Fehlermeldung
+    let errorMsg = document.getElementById("categoryError");
+    if (!errorMsg) {
+        errorMsg = document.createElement("div");
+        errorMsg.id = "categoryError";
+        errorMsg.style.color = "red";
+        document.getElementById("category").parentElement.parentElement.appendChild(errorMsg);
     }
+
+    // Setzen Sie die Fehlermeldung und machen Sie sie sichtbar
+    errorMsg.textContent = "Bitte wählen Sie eine Kategorie aus.";
+    errorMsg.style.display = "block";
+    return; // Beendet die Ausführung der Funktion, um das Erstellen des Tasks zu verhindern
+} else {
+    // Wenn eine Kategorie ausgewählt wurde, verstecken Sie die Fehlermeldung
+    let errorMsg = document.getElementById("categoryError");
+    if (errorMsg) {
+        errorMsg.style.display = "none";
+    }
+}
 
     // Der Rest Ihrer Logik zum Erstellen des Tasks...
     let title = document.getElementById("titleInput").value;
