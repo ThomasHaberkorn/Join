@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 .helpMainContent {
@@ -81,24 +81,24 @@ span {
 }
 ol {
     counter-reset: my-counter;
-    padding-left: 0; /* Verhindert das Standard-Einrücken der Nummerierung */
+    padding-left: 0;
 }
 
 ol li {
-    list-style: none; /* Entfernt die standardmäßige Nummerierung */
-    counter-increment: my-counter; /* Zählt die Nummerierung hoch */
-    display: flex; /* Verwendet Flexbox für die Ausrichtung */
-    align-items: flex-start; /* Obere Ausrichtung der Elemente */
-    margin-bottom: 10px; /* Abstand zwischen den Listenpunkten */
+    list-style: none;
+    counter-increment: my-counter;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
 }
 
 ol li::before {
-    content: counter(my-counter); /* Fügt die Nummerierung ein */
-    font-size: 1.9em; /* Größere Schrift für die Nummerierung */
-    font-weight: bold; /* Optional: Fettschrift für die Nummerierung */
-    margin-right: 15px; /* Abstand zwischen Nummerierung und Text */
-    align-self: flex-start; /* Obere Ausrichtung der Nummerierung */
-    line-height: 2.2; /* Behebt die vertikale Ausrichtung */
+    content: counter(my-counter);
+    font-size: 1.9em;
+    font-weight: bold;
+    margin-right: 15px;
+    align-self: flex-start;
+    line-height: 2.2;
 }
 
 .LNoticeMail {

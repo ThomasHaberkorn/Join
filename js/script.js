@@ -6,21 +6,9 @@ async function init() {
     checkRememberUser();
     await loadUsers();
     await loadContacts();
-    // renderUsers();
 }
 
 let users;
-
-/**
- * This function is for deleting all users from the for the key "user" in the remote storage.
- * !!! USE WITH CAUTION !!!
- */
-
-// function renderUsers() {
-//     users.splice(0);
-//     console.log(users);
-//     setItem("user", users);
-// }
 
 /**
  * Loads users from remote storage and updates the global `users` array.
@@ -73,12 +61,6 @@ function checkMsgBox() {
         mG.classList.add("bcTransp");
     }
 }
-// function checkMsgBox() {
-//     let mG = document.getElementById("msgBox").innerHTML;
-//     if (mG == null) {
-//         mG.classList.add("bcTransp");
-//     }
-// }
 
 /**
  * switch from Log in to Sign up in the index.html
@@ -133,14 +115,11 @@ function handleCheckboxAndMessage() {
     const checkbox = document.getElementById("signinCheckBoxPrivacyPolicy");
     const msgBox = document.getElementById("msgBox");
     if (submitButton) {
-        // Erstmaliger Check und Button-Status
         submitButton.disabled = !checkbox.checked;
-        submitButton.classList.add(!checkbox.checked ? "bcGray" : ""); // Ternary operator for conditional class addition
-
-        // Event listener for checkbox changes
+        submitButton.classList.add(!checkbox.checked ? "bcGray" : "");
         checkbox.addEventListener("change", () => {
             submitButton.disabled = !checkbox.checked;
-            submitButton.classList.toggle("bcGray"); // Change the class based on the checkbox status
+            submitButton.classList.toggle("bcGray");
         });
         fillMsgBox();
     }
@@ -207,16 +186,6 @@ async function signupForward(a, b, c) {
     let currentUser = [];
     let userLevel = "user";
     let lastName = name.split(" ").pop();
-    // users.push({
-    //     color: getRandomColor(),
-    //     name,
-    //     email,
-    //     password,
-    //     userLevel,
-    //     firstLetter: name.charAt(0).toUpperCase(),
-    //     lastLetter: lastName.charAt(0).toUpperCase(),
-    //     userID: generateUserId(),
-    // });
     signupForwardPush(name, email, password, userLevel, lastName);
     currentUser.push({email, password});
     await setItem("user", users);
@@ -271,17 +240,11 @@ function checkRememberUser() {
  * Checks if the user has entered the correct email and password and logs in the user.
  */
 function login() {
-    event.preventDefault(); // Verhindert den standardmäßigen Formular-Submit
+    event.preventDefault();
     const email = document.getElementById("loginInputMail").value;
     const password = document.getElementById("loPWInput").value;
     const foundUser = users.find((user) => user.email === email);
     let checkbox = document.getElementById("loginCheckBoxRememberMe");
-    // if (localStorage.SignupUser) {
-    //     email = JSON.parse(sessionStorage.SignupUser)[0].email;
-    //     password = JSON.parse(sessionStorage.SignupUser)[0].password;
-    //     localStorage.removeItem("SignupUser");
-    // }
-
     let currentUser = [];
     if (foundUser && password === foundUser.password) {
         if (checkbox.checked) {

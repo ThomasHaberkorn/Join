@@ -1,13 +1,29 @@
+/**
+ * Toggles the display of an element.
+ *
+ * @param {string} elementId - The ID of the element to toggle.
+ * @param {string} display - The display value to set for the element.
+ */
 function toggleDisplay(elementId, display) {
     const element = document.getElementById(elementId);
     element.style.display = display;
 }
 
+/**
+ * Retrieves a task by its ID.
+ *
+ * @param {string} taskId - The ID of the task to retrieve.
+ * @returns {Object|undefined} - The task object if found, otherwise undefined.
+ */
 async function getTaskById(taskId) {
     const tasks = JSON.parse((await getItem("tasks")).value || []);
     return tasks.find((task) => task.id === taskId);
 }
 
+/**
+ * Fills the task editor with the provided task details.
+ * @param {object} task - The task object containing the task details.
+ */
 function fillTaskEditor(task) {
     setTaskEditorCategory(task.category);
     document.getElementById("editTitle").value = task.title;
@@ -17,6 +33,10 @@ function fillTaskEditor(task) {
     prioritySelect.value = task.priority;
 }
 
+/**
+ * Creates checkboxes for each contact and appends them to the dropdownEdit element.
+ * @param {Object} task - The task object.
+ */
 function createContactCheckboxes(task) {
     const dropdownEdit = document.getElementById("dropDownContactsEdit");
     dropdownEdit.innerHTML = "";
@@ -32,14 +52,12 @@ function createContactCheckboxes(task) {
 
         const initials = `${contact.firstLetter}${contact.lastLetter}`;
         div.innerHTML = `
-            <div class="userInitials" style="background-color: ${
-                contact.color
+            <div class="userInitials" style="background-color: ${contact.color
             };">${initials}</div>
             <div class="nameWithCheckbox">
                 <label for="${checkboxId}">${contact.name}</label>
-                <input type="checkbox" class="edit-contact-checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${
-            contact.userID
-        }" ${isChecked ? "checked" : ""} onchange="handleCheckboxChange(this)">
+                <input type="checkbox" class="edit-contact-checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${contact.userID
+            }" ${isChecked ? "checked" : ""} onchange="handleCheckboxChange(this)">
             </div>
         `;
 
@@ -47,36 +65,11 @@ function createContactCheckboxes(task) {
     });
 }
 
-// function toggleDropdownEdit() {
-//     const dropdownEdit = document.getElementById("dropDownContactsEdit");
-
-//     if (
-//         dropdownEdit.style.display === "none" ||
-//         dropdownEdit.style.display === ""
-//     ) {
-//         dropdownEdit.style.display = "block";
-//     } else {
-//         dropdownEdit.style.display = "none";
-//     }
-// }
-
-// function addDropdownListeners() {
-//     const dropdownEdit = document.getElementById("dropDownContactsEdit");
-//     const openDropdownEdit = document.getElementById("openDropdownEdit");
-//     openDropdownEdit.addEventListener("click", function (event) {
-//         event.stopPropagation();
-//         dropdownEdit.style.display = dropdownEdit.style.display === "block" ? "none" : "block";
-//     });
-//     dropdownEdit.addEventListener("click", function (event) {
-//         event.stopPropagation();
-//     });
-//     document.addEventListener("click", function (event) {
-//         if (dropdownEdit.style.display === "block" && !event.target.matches("#openDropdownEdit")) {
-//             dropdownEdit.style.display = "none";
-//         }
-//     });
-// }
-
+/**
+ * Displays the assigned contacts for a given task.
+ * 
+ * @param {Object} task - The task object containing assigned contacts.
+ */
 function displayAssignedContacts(task) {
     const editCheckedUserInitials = document.getElementById(
         "editCheckedUserInitials"
@@ -94,6 +87,10 @@ function displayAssignedContacts(task) {
     });
 }
 
+/**
+* Represents the element that contains all task information.
+* @type {HTMLElement}
+*/
 document
     .getElementById("editTaskButton")
     .addEventListener("click", async function () {
@@ -116,13 +113,6 @@ document
 const openDropdownEdit = document.getElementById("openDropdownEdit");
 const dropdownEdit = document.getElementById("dropDownContactsEdit");
 
-// openDropdownEdit.addEventListener("click", function (event) {
-//     const isDropdownOpen = dropdownEdit.style.display === "block";
-//     dropdownEdit.style.display = isDropdownOpen ? "none" : "block";
-
-//     event.stopPropagation();
-// });
-
 dropdownEdit.addEventListener("click", function (event) {
     event.stopPropagation();
 });
@@ -135,6 +125,10 @@ function getTaskIndex(tasks, taskId) {
     return tasks.findIndex((task) => task.id === taskId);
 }
 
+/**
+ * Updates the properties of a task object based on the values entered in the edit form.
+ * @param {Object} task - The task object to be updated.
+ */
 function updateTask(task) {
     task.title = document.getElementById("editTitle").value;
     task.description = document.getElementById("editDescription").value;
@@ -151,6 +145,13 @@ async function saveTasks(tasks) {
     await setItem("tasks", JSON.stringify(tasks));
 }
 
+/**
+ * Adds a click event listener to the "saveEdit" button.
+ * When the button is clicked, it gets the task ID from the allTaskInformation dataset, retrieves the tasks, and finds the index of the task with the given ID.
+ * If the task is found, it updates the task, saves the tasks, and closes the editor.
+ * If the task is not found, it alerts the user.
+ * After all this, it initializes the board.
+ */
 document
     .getElementById("saveEdit")
     .addEventListener("click", async function () {
@@ -183,6 +184,9 @@ document.getElementById("searchTask").addEventListener("input", function () {
     searchTasks();
 });
 
+/**
+ * Searches for tasks based on the value entered in the search input field.
+ */
 function searchTasks() {
     const searchValue = document
         .getElementById("searchTask")
@@ -212,25 +216,16 @@ moveTaskButton.addEventListener("click", function () {
     moveOption.style.display = "block";
 });
 
-// const allTaskInformation = document.getElementById("allTaskInformation");
-// allTaskInformation.addEventListener("click", function () {
-//     allTaskInformation.style.display = "none";
-// });
-
-// const cardOptionsCloseButton = document.getElementById(
-//     "cardOptionsCloseButton"
-// );
-
-// cardOptionsCloseButton.addEventListener("click", function () {
-//     const moveOption = document.getElementById("moveOption");
-//     const allTaskInformation = document.getElementById("allTaskInformation");
-//     moveOption.style.display = "none";
-// });
-
 function moveOptionClose() {
     document.getElementById("moveOption").style.display = "none";
 }
 
+/**
+ * Adds a new subtask to the task and updates the subtask list.
+ * @async
+ * @function addEditSubtask
+ * @returns {Promise<void>} A Promise that resolves when the subtask is added and the subtask list is updated.
+ */
 async function addEditSubtask() {
     const subtaskInput = document.getElementById("editSubtaskInput");
     const subtaskValue = subtaskInput.value.trim();
@@ -244,7 +239,7 @@ async function addEditSubtask() {
             if (!task.subtasks) {
                 task.subtasks = [];
             }
-            task.subtasks.push({name: subtaskValue, completed: false});
+            task.subtasks.push({ name: subtaskValue, completed: false });
             updateEditSubtaskList(task.subtasks);
             await setItemFromJson("tasks", tasks);
             subtaskInput.value = "";
@@ -252,6 +247,9 @@ async function addEditSubtask() {
     }
 }
 
+/**
+ * Removes a subtask from the task's subtask list.
+ */
 async function removeEditSubtask(index) {
     const taskId = document.getElementById("allTaskInformation").dataset.taskId;
     let tasks = JSON.parse((await getItem("tasks")).value || "[]");
@@ -267,6 +265,12 @@ async function removeEditSubtask(index) {
     }
 }
 
+/**
+ * Updates the edit subtask list in the DOM based on the provided subtasks array.
+ *
+ * @param {Array} subtasks - The array of subtasks to be displayed in the edit subtask list.
+ * @returns {void}
+ */
 function updateEditSubtaskList(subtasks) {
     const list = document.getElementById("editSubtaskList");
     list.innerHTML = "";
@@ -316,6 +320,11 @@ document.querySelectorAll(".optionsContainerOption").forEach((option) => {
     });
 });
 
+/**
+ * Converts an ID to a corresponding status.
+ * @param {string} id - The ID to be converted.
+ * @returns {string} The corresponding status.
+ */
 function convertIdToStatus(id) {
     switch (id) {
         case "ToDo":
@@ -331,6 +340,12 @@ function convertIdToStatus(id) {
     }
 }
 
+/**
+ * Updates the status of a task and moves it to a new status.
+ * @param {string} taskId - The ID of the task to update.
+ * @param {string} newStatus - The new status to assign to the task.
+ * @returns {Promise<void>} - A promise that resolves when the task status is updated.
+ */
 async function updateTaskStatusAndMove(taskId, newStatus) {
     try {
         let tasks = JSON.parse((await getItem("tasks")).value || "[]");
@@ -344,6 +359,15 @@ async function updateTaskStatusAndMove(taskId, newStatus) {
     }
 }
 
+/**
+ * Toggles the completion status of a subtask.
+ * 
+ * @param {string} taskId - The ID of the task.
+ * @param {number} subtaskIndex - The index of the subtask.
+ * @param {boolean} completedStatus - The new completion status of the subtask.
+ * @returns {Promise<void>} - A promise that resolves when the subtask completion status is toggled.
+ * @throws {Error} - If there is an error updating the subtask completion status.
+ */
 async function toggleSubtaskCompletion(taskId, subtaskIndex, completedStatus) {
     try {
         let tasks = JSON.parse((await getItem("tasks")).value || "[]");
@@ -363,90 +387,3 @@ async function toggleSubtaskCompletion(taskId, subtaskIndex, completedStatus) {
     }
 }
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     const taskCards = document.querySelectorAll(".task-card");
-
-//     taskCards.forEach((card) => {
-//         card.addEventListener("mouseenter", () => {
-//             console.log("Mouse entered:", card);
-//         });
-
-//         card.addEventListener("mouseleave", () => {
-//             console.log("Mouse left:", card);
-//         });
-//     });
-// });
-
-function toggleDropdown(event) {
-    const options = document.querySelector(".dropdown-options");
-    const arrow = document.querySelector(".dropdown-arrow");
-    const isOpen = options.style.display === "block";
-
-    options.style.display = isOpen ? "none" : "block";
-    arrow.src = isOpen
-        ? "/assets/img/custom-arrow.png"
-        : "/assets/img/custom-arrow-up.png";
-
-    // Stoppt die Propagation des Events, um Doppeltrigger zu verhindern
-    event.stopPropagation();
-}
-
-function selectOption(event) {
-    const selectedText = event.target.textContent;
-    const selectedValue = event.target.getAttribute("data-value");
-    const arrow = document.querySelector(".dropdown-arrow");
-
-    document.querySelector(".dropdown-selected").textContent = selectedText;
-    document.querySelector(".dropdown-options").style.display = "none";
-    document.getElementById("category").value = selectedValue;
-    arrow.src = "/assets/img/custom-arrow.png";
-}
-
-function setupDropdownListeners() {
-    const dropdownSelected = document.querySelector(".dropdown-selected");
-    const dropdownArrow = document.querySelector(".dropdown-arrow");
-    const dropdownOptions = document.querySelectorAll(".dropdown-option");
-
-    dropdownSelected.addEventListener("click", toggleDropdown);
-    dropdownArrow.addEventListener("click", toggleDropdown);
-
-    dropdownOptions.forEach((option) => {
-        option.addEventListener("click", selectOption);
-    });
-
-    // Fügt einen Listener zum Fenster hinzu, um das Dropdown zu schließen, wenn außerhalb geklickt wird
-    window.addEventListener("click", function () {
-        const options = document.querySelector(".dropdown-options");
-        const arrow = document.querySelector(".dropdown-arrow");
-        if (options.style.display === "block") {
-            options.style.display = "none";
-            arrow.src = "/assets/img/custom-arrow.png";
-        }
-    });
-}
-
-document.addEventListener("DOMContentLoaded", setupDropdownListeners);
-
-function handleClickOutside(event) {
-    if (!event.target.matches(".dropdown-selected")) {
-        document.querySelector(".dropdown-options").style.display = "none";
-    }
-}
-
-function handleKeyboardAccessibility(event) {
-    if (event.key === "Enter") {
-        toggleDropdown();
-    }
-}
-
-function initializeDropdown() {
-    setupDropdownListeners();
-    window.addEventListener("click", handleClickOutside, true);
-    document
-        .querySelector(".dropdown-selected")
-        .addEventListener("keydown", handleKeyboardAccessibility);
-}
-
-// Initialize the dropdown once the document is fully loaded
-// document.addEventListener("DOMContentLoaded", initializeDropdown);
-document.addEventListener("DOMContentLoaded", initializeDropdown);
