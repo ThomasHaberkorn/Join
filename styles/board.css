@@ -183,6 +183,12 @@ section {
     overflow: hidden;
 }
 
+#boardDropDownContacts{
+    display: none;
+    overflow-y: scroll;
+    max-height: 140px;
+}
+
 .task-card-description {
     align-self: stretch;
     color: var(--icon, #a8a8a8);
