@@ -37,7 +37,7 @@ function createContactCheckboxes(task) {
             };">${initials}</div>
             <div class="nameWithCheckbox">
                 <label for="${checkboxId}">${contact.name}</label>
-                <input type="checkbox" class="contact-checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${
+                <input type="checkbox" class="edit-contact-checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${
             contact.userID
         }" ${isChecked ? "checked" : ""} onchange="handleCheckboxChange(this)">
             </div>

@@ -38,7 +38,7 @@ async function loadTasks() {
 }
 
 function fillContactDropdown() {
-    const dropdown = document.getElementById("dropDownContacts");
+    const dropdown = document.getElementById("boardDropDownContacts");
     contacts.forEach((contact) => {
         const div = document.createElement("div");
         div.classList.add("itemAndCheckbox");
@@ -78,7 +78,7 @@ function handleCheckboxChange(checkbox) {
 
 function loadCheckedUserInitials() {
     const editCheckedUserInitials = document.getElementById(
-        "checkedUserInitials"
+        "boardCheckedUserInitials"
     );
     editCheckedUserInitials.innerHTML = ""; // Bereinigen Sie den Container vor dem Hinzufügen neuer Initialen
 
@@ -242,27 +242,39 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// document.addEventListener("DOMContentLoaded", function() {
 async function addTask(event) {
-    // let form = document.querySelector(".addTaskContentContainer");
-
-    // if (form) {
-    // form.addEventListener("submit", function (event) {
     event.preventDefault();
 
     let title = document.getElementById("titleInput").value;
     let description = document.getElementById("descriptionInput").value;
     let taskDate = document.getElementById("taskDate").value;
-    // let category = document.getElementById("category").value;
-    // let category =
-    //     document.getElementsByClassName("dropdown-selected").textContent;
-    let categoryElement =
-        document.getElementsByClassName("dropdown-selected")[0]; // Zugriff auf das erste Element mit dieser Klasse
-    let category = categoryElement.textContent.trim(); // trim() entfernt unnötige Leerzeichen
+    let categoryElement = document.querySelector(".dropdown-selected");
+    let category = categoryElement ? categoryElement.textContent.trim() : null;
 
-    let assignedContacts = [
-        ...document.querySelectorAll(".contact-checkbox:checked"),
-    ].map((input) => input.value);
+    // Überprüfen, ob eine Kategorie ausgewählt wurde
+    if (!category || category === "Select task Category") {
+        // Finden oder erstellen Sie das Element für die Fehlermeldung
+        let errorMsg = document.getElementById("categoryError");
+        if (!errorMsg) {
+            errorMsg = document.createElement("div");
+            errorMsg.id = "categoryError";
+            errorMsg.style.color = "red";
+            document.getElementById("category").parentElement.parentElement.appendChild(errorMsg);
+        }
+
+        // Setzen Sie die Fehlermeldung und machen Sie sie sichtbar
+        errorMsg.textContent = "Please choose a Category.";
+        errorMsg.style.display = "block";
+        return; // Beendet die Funktion, wenn keine Kategorie ausgewählt wurde
+    } else {
+        // Wenn eine Kategorie ausgewählt wurde, verstecken Sie die Fehlermeldung
+        let errorMsg = document.getElementById("categoryError");
+        if (errorMsg) {
+            errorMsg.style.display = "none";
+        }
+    }
+
+    let assignedContacts = [...document.querySelectorAll(".contact-checkbox:checked")].map((input) => input.value);
     let userLevel = sessionStorage.getItem("userLevel");
     let newTaskId = "task-" + Math.random().toString(36).substr(2, 9);
 
@@ -282,13 +294,11 @@ async function addTask(event) {
     await setItem("tasks", tasks);
 
     window.location.href = "board.html";
-    // });
-    // }
 }
 
 function fillDropdownList() {
-    let dropdown = document.getElementById("dropDownContacts");
-    let checkedUserInitials = document.getElementById("checkedUserInitials");
+    let dropdown = document.getElementById("boardDropDownContacts");
+    let checkedUserInitials = document.getElementById("boardCheckedUserInitials");
 
     if (dropdown.style.display === "none" || dropdown.style.display === "") {
         dropdown.style.display = "block";
@@ -348,4 +358,72 @@ function closeBoardAddTask() {
 function openAddTaskWithStatus(status) {
     currentTaskStatus = status;
     document.getElementById("boardAddTask").style.display = "block";
+    document.getElementById('boardCheckedUserInitials').innerHTML = '';
+
+}
+
+document.addEventListener('mousedown', function(event) {
+    var dropdown = document.getElementById('boardDropDownContacts');
+    var inputDropDown = document.getElementById('inputDropDown');
+    var openDropdown = document.getElementById('openDropdown');
+    var boardCheckedUserInitials = document.getElementById('boardCheckedUserInitials');
+
+    if (dropdown) {
+        var isClickInsideDropdown = dropdown.contains(event.target);
+        var isClickInsideInputDropDown = inputDropDown && inputDropDown.contains(event.target);
+        var isClickInsideOpenDropdown = openDropdown && openDropdown.contains(event.target);
+        var dropdownDisplay = window.getComputedStyle(dropdown).display;
+
+        if (!isClickInsideDropdown && !isClickInsideInputDropDown && !isClickInsideOpenDropdown && dropdownDisplay === 'block') {
+            dropdown.style.display = 'none';
+            boardCheckedUserInitials.style.display = 'flex';
+            loadCheckedUserInitials();
+        }
+    }
+}, true);
+
+document.addEventListener('mousedown', function(event) {
+    var dropdown = document.getElementById('dropDownContactsEdit');
+    var contactDropdownEdit = document.getElementById('contact-dropdown-edit');
+    var inputDropdownEdit = document.getElementById('input-dropdown-edit');
+    var openDropdownEdit = document.getElementById('openDropdownEdit');
+    var editInputDropdown = document.getElementById('editInputDropdown');
+
+    if (dropdown) {
+        var isClickInsideDropdown = dropdown.contains(event.target);
+        var isClickInsideContactDropdownEdit = contactDropdownEdit && contactDropdownEdit.contains(event.target);
+        var isClickInsideInputDropdownEdit = inputDropdownEdit && inputDropdownEdit.contains(event.target);
+        var isClickInsideOpenDropdownEdit = openDropdownEdit && openDropdownEdit.contains(event.target);
+        var isClickInsideEditInputDropdown = editInputDropdown && editInputDropdown.contains(event.target);
+        var dropdownDisplay = window.getComputedStyle(dropdown).display;
+
+        if (!isClickInsideDropdown && !isClickInsideContactDropdownEdit && !isClickInsideInputDropdownEdit && !isClickInsideOpenDropdownEdit && !isClickInsideEditInputDropdown && dropdownDisplay === 'block') {
+            dropdown.style.display = 'none';
+            updateEditCheckedUserInitials(); // Aktualisiere die Anzeige
+
+        }
+    }
+}, true);
+
+
+function updateEditCheckedUserInitials() {
+    const dropdownEdit = document.getElementById('dropDownContactsEdit');
+    const editCheckedUserInitials = document.getElementById('editCheckedUserInitials');
+    editCheckedUserInitials.innerHTML = ''; // Vorhandene Initialen löschen
+
+    // Durchlaufe alle Checkboxen in dropDownContactsEdit
+    const checkboxes = dropdownEdit.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            const contactId = checkbox.value;
+            const contact = contacts.find(c => c.userID === contactId);
+            if (contact) {
+                const initialsDiv = document.createElement('div');
+                initialsDiv.className = 'userInitials';
+                initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
+                initialsDiv.style.backgroundColor = contact.color;
+                editCheckedUserInitials.appendChild(initialsDiv);
+            }
+        }
+    });
 }

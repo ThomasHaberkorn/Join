@@ -33,14 +33,30 @@ function setDaytime() {
  * @returns the daytime greeting
  */
 
+// function getDaytime() {
+//     a = new Date();
+//     b = a.getHours();
+//     if (b >= 0 && b < 11) {
+//         return "Good morning";
+//     } else if (b >= 11 && b < 18) {
+//         return "Welcome";
+//     } else if (b >= 18 && b < 24) {
+//         return "Good evening";
+//     }
+// }
+
+/**
+ * Determines the appropriate greeting based on the current time of day.
+ * @returns {string} The greeting message according to the time of day.
+ */
 function getDaytime() {
-    a = new Date();
-    b = a.getHours();
-    if (b >= 0 && b < 11) {
+    const now = new Date();
+    const hour = now.getHours();
+    if (hour < 11) {
         return "Good morning";
-    } else if (b >= 11 && b < 18) {
-        return "Welcome";
-    } else if (b >= 18 && b < 24) {
+    } else if (hour < 18) {
+        return "Good afternoon";
+    } else {
         return "Good evening";
     }
 }
@@ -52,9 +68,7 @@ function getDaytime() {
 function getUserName() {
     let userName = sessionStorage.getItem("userName");
     if (userName) {
-        // Split the username into an array of names
         let names = userName.split(" ");
-        // If there are more than two names, take only the first two
         if (names.length > 2) {
             userName = names.slice(0, 2).join(" ");
         }
