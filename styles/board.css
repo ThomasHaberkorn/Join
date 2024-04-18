@@ -815,6 +815,9 @@ section {
     background: #fff;
     width: 97%;
     margin-top: 8px;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 400;
 }
 
 #editDescription {
@@ -829,6 +832,9 @@ section {
     background: rgb(255, 255, 255);
     resize: none;
     width: 97%;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 400;
 }
 
 #taskEditorModal input[type="date"] {
@@ -889,6 +895,9 @@ section {
     /* Example padding */
     border: 1px solid #d1d1d1;
     /* Consistent border */
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 400;
 }
 
 #modalEditDueDate {
