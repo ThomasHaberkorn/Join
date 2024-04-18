@@ -37,15 +37,15 @@
         height: 8px;
     }
     ::-webkit-scrollbar-track {
-        background-color: #f1f1f1; /* Helle graue Farbe für den Hintergrund */
-        border-radius: 12px; /* Abgerundete Ecken für das Track */
+        background-color: #f1f1f1;
+        border-radius: 12px;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: #888; /* Dunkelgraue Farbe für den Thumb */
-        border-radius: 10px; /* Abgerundete Ecken für den Thumb */
+        background-color: #888;
+        border-radius: 10px;
     }
     ::-webkit-scrollbar-thumb:hover {
-        background-color: #555; /* Dunklere Farbe beim Hover */
+        background-color: #555;
     }
 }
 
@@ -447,165 +447,6 @@
         border: 2px solid #007bff;
         background-color: #e7f1ff;
     }
-    .itemAndCheckbox {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        margin-bottom: 6px;
-        margin-top: 6px;
-        border-radius: 8px;
-    }
-
-    .itemAndCheckbox:hover {
-        background-color: rgb(236, 236, 236);
-    }
-
-    .nameWithCheckbox {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-    }
-
-    .checkedItemAndCheckbox {
-        background-color: #2a3647;
-        color: white;
-    }
-
-    .checkedItemAndCheckbox:hover {
-        background-color: #2a3647;
-    }
-
-    .priority-urgent-selected {
-        background-color: #ff3d00;
-        color: white;
-    }
-
-    .priority-medium-selected {
-        background-color: #ffa800;
-        color: white;
-    }
-
-    .priority-low-selected {
-        background-color: #7ae229;
-        color: white;
-    }
-
-    .pngs {
-        position: relative;
-        top: -40px;
-        left: calc(91%);
-        cursor: pointer;
-    }
-
-    #clear-subtask {
-        margin-left: -50px;
-    }
-
-    .subtaskEditBtn,
-    .subtaskDeleteBtn {
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-        margin-left: 5px;
-    }
-
-    .subtaskEditBtn img,
-    .subtaskDeleteBtn img {
-        width: 20px;
-        height: 20px;
-    }
-
-    input[type="text"][disabled] {
-        background: transparent;
-        border: none;
-        color: black;
-    }
-
-    .subtask-list li {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .subtask-list li input[type="text"] {
-        flex-grow: 1;
-        margin-right: 10px;
-    }
-
-    .subtask-list li button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-    }
-
-    .subtask-list li img {
-        width: 20px;
-        height: 20px;
-        display: block;
-    }
-
-    .custom-checkbox input[type="checkbox"] {
-        display: none;
-    }
-
-    .custom-checkbox img {
-        cursor: pointer;
-        width: 16px;
-        height: 16px;
-    }
-
-    .nameWithCheckbox label {
-        cursor: pointer;
-        width: 100%;
-    }
-    .delete-subtask {
-        margin-left: 10px;
-        color: red;
-        border: none;
-        background: none;
-        cursor: pointer;
-    }
-
-    .mainContainer {
-        width: 100%;
-        height: 100%;
-    }
-
-    .subtaskDeleteBtn {
-        background: white;
-        color: black;
-        cursor: pointer;
-        border: none;
-        background-color: transparent;
-    }
-
-    .subtask-list li {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 8px;
-    }
-
-    .subtask-list li:hover {
-        background-color: lightgrey;
-    }
-
-    .subtask-list input[type="checkbox"] {
-        display: none;
-    }
-
-    #taskDate {
-        cursor: pointer;
-    }
-
-    .contact-checkbox {
-        cursor: pointer;
-        margin-right: 28px;
-    }
-
-    #inputDropDown {
-        cursor: pointer;
-    }
 }
 
 @media (max-width: 720px) {
@@ -939,6 +780,14 @@
         top: 46%;
         left: 50%;
     }
+    .prio-selection {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .headline {
+        font-size: 32px;
+    }
 }
 
 @media screen and (max-width: 419px) {
@@ -1088,10 +937,7 @@
     .summaryDoneInfoCounter {
         line-height: 65.8px;
     }
-
     .tasksNum {
-        /* margin-top: -16px; */
-        /* margin-bottom: -24px; */
         font-size: 37px;
         line-height: 32px;
     }
@@ -1210,9 +1056,6 @@
     }
 }
 @media (max-height: 770px) {
-    /* .contactEditCloseResponse {
-        top: 3.5rem;
-    } */
     .addTaskContentContainer {
         height: 81%;
     }
@@ -1320,12 +1163,6 @@
     .row3 {
         height: 120px;
     }
-}
-
-@media (max-height: 680px) {
-    /* .contactEditCloseResponse {
-        top: 5.5rem;
-    } */
 }
 
 @media (max-height: 670px) {

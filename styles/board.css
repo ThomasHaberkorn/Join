@@ -21,13 +21,11 @@
 
 .task-card:hover {
     transform: rotate(7deg);
-    /* z-index: 1000; */
 }
 
 .allTasks {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     flex-wrap: nowrap;
     justify-content: space-around;
     margin: 0;
@@ -184,7 +182,7 @@ section {
     font-style: normal;
     font-weight: 700;
     line-height: 120%;
-    /* overflow: hidden; */
+    margin-top: 8px;
 }
 
 #boardDropDownContacts {
@@ -198,12 +196,13 @@ section {
     color: var(--icon, #a8a8a8);
     font-size: 16px;
     font-style: normal;
-    max-height: 65px;
-    min-height: 45px;
+    max-height: 46px;
+    min-height: 42px;
     overflow: hidden;
     font-weight: 400;
     line-height: 120%;
     font-size: 18px;
+    margin-top: 8px;
 }
 
 .category-technical {
@@ -253,6 +252,7 @@ section {
     width: 100%;
 }
 .boardProgrContainer {
+    margin-top: 4px;
     height: 28px;
 }
 
@@ -285,7 +285,6 @@ section {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    /* Stellt sicher, dass der Hauptcontainer die volle Bildschirmhöhe einnimmt */
 }
 
 .contentContainer {
@@ -300,7 +299,6 @@ section {
 
 .task-column {
     position: relative;
-    /* z-index: 1; */
     width: 90%;
     flex-grow: 1;
     display: flex;
@@ -316,21 +314,6 @@ section {
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
-
-/* .task-column::-webkit-scrollbar {
-    display: none;
-} */
-
-/* .task-column {
-    max-height: 500px;
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-} */
-
-/* .task-column::-webkit-scrollbar {
-    display: none;
-} */
 
 .no-task-message {
     display: flex;
@@ -376,10 +359,6 @@ section {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
-/* #allTaskInformation::-webkit-scrollbar {
-    display: none;
-} */
 
 #allTaskInformationButton {
     background: white;
@@ -686,18 +665,6 @@ section {
     left: 0;
     background-color: transparent;
     z-index: 1000;
-    /* display: none;
-    position: absolute;
-    width: 270px;
-    height: 52%;
-    background-color: white;
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    padding: 20px;
-    border: 2px solid #000000;
-    border-radius: 24px; */
 }
 
 .moveOptionContent {
@@ -888,13 +855,9 @@ section {
 #editDueDate {
     box-sizing: border-box;
     width: 97%;
-    /* Ensure full-width */
     margin: 8px 0;
-    /* Example margin */
     padding: 12px;
-    /* Example padding */
     border: 1px solid #d1d1d1;
-    /* Consistent border */
     font-size: 20px;
     line-height: 24px;
     font-weight: 400;
@@ -912,7 +875,6 @@ section {
 .priority-urgent {
     background-color: #ff3d00 !important;
     color: white;
-    /* Textfarbe weiß für bessere Lesbarkeit */
 }
 
 .priority-medium {
@@ -981,13 +943,9 @@ section {
 
 .userInitilas {
     width: 30px;
-    /* Oder eine passende Größe */
     height: 30px;
-    /* Oder eine passende Größe */
     border-radius: 15px;
-    /* Halb der Höhe/Breite für einen Kreis */
     color: white;
-    /* Für weiße Textfarbe */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1090,10 +1048,6 @@ section {
     margin-left: 8px;
 }
 
-/* #editSubtaskList::-webkit-scrollbar-track {
-    border-radius: 12px;
-} */
-
 #editSubtaskList button {
     cursor: pointer;
     margin-right: 4px;
@@ -1164,13 +1118,13 @@ input[type="checkbox"] {
     width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* Helle graue Farbe für den Hintergrund */
-    border-radius: 12px; /* Abgerundete Ecken für das Track */
+    background-color: #f1f1f1;
+    border-radius: 12px;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: #888; /* Dunkelgraue Farbe für den Thumb */
-    border-radius: 10px; /* Abgerundete Ecken für den Thumb */
+    background-color: #888;
+    border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #555; /* Dunklere Farbe beim Hover */
+    background-color: #555;
 }
