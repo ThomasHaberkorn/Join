@@ -241,11 +241,11 @@
                                                 alt="">
                                         </div>
 
-                                        <div id="dropDownContacts">
+                                        <div id="boardDropDownContacts">
 
                                         </div>
                                     </div>
-                                    <div id="checkedUserInitials">
+                                    <div id="boardCheckedUserInitials">
 
                                     </div>
                                 </div>
@@ -392,6 +392,7 @@
                     dropdownEdit.style.display = "block";
                 } else {
                     dropdownEdit.style.display = "none";
+                    updateEditCheckedUserInitials();
                 }
             }
 
@@ -399,13 +400,14 @@
                 const dropdownEdit = document.getElementById("dropDownContactsEdit");
                 if (!dropdownEdit.contains(event.target) && dropdownEdit.style.display === 'block') {
                     dropdownEdit.style.display = 'none';
+                   
                 }
             });
         });
 
     </script>
 
-    </body">
+    </body>
 
 
 </html>

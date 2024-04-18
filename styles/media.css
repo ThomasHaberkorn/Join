@@ -15,6 +15,8 @@
         /* width: 1440px; */
         overflow-x: scroll;
         margin-top: 0;
+        scrollbar-width: auto;
+        -ms-overflow-style: auto;
     }
     .task-card {
         margin-left: 8px;
@@ -63,6 +65,14 @@
 
     .btn-select img {
         margin: 0;
+    }
+}
+
+@media (max-width: 1250px) {
+    .nameBox {
+        font-size: 58px;
+        line-height: 60px;
+        max-width: 300px;
     }
 }
 
@@ -135,6 +145,11 @@
     }
     .addTaskContentContainer {
         width: 79%;
+    }
+    .nameBox {
+        font-size: 40px;
+        line-height: 45px;
+        max-width: 230px;
     }
 }
 
@@ -404,6 +419,9 @@
     .loginSingUpText {
         width: 146px;
     }
+    .summaryHead {
+        margin-bottom: 50px !important;
+    }
 }
 
 @media screen and (max-width: 550px) {
@@ -485,9 +503,10 @@
         gap: 25px;
     }
     .tasksNum {
-        margin-top: -7px;
-        margin-bottom: -13px;
-        font-size: 55px;
+        margin-top: 8px;
+        margin-bottom: 0px;
+        font-size: 48px;
+        line-height: 45px;
     }
     .summaryUrgentBorder {
         height: 80px;
@@ -507,6 +526,9 @@
     }
     .summaryUrgentTaskCount {
         margin: 0 5px;
+    }
+    .summaryHead {
+        margin-bottom: 20px !important;
     }
 }
 
@@ -671,13 +693,14 @@
         transition: 0.4s;
     }
     .tasksNum {
-        margin-top: -13px;
-        margin-bottom: -18px;
-        font-size: 45px;
+        margin-top: 8px;
+        margin-bottom: 0px;
+        font-size: 42px;
+        line-height: 37px;
     }
     .taskDesc {
-        font-size: 16px;
-        line-height: 20px;
+        font-size: 14px;
+        line-height: 18px;
     }
     .sidebarLinkStyle img {
         width: 24px !important;
@@ -788,9 +811,10 @@
     }
 
     .tasksNum {
-        margin-top: -16px;
-        margin-bottom: -24px;
-        font-size: 30px;
+        /* margin-top: -16px; */
+        /* margin-bottom: -24px; */
+        font-size: 37px;
+        line-height: 32px;
     }
     .taskDesc {
         font-size: 14px;
@@ -813,6 +837,10 @@
     }
     .summaryUrgentTaskInfo {
         font-size: 12px;
+    }
+    .summaryHead {
+        margin-top: 100px;
+        margin-bottom: 53px !important;
     }
 }
 
@@ -848,12 +876,24 @@
     }
 }
 
+@media (max-height: 950px) {
+    .addTaskContentContainer {
+        height: 86%;
+    }
+}
+
 @media (max-height: 930px) {
     .summaryHead {
         margin-bottom: 20px;
     }
     .addTaskContentContainer {
         height: 85%;
+    }
+}
+
+@media (max-height: 900px) {
+    .boardTaskContainer {
+        height: 55vh;
     }
 }
 
@@ -880,6 +920,15 @@
 }
 
 @media (max-height: 800px) {
+    .row1,
+    .row2,
+    .row3 {
+        height: 135px;
+    }
+    .row1,
+    .row2 {
+        margin-bottom: 20px;
+    }
 }
 @media (max-height: 770px) {
     .contactEditCloseResponse {
@@ -887,6 +936,14 @@
     }
     .addTaskContentContainer {
         height: 81%;
+    }
+    .summaryContentContainer {
+        height: 82vh;
+    }
+    .row1,
+    .row2,
+    .row3 {
+        height: 80px;
     }
 }
 
@@ -909,7 +966,7 @@
         margin-top: 0px;
     }
     .summaryInfoContentContainer {
-        height: 540px;
+        height: 420px;
     }
     .left-selection {
         gap: 30px;
@@ -936,6 +993,54 @@
     .middle-line {
         height: 380px;
     }
+    .tasksNum {
+        font-size: 55px;
+        line-height: 68.8px;
+    }
+    .taskDesc {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .summaryDoneInfoCounter {
+        font-size: 55px;
+        line-height: 68.8px;
+    }
+    .summaryDoneInfoText {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .summaryDoneInfoImg {
+        width: 60px;
+        height: 60px;
+    }
+    .summaryTodoInfoCounter {
+        font-size: 55px;
+        line-height: 68.8px;
+    }
+    .summaryTodoInfoText {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .summaryTodoInfoImg {
+        width: 60px;
+        height: 60px;
+    }
+    .summaryUrgentTaskCount {
+        font-size: 55px;
+        line-height: 68.8px;
+    }
+    .summaryUrgentTaskText {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .summaryUrgentTaskNextDate {
+        font-size: 18px;
+    }
+    .row1,
+    .row2,
+    .row3 {
+        height: 120px;
+    }
 }
 
 @media (max-height: 680px) {
@@ -945,12 +1050,12 @@
 }
 
 @media (max-height: 670px) {
-    .summaryInfoContentContainer {
+    /* .summaryInfoContentContainer {
         height: 500px;
-    }
-    .summaryMainContainer {
+    } */
+    /* .summaryMainContainer {
         margin-top: 30px;
-    }
+    } */
     .sidebarImgContainer {
         height: 250px !important;
     }
@@ -963,14 +1068,23 @@
     .middle-line {
         height: 360px;
     }
+    .row1,
+    .row2 {
+        margin-bottom: 10px;
+    }
 }
 
 @media (max-height: 650px) {
     .summaryInfoContentContainer {
-        height: 460px;
+        height: 400px;
     }
     .summaryMainContainer {
         margin-top: 10px;
+    }
+    .row1,
+    .row2,
+    .row3 {
+        height: 110px;
     }
 }
 
@@ -980,5 +1094,160 @@
     }
     .loginHeadlineh1 {
         margin-top: 12px;
+    }
+}
+
+@media (min-width: 350px) and (max-width: 370px) and (min-height: 730px) and (max-height: 750px) {
+    .row1,
+    .row2,
+    .row3 {
+        height: 90px;
+    }
+    .summaryHead {
+        margin-bottom: 84px;
+    }
+    .tasksNum {
+        margin-top: -10px;
+    }
+    .boardTaskContainer {
+        height: 50vh;
+    }
+}
+
+@media (min-width: 315px) and (max-width: 325px) and (min-height: 655px) and (max-height: 662px) {
+    .row1,
+    .row2,
+    .row3 {
+        height: 80px;
+        border-radius: 20px;
+    }
+    .summaryHead {
+        margin-bottom: 20px;
+    }
+    .tasksNum {
+        font-size: 45px;
+        line-height: 55px;
+        margin-bottom: -10px;
+        margin-top: -3px;
+    }
+    .taskDesc {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .summaryUrgentTaskCount {
+        font-size: 45px;
+        line-height: 45px;
+    }
+    .summaryUrgentTaskNextDate {
+        font-size: 12px;
+        line-height: 14px;
+        text-align: center;
+    }
+    .summaryUrgentTaskInfo {
+        text-align: center;
+    }
+    .summaryDoneInfoCounter {
+        font-size: 45px;
+        line-height: 64px;
+        margin-top: -3px;
+    }
+    .summaryDoneInfoText {
+        font-size: 16px;
+        line-height: 22px;
+    }
+    .summaryTodoInfoCounter {
+        font-size: 45px;
+        line-height: 64px;
+        margin-top: -3px;
+    }
+    .summaryTodoInfoText {
+        font-size: 16px;
+        line-height: 22px;
+    }
+    .summaryDoneInfoImg {
+        width: 50px;
+        height: 50px;
+    }
+    .summaryTodoInfoImg {
+        width: 50px;
+        height: 50px;
+    }
+    .radius30 {
+        border-radius: 20px;
+    }
+    .boardTaskContainer {
+        height: 45vh;
+    }
+    .loginLogo img {
+        margin-top: -25px;
+    }
+}
+
+@media (min-width: 370px) and (max-width: 380px) and (min-height: 663px) and (max-height: 670px) {
+    .row1,
+    .row2,
+    .row3 {
+        height: 90px;
+        border-radius: 20px;
+    }
+    .summaryHead {
+        margin-bottom: 20px;
+    }
+    .tasksNum {
+        font-size: 45px;
+        line-height: 55px;
+        margin-bottom: -8px;
+        margin-top: 3px;
+    }
+    .taskDesc {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .summaryUrgentTaskCount {
+        font-size: 45px;
+        line-height: 45px;
+    }
+    .summaryUrgentTaskNextDate {
+        font-size: 12px;
+        line-height: 14px;
+        text-align: center;
+    }
+    .summaryUrgentTaskInfo {
+        text-align: center;
+    }
+    .summaryDoneInfoCounter {
+        font-size: 45px;
+        line-height: 64px;
+        margin-top: -3px;
+    }
+    .summaryDoneInfoText {
+        font-size: 16px;
+        line-height: 22px;
+    }
+    .summaryTodoInfoCounter {
+        font-size: 45px;
+        line-height: 64px;
+        margin-top: -3px;
+    }
+    .summaryTodoInfoText {
+        font-size: 16px;
+        line-height: 22px;
+    }
+    .summaryDoneInfoImg {
+        width: 50px;
+        height: 50px;
+    }
+    .summaryTodoInfoImg {
+        width: 50px;
+        height: 50px;
+    }
+    .radius30 {
+        border-radius: 20px;
+    }
+    .boardTaskContainer {
+        height: 45vh;
+    }
+    .loginLogo img {
+        margin-top: -25px;
     }
 }

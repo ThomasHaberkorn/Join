@@ -136,7 +136,7 @@ function calculateProgress(task) {
 
     return `
         <div class="subtaskWithProgressBar">
-        <div class="progress" style="background-color: #e0e0e0; border-radius: 2px; margin-top: 10px;">
+        <div class="progress" >
             <div class="progress-bar" style="width: ${progressPercentage}%"></div>
         </div>
         <div class="subtaskNextToProgressBar";">${completedSubtasks}/${totalSubtasks} Subtasks</div>
@@ -162,7 +162,7 @@ function createCardHtml(
         <div class="task-card-header">${categoryDiv}</div>
         <div class="task-card-title">${task.title}</div>
         <div class="task-card-description">${task.description}</div>
-        </div>${progressHtml} <!-- Progress-Bar und Subtasks-Anzeige einfügen -->
+        </div><div class="boardProgrContainer">${progressHtml}</div> <!-- Progress-Bar und Subtasks-Anzeige einfügen -->
         <div class="prioAndContact">
             <div style="display: flex;">${assignedContactElements}</div>
             ${prioritySymbolHtml} <!-- Füge das Prioritätssymbol hinzu -->
