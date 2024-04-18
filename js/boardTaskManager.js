@@ -242,32 +242,39 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// document.addEventListener("DOMContentLoaded", function() {
 async function addTask(event) {
-    // let form = document.querySelector(".addTaskContentContainer");
-
-    // if (form) {
-    // form.addEventListener("submit", function (event) {
     event.preventDefault();
 
     let title = document.getElementById("titleInput").value;
     let description = document.getElementById("descriptionInput").value;
     let taskDate = document.getElementById("taskDate").value;
-    // let category = document.getElementById("category").value;
-    // let category =
-    //     document.getElementsByClassName("dropdown-selected").textContent;
     let categoryElement = document.querySelector(".dropdown-selected");
-    let category = categoryElement.textContent.trim();
+    let category = categoryElement ? categoryElement.textContent.trim() : null;
 
     // Überprüfen, ob eine Kategorie ausgewählt wurde
     if (!category || category === "Select task Category") {
-        alert("Bitte wählen Sie eine Kategorie aus dem Dropdown-Menü aus.");
+        // Finden oder erstellen Sie das Element für die Fehlermeldung
+        let errorMsg = document.getElementById("categoryError");
+        if (!errorMsg) {
+            errorMsg = document.createElement("div");
+            errorMsg.id = "categoryError";
+            errorMsg.style.color = "red";
+            document.getElementById("category").parentElement.parentElement.appendChild(errorMsg);
+        }
+
+        // Setzen Sie die Fehlermeldung und machen Sie sie sichtbar
+        errorMsg.textContent = "Please choose a Category.";
+        errorMsg.style.display = "block";
         return; // Beendet die Funktion, wenn keine Kategorie ausgewählt wurde
+    } else {
+        // Wenn eine Kategorie ausgewählt wurde, verstecken Sie die Fehlermeldung
+        let errorMsg = document.getElementById("categoryError");
+        if (errorMsg) {
+            errorMsg.style.display = "none";
+        }
     }
 
-    let assignedContacts = [
-        ...document.querySelectorAll(".contact-checkbox:checked"),
-    ].map((input) => input.value);
+    let assignedContacts = [...document.querySelectorAll(".contact-checkbox:checked")].map((input) => input.value);
     let userLevel = sessionStorage.getItem("userLevel");
     let newTaskId = "task-" + Math.random().toString(36).substr(2, 9);
 
@@ -287,8 +294,6 @@ async function addTask(event) {
     await setItem("tasks", tasks);
 
     window.location.href = "board.html";
-    // });
-    // }
 }
 
 function fillDropdownList() {

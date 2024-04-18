@@ -261,7 +261,7 @@ if (!category) {
     }
 
     // Setzen Sie die Fehlermeldung und machen Sie sie sichtbar
-    errorMsg.textContent = "Bitte wählen Sie eine Kategorie aus.";
+    errorMsg.textContent = "Please choose a Category.";
     errorMsg.style.display = "block";
     return; // Beendet die Ausführung der Funktion, um das Erstellen des Tasks zu verhindern
 } else {
