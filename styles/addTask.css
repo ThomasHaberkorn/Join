@@ -594,3 +594,164 @@ input:focus {
 .dropdown-arrow {
     margin-left: -21px;
 }
+
+.priority-urgent-selected {
+    background-color: #ff3d00;
+    color: white;
+}
+
+.priority-medium-selected {
+    background-color: #ffa800;
+    color: white;
+}
+
+.priority-low-selected {
+    background-color: #7ae229;
+    color: white;
+}
+.checkedItemAndCheckbox {
+    background-color: #2a3647;
+    color: white;
+}
+
+.checkedItemAndCheckbox:hover {
+    background-color: #2a3647;
+}
+.itemAndCheckbox {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 6px;
+    margin-top: 6px;
+    border-radius: 8px;
+}
+
+.itemAndCheckbox:hover {
+    background-color: rgb(236, 236, 236);
+}
+
+.nameWithCheckbox {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.nameWithCheckbox label {
+    cursor: pointer;
+    width: 100%;
+    margin-top: 3px;
+}
+/* ___________________________ */
+
+.pngs {
+    position: relative;
+    top: -45px;
+    left: calc(91%);
+    cursor: pointer;
+}
+
+#clear-subtask {
+    margin-left: -50px;
+}
+
+.subtaskEditBtn,
+.subtaskDeleteBtn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.subtaskEditBtn img,
+.subtaskDeleteBtn img {
+    width: 20px;
+    height: 20px;
+}
+
+input[type="text"][disabled] {
+    background: transparent;
+    border: none;
+    color: black;
+}
+
+.subtask-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.subtask-list li input[type="text"] {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.subtask-list li button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.subtask-list li img {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.custom-checkbox img {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.delete-subtask {
+    margin-left: 10px;
+    color: red;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.mainContainer {
+    width: 100%;
+    height: 100%;
+}
+
+.subtaskDeleteBtn {
+    background: white;
+    color: black;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+
+.subtask-list li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.subtask-list li:hover {
+    background-color: lightgrey;
+}
+
+.subtask-list input[type="checkbox"] {
+    display: none;
+}
+
+#taskDate {
+    cursor: pointer;
+}
+
+.contact-checkbox {
+    cursor: pointer;
+    margin-right: 28px;
+}
+
+#inputDropDown {
+    cursor: pointer;
+}

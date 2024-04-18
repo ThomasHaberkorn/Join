@@ -84,7 +84,6 @@
             </div>
         </div>
     </div>
-
     <div id="allTaskInformation" onclick="closeAllTaskInformation()">
         <div class="alltaskContent" onclick="event.stopPropagation()">
             <div id="allTaskInformationInner">
@@ -116,7 +115,6 @@
             </div>
         </div>
     </div>
-
     <div id="taskEditorModal" onclick="closeEditor()">
         <div class="taskEditorModalContent" onclick="event.stopPropagation()">
             <div class="taskEditorScrollbarContainer">
@@ -141,7 +139,6 @@
                     <p>Due date</p>
                     <input class="cursorPointer" id="editDueDate" type="date" placeholder="Due Date">
                 </div>
-
                 <div id="modalPrioOverall">
                     <p>Prio</p>
                     <input type="hidden" id="editPriority" value="">
@@ -157,31 +154,19 @@
                         </button>
                     </div>
                 </div>
-
                 <div id="modalEditAssignedTo">
                     <p>Assigned To</p>
                     <div id="editContainerInputDropdown">
                         <div id="editInputDropdown">
-                            <!-- <div class="contact-dropdown-edit" id="contDropdownEdit" onclick="toggleDropdownEdit()">
-                                <div class="input-dropdown-edit">
-                                    <input id="inputDropdownEdit" type="text" placeholder="Select contacts to assign"
-                                        readonly>
-                                    <img id="openDropdownEdit" src="./assets/img/addTask/arrow_drop_downaa.png" alt="">
-                                </div>
-                                <div id="dropDownContactsEdit" class="dropdown-content-edit" style="display: none">
-                                </div>
-                            </div> -->
                             <div class="contact-dropdown-edit" onclick="toggleDropdownEdit()">
                                 <div class="input-dropdown-edit">
                                     <input id="inputDropdownEdit" type="text" placeholder="Select contacts to assign"
                                         readonly>
                                     <img id="openDropdownEdit" src="./assets/img/addTask/arrow_drop_downaa.png" alt="">
-
                                 </div>
                                 <div id="dropDownContactsEdit" class="dropdown-content-edit" style="display: none">
                                 </div>
                             </div>
-
                         </div>
                         <div id="editCheckedUserInitials"></div>
                     </div>
@@ -199,7 +184,6 @@
                             <ul id="editSubtaskList" class="subtask-list"></ul>
                         </div>
                     </div>
-
                 </div>
                 <div id="saveEditModal">
                     <button class="cursorPointer" id="saveEdit">OK</button>
@@ -207,7 +191,6 @@
             </div>
         </div>
     </div>
-
     <div id="boardAddTask" style="display: none;" onclick="closeBoardAddTask()">
         <div class="boardAddTaskInnerContent" onclick="event.stopPropagation();">
             <button id="boardAddTaskCloseButton" onclick="closeBoardAddTask()">X</button>
@@ -215,11 +198,9 @@
                 <div class="tasks">
                     <div class="headline">
                         <h2>Add Task</h2>
-
                     </div>
                     <div class="vertical-menu">
                         <div class="position-left-right">
-
                             <div class="left-selection">
                                 <div class="title">
                                     <p>Title<b style="color: red;">*</b></p>
@@ -229,7 +210,6 @@
                                     <p>Description</p>
                                     <textarea id="descriptionInput" placeholder="Enter a Description"></textarea>
                                 </div>
-
                                 <div class="contact">
                                     <label for="contacts">Assigned to</label>
                                     <div class="containerDropDown">
@@ -240,21 +220,14 @@
                                             <img id="openDropdown" src="./assets/img/addTask/arrow_drop_downaa.png"
                                                 alt="">
                                         </div>
-
                                         <div id="boardDropDownContacts">
-
                                         </div>
                                     </div>
                                     <div id="boardCheckedUserInitials">
-
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="middle-line"></div>
-
-
                             <div class="right-selection">
                                 <div class="date">
                                     <p style="margin: 0;">Due date<b style="color: red;">*</b></p>
@@ -294,15 +267,6 @@
                                                 alt="Toggle Dropdown">
                                         </div>
                                         <input type="hidden" name="Category" id="category" required>
-
-
-                                        <!-- <select name="Category" id="category" required>
-                                            <option disabled value="" selected hidden>Select task
-                                                Category</option>
-                                            <option value="Technical Task" class="categoryOption">Technical Task
-                                            </option>
-                                            <option value="User Story" class="categoryOption">User Story</option>
-                                        </select> -->
                                     </div>
                                 </div>
                                 <div class="subtask">
@@ -316,13 +280,10 @@
                                     </div>
                                     <ul class="subtask-list" id="list"></ul>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
-
                 <section class="buttons-and-text">
                     <div class="required-text">
                         <b style="color: red;">*</b>
@@ -339,7 +300,6 @@
             </form>
         </div>
     </div>
-
     <div id="moveOption" style="display: none;" onclick="moveOptionClose()">
         <div class="moveOptionContent" onclick="event.stopPropagation()">
             <div id="cardoptions">
@@ -363,10 +323,7 @@
     </div>
     </div>
     </div>
-
     <div id="dimmedBackground" class="dimmed-background"></div>
-
-
     <script src="js/storage.js"></script>
     <script src="js/boardFeatures.js"></script>
     <script src="js/boardFeatures2.js"></script>
@@ -400,19 +357,16 @@
                     updateEditCheckedUserInitials();
                 }
             }
-
             document.addEventListener('click', function (event) {
                 const dropdownEdit = document.getElementById("dropDownContactsEdit");
                 if (!dropdownEdit.contains(event.target) && dropdownEdit.style.display === 'block') {
                     dropdownEdit.style.display = 'none';
-                   
+
                 }
             });
         });
-
     </script>
-
-    </body>
+</body>
 
 
 </html>
