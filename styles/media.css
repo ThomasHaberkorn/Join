@@ -12,7 +12,6 @@
     }
     .task-column {
         flex-direction: row;
-        /* width: 1440px; */
         overflow-x: scroll;
         margin-top: 0;
         scrollbar-width: auto;
@@ -178,6 +177,102 @@
     }
 }
 
+@media (max-width: 985px) {
+    .task-card {
+        min-width: 160px !important;
+        max-width: 160px !important;
+        height: 200px;
+    }
+
+    #boardContainerUpperPart {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #searchTask {
+        width: 100%;
+    }
+
+    .no-task-message {
+        font-size: smaller;
+    }
+
+    h2 {
+        font-size: smaller;
+    }
+
+    h1 {
+        font-size: 40px !important;
+    }
+
+    #boardSearchbar {
+        height: 40px;
+        width: 150px;
+    }
+
+    #boardContainerUpperPart {
+        justify-content: space-around;
+    }
+
+    #boardContainerUpperPartRight {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    .progress {
+        margin-top: 0 !important;
+    }
+    .subtaskWithProgressBar {
+        margin-bottom: -5px;
+    }
+}
+
+@media (max-width: 859px) {
+    .no-task-message {
+        text-align: center;
+    }
+}
+
+@media (max-width: 750px) {
+    .task-column {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .contentContainer {
+        padding: 0;
+    }
+
+    #taskBoard {
+        margin: 0;
+        width: 100%;
+        height: 80%;
+    }
+
+    #boardContainerUpperPart {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 16px;
+    }
+
+    #sidebarMainContainer {
+        z-index: +100;
+    }
+
+    .allTasks {
+        width: 100vw;
+    }
+
+    .task-card {
+        width: 200px;
+        margin: 16px;
+    }
+
+    .allTasksHeader {
+        width: 80%;
+    }
+}
+
 @media (max-width: 950px) {
     .signinInnerContent {
         margin-top: 190px;
@@ -198,6 +293,21 @@
     }
     .addTaskContentContainer {
         width: 73%;
+    }
+}
+
+@media (max-width: 900px) {
+    .hiden-deleteimg {
+        left: 78vw;
+        top: -72px;
+    }
+
+    .buttons-and-text {
+        margin-bottom: 10px;
+    }
+
+    .btn-clear {
+        display: none;
     }
 }
 
@@ -323,9 +433,178 @@
         left: 0;
         width: 100%;
         height: 89%;
+        padding-left: 0;
+        overflow: auto;
+        max-height: calc(100vh - 80px);
     }
     .middle-line {
         display: none;
+    }
+    .vertical-menu {
+        overflow-y: auto;
+    }
+    .selected-priority {
+        border: 2px solid #007bff;
+        background-color: #e7f1ff;
+    }
+    .itemAndCheckbox {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 6px;
+        margin-top: 6px;
+        border-radius: 8px;
+    }
+
+    .itemAndCheckbox:hover {
+        background-color: rgb(236, 236, 236);
+    }
+
+    .nameWithCheckbox {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .checkedItemAndCheckbox {
+        background-color: #2a3647;
+        color: white;
+    }
+
+    .checkedItemAndCheckbox:hover {
+        background-color: #2a3647;
+    }
+
+    .priority-urgent-selected {
+        background-color: #ff3d00;
+        color: white;
+    }
+
+    .priority-medium-selected {
+        background-color: #ffa800;
+        color: white;
+    }
+
+    .priority-low-selected {
+        background-color: #7ae229;
+        color: white;
+    }
+
+    .pngs {
+        position: relative;
+        top: -40px;
+        left: calc(91%);
+        cursor: pointer;
+    }
+
+    #clear-subtask {
+        margin-left: -50px;
+    }
+
+    .subtaskEditBtn,
+    .subtaskDeleteBtn {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+
+    .subtaskEditBtn img,
+    .subtaskDeleteBtn img {
+        width: 20px;
+        height: 20px;
+    }
+
+    input[type="text"][disabled] {
+        background: transparent;
+        border: none;
+        color: black;
+    }
+
+    .subtask-list li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .subtask-list li input[type="text"] {
+        flex-grow: 1;
+        margin-right: 10px;
+    }
+
+    .subtask-list li button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .subtask-list li img {
+        width: 20px;
+        height: 20px;
+        display: block;
+    }
+
+    .custom-checkbox input[type="checkbox"] {
+        display: none;
+    }
+
+    .custom-checkbox img {
+        cursor: pointer;
+        width: 16px;
+        height: 16px;
+    }
+
+    .nameWithCheckbox label {
+        cursor: pointer;
+        width: 100%;
+    }
+    .delete-subtask {
+        margin-left: 10px;
+        color: red;
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+
+    .mainContainer {
+        width: 100%;
+        height: 100%;
+    }
+
+    .subtaskDeleteBtn {
+        background: white;
+        color: black;
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+    }
+
+    .subtask-list li {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+
+    .subtask-list li:hover {
+        background-color: lightgrey;
+    }
+
+    .subtask-list input[type="checkbox"] {
+        display: none;
+    }
+
+    #taskDate {
+        cursor: pointer;
+    }
+
+    .contact-checkbox {
+        cursor: pointer;
+        margin-right: 28px;
+    }
+
+    #inputDropDown {
+        cursor: pointer;
     }
 }
 
@@ -1050,12 +1329,6 @@
 }
 
 @media (max-height: 670px) {
-    /* .summaryInfoContentContainer {
-        height: 500px;
-    } */
-    /* .summaryMainContainer {
-        margin-top: 30px;
-    } */
     .sidebarImgContainer {
         height: 250px !important;
     }

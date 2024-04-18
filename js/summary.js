@@ -1,3 +1,7 @@
+/**
+ * @file summary.js is the JavaScript file for the summary.html page.
+ *
+ */
 async function initSummary() {
     await includeW3();
     await getTasksAndProcess();
@@ -27,23 +31,6 @@ function setDaytime() {
     document.getElementById("summaryWelcomeDaytimeContainer").innerHTML =
         getDaytime();
 }
-
-/**
- *
- * @returns the daytime greeting
- */
-
-// function getDaytime() {
-//     a = new Date();
-//     b = a.getHours();
-//     if (b >= 0 && b < 11) {
-//         return "Good morning";
-//     } else if (b >= 11 && b < 18) {
-//         return "Welcome";
-//     } else if (b >= 18 && b < 24) {
-//         return "Good evening";
-//     }
-// }
 
 /**
  * Determines the appropriate greeting based on the current time of day.

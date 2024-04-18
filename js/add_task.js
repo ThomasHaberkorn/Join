@@ -68,16 +68,12 @@ function loadCheckedUserInitials() {
     const editCheckedUserInitials = document.getElementById(
         "checkedUserInitials"
     );
-    editCheckedUserInitials.innerHTML = ""; // Bereinigen Sie den Container vor dem Hinzufügen neuer Initialen
-
-    // Durchlaufen Sie alle Checkboxen und prüfen Sie, ob sie markiert sind
+    editCheckedUserInitials.innerHTML = "";
     document
         .querySelectorAll(".contact-checkbox:checked")
         .forEach((checkbox) => {
-            // Finden Sie den entsprechenden Kontakt basierend auf der userID der Checkbox
             const contact = contacts.find((c) => c.userID === checkbox.value);
             if (contact) {
-                // Erstellen Sie ein Element für die Initialen des Kontakts
                 const initialsDiv = document.createElement("div");
                 initialsDiv.className = "userInitials";
                 initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
@@ -231,34 +227,28 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 async function addTask(event) {
-    event.preventDefault(); // Verhindert das standardmäßige Absenden des Formulars
-
+    event.preventDefault();
     let category = document.getElementById("category").value;
 
-    // Überprüfen, ob eine Kategorie ausgewählt wurde
-if (!category) {
-    // Finden oder erstellen Sie das Element für die Fehlermeldung
-    let errorMsg = document.getElementById("categoryError");
-    if (!errorMsg) {
-        errorMsg = document.createElement("div");
-        errorMsg.id = "categoryError";
-        errorMsg.style.color = "red";
-        document.getElementById("category").parentElement.parentElement.appendChild(errorMsg);
+    if (!category) {
+        let errorMsg = document.getElementById("categoryError");
+        if (!errorMsg) {
+            errorMsg = document.createElement("div");
+            errorMsg.id = "categoryError";
+            errorMsg.style.color = "red";
+            document
+                .getElementById("category")
+                .parentElement.parentElement.appendChild(errorMsg);
+        }
+        errorMsg.textContent = "Please choose a Category.";
+        errorMsg.style.display = "block";
+        return;
+    } else {
+        let errorMsg = document.getElementById("categoryError");
+        if (errorMsg) {
+            errorMsg.style.display = "none";
+        }
     }
-
-    // Setzen Sie die Fehlermeldung und machen Sie sie sichtbar
-    errorMsg.textContent = "Please choose a Category.";
-    errorMsg.style.display = "block";
-    return; // Beendet die Ausführung der Funktion, um das Erstellen des Tasks zu verhindern
-} else {
-    // Wenn eine Kategorie ausgewählt wurde, verstecken Sie die Fehlermeldung
-    let errorMsg = document.getElementById("categoryError");
-    if (errorMsg) {
-        errorMsg.style.display = "none";
-    }
-}
-
-    // Der Rest Ihrer Logik zum Erstellen des Tasks...
     let title = document.getElementById("titleInput").value;
     let description = document.getElementById("descriptionInput").value;
     let taskDate = document.getElementById("taskDate").value;
@@ -283,7 +273,7 @@ if (!category) {
 
     await setItem("tasks", tasks);
 
-    window.location.href = "board.html"; // Weiterleitung des Benutzers zur Task-Übersicht
+    window.location.href = "board.html";
 }
 
 function fillDropdownList() {
@@ -332,7 +322,7 @@ document
     .querySelectorAll('.custom-checkbox input[type="checkbox"]')
     .forEach((checkbox) => {
         checkbox.addEventListener("change", function () {
-            const imgElement = this.nextElementSibling; // Nimm das nächste Element (das img-Tag)
+            const imgElement = this.nextElementSibling;
             if (this.checked) {
                 imgElement.src = "./assets/img/checkboxChecked.png";
             } else {
@@ -351,7 +341,6 @@ function toggleDropdown(event) {
         ? "./assets/img/custom-arrow.png"
         : "./assets/img/custom-arrow-up.png";
 
-    // Stoppt die Propagation des Events, um Doppeltrigger zu verhindern
     event.stopPropagation();
 }
 
@@ -378,7 +367,6 @@ function setupDropdownListeners() {
         option.addEventListener("click", selectOption);
     });
 
-    // Fügt einen Listener zum Fenster hinzu, um das Dropdown zu schließen, wenn außerhalb geklickt wird
     window.addEventListener("click", function () {
         const options = document.querySelector(".dropdown-options");
         const arrow = document.querySelector(".dropdown-arrow");
@@ -411,8 +399,6 @@ function initializeDropdown() {
         .addEventListener("keydown", handleKeyboardAccessibility);
 }
 
-// Initialize the dropdown once the document is fully loaded
-// document.addEventListener("DOMContentLoaded", initializeDropdown);
 document.addEventListener("DOMContentLoaded", initializeDropdown);
 
 function closeDropdown() {
