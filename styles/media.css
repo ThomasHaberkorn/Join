@@ -68,6 +68,14 @@
     }
 }
 
+@media (max-width: 1250px) {
+    .nameBox {
+        font-size: 58px;
+        line-height: 60px;
+        max-width: 300px;
+    }
+}
+
 @media screen and (max-width: 1220px) {
     .summaryTextJoin {
         font-size: 50px;
@@ -137,6 +145,11 @@
     }
     .addTaskContentContainer {
         width: 79%;
+    }
+    .nameBox {
+        font-size: 40px;
+        line-height: 45px;
+        max-width: 230px;
     }
 }
 
@@ -406,6 +419,9 @@
     .loginSingUpText {
         width: 146px;
     }
+    .summaryHead {
+        margin-bottom: 50px !important;
+    }
 }
 
 @media screen and (max-width: 550px) {
@@ -487,9 +503,10 @@
         gap: 25px;
     }
     .tasksNum {
-        margin-top: -7px;
-        margin-bottom: -13px;
-        font-size: 55px;
+        margin-top: 8px;
+        margin-bottom: 0px;
+        font-size: 48px;
+        line-height: 45px;
     }
     .summaryUrgentBorder {
         height: 80px;
@@ -509,6 +526,9 @@
     }
     .summaryUrgentTaskCount {
         margin: 0 5px;
+    }
+    .summaryHead {
+        margin-bottom: 20px !important;
     }
 }
 
@@ -673,13 +693,14 @@
         transition: 0.4s;
     }
     .tasksNum {
-        margin-top: -13px;
-        margin-bottom: -18px;
-        font-size: 45px;
+        margin-top: 8px;
+        margin-bottom: 0px;
+        font-size: 42px;
+        line-height: 37px;
     }
     .taskDesc {
-        font-size: 16px;
-        line-height: 20px;
+        font-size: 14px;
+        line-height: 18px;
     }
     .sidebarLinkStyle img {
         width: 24px !important;
@@ -790,9 +811,10 @@
     }
 
     .tasksNum {
-        margin-top: -16px;
-        margin-bottom: -24px;
-        font-size: 30px;
+        /* margin-top: -16px; */
+        /* margin-bottom: -24px; */
+        font-size: 37px;
+        line-height: 32px;
     }
     .taskDesc {
         font-size: 14px;
@@ -815,6 +837,10 @@
     }
     .summaryUrgentTaskInfo {
         font-size: 12px;
+    }
+    .summaryHead {
+        margin-top: 100px;
+        margin-bottom: 53px !important;
     }
 }
 
@@ -912,7 +938,12 @@
         height: 81%;
     }
     .summaryContentContainer {
-        height: 93vh;
+        height: 82vh;
+    }
+    .row1,
+    .row2,
+    .row3 {
+        height: 80px;
     }
 }
 

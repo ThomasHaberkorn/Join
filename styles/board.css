@@ -4,10 +4,10 @@
     flex-direction: column;
     cursor: pointer;
     align-items: flex-start;
-    gap: 14px;
+    gap: 5px;
     padding: 16px;
     margin-bottom: 16px;
-    margin-top: 8px;
+    margin-top: 5px;
     align-self: stretch;
     border-radius: 24px;
     box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.08);
@@ -124,6 +124,7 @@ h1 {
     font-weight: 700;
     line-height: 120%;
     padding-left: 25px;
+    min-width: 15vw;
 }
 
 .boardPlusButton {
@@ -186,7 +187,7 @@ section {
     /* overflow: hidden; */
 }
 
-#boardDropDownContacts{
+#boardDropDownContacts {
     display: none;
     overflow-y: scroll;
     max-height: 140px;
@@ -197,8 +198,8 @@ section {
     color: var(--icon, #a8a8a8);
     font-size: 16px;
     font-style: normal;
-    max-height: 35px;
-    min-height: 19.2px;
+    max-height: 65px;
+    min-height: 45px;
     overflow: hidden;
     font-weight: 400;
     line-height: 120%;
@@ -362,7 +363,7 @@ section {
 .alltaskContent {
     position: fixed;
     width: 300px;
-    height: 70%;
+    height: 75%;
     background-color: white;
     z-index: 100;
     justify-content: center;
