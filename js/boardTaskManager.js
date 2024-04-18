@@ -14,12 +14,8 @@ let currentTaskStatus = "todo";
 
 async function initAddSidebar() {
     await includeW3();
-    // addTaskActive();
     showInitials();
 }
-// function addTaskActive() {
-//     document.getElementById("addTasksum").classList.add("bgfocus");
-// }
 
 document.addEventListener("DOMContentLoaded", async function () {
     await loadContacts();
@@ -63,33 +59,17 @@ function handleCheckboxChange(checkbox) {
     }
 }
 
-// function fillDropdownList() {
-//     let dropdown = document.getElementById("dropDownContacts");
-
-//     if (
-//         dropdown.style.display === "none" ||
-//         dropdown.style.display === ""
-//     ) {
-//         dropdown.style.display = "block";
-//     } else {
-//         dropdown.style.display = "none";
-//     }
-// }
-
 function loadCheckedUserInitials() {
     const editCheckedUserInitials = document.getElementById(
         "boardCheckedUserInitials"
     );
-    editCheckedUserInitials.innerHTML = ""; // Bereinigen Sie den Container vor dem Hinzufügen neuer Initialen
+    editCheckedUserInitials.innerHTML = "";
 
-    // Durchlaufen Sie alle Checkboxen und prüfen Sie, ob sie markiert sind
     document
         .querySelectorAll(".contact-checkbox:checked")
         .forEach((checkbox) => {
-            // Finden Sie den entsprechenden Kontakt basierend auf der userID der Checkbox
             const contact = contacts.find((c) => c.userID === checkbox.value);
             if (contact) {
-                // Erstellen Sie ein Element für die Initialen des Kontakts
                 const initialsDiv = document.createElement("div");
                 initialsDiv.className = "userInitials";
                 initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
@@ -251,30 +231,30 @@ async function addTask(event) {
     let categoryElement = document.querySelector(".dropdown-selected");
     let category = categoryElement ? categoryElement.textContent.trim() : null;
 
-    // Überprüfen, ob eine Kategorie ausgewählt wurde
     if (!category || category === "Select task Category") {
-        // Finden oder erstellen Sie das Element für die Fehlermeldung
         let errorMsg = document.getElementById("categoryError");
         if (!errorMsg) {
             errorMsg = document.createElement("div");
             errorMsg.id = "categoryError";
             errorMsg.style.color = "red";
-            document.getElementById("category").parentElement.parentElement.appendChild(errorMsg);
+            document
+                .getElementById("category")
+                .parentElement.parentElement.appendChild(errorMsg);
         }
 
-        // Setzen Sie die Fehlermeldung und machen Sie sie sichtbar
         errorMsg.textContent = "Please choose a Category.";
         errorMsg.style.display = "block";
-        return; // Beendet die Funktion, wenn keine Kategorie ausgewählt wurde
+        return;
     } else {
-        // Wenn eine Kategorie ausgewählt wurde, verstecken Sie die Fehlermeldung
         let errorMsg = document.getElementById("categoryError");
         if (errorMsg) {
             errorMsg.style.display = "none";
         }
     }
 
-    let assignedContacts = [...document.querySelectorAll(".contact-checkbox:checked")].map((input) => input.value);
+    let assignedContacts = [
+        ...document.querySelectorAll(".contact-checkbox:checked"),
+    ].map((input) => input.value);
     let userLevel = sessionStorage.getItem("userLevel");
     let newTaskId = "task-" + Math.random().toString(36).substr(2, 9);
 
@@ -298,7 +278,9 @@ async function addTask(event) {
 
 function fillDropdownList() {
     let dropdown = document.getElementById("boardDropDownContacts");
-    let checkedUserInitials = document.getElementById("boardCheckedUserInitials");
+    let checkedUserInitials = document.getElementById(
+        "boardCheckedUserInitials"
+    );
 
     if (dropdown.style.display === "none" || dropdown.style.display === "") {
         dropdown.style.display = "block";
@@ -358,68 +340,97 @@ function closeBoardAddTask() {
 function openAddTaskWithStatus(status) {
     currentTaskStatus = status;
     document.getElementById("boardAddTask").style.display = "block";
-    document.getElementById('boardCheckedUserInitials').innerHTML = '';
-
+    document.getElementById("boardCheckedUserInitials").innerHTML = "";
 }
 
-document.addEventListener('mousedown', function(event) {
-    var dropdown = document.getElementById('boardDropDownContacts');
-    var inputDropDown = document.getElementById('inputDropDown');
-    var openDropdown = document.getElementById('openDropdown');
-    var boardCheckedUserInitials = document.getElementById('boardCheckedUserInitials');
+document.addEventListener(
+    "mousedown",
+    function (event) {
+        var dropdown = document.getElementById("boardDropDownContacts");
+        var inputDropDown = document.getElementById("inputDropDown");
+        var openDropdown = document.getElementById("openDropdown");
+        var boardCheckedUserInitials = document.getElementById(
+            "boardCheckedUserInitials"
+        );
 
-    if (dropdown) {
-        var isClickInsideDropdown = dropdown.contains(event.target);
-        var isClickInsideInputDropDown = inputDropDown && inputDropDown.contains(event.target);
-        var isClickInsideOpenDropdown = openDropdown && openDropdown.contains(event.target);
-        var dropdownDisplay = window.getComputedStyle(dropdown).display;
+        if (dropdown) {
+            var isClickInsideDropdown = dropdown.contains(event.target);
+            var isClickInsideInputDropDown =
+                inputDropDown && inputDropDown.contains(event.target);
+            var isClickInsideOpenDropdown =
+                openDropdown && openDropdown.contains(event.target);
+            var dropdownDisplay = window.getComputedStyle(dropdown).display;
 
-        if (!isClickInsideDropdown && !isClickInsideInputDropDown && !isClickInsideOpenDropdown && dropdownDisplay === 'block') {
-            dropdown.style.display = 'none';
-            boardCheckedUserInitials.style.display = 'flex';
-            loadCheckedUserInitials();
+            if (
+                !isClickInsideDropdown &&
+                !isClickInsideInputDropDown &&
+                !isClickInsideOpenDropdown &&
+                dropdownDisplay === "block"
+            ) {
+                dropdown.style.display = "none";
+                boardCheckedUserInitials.style.display = "flex";
+                loadCheckedUserInitials();
+            }
         }
-    }
-}, true);
+    },
+    true
+);
 
-document.addEventListener('mousedown', function(event) {
-    var dropdown = document.getElementById('dropDownContactsEdit');
-    var contactDropdownEdit = document.getElementById('contact-dropdown-edit');
-    var inputDropdownEdit = document.getElementById('input-dropdown-edit');
-    var openDropdownEdit = document.getElementById('openDropdownEdit');
-    var editInputDropdown = document.getElementById('editInputDropdown');
+document.addEventListener(
+    "mousedown",
+    function (event) {
+        var dropdown = document.getElementById("dropDownContactsEdit");
+        var contactDropdownEdit = document.getElementById(
+            "contact-dropdown-edit"
+        );
+        var inputDropdownEdit = document.getElementById("input-dropdown-edit");
+        var openDropdownEdit = document.getElementById("openDropdownEdit");
+        var editInputDropdown = document.getElementById("editInputDropdown");
 
-    if (dropdown) {
-        var isClickInsideDropdown = dropdown.contains(event.target);
-        var isClickInsideContactDropdownEdit = contactDropdownEdit && contactDropdownEdit.contains(event.target);
-        var isClickInsideInputDropdownEdit = inputDropdownEdit && inputDropdownEdit.contains(event.target);
-        var isClickInsideOpenDropdownEdit = openDropdownEdit && openDropdownEdit.contains(event.target);
-        var isClickInsideEditInputDropdown = editInputDropdown && editInputDropdown.contains(event.target);
-        var dropdownDisplay = window.getComputedStyle(dropdown).display;
+        if (dropdown) {
+            var isClickInsideDropdown = dropdown.contains(event.target);
+            var isClickInsideContactDropdownEdit =
+                contactDropdownEdit &&
+                contactDropdownEdit.contains(event.target);
+            var isClickInsideInputDropdownEdit =
+                inputDropdownEdit && inputDropdownEdit.contains(event.target);
+            var isClickInsideOpenDropdownEdit =
+                openDropdownEdit && openDropdownEdit.contains(event.target);
+            var isClickInsideEditInputDropdown =
+                editInputDropdown && editInputDropdown.contains(event.target);
+            var dropdownDisplay = window.getComputedStyle(dropdown).display;
 
-        if (!isClickInsideDropdown && !isClickInsideContactDropdownEdit && !isClickInsideInputDropdownEdit && !isClickInsideOpenDropdownEdit && !isClickInsideEditInputDropdown && dropdownDisplay === 'block') {
-            dropdown.style.display = 'none';
-            updateEditCheckedUserInitials(); // Aktualisiere die Anzeige
-
+            if (
+                !isClickInsideDropdown &&
+                !isClickInsideContactDropdownEdit &&
+                !isClickInsideInputDropdownEdit &&
+                !isClickInsideOpenDropdownEdit &&
+                !isClickInsideEditInputDropdown &&
+                dropdownDisplay === "block"
+            ) {
+                dropdown.style.display = "none";
+                updateEditCheckedUserInitials();
+            }
         }
-    }
-}, true);
-
+    },
+    true
+);
 
 function updateEditCheckedUserInitials() {
-    const dropdownEdit = document.getElementById('dropDownContactsEdit');
-    const editCheckedUserInitials = document.getElementById('editCheckedUserInitials');
-    editCheckedUserInitials.innerHTML = ''; // Vorhandene Initialen löschen
+    const dropdownEdit = document.getElementById("dropDownContactsEdit");
+    const editCheckedUserInitials = document.getElementById(
+        "editCheckedUserInitials"
+    );
+    editCheckedUserInitials.innerHTML = "";
 
-    // Durchlaufe alle Checkboxen in dropDownContactsEdit
     const checkboxes = dropdownEdit.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(checkbox => {
+    checkboxes.forEach((checkbox) => {
         if (checkbox.checked) {
             const contactId = checkbox.value;
-            const contact = contacts.find(c => c.userID === contactId);
+            const contact = contacts.find((c) => c.userID === contactId);
             if (contact) {
-                const initialsDiv = document.createElement('div');
-                initialsDiv.className = 'userInitials';
+                const initialsDiv = document.createElement("div");
+                initialsDiv.className = "userInitials";
                 initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
                 initialsDiv.style.backgroundColor = contact.color;
                 editCheckedUserInitials.appendChild(initialsDiv);

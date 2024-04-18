@@ -1,3 +1,6 @@
+/**
+ * This file contains the functions that are used in the w3-include-html attribute.
+ */
 async function initW3() {
     await includeW3();
     adjustSidebarVisibility();
