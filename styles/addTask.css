@@ -73,7 +73,7 @@ body {
 
 .left-selection {
     display: flex;
-    gap: 40px;
+    gap: 20px;
     width: 100%;
     flex-direction: column;
 }
@@ -176,14 +176,14 @@ p {
     color: lightgrey;
     border: 1px solid;
     margin: 0px 20px 0px 20px;
-    height: 420px;
+    height: 380px;
 }
 
 .right-selection {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 40px;
+    gap: 25px;
     width: 100%;
 }
 
@@ -814,6 +814,10 @@ input:focus {
     top: -40px;
     left: calc(91%);
     cursor: pointer;
+}
+
+#clear-subtask {
+    margin-left: -50px;
 }
 
 .subtaskEditBtn,

@@ -4,15 +4,15 @@
     flex-direction: column;
     cursor: pointer;
     align-items: flex-start;
-    gap: 24px;
+    gap: 14px;
     padding: 16px;
     margin-bottom: 16px;
     margin-top: 8px;
     align-self: stretch;
     border-radius: 24px;
     box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.08);
-    width: 80%;
-    height: 263px;
+    width: 85%;
+    height: 200px;
     transition: transform 0.2s ease-in-out;
     position: relative;
     margin-left: auto;
@@ -27,10 +27,11 @@
 .allTasks {
     display: flex;
     flex-direction: column;
+    /* align-items: center; */
     flex-wrap: nowrap;
     justify-content: space-around;
     margin: 0;
-    width: 24%;
+    width: 22.5%;
 }
 
 .mainContainer {
@@ -52,7 +53,7 @@
     margin-left: 40px;
     margin-right: 40px;
     font-size: xx-large;
-    width: 90%;
+    width: 75%;
 }
 
 #boardContainerUpperPartRight {
@@ -152,10 +153,12 @@ h2 {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-around;
-    width: 90%;
+    width: 81%;
     flex-grow: 1;
     overflow-y: auto;
     height: 60vh;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 figure {
@@ -180,7 +183,7 @@ section {
     font-style: normal;
     font-weight: 700;
     line-height: 120%;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .task-card-description {
@@ -242,12 +245,17 @@ section {
     justify-content: space-between;
     width: 100%;
 }
+.boardProgrContainer {
+    height: 28px;
+}
 
 .progress {
-    background: rgba(244, 244, 244, 1);
+    background: #e0e0e0;
     border-radius: 8px;
     height: 8px;
-    width: 128px;
+    width: 110px;
+    margin-top: 0;
+    margin-right: 8px;
 }
 
 .progress-bar {
@@ -295,11 +303,11 @@ section {
     margin: 10px;
     height: 100%;
     border-radius: 4px;
-    padding: 10px;
+    padding: 7px 16px 0 15px;
     max-height: 500px;
     overflow-y: auto;
-    /* scrollbar-width: none;
-    -ms-overflow-style: none; */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 /* .task-column::-webkit-scrollbar {
@@ -430,6 +438,14 @@ section {
     min-width: 300px;
 }
 
+.boardAddTaskInnerContent::-webkit-scrollbar {
+    width: 5px;
+}
+
+.boardAddTaskInnerContent::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
 #boardAddTaskCloseButton {
     display: flex;
     padding: 8px 16px;
@@ -461,7 +477,7 @@ section {
     word-wrap: break-word;
     white-space: normal;
     height: 100%;
-    gap: 10px;
+    gap: 4px;
 }
 
 #allTaskInformationSubtasks {
@@ -1143,11 +1159,11 @@ input[type="checkbox"] {
     background-color: #555; /* Dunklere Farbe beim Hover */
 }
 
-@media (max-width: 1600px) {
+/* @media (max-width: 1600px) {
     .progress {
         margin-right: 8px;
     }
-}
+} */
 
 @media (max-width: 985px) {
     .task-card {
