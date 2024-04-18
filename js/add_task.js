@@ -244,19 +244,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // document.addEventListener("DOMContentLoaded", function() {
 async function addTask(event) {
-    // let form = document.querySelector(".addTaskContentContainer");
+    event.preventDefault(); // Verhindert das standardmäßige Absenden des Formulars
 
-    // if (form) {
-    // form.addEventListener("submit", function (event) {
-    event.preventDefault();
+    let category = document.getElementById("category").value;
 
+    // Überprüfen, ob eine Kategorie ausgewählt wurde
+    if (!category) {
+        alert("Bitte wählen Sie eine Kategorie aus."); // Einfache Fehlermeldung, kann durch elegantere Benutzeroberflächenelemente ersetzt werden
+        return; // Beendet die Ausführung der Funktion, um das Erstellen des Tasks zu verhindern
+    }
+
+    // Der Rest Ihrer Logik zum Erstellen des Tasks...
     let title = document.getElementById("titleInput").value;
     let description = document.getElementById("descriptionInput").value;
     let taskDate = document.getElementById("taskDate").value;
-    // let category = document.getElementById("category").value;
-    let categoryElement =
-        document.getElementsByClassName("dropdown-selected")[0]; // Zugriff auf das erste Element mit dieser Klasse
-    let category = categoryElement.textContent.trim(); // trim() entfernt unnötige Leerzeichen
     let assignedContacts = [
         ...document.querySelectorAll(".contact-checkbox:checked"),
     ].map((input) => input.value);
@@ -278,9 +279,7 @@ async function addTask(event) {
 
     await setItem("tasks", tasks);
 
-    window.location.href = "board.html";
-    // });
-    // }
+    window.location.href = "board.html"; // Weiterleitung des Benutzers zur Task-Übersicht
 }
 
 function fillDropdownList() {
