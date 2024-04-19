@@ -1,3 +1,9 @@
+/**
+ * This file contains the code for adding a task in the application.
+ * It includes functions for initializing the add task sidebar, handling checkbox changes,
+ * setting priority levels, adding and removing subtasks, updating the subtask list,
+ * and adding a task to the task list.
+ */
 let createBtn = document.getElementById("create-btn");
 let urgentBtn = document.getElementById("urgentBtn");
 let mediumBtn = document.getElementById("mediumBtn");
@@ -12,12 +18,19 @@ let subtasks = [];
 let tasks = [];
 let currentTaskStatus = "todo";
 
+/**
+ * Initializes the add sidebar.
+ * @returns {Promise<void>} A promise that resolves when the initialization is complete.
+ */
 async function initAddSidebar() {
     await includeW3();
     addTaskActive();
     showInitials();
 }
 
+/**
+ * Adds the "bgfocus" class to the "addTasksum" element.
+ */
 function addTaskActive() {
     document.getElementById("addTasksum").classList.add("bgfocus");
 }
@@ -30,14 +43,25 @@ document.addEventListener("DOMContentLoaded", async function () {
     setPriority("Medium");
 });
 
+/**
+ * Loads contacts from storage and parses them into an array.
+ * @returns {Promise<void>} A promise that resolves when the contacts are loaded.
+ */
 async function loadContacts() {
     contacts = JSON.parse((await getItem("contacts")).value || "[]");
 }
 
+/**
+ * Loads tasks from storage and parses them into an array.
+ * @returns {Promise<void>} A promise that resolves when the tasks are loaded.
+ */
 async function loadTasks() {
     tasks = JSON.parse((await getItem("tasks")).value || "[]");
 }
 
+/**
+ * Fills the contact dropdown with contact options.
+ */
 function fillContactDropdown() {
     const dropdown = document.getElementById("dropDownContacts");
     contacts.forEach((contact) => {
@@ -55,6 +79,10 @@ function fillContactDropdown() {
     });
 }
 
+/**
+ * Handles the change event of a checkbox.
+ * @param {HTMLInputElement} checkbox - The checkbox element that triggered the event.
+ */
 function handleCheckboxChange(checkbox) {
     const itemAndCheckbox = checkbox.closest(".itemAndCheckbox");
     if (checkbox.checked) {
@@ -64,20 +92,19 @@ function handleCheckboxChange(checkbox) {
     }
 }
 
+/**
+ * Loads the checked user initials into the specified element.
+ */
 function loadCheckedUserInitials() {
     const editCheckedUserInitials = document.getElementById(
         "checkedUserInitials"
     );
-    editCheckedUserInitials.innerHTML = ""; // Bereinigen Sie den Container vor dem Hinzufügen neuer Initialen
-
-    // Durchlaufen Sie alle Checkboxen und prüfen Sie, ob sie markiert sind
+    editCheckedUserInitials.innerHTML = "";
     document
         .querySelectorAll(".contact-checkbox:checked")
         .forEach((checkbox) => {
-            // Finden Sie den entsprechenden Kontakt basierend auf der userID der Checkbox
             const contact = contacts.find((c) => c.userID === checkbox.value);
             if (contact) {
-                // Erstellen Sie ein Element für die Initialen des Kontakts
                 const initialsDiv = document.createElement("div");
                 initialsDiv.className = "userInitials";
                 initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
@@ -87,6 +114,9 @@ function loadCheckedUserInitials() {
         });
 }
 
+/**
+ * Resets the buttons and their classes for priority selection.
+ */
 function resetButtons() {
     Object.values(priorityButtons).forEach((button) => {
         button.classList.remove(
@@ -98,6 +128,10 @@ function resetButtons() {
     });
 }
 
+/**
+ * Resets the image of a button based on its priority.
+ * @param {HTMLElement} button - The button element to reset the image for.
+ */
 function resetButtonImage(button) {
     const imgElement = button.querySelector("img");
     if (imgElement) {
@@ -111,6 +145,10 @@ function resetButtonImage(button) {
     }
 }
 
+/**
+ * Updates the selected button based on the given priority.
+ * @param {string} selectedPriority - The selected priority ("Urgent", "Medium", or "Low").
+ */
 function updateSelectedButton(selectedPriority) {
     switch (selectedPriority) {
         case "Urgent":
@@ -130,12 +168,20 @@ function updateSelectedButton(selectedPriority) {
     }
 }
 
+/**
+ * Sets the priority of a task.
+ * @param {string} selectedPriority - The selected priority for the task.
+ * @returns {void}
+ */
 function setPriority(selectedPriority) {
     priority = selectedPriority;
     resetButtons();
     updateSelectedButton(selectedPriority);
 }
 
+/**
+ * Sets the priority level for the task.
+ */
 function setPriorityLevel() {
     urgentBtn.addEventListener("click", function () {
         setPriority("Urgent");
@@ -148,21 +194,31 @@ function setPriorityLevel() {
     });
 }
 
+/**
+ * Adds a subtask to the subtasks array and updates the subtask list.
+ * @param {string} subtaskName - The name of the subtask to be added.
+ */
 function addSubtask(subtaskName) {
     let subtask = {
         name: subtaskName,
         completed: false,
     };
     subtasks.push(subtask);
-
     updateSubtaskList();
 }
 
+/**
+ * Removes a subtask from the subtasks array at the specified index.
+ * @param {number} index - The index of the subtask to remove.
+ */
 function removeSubtask(index) {
     subtasks.splice(index, 1);
     updateSubtaskList();
 }
 
+/**
+ * Updates the subtask list in the DOM based on the subtasks array.
+ */
 function updateSubtaskList() {
     subtaskList.innerHTML = "";
 
@@ -220,45 +276,58 @@ function updateSubtaskList() {
     });
 }
 
+/**
+ * Event listener for the DOMContentLoaded event.
+ * This function waits for the HTML document to be completely loaded and parsed.
+ * Once the document is loaded, it adds an event listener to the subtaskAddButton.
+ * When the button is clicked, it gets the value of the subtaskInput, trims it, and if it's not empty, adds it as a subtask.
+ */
 document.addEventListener("DOMContentLoaded", function () {
-    subtaskAddButton.addEventListener("click", function () {
+    subtaskAddButton.addEventListener("click", addSubtaskIfNotEmpty);
+
+    subtaskInput.addEventListener("keydown", function (event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            event.preventDefault(); // Cancel the default action, if needed
+            addSubtaskIfNotEmpty();
+        }
+    });
+
+    function addSubtaskIfNotEmpty() {
         let subtaskValue = subtaskInput.value.trim();
         if (subtaskValue) {
             addSubtask(subtaskValue);
             subtaskInput.value = "";
         }
-    });
+    }
 });
 
+/**
+ * Adds a new task to the task list.
+ */
 async function addTask(event) {
-    event.preventDefault(); // Verhindert das standardmäßige Absenden des Formulars
-
+    event.preventDefault();
     let category = document.getElementById("category").value;
 
-    // Überprüfen, ob eine Kategorie ausgewählt wurde
-if (!category) {
-    // Finden oder erstellen Sie das Element für die Fehlermeldung
-    let errorMsg = document.getElementById("categoryError");
-    if (!errorMsg) {
-        errorMsg = document.createElement("div");
-        errorMsg.id = "categoryError";
-        errorMsg.style.color = "red";
-        document.getElementById("category").parentElement.parentElement.appendChild(errorMsg);
+    if (!category) {
+        let errorMsg = document.getElementById("categoryError");
+        if (!errorMsg) {
+            errorMsg = document.createElement("div");
+            errorMsg.id = "categoryError";
+            errorMsg.style.color = "red";
+            document
+                .getElementById("category")
+                .parentElement.parentElement.appendChild(errorMsg);
+        }
+        errorMsg.textContent = "Please choose a Category.";
+        errorMsg.style.display = "block";
+        return;
+    } else {
+        let errorMsg = document.getElementById("categoryError");
+        if (errorMsg) {
+            errorMsg.style.display = "none";
+        }
     }
-
-    // Setzen Sie die Fehlermeldung und machen Sie sie sichtbar
-    errorMsg.textContent = "Please choose a Category.";
-    errorMsg.style.display = "block";
-    return; // Beendet die Ausführung der Funktion, um das Erstellen des Tasks zu verhindern
-} else {
-    // Wenn eine Kategorie ausgewählt wurde, verstecken Sie die Fehlermeldung
-    let errorMsg = document.getElementById("categoryError");
-    if (errorMsg) {
-        errorMsg.style.display = "none";
-    }
-}
-
-    // Der Rest Ihrer Logik zum Erstellen des Tasks...
     let title = document.getElementById("titleInput").value;
     let description = document.getElementById("descriptionInput").value;
     let taskDate = document.getElementById("taskDate").value;
@@ -280,12 +349,13 @@ if (!category) {
         status: currentTaskStatus,
         assignedContacts,
     });
-
     await setItem("tasks", tasks);
-
-    window.location.href = "board.html"; // Weiterleitung des Benutzers zur Task-Übersicht
+    window.location.href = "board.html";
 }
 
+/**
+ * Fills the dropdown list and toggles the visibility of the dropdown and checked user initials.
+ */
 function fillDropdownList() {
     let dropdown = document.getElementById("dropDownContacts");
     let checkedUserInitials = document.getElementById("checkedUserInitials");
@@ -300,6 +370,9 @@ function fillDropdownList() {
     }
 }
 
+/**
+ * Clears the input values and resets the state of the task form.
+ */
 function removeCurrentInputValues() {
     document.getElementById("titleInput").value = "";
     document.getElementById("descriptionInput").value = "";
@@ -315,107 +388,4 @@ function removeCurrentInputValues() {
     setPriority("Medium");
     loadCheckedUserInitials();
     updateSubtaskList();
-}
-
-function showClearButton(value) {
-    document.getElementById("clear-subtask").style.display = value
-        ? "inline"
-        : "none";
-}
-
-function clearSubtaskInput() {
-    document.getElementById("subtask").value = "";
-    document.getElementById("clear-subtask").style.display = "none";
-}
-
-document
-    .querySelectorAll('.custom-checkbox input[type="checkbox"]')
-    .forEach((checkbox) => {
-        checkbox.addEventListener("change", function () {
-            const imgElement = this.nextElementSibling; // Nimm das nächste Element (das img-Tag)
-            if (this.checked) {
-                imgElement.src = "./assets/img/checkboxChecked.png";
-            } else {
-                imgElement.src = "./assets/img/checkbox.png";
-            }
-        });
-    });
-
-function toggleDropdown(event) {
-    const options = document.querySelector(".dropdown-options");
-    const arrow = document.querySelector(".dropdown-arrow");
-    const isOpen = options.style.display === "block";
-
-    options.style.display = isOpen ? "none" : "block";
-    arrow.src = isOpen
-        ? "./assets/img/custom-arrow.png"
-        : "./assets/img/custom-arrow-up.png";
-
-    // Stoppt die Propagation des Events, um Doppeltrigger zu verhindern
-    event.stopPropagation();
-}
-
-function selectOption(event) {
-    const selectedText = event.target.textContent;
-    const selectedValue = event.target.getAttribute("data-value");
-    const arrow = document.querySelector(".dropdown-arrow");
-
-    document.querySelector(".dropdown-selected").textContent = selectedText;
-    document.querySelector(".dropdown-options").style.display = "none";
-    document.getElementById("category").value = selectedValue;
-    arrow.src = "./assets/img/custom-arrow.png";
-}
-
-function setupDropdownListeners() {
-    const dropdownSelected = document.querySelector(".dropdown-selected");
-    const dropdownArrow = document.querySelector(".dropdown-arrow");
-    const dropdownOptions = document.querySelectorAll(".dropdown-option");
-
-    dropdownSelected.addEventListener("click", toggleDropdown);
-    dropdownArrow.addEventListener("click", toggleDropdown);
-
-    dropdownOptions.forEach((option) => {
-        option.addEventListener("click", selectOption);
-    });
-
-    // Fügt einen Listener zum Fenster hinzu, um das Dropdown zu schließen, wenn außerhalb geklickt wird
-    window.addEventListener("click", function () {
-        const options = document.querySelector(".dropdown-options");
-        const arrow = document.querySelector(".dropdown-arrow");
-        if (options.style.display === "block") {
-            options.style.display = "none";
-            arrow.src = "./assets/img/custom-arrow.png";
-        }
-    });
-}
-
-document.addEventListener("DOMContentLoaded", setupDropdownListeners);
-
-function handleClickOutside(event) {
-    if (!event.target.matches(".dropdown-selected")) {
-        document.querySelector(".dropdown-options").style.display = "none";
-    }
-}
-
-function handleKeyboardAccessibility(event) {
-    if (event.key === "Enter") {
-        toggleDropdown();
-    }
-}
-
-function initializeDropdown() {
-    setupDropdownListeners();
-    window.addEventListener("click", handleClickOutside, true);
-    document
-        .querySelector(".dropdown-selected")
-        .addEventListener("keydown", handleKeyboardAccessibility);
-}
-
-// Initialize the dropdown once the document is fully loaded
-// document.addEventListener("DOMContentLoaded", initializeDropdown);
-document.addEventListener("DOMContentLoaded", initializeDropdown);
-
-function closeDropdown() {
-    fillDropdownList();
-    document.getElementById("dropDownContacts").style.display = "none";
 }

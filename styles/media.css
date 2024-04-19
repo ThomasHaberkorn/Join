@@ -12,7 +12,6 @@
     }
     .task-column {
         flex-direction: row;
-        /* width: 1440px; */
         overflow-x: scroll;
         margin-top: 0;
         scrollbar-width: auto;
@@ -38,15 +37,15 @@
         height: 8px;
     }
     ::-webkit-scrollbar-track {
-        background-color: #f1f1f1; /* Helle graue Farbe für den Hintergrund */
-        border-radius: 12px; /* Abgerundete Ecken für das Track */
+        background-color: #f1f1f1;
+        border-radius: 12px;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: #888; /* Dunkelgraue Farbe für den Thumb */
-        border-radius: 10px; /* Abgerundete Ecken für den Thumb */
+        background-color: #888;
+        border-radius: 10px;
     }
     ::-webkit-scrollbar-thumb:hover {
-        background-color: #555; /* Dunklere Farbe beim Hover */
+        background-color: #555;
     }
 }
 
@@ -178,6 +177,102 @@
     }
 }
 
+@media (max-width: 985px) {
+    .task-card {
+        min-width: 160px !important;
+        max-width: 160px !important;
+        height: 200px;
+    }
+
+    #boardContainerUpperPart {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #searchTask {
+        width: 100%;
+    }
+
+    .no-task-message {
+        font-size: smaller;
+    }
+
+    h2 {
+        font-size: smaller;
+    }
+
+    h1 {
+        font-size: 40px !important;
+    }
+
+    #boardSearchbar {
+        height: 40px;
+        width: 150px;
+    }
+
+    #boardContainerUpperPart {
+        justify-content: space-around;
+    }
+
+    #boardContainerUpperPartRight {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    .progress {
+        margin-top: 0 !important;
+    }
+    .subtaskWithProgressBar {
+        margin-bottom: -5px;
+    }
+}
+
+@media (max-width: 859px) {
+    .no-task-message {
+        text-align: center;
+    }
+}
+
+@media (max-width: 750px) {
+    .task-column {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .contentContainer {
+        padding: 0;
+    }
+
+    #taskBoard {
+        margin: 0;
+        width: 100%;
+        height: 80%;
+    }
+
+    #boardContainerUpperPart {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 16px;
+    }
+
+    #sidebarMainContainer {
+        z-index: +100;
+    }
+
+    .allTasks {
+        width: 100vw;
+    }
+
+    .task-card {
+        width: 200px;
+        margin: 16px;
+    }
+
+    .allTasksHeader {
+        width: 80%;
+    }
+}
+
 @media (max-width: 950px) {
     .signinInnerContent {
         margin-top: 190px;
@@ -198,6 +293,21 @@
     }
     .addTaskContentContainer {
         width: 73%;
+    }
+}
+
+@media (max-width: 900px) {
+    .hiden-deleteimg {
+        left: 78vw;
+        top: -72px;
+    }
+
+    .buttons-and-text {
+        margin-bottom: 10px;
+    }
+
+    .btn-clear {
+        display: none;
     }
 }
 
@@ -323,9 +433,19 @@
         left: 0;
         width: 100%;
         height: 89%;
+        padding-left: 0;
+        overflow: auto;
+        max-height: calc(100vh - 80px);
     }
     .middle-line {
         display: none;
+    }
+    .vertical-menu {
+        overflow-y: auto;
+    }
+    .selected-priority {
+        border: 2px solid #007bff;
+        background-color: #e7f1ff;
     }
 }
 
@@ -660,6 +780,14 @@
         top: 46%;
         left: 50%;
     }
+    .prio-selection {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .headline {
+        font-size: 32px;
+    }
 }
 
 @media screen and (max-width: 419px) {
@@ -809,10 +937,7 @@
     .summaryDoneInfoCounter {
         line-height: 65.8px;
     }
-
     .tasksNum {
-        /* margin-top: -16px; */
-        /* margin-bottom: -24px; */
         font-size: 37px;
         line-height: 32px;
     }
@@ -931,9 +1056,6 @@
     }
 }
 @media (max-height: 770px) {
-    /* .contactEditCloseResponse {
-        top: 3.5rem;
-    } */
     .addTaskContentContainer {
         height: 81%;
     }
@@ -1043,19 +1165,7 @@
     }
 }
 
-@media (max-height: 680px) {
-    /* .contactEditCloseResponse {
-        top: 5.5rem;
-    } */
-}
-
 @media (max-height: 670px) {
-    /* .summaryInfoContentContainer {
-        height: 500px;
-    } */
-    /* .summaryMainContainer {
-        margin-top: 30px;
-    } */
     .sidebarImgContainer {
         height: 250px !important;
     }

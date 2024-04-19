@@ -11,17 +11,13 @@
     <link rel="stylesheet" href="styles/summary.css">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.jpg">
-    <!-- <script src="js/script.js"></script> -->
     <script src="js/storage.js"></script>
     <script src="js/summary.js"></script>
     <script src="js/w3.js"></script>
-    <!-- <script src="js/contacts.js"></script>
-    <script src="js/contactSection.js"></script> -->
 </head>
 
 <body onload="initSummary()">
     <div class="summaryMainContent">
-
         <div class="w3Header">
             <div w3-include-html="header.html"></div>
             <div class="summaryContentContainer">
@@ -47,7 +43,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="summaryDoneInfoContainer hoverCont radius30 shadow bg-white d-flex" onclick="linkToBoard()">
+
+                                    <div class="summaryDoneInfoContainer hoverCont radius30 shadow bg-white d-flex"
+                                        onclick="linkToBoard()">
+
                                         <div class="summaryDoneInfoImage d-flex">
                                             <img src="./assets/img/done-icon-summary.png" alt="Done" class="summaryDoneInfoImg infoContentImg">
                                         </div>
@@ -88,7 +87,6 @@
                                         <div class="awaitingFeedbackNum d-flex tasksNum" id="awaitingFeedbackNum"></div>
                                         <div class="awaitingFeedbackDesc d-flex taskDesc">Awaiting Feedback</div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -100,7 +98,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="w3Sidebar">
