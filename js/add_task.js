@@ -96,22 +96,33 @@ function handleCheckboxChange(checkbox) {
  * Loads the checked user initials into the specified element.
  */
 function loadCheckedUserInitials() {
-    const editCheckedUserInitials = document.getElementById(
-        "checkedUserInitials"
-    );
+    const editCheckedUserInitials = document.getElementById("checkedUserInitials");
     editCheckedUserInitials.innerHTML = "";
-    document
-        .querySelectorAll(".contact-checkbox:checked")
-        .forEach((checkbox) => {
-            const contact = contacts.find((c) => c.userID === checkbox.value);
-            if (contact) {
+    let initialsCount = 0;
+    document.querySelectorAll(".contact-checkbox:checked").forEach((checkbox) => {
+        const contact = contacts.find((c) => c.userID === checkbox.value);
+        if (contact) {
+            if (initialsCount < 3) {
                 const initialsDiv = document.createElement("div");
                 initialsDiv.className = "userInitials";
                 initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
                 initialsDiv.style.backgroundColor = contact.color;
                 editCheckedUserInitials.appendChild(initialsDiv);
+                initialsCount++;
+            } else {
+                const remaining = document.querySelector(".userInitials.remaining");
+                if (remaining) {
+                    remaining.textContent = `+${parseInt(remaining.textContent.slice(1)) + 1}`;
+                } else {
+                    const remainingDiv = document.createElement("div");
+                    remainingDiv.className = "userInitials remaining";
+                    remainingDiv.textContent = "+1";
+                    remainingDiv.style.backgroundColor = "lightblue";
+                    editCheckedUserInitials.appendChild(remainingDiv);
+                }
             }
-        });
+        }
+    });
 }
 
 /**
