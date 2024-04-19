@@ -268,3 +268,41 @@ function setTaskEditorCategory(category) {
     taskEditorCategory.textContent = text;
     taskEditorCategory.className = className;
 }
+
+// Fügt Event-Listener zu allen Task-Spalten hinzu
+taskColumns.forEach((column) => {
+    column.addEventListener("dragover", handleDragOver);
+    column.addEventListener("dragenter", handleDragEnter);
+    column.addEventListener("dragleave", handleDragLeave);
+    column.addEventListener("drop", handleDrop);
+});
+
+function handleDragOver(e) {
+    e.preventDefault(); // Erlaubt das Droppen von Elementen
+}
+
+function handleDragEnter(e) {
+    e.preventDefault();
+    // Fügt die hovered Klasse hinzu, wenn eine Task über die Spalte gezogen wird
+    this.classList.add("hovered");
+}
+
+function handleDragLeave() {
+    // Entfernt die hovered Klasse, wenn die Task die Spalte verlässt
+    this.classList.remove("hovered");
+}
+
+function handleDrop(e) {
+    e.preventDefault();
+    // Hier Ihre Logik zum Behandeln des Droppens der Task
+    const id = e.dataTransfer.getData("text");
+    const draggableElement = document.getElementById(id);
+    const newStatus = e.target.closest(".task-column").id;
+    draggableElement.dataset.status = newStatus;
+    e.target.closest(".task-column").appendChild(draggableElement);
+    updateTaskInRemoteStorage(id, newStatus);
+    updateTaskColumns();
+
+    // Entfernt die hovered Klasse, nachdem die Task abgelegt wurde
+    this.classList.remove("hovered");
+}

@@ -1128,3 +1128,25 @@ input[type="checkbox"] {
 ::-webkit-scrollbar-thumb:hover {
     background-color: #555;
 }
+
+.task-column.hovered {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slide-in-from-right {
+    0% {
+        transform: translate(100%, -50%);
+    }
+    100% {
+        transform: translate(-50%, -50%);
+    }
+}
+
+.boardAddTaskInnerContent, .alltaskContent {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: slide-in-from-right .5s forwards;
+}
+
