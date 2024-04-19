@@ -9,8 +9,8 @@ function toggleDropdown(event) {
 
     options.style.display = isOpen ? "none" : "block";
     arrow.src = isOpen
-        ? "/assets/img/custom-arrow.png"
-        : "/assets/img/custom-arrow-up.png";
+        ? "./assets/img/custom-arrow.png"
+        : "./assets/img/custom-arrow-up.png";
     event.stopPropagation();
 }
 
@@ -27,7 +27,7 @@ function selectOption(event) {
     document.querySelector(".dropdown-selected").textContent = selectedText;
     document.querySelector(".dropdown-options").style.display = "none";
     document.getElementById("category").value = selectedValue;
-    arrow.src = "/assets/img/custom-arrow.png";
+    arrow.src = "./assets/img/custom-arrow.png";
 }
 
 /**
@@ -50,7 +50,7 @@ function setupDropdownListeners() {
         const arrow = document.querySelector(".dropdown-arrow");
         if (options.style.display === "block") {
             options.style.display = "none";
-            arrow.src = "/assets/img/custom-arrow.png";
+            arrow.src = "./assets/img/custom-arrow.png";
         }
     });
 }

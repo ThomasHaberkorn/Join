@@ -102,12 +102,12 @@ function addNewContactHTML() {
               <input id="contactAddPhone" placeholder="Phone" required type="number" pattern="\+?[0-9]{1,}">
               <img src="./assets/img/call.png">
             </div>
-            
-          </form>
-          <div class="contactCancelCreateButtons">
+             <div class="contactCancelCreateButtons">
               <div class="contactCancelButton dispflex" onclick="closeAddContact()">Cancel<img src="./assets/img/cross.png"></div>
               <button type="submit" class="contactCreateButton">Create contact <img src="./assets/img/check.png"></button>
             </div>
+          </form>
+         
         </div>
       </div>
   
