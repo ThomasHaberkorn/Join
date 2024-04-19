@@ -1,3 +1,6 @@
+/**
+ * init the contact section
+ */
 async function initContact() {
     await includeW3();
     await loadContacts();
@@ -12,7 +15,6 @@ async function initContact() {
  * show the initials of the contact
  * @returns
  */
-
 function contactActive() {
     document.getElementById("contactSum").classList.add("bgfocus");
 }
@@ -25,7 +27,6 @@ let contactCount = 0;
  * load the contacts from the remote storage
  * @returns
  */
-
 async function loadContacts() {
     // contacts = await JSON.parse(localStorage.getItem("contacts"));
     contacts = JSON.parse((await getItem("contacts")).value || "[]");
@@ -34,7 +35,6 @@ async function loadContacts() {
 /**
  * render the contact list
  */
-
 async function renderContactList() {
     let list = document.getElementById("listArea");
     list.innerHTML = "";
@@ -57,7 +57,6 @@ async function renderContactList() {
 /**
  * sort the contacts by name
  */
-
 function sortContacts() {
     contacts.sort((a, b) => a["name"].localeCompare(b["name"]));
 }
@@ -76,7 +75,6 @@ function addNewContactScreen() {
 /**
  * Create a new contact
  */
-
 async function createNewContact(event) {
     event.preventDefault();
     let name = document.getElementById("contactAddName").value;
@@ -101,7 +99,6 @@ async function createNewContact(event) {
  * User ID generation
  * @returns {string} id
  */
-
 function generateUserId() {
     const date = new Date();
     const year = date.getFullYear();
@@ -122,7 +119,6 @@ function generateUserId() {
 /**
  * Create a random color
  */
-
 function getRandomColor() {
     const getRandomHex = () =>
         Math.floor(Math.random() * 128)
@@ -134,7 +130,6 @@ function getRandomColor() {
 /**
  * Delete the contact with the given index
  */
-
 function deleteContact(index) {
     contacts.splice(index, 1);
     saveContacts();
@@ -147,7 +142,6 @@ function deleteContact(index) {
 /**
  * Delete the contact with the given index
  */
-
 function deleteContactBig(index) {
     contacts.splice(index, 1);
     saveContacts();
@@ -155,6 +149,9 @@ function deleteContactBig(index) {
     document.getElementById("contactFull").style.transform = "translateX(100%)";
 }
 
+/**
+ * close the BIG-contact view
+ */
 function closeContact() {
     let fullContact = document.getElementById("contactFull");
     if (fullContact) {
@@ -173,7 +170,6 @@ function closeContact() {
 /**
  * Show the contact with the given index
  */
-
 function showContact(index) {
     let fullContact = document.getElementById("contactFull");
     fullContact.style.transition = "transform 0.4s ease";
@@ -211,7 +207,6 @@ function showContact(index) {
 /**
  * remove the mark from the contact list
  */
-
 function removeMark() {
     for (let i = 0; i < contacts.length; i++) {
         let element = document.getElementById(`info${i}`);
@@ -224,7 +219,6 @@ function removeMark() {
 /**
  * show the contact with the given index in the responsive view
  */
-
 function showContactResponsive(index) {
     let contactFullResponsive = document.getElementById(
         "contactFullResponsive"
@@ -319,7 +313,6 @@ function showContactPopupEditDelete() {
 /**
  * hide the initials of the contact
  */
-
 function hideContactPopupEditDelete() {
     let popupContactSmal = document.getElementById("contactPopupEditDelete");
     let popupAuxContainer = document.getElementById("popupAuxContainer");
@@ -337,7 +330,6 @@ function hideContactPopupEditDelete() {
  * @param {*} index Edit the contact with the given index
  * @returns
  */
-
 function patchEdit(index) {
     index = parseInt(index);
 
@@ -366,7 +358,6 @@ function patchEdit(index) {
 /**
  * save the contacts in the remote storage
  */
-
 async function saveContacts() {
     await setItem("contacts", contacts);
 }
@@ -382,7 +373,6 @@ function closeAddContact() {
         contactAddVisible.innerHTML = "";
     }, 400);
 }
-
 
 /**
  * show the status of the new contact

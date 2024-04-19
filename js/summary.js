@@ -155,9 +155,7 @@ function getEarliestDate(tasks) {
         const earliestDate = new Date(
             Math.min(
                 ...urgentTasks.map((t) => {
-                    // Check whether taskDate is in the correct format
                     const taskDate = new Date(t.taskDate);
-                    // Check whether taskDate is a valid date
                     if (
                         Object.prototype.toString.call(taskDate) ===
                             "[object Date]" &&
@@ -183,7 +181,6 @@ function getEarliestDate(tasks) {
 
 async function getTask() {
     const userLevel = sessionStorage.getItem("userLevel");
-    // let taskTemp = JSON.parse(localStorage.getItem("tasks"));
     let taskTemp = JSON.parse((await getItem("tasks")).value || "[]");
     if (userLevel === "user") {
         const userTasks = taskTemp.filter((t) => t.userLevel === "user");

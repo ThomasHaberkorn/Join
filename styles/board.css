@@ -185,10 +185,11 @@ section {
     margin-top: 8px;
 }
 
+/* test */
 #boardDropDownContacts {
     display: none;
     overflow-y: scroll;
-    max-height: 140px;
+    max-height: 110px;
 }
 
 .task-card-description {
