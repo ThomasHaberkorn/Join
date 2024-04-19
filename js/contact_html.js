@@ -119,7 +119,7 @@ function rendercontactFullResponsive(index) {
     <div class="headLineContactResponsive">
       <div class="contactFullResponsiveClose">
         <div class="headLineLeftContactResponsive">Contacts</div>
-        <img src="./assets/img/Vector.png" onclick="closeContactFullResponsive()">
+        <img src="./assets/img/Vector.png" onclick="closeContactFullResponsive()" id="closeContactFullResponsive">
       </div>
       <div class="headLineRightContactResponsive">Better with a team</div>
       <div class="headLineSpaceContactHorizontalResponsive"></div>

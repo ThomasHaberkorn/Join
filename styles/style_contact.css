@@ -1009,6 +1009,10 @@ input:focus {
     align-items: center;
 }
 
+#closeContactFullResponsive {
+    cursor: pointer;
+}
+
 .slideUpAndDown {
     animation: slideUpAndDown 2s ease-in-out forwards;
     position: fixed;
