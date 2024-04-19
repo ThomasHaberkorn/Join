@@ -297,7 +297,6 @@ function getTaskInputs() {
     let taskDate = document.getElementById("taskDate").value;
     let categoryElement = document.querySelector(".dropdown-selected");
     let category = categoryElement ? categoryElement.textContent.trim() : null;
-
     return { title, description, taskDate, category };
 }
 
@@ -311,7 +310,6 @@ function showErrorMsg() {
             .getElementById("category")
             .parentElement.parentElement.appendChild(errorMsg);
     }
-
     errorMsg.textContent = "Please choose a Category.";
     errorMsg.style.display = "block";
 }
@@ -374,10 +372,8 @@ function removeCurrentInputValues() {
         .forEach((checkbox) => {
             const itemAndCheckbox = checkbox.closest(".itemAndCheckbox");
             if (checkbox.checked) {
-                itemAndCheckbox.classList.remove("checkedItemAndCheckbox");
-            }
-            checkbox.checked = false;
-        });
+                itemAndCheckbox.classList.remove("checkedItemAndCheckbox");}
+            checkbox.checked = false;});
     subtaskInput.value = "";
     subtasks = [];
     setPriority("Medium");

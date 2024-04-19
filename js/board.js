@@ -55,11 +55,9 @@ async function sortTasks() {
             const userTasks = taskTemp.filter(
                 (t) => t.userLevel === "guest" || t.userLevel == null
             );
-            tasks = userTasks;
-        }
+            tasks = userTasks;}
     } catch (error) {
-        console.error("Fehler beim Laden der Aufgaben:", error);
-    }
+        console.error("Fehler beim Laden der Aufgaben:", error);}
 }
 
 /**
@@ -135,17 +133,14 @@ function getAssignedContactDisplay(assignedContactIds) {
         .map((contactId) => {
             const contact = contacts.find((c) => c.userID === contactId);
             if (contact) {
-                return `
-                    <div class="contact-display" style="padding-left: 15px; margin-top: 10px; display: flex; align-items: center; gap: 15px;">
+                return `<div class="contact-display" style="padding-left: 15px; margin-top: 10px; display: flex; align-items: center; gap: 15px;">
                         <div class="contact-avatar" style="background-color: ${contact.color};">
                             ${contact.firstLetter}${contact.lastLetter}
                         </div>
                         <div class="contact-name">${contact.name}</div>
-                    </div>
-                `;
+                    </div>`;
             }
-            return "";
-        })
+            return "";})
         .join("");
 }
 
@@ -212,15 +207,13 @@ function calculateProgress(task) {
     ).length;
     const progressPercentage =
         totalSubtasks === 0 ? 0 : (completedSubtasks / totalSubtasks) * 100;
-
     return `
         <div class="subtaskWithProgressBar">
         <div class="progress" >
             <div class="progress-bar" style="width: ${progressPercentage}%"></div>
         </div>
         <div class="subtaskNextToProgressBar";">${completedSubtasks}/${totalSubtasks} Subtasks</div>
-        </div>
-    `;
+        </div>`;
 }
 
 /**
@@ -283,32 +276,16 @@ function setPriorityInformation(task) {
  * Sets the task details on the UI.
  */
 function setTaskDetails(task) {
-    const allTaskInformationTitle = document.getElementById(
-        "allTaskInformationTitle"
-    );
+    const allTaskInformationTitle = document.getElementById( "allTaskInformationTitle");
     allTaskInformationTitle.textContent = task.title;
-
-    const allTaskInformationDescription = document.getElementById(
-        "allTaskInformationDescription"
-    );
+    const allTaskInformationDescription = document.getElementById("allTaskInformationDescription");
     allTaskInformationDescription.textContent = task.description;
-
-    const allTaskInformationDueDate = document.getElementById(
-        "allTaskInformationDueDate"
-    );
+    const allTaskInformationDueDate = document.getElementById("allTaskInformationDueDate");
     allTaskInformationDueDate.textContent = task.taskDate;
-
-    const allTaskInformationAssignedTo = document.getElementById(
-        "allTaskInformationAssignedTo"
-    );
-    allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(
-        task.assignedContacts
-    );
-
+    const allTaskInformationAssignedTo = document.getElementById("allTaskInformationAssignedTo");
+    allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(task.assignedContacts);
     const {className, text} = getCategoryDetails(task.category);
-    const allTaskInformationCategory = document.getElementById(
-        "allTaskInformationCategory"
-    );
+    const allTaskInformationCategory = document.getElementById("allTaskInformationCategory");
     allTaskInformationCategory.textContent = text;
     allTaskInformationCategory.className = className;
 }

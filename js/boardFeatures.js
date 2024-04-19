@@ -79,9 +79,7 @@ function generateContactHtml(contact, initials, checkboxId, isChecked) {
  * @param {Object} task - The task object containing assigned contacts.
  */
 function displayAssignedContacts(task) {
-    const editCheckedUserInitials = document.getElementById(
-        "editCheckedUserInitials"
-    );
+    const editCheckedUserInitials = document.getElementById("editCheckedUserInitials");
     editCheckedUserInitials.innerHTML = "";
     task.assignedContacts.forEach((contactId) => {
         const contact = contacts.find((c) => c.userID === contactId);
@@ -91,8 +89,7 @@ function displayAssignedContacts(task) {
             initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
             initialsDiv.style.backgroundColor = contact.color;
             editCheckedUserInitials.appendChild(initialsDiv);
-        }
-    });
+        }});
 }
 
 /**
@@ -111,8 +108,8 @@ document
         if (task) {
             fillTaskEditor(task);
             createContactCheckboxes(task);
-            // addDropdownListeners();
-            displayAssignedContacts(task);}});
+            displayAssignedContacts(task);}}
+);
 
 const openDropdownEdit = document.getElementById("openDropdownEdit");
 const dropdownEdit = document.getElementById("dropDownContactsEdit");
@@ -204,7 +201,8 @@ function searchTasks() {
             .textContent.toLowerCase();
         if (title.includes(searchValue) || description.includes(searchValue)) {
             card.style.display = "";} else {
-            card.style.display = "none";}});}
+            card.style.display = "none";}});
+}
 
 const moveTaskButton = document.getElementById("moveTaskButton");
 

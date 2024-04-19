@@ -37,12 +37,10 @@ function toggleDropdown(event) {
     const options = document.querySelector(".dropdown-options");
     const arrow = document.querySelector(".dropdown-arrow");
     const isOpen = options.style.display === "block";
-
     options.style.display = isOpen ? "none" : "block";
     arrow.src = isOpen
         ? "./assets/img/custom-arrow.png"
         : "./assets/img/custom-arrow-up.png";
-
     event.stopPropagation();
 }
 
@@ -55,7 +53,6 @@ function selectOption(event) {
     const selectedText = event.target.textContent;
     const selectedValue = event.target.getAttribute("data-value");
     const arrow = document.querySelector(".dropdown-arrow");
-
     document.querySelector(".dropdown-selected").textContent = selectedText;
     document.querySelector(".dropdown-options").style.display = "none";
     document.getElementById("category").value = selectedValue;
@@ -72,16 +69,13 @@ function setupDropdownListeners() {
     dropdownSelected.addEventListener("click", toggleDropdown);
     dropdownArrow.addEventListener("click", toggleDropdown);
     dropdownOptions.forEach((option) => {
-        option.addEventListener("click", selectOption);
-    });
+        option.addEventListener("click", selectOption);});
     window.addEventListener("click", function () {
         const options = document.querySelector(".dropdown-options");
         const arrow = document.querySelector(".dropdown-arrow");
         if (options.style.display === "block") {
             options.style.display = "none";
-            arrow.src = "./assets/img/custom-arrow.png";
-        }
-    });
+            arrow.src = "./assets/img/custom-arrow.png";}});
 }
 
 document.addEventListener("DOMContentLoaded", setupDropdownListeners);
@@ -159,14 +153,11 @@ function createEditButton(textInput, index) {
         if (textInput.disabled) {
             textInput.disabled = false;
             textInput.focus();
-            editIcon.src = "assets/img/check (2).png";
-        } else {
+            editIcon.src = "assets/img/check (2).png";} else {
             subtasks[index].name = textInput.value.trim();
             textInput.disabled = true;
             editIcon.src = "assets/img/edit.png";
-            updateSubtaskList();
-        }
-    };
+            updateSubtaskList();}};
     return editButton;
 }
 
@@ -186,20 +177,17 @@ function createDeleteButton(index) {
 
 function updateSubtaskList() {
     subtaskList.innerHTML = "";
-
     subtasks.forEach((subtask, index) => {
         let li = document.createElement("li");
         let checkbox = createCheckbox(subtask, index);
         let textInput = createTextInput(subtask);
         let editButton = createEditButton(textInput, index);
         let deleteButton = createDeleteButton(index);
-
         li.appendChild(checkbox);
         li.appendChild(textInput);
         li.appendChild(editButton);
         li.appendChild(deleteButton);
-        subtaskList.appendChild(li);
-    });
+        subtaskList.appendChild(li);});
 }
 
 function createCategoryErrorElement() {
@@ -266,8 +254,7 @@ function removeCurrentInputValues() {
     document
         .querySelectorAll(".contact-checkbox:checked")
         .forEach((checkbox) => {
-            checkbox.checked = false;
-        });
+            checkbox.checked = false;});
     subtaskInput.value = "";
     subtasks = [];
     setPriority("Medium");

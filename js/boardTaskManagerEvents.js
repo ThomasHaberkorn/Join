@@ -73,8 +73,7 @@ function getElementsById() {
         contactDropdownEdit: document.getElementById("contact-dropdown-edit"),
         inputDropdownEdit: document.getElementById("input-dropdown-edit"),
         openDropdownEdit: document.getElementById("openDropdownEdit"),
-        editInputDropdown: document.getElementById("editInputDropdown"),
-    };
+        editInputDropdown: document.getElementById("editInputDropdown"),};
 }
 
 function isClickInsideElements(event, elements) {
@@ -83,8 +82,7 @@ function isClickInsideElements(event, elements) {
         isClickInsideContactDropdownEdit: elements.contactDropdownEdit?.contains(event.target),
         isClickInsideInputDropdownEdit: elements.inputDropdownEdit?.contains(event.target),
         isClickInsideOpenDropdownEdit: elements.openDropdownEdit?.contains(event.target),
-        isClickInsideEditInputDropdown: elements.editInputDropdown?.contains(event.target),
-    };
+        isClickInsideEditInputDropdown: elements.editInputDropdown?.contains(event.target),};
 }
 
 document.addEventListener("mousedown", function (event) {
