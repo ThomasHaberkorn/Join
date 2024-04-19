@@ -55,9 +55,11 @@ async function sortTasks() {
             const userTasks = taskTemp.filter(
                 (t) => t.userLevel === "guest" || t.userLevel == null
             );
-            tasks = userTasks;}
+            tasks = userTasks;
+        }
     } catch (error) {
-        console.error("Fehler beim Laden der Aufgaben:", error);}
+        console.error("Fehler beim Laden der Aufgaben:", error);
+    }
 }
 
 /**
@@ -88,7 +90,10 @@ function boardActive() {
 function getAssignedContactElements(assignedContactIds) {
     const maxVisibleContacts = 3;
     const additionalContacts = assignedContactIds.length - maxVisibleContacts;
-    const contactsHtml = generateContactsHtml(assignedContactIds, maxVisibleContacts);
+    const contactsHtml = generateContactsHtml(
+        assignedContactIds,
+        maxVisibleContacts
+    );
     if (additionalContacts > 0) {
         return appendAdditionalContacts(contactsHtml, additionalContacts);
     }
@@ -119,7 +124,10 @@ function findContact(contactId) {
 }
 
 function appendAdditionalContacts(contactsHtml, additionalContacts) {
-    return contactsHtml + `<div class="boardContact additional-contacts">+${additionalContacts}</div>`;
+    return (
+        contactsHtml +
+        `<div class="boardContact additional-contacts">+${additionalContacts}</div>`
+    );
 }
 
 /**
@@ -140,7 +148,8 @@ function getAssignedContactDisplay(assignedContactIds) {
                         <div class="contact-name">${contact.name}</div>
                     </div>`;
             }
-            return "";})
+            return "";
+        })
         .join("");
 }
 
@@ -247,7 +256,7 @@ function createCardHtml(
 
 /**
  * Sets the task information in the DOM.
- * 
+ *
  * @param {Object} task - The task object containing the task information.
  */
 function setTaskInformation(task) {
@@ -276,16 +285,28 @@ function setPriorityInformation(task) {
  * Sets the task details on the UI.
  */
 function setTaskDetails(task) {
-    const allTaskInformationTitle = document.getElementById( "allTaskInformationTitle");
+    const allTaskInformationTitle = document.getElementById(
+        "allTaskInformationTitle"
+    );
     allTaskInformationTitle.textContent = task.title;
-    const allTaskInformationDescription = document.getElementById("allTaskInformationDescription");
+    const allTaskInformationDescription = document.getElementById(
+        "allTaskInformationDescription"
+    );
     allTaskInformationDescription.textContent = task.description;
-    const allTaskInformationDueDate = document.getElementById("allTaskInformationDueDate");
+    const allTaskInformationDueDate = document.getElementById(
+        "allTaskInformationDueDate"
+    );
     allTaskInformationDueDate.textContent = task.taskDate;
-    const allTaskInformationAssignedTo = document.getElementById("allTaskInformationAssignedTo");
-    allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(task.assignedContacts);
+    const allTaskInformationAssignedTo = document.getElementById(
+        "allTaskInformationAssignedTo"
+    );
+    allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(
+        task.assignedContacts
+    );
     const {className, text} = getCategoryDetails(task.category);
-    const allTaskInformationCategory = document.getElementById("allTaskInformationCategory");
+    const allTaskInformationCategory = document.getElementById(
+        "allTaskInformationCategory"
+    );
     allTaskInformationCategory.textContent = text;
     allTaskInformationCategory.className = className;
 }
@@ -295,7 +316,9 @@ function setTaskDetails(task) {
  * @returns {void}
  */
 function setSubtasks(task) {
-    const allTaskInformationSubtasks = document.getElementById("allTaskInformationSubtasks");
+    const allTaskInformationSubtasks = document.getElementById(
+        "allTaskInformationSubtasks"
+    );
     clearSubtasks(allTaskInformationSubtasks);
     task.subtasks.forEach((subtask, index) => {
         const subtaskElement = createSubtaskElement(subtask, index, task.id);
@@ -361,4 +384,3 @@ function addEventListenersToCard(card, task) {
         openAllTaskInformation(task);
     });
 }
-

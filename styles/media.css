@@ -129,6 +129,16 @@
     #taskDate {
         width: 96%;
     }
+    #boardContainerUpperPart {
+        width: 82%;
+    }
+    .subtask-list {
+        max-height: 100px;
+    }
+    .allTasksHeader {
+        width: 220px;
+        margin-left: 18px;
+    }
 }
 
 @media (max-width: 1150px) {
@@ -168,6 +178,14 @@
         width: 95%;
         transition: 0.3s;
     }
+    #boardContainerUpperPart h1 {
+        font-size: 40px;
+    }
+    #boardContainerUpperPart {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
 }
 
 @media (min-width: 1051px) {
@@ -202,11 +220,6 @@
         height: 200px;
     }
 
-    #boardContainerUpperPart {
-        display: flex;
-        flex-direction: column;
-    }
-
     #searchTask {
         width: 100%;
     }
@@ -226,10 +239,6 @@
     #boardSearchbar {
         height: 40px;
         width: 150px;
-    }
-
-    #boardContainerUpperPart {
-        justify-content: space-around;
     }
 
     #boardContainerUpperPartRight {
@@ -465,7 +474,7 @@
         transition: 0.3s;
     }
     .addTaskContentContainer {
-        top: 50px;
+        top: 65px;
         left: 0;
         width: 100%;
         height: 89%;
@@ -993,10 +1002,15 @@
     .buttons-and-text {
         margin-top: 10px;
     }
-    /* #taskDate::-webkit-calendar-picker-indicator {
-        right: 55px;
-    } */
+    .addTaskContentContainer {
+        height: 76%;
+        top: 80px;
+    }
+    .tasks {
+        margin-top: 20px;
+    }
 }
+
 @media screen and (max-width: 376px) {
     .helpContentContainer {
         height: 650px;
@@ -1463,5 +1477,8 @@
     }
     .loginLogo img {
         margin-top: -25px;
+    }
+    .alltaskContent {
+        height: 75%;
     }
 }
