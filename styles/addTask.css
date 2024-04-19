@@ -747,6 +747,7 @@ input[type="text"][disabled] {
 
 #taskDate::-webkit-calendar-picker-indicator {
     cursor: pointer;
+    padding-left: 220px;
 }
 
 .contact-checkbox {
