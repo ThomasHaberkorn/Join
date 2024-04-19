@@ -276,7 +276,9 @@ function closeContactFullResponsive() {
     setTimeout(() => {
         contactFullResponsive.style.display = "flex";
         contactFullResponsive.innerHTML = "";
+        contactFullResponsive.style.display = "none";
     }, 400);
+
 }
 
 /**
