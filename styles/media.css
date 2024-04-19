@@ -1,6 +1,6 @@
 @media (max-width: 1450px) {
     .allTasks {
-        width: 110%;
+        width: 100%;
     }
     .allTasks::-webkit-scrollbar {
         display: none;
@@ -13,6 +13,7 @@
     .task-column {
         flex-direction: row;
         overflow-x: scroll;
+        width: 94%;
         margin-top: 0;
         scrollbar-width: auto;
         -ms-overflow-style: auto;
@@ -27,7 +28,7 @@
     .boardTaskContainer {
         display: block;
         flex-direction: column;
-        width: 95%;
+        width: 100%;
     }
     .boardTaskContainer::-webkit-scrollbar {
         display: none;
@@ -37,7 +38,7 @@
         height: 8px;
     }
     ::-webkit-scrollbar-track {
-        background-color: #f1f1f1;
+        background-color: transparent;
         border-radius: 12px;
     }
     ::-webkit-scrollbar-thumb {
@@ -65,14 +66,20 @@
     .btn-select img {
         margin: 0;
     }
-}
-
-@media (max-width: 1250px) {
     .nameBox {
         font-size: 58px;
         line-height: 60px;
         max-width: 300px;
     }
+    .summaryWelcomeDaytimeContainer {
+        font-size: 36px;
+    }
+    .summaryWelcomeContainer {
+        margin-left: 40px;
+    }
+}
+
+@media (max-width: 1250px) {
 }
 
 @media screen and (max-width: 1220px) {
@@ -84,12 +91,7 @@
     .summaryTextH2 {
         font-size: 24px;
     }
-    .summaryWelcomeDaytimeContainer {
-        font-size: 36px;
-    }
-    .summaryWelcomeContainer {
-        margin-left: 40px;
-    }
+
     .summaryInfoContentContainer {
         margin-left: 20px;
         transition: 0.4s;
@@ -149,6 +151,12 @@
         font-size: 40px;
         line-height: 45px;
         max-width: 230px;
+    }
+    .summaryWelcomeDaytimeContainer {
+        font-size: 30px;
+    }
+    .summaryWelcomeContainer {
+        margin-left: 20px;
     }
 }
 
@@ -538,6 +546,7 @@
 @media (max-width: 555px) {
     .loginSingUpText {
         width: 146px;
+        font-size: 18px;
     }
     .summaryHead {
         margin-bottom: 50px !important;
@@ -738,7 +747,7 @@
 
     .loginLogoPlaceholder {
         width: 120px;
-        height: 150px;
+        height: 95px;
     }
     .suPasswImg {
         right: 22px;

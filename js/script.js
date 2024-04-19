@@ -1,4 +1,5 @@
 async function init() {
+    await startAnimation();
     await sessionStorageFirstTimeTrue();
     handleCheckboxAndMessage();
     checkMsgBox();
@@ -6,6 +7,16 @@ async function init() {
     checkRememberUser();
     await loadUsers();
     await loadContacts();
+}
+
+async function startAnimation() {
+    let firstLog = sessionStorage.getItem(
+        "IsThisFirstTime_Log_From_LiveServer"
+    );
+    if ((firstLog = null || firstLog == "true")) {
+        document.getElementById("loginHeadLogo").classList.remove("d-none");
+        setLogoAnimation();
+    }
 }
 
 let users;
@@ -44,7 +55,8 @@ async function sessionStorageFirstTimeTrue() {
             .getElementById("loginHeadLogo")
             .classList.add("loginLogoFrame");
     } else if (firstLog == null) {
-        sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", true); // firstLog auf true setzen
+        sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", true);
+        setLogoAnimation();
     } else if ((firstLog = true)) {
         document.getElementById("loginHeadLogo").classList.remove("d-none");
         setLogoAnimation();
@@ -225,6 +237,23 @@ function signupForwardRedirect(email, password) {
 }
 
 /**
+ * remove "RememberUser" from the local storage if the user uncheck the "Remember me" checkbox
+ */
+
+function rememberMe() {
+    let checkbox = document.getElementById("loginCheckBoxRememberMe");
+    if (!checkbox.checked) {
+        localStorage.removeItem("RememberUser");
+    } else {
+        let currentUser = [];
+        const email = document.getElementById("loginInputMail").value;
+        const password = document.getElementById("loPWInput").value;
+        currentUser.push({email, password});
+        localStorage.setItem("RememberUser", JSON.stringify(currentUser));
+    }
+}
+
+/**
  * Checks if the user has checked the "Remember me" checkbox and saves the user data in the local storage.
  */
 function checkRememberUser() {
@@ -250,6 +279,8 @@ function login() {
         if (checkbox.checked) {
             currentUser.push({email, password});
             localStorage.setItem("RememberUser", JSON.stringify(currentUser));
+        } else {
+            localStorage.removeItem("RememberUser");
         }
         sessionStorage.setItem("userName", foundUser.name);
         sessionStorage.setItem("userLevel", foundUser.userLevel);
