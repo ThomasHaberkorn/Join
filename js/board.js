@@ -55,11 +55,9 @@ async function sortTasks() {
             const userTasks = taskTemp.filter(
                 (t) => t.userLevel === "guest" || t.userLevel == null
             );
-            tasks = userTasks;
-        }
+            tasks = userTasks;}
     } catch (error) {
-        console.error("Fehler beim Laden der Aufgaben:", error);
-    }
+        console.error("Fehler beim Laden der Aufgaben:", error);}
 }
 
 /**
@@ -90,13 +88,10 @@ function boardActive() {
 function getAssignedContactElements(assignedContactIds) {
     const maxVisibleContacts = 3;
     const additionalContacts = assignedContactIds.length - maxVisibleContacts;
-
     const contactsHtml = generateContactsHtml(assignedContactIds, maxVisibleContacts);
-
     if (additionalContacts > 0) {
         return appendAdditionalContacts(contactsHtml, additionalContacts);
     }
-
     return contactsHtml;
 }
 
@@ -138,17 +133,14 @@ function getAssignedContactDisplay(assignedContactIds) {
         .map((contactId) => {
             const contact = contacts.find((c) => c.userID === contactId);
             if (contact) {
-                return `
-                    <div class="contact-display" style="padding-left: 15px; margin-top: 10px; display: flex; align-items: center; gap: 15px;">
+                return `<div class="contact-display" style="padding-left: 15px; margin-top: 10px; display: flex; align-items: center; gap: 15px;">
                         <div class="contact-avatar" style="background-color: ${contact.color};">
                             ${contact.firstLetter}${contact.lastLetter}
                         </div>
                         <div class="contact-name">${contact.name}</div>
-                    </div>
-                `;
+                    </div>`;
             }
-            return "";
-        })
+            return "";})
         .join("");
 }
 
@@ -215,15 +207,13 @@ function calculateProgress(task) {
     ).length;
     const progressPercentage =
         totalSubtasks === 0 ? 0 : (completedSubtasks / totalSubtasks) * 100;
-
     return `
         <div class="subtaskWithProgressBar">
         <div class="progress" >
             <div class="progress-bar" style="width: ${progressPercentage}%"></div>
         </div>
         <div class="subtaskNextToProgressBar";">${completedSubtasks}/${totalSubtasks} Subtasks</div>
-        </div>
-    `;
+        </div>`;
 }
 
 /**
@@ -284,55 +274,24 @@ function setPriorityInformation(task) {
 
 /**
  * Sets the task details on the UI.
- *
- * @param {Object} task - The task object containing the details.
- * @param {string} task.title - The title of the task.
- * @param {string} task.description - The description of the task.
- * @param {string} task.taskDate - The due date of the task.
- * @param {Array} task.assignedContacts - The contacts assigned to the task.
- * @param {string} task.category - The category of the task.
- * @returns {void}
  */
 function setTaskDetails(task) {
-    const allTaskInformationTitle = document.getElementById(
-        "allTaskInformationTitle"
-    );
+    const allTaskInformationTitle = document.getElementById( "allTaskInformationTitle");
     allTaskInformationTitle.textContent = task.title;
-
-    const allTaskInformationDescription = document.getElementById(
-        "allTaskInformationDescription"
-    );
+    const allTaskInformationDescription = document.getElementById("allTaskInformationDescription");
     allTaskInformationDescription.textContent = task.description;
-
-    const allTaskInformationDueDate = document.getElementById(
-        "allTaskInformationDueDate"
-    );
+    const allTaskInformationDueDate = document.getElementById("allTaskInformationDueDate");
     allTaskInformationDueDate.textContent = task.taskDate;
-
-    const allTaskInformationAssignedTo = document.getElementById(
-        "allTaskInformationAssignedTo"
-    );
-    allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(
-        task.assignedContacts
-    );
-
+    const allTaskInformationAssignedTo = document.getElementById("allTaskInformationAssignedTo");
+    allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(task.assignedContacts);
     const {className, text} = getCategoryDetails(task.category);
-    const allTaskInformationCategory = document.getElementById(
-        "allTaskInformationCategory"
-    );
+    const allTaskInformationCategory = document.getElementById("allTaskInformationCategory");
     allTaskInformationCategory.textContent = text;
     allTaskInformationCategory.className = className;
 }
 
 /**
  * Sets the subtasks for a given task.
- * 
- * @param {Object} task - The task object.
- * @param {string} task.id - The ID of the task.
- * @param {Array} task.subtasks - An array of subtasks.
- * @param {string} task.subtasks.name - The name of the subtask.
- * @param {boolean} task.subtasks.completed - Indicates whether the subtask is completed or not.
- * 
  * @returns {void}
  */
 function setSubtasks(task) {
@@ -370,7 +329,6 @@ function createCheckbox(subtask, index, taskId) {
 
 /**
  * Opens all task information.
- * @param {Object} task - The task object.
  */
 function openAllTaskInformation(task) {
     setTaskInformation(task);
@@ -381,10 +339,6 @@ function openAllTaskInformation(task) {
 
 /**
  * Creates a card element for a task.
- * @param {Object} task - The task object.
- * @param {string} task.id - The unique identifier for the task.
- * @param {string} task.status - The status of the task.
- * @returns {HTMLElement} The created card element.
  */
 function createCardElement(task) {
     let card = document.createElement("article");

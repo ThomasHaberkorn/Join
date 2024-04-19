@@ -105,8 +105,7 @@ function loadCheckedUserInitials() {
             appendInitials(editCheckedUserInitials, contact);
             initialsCount++;
         } else if (contact) {
-            updateRemaining(editCheckedUserInitials);
-        }
+            updateRemaining(editCheckedUserInitials);}
     });
 }
 
@@ -196,19 +195,16 @@ function updateSelectedButton(selectedPriority) {
     switch (selectedPriority) {
         case "Urgent":
             urgentBtn.classList.add("priority-urgent-selected");
-            urgentBtn.querySelector("img").src =
-                "assets/img/selectedUrgent.png";
+            urgentBtn.querySelector("img").src = "assets/img/selectedUrgent.png";
             break;
         case "Medium":
             mediumBtn.classList.add("priority-medium-selected");
-            mediumBtn.querySelector("img").src =
-                "assets/img/selectedMedium.png";
+            mediumBtn.querySelector("img").src = "assets/img/selectedMedium.png";
             break;
         case "Low":
             lowBtn.classList.add("priority-low-selected");
             lowBtn.querySelector("img").src = "assets/img/selectedLow.png";
-            break;
-    }
+            break;}
 }
 
 /**
@@ -244,8 +240,7 @@ function setPriorityLevel() {
 function addSubtask(subtaskName) {
     let subtask = {
         name: subtaskName,
-        completed: false,
-    };
+        completed: false,};
     subtasks.push(subtask);
     updateSubtaskList();
 }
@@ -272,9 +267,7 @@ function loadCheckedUserInitials() {
             appendInitials(editCheckedUserInitials, contact);
             initialsCount++;
         } else if (contact) {
-            updateRemaining(editCheckedUserInitials);
-        }
-    });
+            updateRemaining(editCheckedUserInitials);}});
 }
 
 function clearElement(element) {
@@ -332,22 +325,16 @@ function createRemainingDiv() {
  */
 document.addEventListener("DOMContentLoaded", function () {
     subtaskAddButton.addEventListener("click", addSubtaskIfNotEmpty);
-
     subtaskInput.addEventListener("keydown", function (event) {
         // Number 13 is the "Enter" key on the keyboard
         if (event.keyCode === 13) {
             event.preventDefault(); // Cancel the default action, if needed
-            addSubtaskIfNotEmpty();
-        }
-    });
-
+            addSubtaskIfNotEmpty();}});
     function addSubtaskIfNotEmpty() {
         let subtaskValue = subtaskInput.value.trim();
         if (subtaskValue) {
             addSubtask(subtaskValue);
-            subtaskInput.value = "";
-        }
-    }
+            subtaskInput.value = "";}}
 });
 
 /**
@@ -355,19 +342,15 @@ document.addEventListener("DOMContentLoaded", function () {
  */
 async function addTask(event) {
     event.preventDefault();
-
     let category = document.getElementById("category").value;
     if (!validateCategory(category)) {
-        return;
-    }
-
+        return;}
     let title = document.getElementById("titleInput").value;
     let description = document.getElementById("descriptionInput").value;
     let taskDate = document.getElementById("taskDate").value;
     let assignedContacts = getAssignedContacts();
     let userLevel = sessionStorage.getItem("userLevel");
     let newTaskId = generateTaskId();
-
     addTaskToTasks(newTaskId, title, description, taskDate, category, userLevel, assignedContacts);
     await setItem("tasks", tasks);
     window.location.href = "board.html";
@@ -391,82 +374,4 @@ function displayCategoryError() {
     }
     errorMsg.textContent = "Please choose a Category.";
     errorMsg.style.display = "block";
-}
-
-function createCategoryErrorElement() {
-    let errorMsg = document.createElement("div");
-    errorMsg.id = "categoryError";
-    errorMsg.style.color = "red";
-    return errorMsg;
-}
-
-function hideCategoryError() {
-    let errorMsg = document.getElementById("categoryError");
-    if (errorMsg) {
-        errorMsg.style.display = "none";
-    }
-}
-
-function getAssignedContacts() {
-    return [...document.querySelectorAll(".contact-checkbox:checked")].map((input) => input.value);
-}
-
-function generateTaskId() {
-    return "task-" + Math.random().toString(36).substr(2, 9);
-}
-
-function addTaskToTasks(id, title, description, taskDate, category, userLevel, assignedContacts) {
-    tasks.push({
-        id,
-        title,
-        description,
-        taskDate,
-        category,
-        priority,
-        subtasks,
-        userLevel,
-        status: currentTaskStatus,
-        assignedContacts,
-    });
-}
-
-/**
- * Fills the dropdown list and toggles the visibility of the dropdown and checked user initials.
- */
-function fillDropdownList() {
-    let dropdown = document.getElementById("dropDownContacts");
-    let checkedUserInitials = document.getElementById("checkedUserInitials");
-
-    if (dropdown.style.display === "none" || dropdown.style.display === "") {
-        dropdown.style.display = "block";
-        // checkedUserInitials.style.display = "none";
-    } else {
-        dropdown.style.display = "none";
-        checkedUserInitials.style.display = "flex";
-        loadCheckedUserInitials();
-    }
-}
-
-/**
- * Clears the input values and resets the state of the task form.
- */
-function removeCurrentInputValues() {
-    document.getElementById("titleInput").value = "";
-    document.getElementById("descriptionInput").value = "";
-    document.getElementById("taskDate").value = "";
-    document.getElementById("category").value = "";
-    document
-        .querySelectorAll(".contact-checkbox:checked")
-        .forEach((checkbox) => {
-            const itemAndCheckbox = checkbox.closest(".itemAndCheckbox");
-            if (checkbox.checked) {
-                itemAndCheckbox.classList.remove("checkedItemAndCheckbox");
-            }
-            checkbox.checked = false;
-        });
-    subtaskInput.value = "";
-    subtasks = [];
-    setPriority("Medium");
-    loadCheckedUserInitials();
-    updateSubtaskList();
 }
