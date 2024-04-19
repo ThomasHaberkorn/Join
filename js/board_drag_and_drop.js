@@ -7,21 +7,14 @@
 function createTaskCard(task) {
     let card = createCardElement(task);
     let categoryDiv = createCategoryDiv(task);
-    let progressHtml =
-        task.subtasks && task.subtasks.length > 0
+    let progressHtml = task.subtasks && task.subtasks.length > 0
             ? calculateProgress(task)
             : "";
     const assignedContactElements = createAssignedContactElements(
-        task.assignedContacts
-    );
+        task.assignedContacts);
     const prioritySymbolHtml = getPrioritySymbolHtml(task, prioritySymbols);
     card.innerHTML = createCardHtml(
-        task,
-        categoryDiv,
-        progressHtml,
-        assignedContactElements,
-        prioritySymbolHtml
-    );
+        task, categoryDiv, progressHtml, assignedContactElements, prioritySymbolHtml);
     addEventListenersToCard(card, task);
     return card;
 }
@@ -34,10 +27,8 @@ function createTaskCard(task) {
 function updateTaskColumns() {
     document.querySelectorAll(".task-column").forEach((column) => {
         const hasTasks = Array.from(column.children).some((child) =>
-            child.classList.contains("task-card")
-        );
+            child.classList.contains("task-card"));
         const hasNoTaskMessage = !!column.querySelector(".no-task-message");
-
         if (!hasTasks && !hasNoTaskMessage) {
             let noTaskMessage = document.createElement("div");
             noTaskMessage.className = "no-task-message";
@@ -45,9 +36,7 @@ function updateTaskColumns() {
             column.appendChild(noTaskMessage);
         } else if (hasTasks && hasNoTaskMessage) {
             let noTaskMessage = column.querySelector(".no-task-message");
-            column.removeChild(noTaskMessage);
-        }
-    });
+            column.removeChild(noTaskMessage);}});
 }
 
 /**
@@ -96,10 +85,8 @@ function handleDrop(e) {
     e.preventDefault();
     const id = e.dataTransfer.getData("text");
     const draggableElement = document.getElementById(id);
-
     const newStatus = e.target.closest(".task-column").id;
     draggableElement.dataset.status = newStatus;
-
     e.target.closest(".task-column").appendChild(draggableElement);
     updateTaskInRemoteStorage(id, newStatus);
     updateTaskColumns();
@@ -149,19 +136,16 @@ function addPriorityClass(element, priority) {
     switch (priority) {
         case "Urgent":
             element.classList.add("priority-urgent");
-            element.querySelector("img").src =
-                "./assets/img/selectedUrgent.png";
+            element.querySelector("img").src = "./assets/img/selectedUrgent.png";
             break;
         case "Medium":
             element.classList.add("priority-medium");
-            element.querySelector("img").src =
-                "./assets/img/selectedMedium.png";
+            element.querySelector("img").src = "./assets/img/selectedMedium.png";
             break;
         case "Low":
             element.classList.add("priority-low");
             element.querySelector("img").src = "./assets/img/selectedLow.png";
-            break;
-    }
+            break;}
 }
 
 /**
@@ -208,19 +192,15 @@ function closeAllTaskInformation() {
  */
 async function deleteTask() {
     const allTaskInformation = document.getElementById("allTaskInformation");
-
     const taskId = allTaskInformation.dataset.taskId;
     let tasks = JSON.parse((await getItem("tasks")).value || "[]");
     const taskIndex = tasks.findIndex((task) => task.id === taskId);
-
     if (taskIndex !== -1) {
         const taskCard = document.getElementById(tasks[taskIndex].id);
         if (taskCard) {
             taskCard.remove();
             tasks.splice(taskIndex, 1);
-            await setItemFromJson("tasks", tasks);
-        }
-    }
+            await setItemFromJson("tasks", tasks);}}
     closeAllTaskInformation();
     await initBoard();
 }
@@ -269,7 +249,6 @@ function setTaskEditorCategory(category) {
     taskEditorCategory.className = className;
 }
 
-// Fügt Event-Listener zu allen Task-Spalten hinzu
 taskColumns.forEach((column) => {
     column.addEventListener("dragover", handleDragOver);
     column.addEventListener("dragenter", handleDragEnter);
@@ -278,23 +257,20 @@ taskColumns.forEach((column) => {
 });
 
 function handleDragOver(e) {
-    e.preventDefault(); // Erlaubt das Droppen von Elementen
+    e.preventDefault();
 }
 
 function handleDragEnter(e) {
     e.preventDefault();
-    // Fügt die hovered Klasse hinzu, wenn eine Task über die Spalte gezogen wird
     this.classList.add("hovered");
 }
 
 function handleDragLeave() {
-    // Entfernt die hovered Klasse, wenn die Task die Spalte verlässt
     this.classList.remove("hovered");
 }
 
 function handleDrop(e) {
     e.preventDefault();
-    // Hier Ihre Logik zum Behandeln des Droppens der Task
     const id = e.dataTransfer.getData("text");
     const draggableElement = document.getElementById(id);
     const newStatus = e.target.closest(".task-column").id;
@@ -302,7 +278,5 @@ function handleDrop(e) {
     e.target.closest(".task-column").appendChild(draggableElement);
     updateTaskInRemoteStorage(id, newStatus);
     updateTaskColumns();
-
-    // Entfernt die hovered Klasse, nachdem die Task abgelegt wurde
     this.classList.remove("hovered");
 }
