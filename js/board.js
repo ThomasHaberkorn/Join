@@ -91,29 +91,40 @@ function getAssignedContactElements(assignedContactIds) {
     const maxVisibleContacts = 3;
     const additionalContacts = assignedContactIds.length - maxVisibleContacts;
 
-    const contactsHtml = assignedContactIds
-        .slice(0, maxVisibleContacts)
-        .map((contactId) => {
-            const contact = contacts.find((c) => c.userID === contactId);
-            if (contact) {
-                return `<div class="boardContact">
-                            <div class="item-img" style="background-color: ${contact.color};">
-                                ${contact.firstLetter}${contact.lastLetter}
-                            </div>
-                        </div>`;
-            }
-            return "";
-        })
-        .join("");
+    const contactsHtml = generateContactsHtml(assignedContactIds, maxVisibleContacts);
 
     if (additionalContacts > 0) {
-        return (
-            contactsHtml +
-            `<div class="boardContact additional-contacts">+${additionalContacts}</div>`
-        );
+        return appendAdditionalContacts(contactsHtml, additionalContacts);
     }
 
     return contactsHtml;
+}
+
+function generateContactsHtml(assignedContactIds, maxVisibleContacts) {
+    return assignedContactIds
+        .slice(0, maxVisibleContacts)
+        .map((contactId) => createContactHtml(contactId))
+        .join("");
+}
+
+function createContactHtml(contactId) {
+    const contact = findContact(contactId);
+    if (contact) {
+        return `<div class="boardContact">
+                    <div class="item-img" style="background-color: ${contact.color};">
+                        ${contact.firstLetter}${contact.lastLetter}
+                    </div>
+                </div>`;
+    }
+    return "";
+}
+
+function findContact(contactId) {
+    return contacts.find((c) => c.userID === contactId);
+}
+
+function appendAdditionalContacts(contactsHtml, additionalContacts) {
+    return contactsHtml + `<div class="boardContact additional-contacts">+${additionalContacts}</div>`;
 }
 
 /**
@@ -325,26 +336,36 @@ function setTaskDetails(task) {
  * @returns {void}
  */
 function setSubtasks(task) {
-    const allTaskInformationSubtasks = document.getElementById(
-        "allTaskInformationSubtasks"
-    );
-    allTaskInformationSubtasks.innerHTML = "";
-    allTaskInformationSubtasks.style.listStyle = "none";
+    const allTaskInformationSubtasks = document.getElementById("allTaskInformationSubtasks");
+    clearSubtasks(allTaskInformationSubtasks);
     task.subtasks.forEach((subtask, index) => {
-        const subtaskElement = document.createElement("li");
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = subtask.completed;
-        checkbox.dataset.index = index;
-
-        checkbox.addEventListener("change", function () {
-            toggleSubtaskCompletion(task.id, index, this.checked);
-        });
-
-        subtaskElement.appendChild(checkbox);
-        subtaskElement.appendChild(document.createTextNode(subtask.name));
+        const subtaskElement = createSubtaskElement(subtask, index, task.id);
         allTaskInformationSubtasks.appendChild(subtaskElement);
     });
+}
+
+function clearSubtasks(allTaskInformationSubtasks) {
+    allTaskInformationSubtasks.innerHTML = "";
+    allTaskInformationSubtasks.style.listStyle = "none";
+}
+
+function createSubtaskElement(subtask, index, taskId) {
+    const subtaskElement = document.createElement("li");
+    const checkbox = createCheckbox(subtask, index, taskId);
+    subtaskElement.appendChild(checkbox);
+    subtaskElement.appendChild(document.createTextNode(subtask.name));
+    return subtaskElement;
+}
+
+function createCheckbox(subtask, index, taskId) {
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = subtask.completed;
+    checkbox.dataset.index = index;
+    checkbox.addEventListener("change", function () {
+        toggleSubtaskCompletion(taskId, index, this.checked);
+    });
+    return checkbox;
 }
 
 /**

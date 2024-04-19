@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>async function init() {
+    await sessionStorageFirstTimeTrue();
+    handleCheckboxAndMessage();
+    checkMsgBox();
+    moveContainer();
+    checkRememberUser();
+    await loadUsers();
+    await loadContacts();
+}
+
+let users;
+
+/**
+ * Loads users from remote storage and updates the global `users` array.
+ * If no data is found, initializes the array as empty.
+ */
+async function loadUsers() {
+    users = JSON.parse((await getItem("user")).value || "[]");
+}
+
+/**
+ * Loads contacts from remote storage and updates the global `contacts` array.
+ * If no data is found, initializes the array as empty.
+ */
+async function loadContacts() {
+    contacts = JSON.parse((await getItem("contacts")).value || "[]");
+}
+
+/**
+ * Checks the session storage to see if the page has already been loaded.
+ * The animation is displayed the first time the page is loaded;
+ * no animation is displayed the next time the page is loaded in the same session.
+ */
+
+async function sessionStorageFirstTimeTrue() {
+    let firstLog = sessionStorage.getItem(
+        "IsThisFirstTime_Log_From_LiveServer"
+    );
+    if (firstLog == "false") {
+        document.getElementById("loginHeadLogo").style.opacity = 1;
+        document.getElementById("loginHeadLogo").classList.remove("d-none");
+        setLogoAnimationDone();
+        document
+            .getElementById("loginHeadLogo")
+            .classList.add("loginLogoFrame");
+    } else if (firstLog == null) {
+        sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", true); // firstLog auf true setzen
+    } else if ((firstLog = true)) {
+        document.getElementById("loginHeadLogo").classList.remove("d-none");
+        setLogoAnimation();
+    }
+}
+
+/**
+ * Checks if the message box is empty and applies a transparency class if it is.
+ * Assumes an element with the ID "msgBox" exists in the DOM.
+ */
+function checkMsgBox() {
+    let mG = document.getElementById("msgBox");
+    if (!mG.innerHTML) {
+        mG.classList.add("bcTransp");
+    }
+}
+
+/**
+ * switch from Log in to Sign up in the index.html
+ */
+
+function toggleLoginSignup() {
+    const loginInnerContent = document.getElementById("loginInnerContent");
+    const signinInnerContent = document.getElementById("signinInnerContent");
+    const loginSignUp = document.getElementById("loginSignUp");
+    sessionStorage.removeItem("sidebarShouldHide");
+    if (loginInnerContent.classList.contains("d-none")) {
+        loginInnerContent.classList.remove("d-none");
+        signinInnerContent.classList.add("d-none");
+    } else {
+        loginInnerContent.classList.add("d-none");
+        signinInnerContent.classList.remove("d-none");
+    }
+    loginSignUp.classList.toggle("d-none");
+}
+
+/**
+ * Sets style classes when the animation is executed.
+ */
+
+function setLogoAnimation() {
+    document.getElementById("loginSignUp").classList.add("transformOpacity");
+    document
+        .getElementById("loginMiddleContainer")
+        .classList.add("transformOpacity");
+    document.getElementById("loginHeadLogo").classList.add("transformLogo");
+    sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", false);
+}
+
+/**
+ * Remove style classes when the animation has been executed.
+ */
+
+async function setLogoAnimationDone() {
+    document.getElementById("loginSignUp").classList.remove("transformOpacity");
+    document
+        .getElementById("loginMiddleContainer")
+        .classList.remove("transformOpacity");
+    document.getElementById("loginHeadLogo").classList.remove("transformLogo");
+}
+
+/**
+ * Function to handle the checkbox and message display
+ */
+
+function handleCheckboxAndMessage() {
+    const submitButton = document.querySelector(".signupButton");
+    const checkbox = document.getElementById("signinCheckBoxPrivacyPolicy");
+    const msgBox = document.getElementById("msgBox");
+    if (submitButton) {
+        submitButton.disabled = !checkbox.checked;
+        submitButton.classList.add(!checkbox.checked ? "bcGray" : "");
+        checkbox.addEventListener("change", () => {
+            submitButton.disabled = !checkbox.checked;
+            submitButton.classList.toggle("bcGray");
+        });
+        fillMsgBox();
+    }
+}
+
+/**
+ * Fills the message box with the message from the URL parameters.
+ */
+
+function fillMsgBox() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const msg = urlParams.get("msg");
+    if (msg) {
+        msgBox.innerHTML = msg;
+        msgBox.classList.remove("d-none");
+    } else {
+        msgBox.classList.add("d-none");
+    }
+}
+
+/**
+ * check if the user already exists and if the password and the password confirm are the same
+ */
+
+async function addUser() {
+    const name = document.getElementById("signinInputName").value;
+    const email = document.getElementById("signinInputMail").value;
+    const password = document.getElementById("suPWInput").value;
+    const passwordConfirm = document.getElementById("suPWCInput").value;
+    let currentUser = [];
+    const existingUser = users.find((user) => user.email === email);
+    const confirmPassword = password === passwordConfirm;
+    if (existingUser) {
+        currentUser.push({email, password});
+        window.location.href =
+            "index.html?msg=E-Mail-Adresse bereits registriert!";
+        return;
+    }
+    if (!confirmPassword) {
+        checkSignupPasswordConfirm();
+    } else {
+        signupForward(name, email, password);
+    }
+}
+
+/**
+ * checkSignupPasswordConfirm function to check if the password and the password confirm are the same
+ */
+
+function checkSignupPasswordConfirm() {
+    document.getElementById("suPWCInput").classList.add("focusAlert");
+    document.getElementById("my-form").innerHTML =
+        "Ups! Your password don't match";
+}
+
+/**
+ * signupForward function to save the user data in the local storage and redirect to the index.html
+ */
+
+async function signupForward(a, b, c) {
+    let name = a;
+    let email = b;
+    let password = c;
+    let currentUser = [];
+    let userLevel = "user";
+    let lastName = name.split(" ").pop();
+    signupForwardPush(name, email, password, userLevel, lastName);
+    currentUser.push({email, password});
+    await setItem("user", users);
+    await setItem("contacts", contacts);
+    localStorage.setItem("RememberUser", JSON.stringify(currentUser));
+    signupForwardRedirect(email, password);
+}
+
+function signupForwardPush(name, email, password, userLevel, lastName) {
+    let fullName = name.split(" ");
+    let capitalizedPart = fullName.map(
+        (part) => part.charAt(0).toUpperCase() + part.slice(1)
+    );
+    name = capitalizedPart.join(" ");
+    const userObj = {
+        color: getRandomColor(),
+        name,
+        email,
+        password,
+        userLevel,
+        firstLetter: name.charAt(0).toUpperCase(),
+        lastLetter: lastName.charAt(0).toUpperCase(),
+        userID: generateUserId(),
+    };
+    users.push(userObj);
+    contacts.push(userObj);
+}
+
+function signupForwardRedirect(email, password) {
+    loginInnerContent.classList.remove("d-none");
+    document.getElementById("loginInputMail").value = email;
+    document.getElementById("loPWInput").value = password;
+    document.getElementById("loginCheckBoxRememberMe").checked = true;
+    signinInnerContent.classList.add("d-none");
+    window.location.href =
+        "index.html?msg=Du hast dich erfolgreich registriert";
+}
+
+/**
+ * Checks if the user has checked the "Remember me" checkbox and saves the user data in the local storage.
+ */
+function checkRememberUser() {
+    let rememberUser = JSON.parse(localStorage.getItem("RememberUser"));
+    if (rememberUser) {
+        document.getElementById("loginInputMail").value = rememberUser[0].email;
+        document.getElementById("loPWInput").value = rememberUser[0].password;
+        document.getElementById("loginCheckBoxRememberMe").checked = true;
+    }
+}
+
+/**
+ * Checks if the user has entered the correct email and password and logs in the user.
+ */
+function login() {
+    event.preventDefault();
+    const email = document.getElementById("loginInputMail").value;
+    const password = document.getElementById("loPWInput").value;
+    const foundUser = users.find((user) => user.email === email);
+    let checkbox = document.getElementById("loginCheckBoxRememberMe");
+    let currentUser = [];
+    if (foundUser &amp;&amp; password === foundUser.password) {
+        if (checkbox.checked) {
+            currentUser.push({email, password});
+            localStorage.setItem("RememberUser", JSON.stringify(currentUser));
+        }
+        sessionStorage.setItem("userName", foundUser.name);
+        sessionStorage.setItem("userLevel", foundUser.userLevel);
+        window.location.href = "summary.html";
+    } else {
+        window.location.href = "index.html?msg=Email oder Passwort falsch";
+    }
+}
+
+/**
+ * Logs the user in as a guest.
+ */
+
+function guestLogin() {
+    sessionStorage.setItem("userName", "guest");
+    sessionStorage.setItem("userLevel", "guest");
+    window.location.href = "summary.html";
+}
+
+/**
+ * Moves the Sing Up button to the "signinMobileContainer" with a screen width of 720 pixels
+ */
+
+const mediaQuery = window.matchMedia("(max-width: 720px)");
+
+function moveContainer() {
+    const loginSignUp = document.getElementById("loginSignUp");
+    const loginHead = document.getElementById("loginHead");
+    const signinMobilContainer = document.getElementById(
+        "signinMobileContainer"
+    );
+    if (mediaQuery.matches) {
+        signinMobilContainer.appendChild(loginSignUp);
+    } else {
+        loginHead.appendChild(loginSignUp);
+    }
+}
+mediaQuery.addListener(moveContainer);
+
+/**
+ *
+ * @param {*} id take the id of the current event and change the image of the password field
+ * it work for the login and the signup page
+ */
+
+function changeImg(id) {
+    let img = document.getElementById(`${id}`);
+    img.src = "/assets/img/passw-hidden.png";
+    img.style.cursor = "pointer";
+}
+
+function checkPW(id) {
+    event.stopPropagation();
+    let img = document.getElementById(`${id}`);
+    let input = document.getElementById(`${id}Input`);
+    if (input.type === "password") {
+        img.src = "/assets/img/passw-visible.png";
+        input.type = "text";
+        img.style.cursor = "pointer";
+    } else {
+        img.src = "/assets/img/passw-hidden.png";
+        input.type = "password";
+        img.style.cursor = "pointer";
+    }
+}
+
+function removeFocus(id) {
+    let img = document.getElementById(`${id}`);
+    img.src = "/assets/img/lock.png";
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addEditSubtask">addEditSubtask</a></li><li><a href="global.html#addEventListenersToCard">addEventListenersToCard</a></li><li><a href="global.html#addNewContactScreen">addNewContactScreen</a></li><li><a href="global.html#addPriorityClass">addPriorityClass</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addTaskActive">addTaskActive</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#adjustSidebarVisibility">adjustSidebarVisibility</a></li><li><a href="global.html#allocateEarliestDate">allocateEarliestDate</a></li><li><a href="global.html#allocateTasks">allocateTasks</a></li><li><a href="global.html#boardActive">boardActive</a></li><li><a href="global.html#calculateProgress">calculateProgress</a></li><li><a href="global.html#changeImg">changeImg</a></li><li><a href="global.html#checkLoggedUser">checkLoggedUser</a></li><li><a href="global.html#checkLoggedUserAlt">checkLoggedUserAlt</a></li><li><a href="global.html#checkMsgBox">checkMsgBox</a></li><li><a href="global.html#checkRememberUser">checkRememberUser</a></li><li><a href="global.html#checkSignupPasswordConfirm">checkSignupPasswordConfirm</a></li><li><a href="global.html#clearSubtaskInput">clearSubtaskInput</a></li><li><a href="global.html#clearTaskColumns">clearTaskColumns</a></li><li><a href="global.html#closeAddContact">closeAddContact</a></li><li><a href="global.html#closeAllTaskInformation">closeAllTaskInformation</a></li><li><a href="global.html#closeBoardAddTask">closeBoardAddTask</a></li><li><a href="global.html#closeContactFullResponsive">closeContactFullResponsive</a></li><li><a href="global.html#closeDropdown">closeDropdown</a></li><li><a href="global.html#closeEditContact">closeEditContact</a></li><li><a href="global.html#closeEditor">closeEditor</a></li><li><a href="global.html#contactActive">contactActive</a></li><li><a href="global.html#contactSuccessfullCreated">contactSuccessfullCreated</a></li><li><a href="global.html#convertIdToStatus">convertIdToStatus</a></li><li><a href="global.html#countTasks">countTasks</a></li><li><a href="global.html#createAssignedContactElements">createAssignedContactElements</a></li><li><a href="global.html#createBtn">createBtn</a></li><li><a href="global.html#createCardElement">createCardElement</a></li><li><a href="global.html#createCardHtml">createCardHtml</a></li><li><a href="global.html#createCategoryDiv">createCategoryDiv</a></li><li><a href="global.html#createContactCheckboxes">createContactCheckboxes</a></li><li><a href="global.html#createNewContact">createNewContact</a></li><li><a href="global.html#createSubtasksHtml">createSubtasksHtml</a></li><li><a href="global.html#createTaskCard">createTaskCard</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteContactBig">deleteContactBig</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#displayAssignedContacts">displayAssignedContacts</a></li><li><a href="global.html#displayTasks">displayTasks</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#fillContactDropdown">fillContactDropdown</a></li><li><a href="global.html#fillDropdownList">fillDropdownList</a></li><li><a href="global.html#fillMsgBox">fillMsgBox</a></li><li><a href="global.html#fillTaskEditor">fillTaskEditor</a></li><li><a href="global.html#generateUserId">generateUserId</a></li><li><a href="global.html#getAssignedContactDisplay">getAssignedContactDisplay</a></li><li><a href="global.html#getAssignedContactElements">getAssignedContactElements</a></li><li><a href="global.html#getCategoryDetails">getCategoryDetails</a></li><li><a href="global.html#getDaytime">getDaytime</a></li><li><a href="global.html#getEarliestDate">getEarliestDate</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getItemAsJson">getItemAsJson</a></li><li><a href="global.html#getPrioritySymbolHtml">getPrioritySymbolHtml</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getTask">getTask</a></li><li><a href="global.html#getTaskById">getTaskById</a></li><li><a href="global.html#getUrgendTask">getUrgendTask</a></li><li><a href="global.html#getUserName">getUserName</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#handleCheckboxAndMessage">handleCheckboxAndMessage</a></li><li><a href="global.html#handleCheckboxChange">handleCheckboxChange</a></li><li><a href="global.html#handleClickOutside">handleClickOutside</a></li><li><a href="global.html#handleDragOver">handleDragOver</a></li><li><a href="global.html#handleDragStart">handleDragStart</a></li><li><a href="global.html#handleDrop">handleDrop</a></li><li><a href="global.html#handleKeyboardAccessibility">handleKeyboardAccessibility</a></li><li><a href="global.html#hideContactPopupEditDelete">hideContactPopupEditDelete</a></li><li><a href="global.html#hideContactResponsive">hideContactResponsive</a></li><li><a href="global.html#includeW3">includeW3</a></li><li><a href="global.html#initAddSidebar">initAddSidebar</a></li><li><a href="global.html#initBoard">initBoard</a></li><li><a href="global.html#initPirivacyPolicy">initPirivacyPolicy</a></li><li><a href="global.html#initW3">initW3</a></li><li><a href="global.html#initializeDropdown">initializeDropdown</a></li><li><a href="global.html#legalNoticeActive">legalNoticeActive</a></li><li><a href="global.html#linkToSummary">linkToSummary</a></li><li><a href="global.html#loadCheckedUserInitials">loadCheckedUserInitials</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#loadTasks">loadTasks</a></li><li><a href="global.html#loadUsers">loadUsers</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#mediaQuery">mediaQuery</a></li><li><a href="global.html#openAddTaskWithStatus">openAddTaskWithStatus</a></li><li><a href="global.html#openAllTaskInformation">openAllTaskInformation</a></li><li><a href="global.html#patchEdit">patchEdit</a></li><li><a href="global.html#pirivacyPolicyActive">pirivacyPolicyActive</a></li><li><a href="global.html#priorityButtons">priorityButtons</a></li><li><a href="global.html#prioritySymbols">prioritySymbols</a></li><li><a href="global.html#removeCurrentInputValues">removeCurrentInputValues</a></li><li><a href="global.html#removeEditSubtask">removeEditSubtask</a></li><li><a href="global.html#removeMark">removeMark</a></li><li><a href="global.html#removePriorityClasses">removePriorityClasses</a></li><li><a href="global.html#removeSubtask">removeSubtask</a></li><li><a href="global.html#renderContactList">renderContactList</a></li><li><a href="global.html#resetButtonImage">resetButtonImage</a></li><li><a href="global.html#resetButtons">resetButtons</a></li><li><a href="global.html#saveContacts">saveContacts</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#selectOption">selectOption</a></li><li><a href="global.html#sessionStorageFirstTimeTrue">sessionStorageFirstTimeTrue</a></li><li><a href="global.html#setDaytime">setDaytime</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setItemFromJson">setItemFromJson</a></li><li><a href="global.html#setLogoAnimation">setLogoAnimation</a></li><li><a href="global.html#setLogoAnimationDone">setLogoAnimationDone</a></li><li><a href="global.html#setPriority">setPriority</a></li><li><a href="global.html#setPriorityInformation">setPriorityInformation</a></li><li><a href="global.html#setPriorityLevel">setPriorityLevel</a></li><li><a href="global.html#setPriorityValue">setPriorityValue</a></li><li><a href="global.html#setStorageSession">setStorageSession</a></li><li><a href="global.html#setSubtasks">setSubtasks</a></li><li><a href="global.html#setTaskDetails">setTaskDetails</a></li><li><a href="global.html#setTaskEditorCategory">setTaskEditorCategory</a></li><li><a href="global.html#setTaskInformation">setTaskInformation</a></li><li><a href="global.html#setupDropdownListeners">setupDropdownListeners</a></li><li><a href="global.html#showClearButton">showClearButton</a></li><li><a href="global.html#showContact">showContact</a></li><li><a href="global.html#showContactPopupEditDelete">showContactPopupEditDelete</a></li><li><a href="global.html#showContactResponsive">showContactResponsive</a></li><li><a href="global.html#showInitials">showInitials</a></li><li><a href="global.html#signupForward">signupForward</a></li><li><a href="global.html#sortContacts">sortContacts</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#summaryActive">summaryActive</a></li><li><a href="global.html#taskColumns">taskColumns</a></li><li><a href="global.html#tasks">tasks</a></li><li><a href="global.html#timeout">timeout</a></li><li><a href="global.html#toggleDisplay">toggleDisplay</a></li><li><a href="global.html#toggleDropdown">toggleDropdown</a></li><li><a href="global.html#toggleLoginSignup">toggleLoginSignup</a></li><li><a href="global.html#toggleSubtaskCompletion">toggleSubtaskCompletion</a></li><li><a href="global.html#updateEditCheckedUserInitials">updateEditCheckedUserInitials</a></li><li><a href="global.html#updateEditSubtaskList">updateEditSubtaskList</a></li><li><a href="global.html#updateSelectedButton">updateSelectedButton</a></li><li><a href="global.html#updateSubtaskList">updateSubtaskList</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#updateTaskColumns">updateTaskColumns</a></li><li><a href="global.html#updateTaskInRemoteStorage">updateTaskInRemoteStorage</a></li><li><a href="global.html#updateTaskStatusAndMove">updateTaskStatusAndMove</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Apr 18 2024 23:20:39 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

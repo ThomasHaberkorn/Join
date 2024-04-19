@@ -39,30 +39,40 @@ function fillTaskEditor(task) {
  */
 function createContactCheckboxes(task) {
     const dropdownEdit = document.getElementById("dropDownContactsEdit");
-    dropdownEdit.innerHTML = "";
+    clearDropdownEdit(dropdownEdit);
     contacts.forEach((contact) => {
         const isChecked = task.assignedContacts.includes(contact.userID);
         const checkboxId = `contact-edit-${contact.userID}`;
-
-        const div = document.createElement("div");
-        div.classList.add("itemAndCheckbox");
-        if (isChecked) {
-            div.classList.add("checkedItemAndCheckbox");
-        }
-
-        const initials = `${contact.firstLetter}${contact.lastLetter}`;
-        div.innerHTML = `
-            <div class="userInitials" style="background-color: ${contact.color
-            };">${initials}</div>
-            <div class="nameWithCheckbox">
-                <label for="${checkboxId}">${contact.name}</label>
-                <input type="checkbox" class="edit-contact-checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${contact.userID
-            }" ${isChecked ? "checked" : ""} onchange="handleCheckboxChange(this)">
-            </div>
-        `;
-
+        const div = createContactDiv(contact, isChecked, checkboxId);
         dropdownEdit.appendChild(div);
     });
+}
+
+function clearDropdownEdit(dropdownEdit) {
+    dropdownEdit.innerHTML = "";
+}
+
+function createContactDiv(contact, isChecked, checkboxId) {
+    const div = document.createElement("div");
+    div.classList.add("itemAndCheckbox");
+    if (isChecked) {
+        div.classList.add("checkedItemAndCheckbox");
+    }
+
+    const initials = `${contact.firstLetter}${contact.lastLetter}`;
+    div.innerHTML = generateContactHtml(contact, initials, checkboxId, isChecked);
+
+    return div;
+}
+
+function generateContactHtml(contact, initials, checkboxId, isChecked) {
+    return `
+        <div class="userInitials" style="background-color: ${contact.color};">${initials}</div>
+        <div class="nameWithCheckbox">
+            <label for="${checkboxId}">${contact.name}</label>
+            <input type="checkbox" class="edit-contact-checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${contact.userID}" ${isChecked ? "checked" : ""} onchange="handleCheckboxChange(this)">
+        </div>
+    `;
 }
 
 /**
