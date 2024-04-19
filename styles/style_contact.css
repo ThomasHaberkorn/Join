@@ -665,7 +665,7 @@
     width: 364px;
     height: 57px;
     display: flex;
-    justify-content:flex-start ;
+    justify-content: flex-start;
 }
 
 .contactEditCloseResponse {
@@ -1466,7 +1466,7 @@ input:focus {
         justify-content: center;
         margin-left: 0;
         transition: 75ms;
-        width: 100%;;
+        width: 100%;
     }
 
     .contactEditDeleteArea {
@@ -1493,7 +1493,7 @@ input:focus {
         margin-left: 0;
         bottom: 80px;
     }
-    .listArea{
+    .listArea {
         margin-top: 0px;
     }
 }
