@@ -6,7 +6,6 @@ function toggleDropdown(event) {
     const options = document.querySelector(".dropdown-options");
     const arrow = document.querySelector(".dropdown-arrow");
     const isOpen = options.style.display === "block";
-
     options.style.display = isOpen ? "none" : "block";
     arrow.src = isOpen
         ? "./assets/img/custom-arrow.png"
@@ -23,7 +22,6 @@ function selectOption(event) {
     const selectedText = event.target.textContent;
     const selectedValue = event.target.getAttribute("data-value");
     const arrow = document.querySelector(".dropdown-arrow");
-
     document.querySelector(".dropdown-selected").textContent = selectedText;
     document.querySelector(".dropdown-options").style.display = "none";
     document.getElementById("category").value = selectedValue;
@@ -37,14 +35,10 @@ function setupDropdownListeners() {
     const dropdownSelected = document.querySelector(".dropdown-selected");
     const dropdownArrow = document.querySelector(".dropdown-arrow");
     const dropdownOptions = document.querySelectorAll(".dropdown-option");
-
     dropdownSelected.addEventListener("click", toggleDropdown);
     dropdownArrow.addEventListener("click", toggleDropdown);
-
     dropdownOptions.forEach((option) => {
-        option.addEventListener("click", selectOption);
-    });
-
+        option.addEventListener("click", selectOption);});
     window.addEventListener("click", function () {
         const options = document.querySelector(".dropdown-options");
         const arrow = document.querySelector(".dropdown-arrow");
