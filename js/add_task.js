@@ -96,22 +96,65 @@ function handleCheckboxChange(checkbox) {
  * Loads the checked user initials into the specified element.
  */
 function loadCheckedUserInitials() {
-    const editCheckedUserInitials = document.getElementById(
-        "checkedUserInitials"
-    );
-    editCheckedUserInitials.innerHTML = "";
-    document
-        .querySelectorAll(".contact-checkbox:checked")
-        .forEach((checkbox) => {
-            const contact = contacts.find((c) => c.userID === checkbox.value);
-            if (contact) {
-                const initialsDiv = document.createElement("div");
-                initialsDiv.className = "userInitials";
-                initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
-                initialsDiv.style.backgroundColor = contact.color;
-                editCheckedUserInitials.appendChild(initialsDiv);
-            }
-        });
+    const editCheckedUserInitials = document.getElementById("checkedUserInitials");
+    clearElement(editCheckedUserInitials);
+    let initialsCount = 0;
+    document.querySelectorAll(".contact-checkbox:checked").forEach((checkbox) => {
+        const contact = findContact(checkbox.value);
+        if (contact && initialsCount < 3) {
+            appendInitials(editCheckedUserInitials, contact);
+            initialsCount++;
+        } else if (contact) {
+            updateRemaining(editCheckedUserInitials);
+        }
+    });
+}
+
+function clearElement(element) {
+    element.innerHTML = "";
+}
+
+function findContact(id) {
+    return contacts.find((c) => c.userID === id);
+}
+
+function appendInitials(parentElement, contact) {
+    const initialsDiv = createInitialsDiv(contact);
+    parentElement.appendChild(initialsDiv);
+}
+
+function createInitialsDiv(contact) {
+    const initialsDiv = document.createElement("div");
+    initialsDiv.className = "userInitials";
+    initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
+    initialsDiv.style.backgroundColor = contact.color;
+    return initialsDiv;
+}
+
+function updateRemaining(parentElement) {
+    const remaining = document.querySelector(".userInitials.remaining");
+    if (remaining) {
+        incrementRemaining(remaining);
+    } else {
+        appendRemaining(parentElement);
+    }
+}
+
+function incrementRemaining(remainingElement) {
+    remainingElement.textContent = `+${parseInt(remainingElement.textContent.slice(1)) + 1}`;
+}
+
+function appendRemaining(parentElement) {
+    const remainingDiv = createRemainingDiv();
+    parentElement.appendChild(remainingDiv);
+}
+
+function createRemainingDiv() {
+    const remainingDiv = document.createElement("div");
+    remainingDiv.className = "userInitials remaining";
+    remainingDiv.textContent = "+1";
+    remainingDiv.style.backgroundColor = "lightblue";
+    return remainingDiv;
 }
 
 /**
@@ -217,63 +260,68 @@ function removeSubtask(index) {
 }
 
 /**
- * Updates the subtask list in the DOM based on the subtasks array.
+ * Loads the checked user initials into the specified element.
  */
-function updateSubtaskList() {
-    subtaskList.innerHTML = "";
-
-    subtasks.forEach((subtask, index) => {
-        let li = document.createElement("li");
-        let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = subtask.completed;
-        checkbox.onchange = function () {
-            subtasks[index].completed = this.checked;
-        };
-
-        let textInput = document.createElement("input");
-        textInput.type = "text";
-        textInput.value = subtask.name;
-        textInput.disabled = true;
-
-        let editButton = document.createElement("button");
-        editButton.type = "button";
-        editButton.classList.add("subtaskEditBtn");
-        let editIcon = document.createElement("img");
-        editIcon.src = "assets/img/edit.png";
-        editIcon.alt = "Edit";
-        editButton.appendChild(editIcon);
-
-        editButton.onclick = function () {
-            if (textInput.disabled) {
-                textInput.disabled = false;
-                textInput.focus();
-                editIcon.src = "assets/img/check (2).png";
-            } else {
-                subtasks[index].name = textInput.value.trim();
-                textInput.disabled = true;
-                editIcon.src = "assets/img/edit.png";
-                updateSubtaskList();
-            }
-        };
-
-        let deleteButton = document.createElement("button");
-        deleteButton.type = "button";
-        deleteButton.classList.add("subtaskDeleteBtn");
-        let deleteIcon = document.createElement("img");
-        deleteIcon.src = "assets/img/delete.png";
-        deleteIcon.alt = "Delete";
-        deleteButton.appendChild(deleteIcon);
-        deleteButton.onclick = function () {
-            removeSubtask(index);
-        };
-
-        li.appendChild(checkbox);
-        li.appendChild(textInput);
-        li.appendChild(editButton);
-        li.appendChild(deleteButton);
-        subtaskList.appendChild(li);
+function loadCheckedUserInitials() {
+    const editCheckedUserInitials = document.getElementById("checkedUserInitials");
+    clearElement(editCheckedUserInitials);
+    let initialsCount = 0;
+    document.querySelectorAll(".contact-checkbox:checked").forEach((checkbox) => {
+        const contact = findContact(checkbox.value);
+        if (contact && initialsCount < 3) {
+            appendInitials(editCheckedUserInitials, contact);
+            initialsCount++;
+        } else if (contact) {
+            updateRemaining(editCheckedUserInitials);
+        }
     });
+}
+
+function clearElement(element) {
+    element.innerHTML = "";
+}
+
+function findContact(id) {
+    return contacts.find((c) => c.userID === id);
+}
+
+function appendInitials(parentElement, contact) {
+    const initialsDiv = createInitialsDiv(contact);
+    parentElement.appendChild(initialsDiv);
+}
+
+function createInitialsDiv(contact) {
+    const initialsDiv = document.createElement("div");
+    initialsDiv.className = "userInitials";
+    initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
+    initialsDiv.style.backgroundColor = contact.color;
+    return initialsDiv;
+}
+
+function updateRemaining(parentElement) {
+    const remaining = document.querySelector(".userInitials.remaining");
+    if (remaining) {
+        incrementRemaining(remaining);
+    } else {
+        appendRemaining(parentElement);
+    }
+}
+
+function incrementRemaining(remainingElement) {
+    remainingElement.textContent = `+${parseInt(remainingElement.textContent.slice(1)) + 1}`;
+}
+
+function appendRemaining(parentElement) {
+    const remainingDiv = createRemainingDiv();
+    parentElement.appendChild(remainingDiv);
+}
+
+function createRemainingDiv() {
+    const remainingDiv = document.createElement("div");
+    remainingDiv.className = "userInitials remaining";
+    remainingDiv.textContent = "+1";
+    remainingDiv.style.backgroundColor = "lightblue";
+    return remainingDiv;
 }
 
 /**
@@ -307,38 +355,69 @@ document.addEventListener("DOMContentLoaded", function () {
  */
 async function addTask(event) {
     event.preventDefault();
-    let category = document.getElementById("category").value;
 
-    if (!category) {
-        let errorMsg = document.getElementById("categoryError");
-        if (!errorMsg) {
-            errorMsg = document.createElement("div");
-            errorMsg.id = "categoryError";
-            errorMsg.style.color = "red";
-            document
-                .getElementById("category")
-                .parentElement.parentElement.appendChild(errorMsg);
-        }
-        errorMsg.textContent = "Please choose a Category.";
-        errorMsg.style.display = "block";
+    let category = document.getElementById("category").value;
+    if (!validateCategory(category)) {
         return;
-    } else {
-        let errorMsg = document.getElementById("categoryError");
-        if (errorMsg) {
-            errorMsg.style.display = "none";
-        }
     }
+
     let title = document.getElementById("titleInput").value;
     let description = document.getElementById("descriptionInput").value;
     let taskDate = document.getElementById("taskDate").value;
-    let assignedContacts = [
-        ...document.querySelectorAll(".contact-checkbox:checked"),
-    ].map((input) => input.value);
+    let assignedContacts = getAssignedContacts();
     let userLevel = sessionStorage.getItem("userLevel");
-    let newTaskId = "task-" + Math.random().toString(36).substr(2, 9);
+    let newTaskId = generateTaskId();
 
+    addTaskToTasks(newTaskId, title, description, taskDate, category, userLevel, assignedContacts);
+    await setItem("tasks", tasks);
+    window.location.href = "board.html";
+}
+
+function validateCategory(category) {
+    if (!category) {
+        displayCategoryError();
+        return false;
+    } else {
+        hideCategoryError();
+        return true;
+    }
+}
+
+function displayCategoryError() {
+    let errorMsg = document.getElementById("categoryError");
+    if (!errorMsg) {
+        errorMsg = createCategoryErrorElement();
+        document.getElementById("category").parentElement.parentElement.appendChild(errorMsg);
+    }
+    errorMsg.textContent = "Please choose a Category.";
+    errorMsg.style.display = "block";
+}
+
+function createCategoryErrorElement() {
+    let errorMsg = document.createElement("div");
+    errorMsg.id = "categoryError";
+    errorMsg.style.color = "red";
+    return errorMsg;
+}
+
+function hideCategoryError() {
+    let errorMsg = document.getElementById("categoryError");
+    if (errorMsg) {
+        errorMsg.style.display = "none";
+    }
+}
+
+function getAssignedContacts() {
+    return [...document.querySelectorAll(".contact-checkbox:checked")].map((input) => input.value);
+}
+
+function generateTaskId() {
+    return "task-" + Math.random().toString(36).substr(2, 9);
+}
+
+function addTaskToTasks(id, title, description, taskDate, category, userLevel, assignedContacts) {
     tasks.push({
-        id: newTaskId,
+        id,
         title,
         description,
         taskDate,
@@ -349,8 +428,6 @@ async function addTask(event) {
         status: currentTaskStatus,
         assignedContacts,
     });
-    await setItem("tasks", tasks);
-    window.location.href = "board.html";
 }
 
 /**

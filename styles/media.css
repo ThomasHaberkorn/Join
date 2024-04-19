@@ -771,7 +771,6 @@
         width: 89%;
     }
     #boardContainerUpperPartRight {
-        flex-direction: column;
         gap: 16px;
     }
     .alltaskContent {
@@ -796,6 +795,10 @@
 
     .headline {
         font-size: 32px;
+    }
+
+    #boardAddTaskButton p {
+        display: none;
     }
 }
 
