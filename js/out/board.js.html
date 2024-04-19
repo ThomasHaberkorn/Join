@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: board.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: board.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * This file contains the implementation of the board functionality.
+ * It includes functions for initializing the board, sorting tasks, displaying tasks, and creating task cards.
+ * It also defines constants for priority symbols and selects task columns.
+ * @file FILEPATH: /c:/Users/Karim/Desktop/DA/Join/Join/js/board.js
+ */
+document.addEventListener("DOMContentLoaded", async function () {
+    await loadContacts();
+});
+
+/**
+ * Initializes the board by performing various tasks.
+ * @returns {Promise&lt;void>} A promise that resolves when the board is initialized.
+ */
+async function initBoard() {
+    await includeW3();
+    await sortTasks();
+    boardActive();
+    showInitials();
+    updateTaskColumns();
+    clearTaskColumns();
+    displayTasks();
+}
+
+/**
+ * Object containing priority symbols and their corresponding image paths.
+ * @type {Object.&lt;string, string>}
+ */
+const prioritySymbols = {
+    Urgent: "./assets/img/urgentSymbol.png",
+    Medium: "./assets/img/mediumSymbol.png",
+    Low: "./assets/img/lowSymbol.png",
+};
+
+/**
+ * Represents a collection of task columns.
+ * @type {NodeListOf&lt;Element>}
+ */
+const taskColumns = document.querySelectorAll(".task-column");
+
+/**
+ * Sorts the tasks based on the user level.
+ * If the user level is "user", it filters the tasks that have a userLevel of "user".
+ * If the user level is not "user", it filters the tasks that have a userLevel of "guest" or null.
+ * @returns {Promise&lt;void>} A promise that resolves when the tasks are sorted.
+ */
+async function sortTasks() {
+    try {
+        const userLevel = sessionStorage.getItem("userLevel");
+        let taskTemp = JSON.parse((await getItem("tasks")).value || "[]");
+        if (userLevel === "user") {
+            const userTasks = taskTemp.filter((t) => t.userLevel === "user");
+            tasks = userTasks;
+        } else {
+            const userTasks = taskTemp.filter(
+                (t) => t.userLevel === "guest" || t.userLevel == null
+            );
+            tasks = userTasks;
+        }
+    } catch (error) {
+        console.error("Fehler beim Laden der Aufgaben:", error);
+    }
+}
+
+/**
+ * Displays tasks on the board.
+ */
+function displayTasks() {
+    tasks.forEach((task) => {
+        if (document.getElementById(task.status)) {
+            let taskCard = createTaskCard(task);
+            document.getElementById(task.status).appendChild(taskCard);
+        }
+    });
+    updateTaskColumns();
+}
+
+/**
+ * Makes the boardSum element active by adding the "bgfocus" class.
+ */
+function boardActive() {
+    document.getElementById("boardSum").classList.add("bgfocus");
+}
+
+/**
+ * Retrieves the HTML elements for the assigned contacts.
+ * @param {Array} assignedContactIds - The array of assigned contact IDs.
+ * @returns {string} - The HTML elements representing the assigned contacts.
+ */
+function getAssignedContactElements(assignedContactIds) {
+    const maxVisibleContacts = 3;
+    const additionalContacts = assignedContactIds.length - maxVisibleContacts;
+
+    const contactsHtml = assignedContactIds
+        .slice(0, maxVisibleContacts)
+        .map((contactId) => {
+            const contact = contacts.find((c) => c.userID === contactId);
+            if (contact) {
+                return `&lt;div class="boardContact">
+                            &lt;div class="item-img" style="background-color: ${contact.color};">
+                                ${contact.firstLetter}${contact.lastLetter}
+                            &lt;/div>
+                        &lt;/div>`;
+            }
+            return "";
+        })
+        .join("");
+
+    if (additionalContacts > 0) {
+        return (
+            contactsHtml +
+            `&lt;div class="boardContact additional-contacts">+${additionalContacts}&lt;/div>`
+        );
+    }
+
+    return contactsHtml;
+}
+
+/**
+ * Returns the HTML markup for displaying assigned contacts.
+ *
+ * @param {Array} assignedContactIds - An array of contact IDs.
+ * @returns {string} - The HTML markup for displaying assigned contacts.
+ */
+function getAssignedContactDisplay(assignedContactIds) {
+    return assignedContactIds
+        .map((contactId) => {
+            const contact = contacts.find((c) => c.userID === contactId);
+            if (contact) {
+                return `
+                    &lt;div class="contact-display" style="padding-left: 15px; margin-top: 10px; display: flex; align-items: center; gap: 15px;">
+                        &lt;div class="contact-avatar" style="background-color: ${contact.color};">
+                            ${contact.firstLetter}${contact.lastLetter}
+                        &lt;/div>
+                        &lt;div class="contact-name">${contact.name}&lt;/div>
+                    &lt;/div>
+                `;
+            }
+            return "";
+        })
+        .join("");
+}
+
+/**
+ * Creates HTML markup for a list of subtasks.
+ *
+ * @param {Array} subtasks - An array of subtasks.
+ * @returns {string} - The HTML markup for the subtasks.
+ */
+function createSubtasksHtml(subtasks) {
+    let subtasksHtml = '&lt;ul class="task-card-subtasks">';
+    subtasks.forEach((subtask) => {
+        subtasksHtml += `&lt;li>${subtask}&lt;/li>`;
+    });
+    subtasksHtml += "&lt;/ul>";
+    return subtasksHtml;
+}
+
+/**
+ * Creates a category div based on the given task.
+ * @param {object} task - The task object.
+ * @returns {string} The HTML string representing the category div.
+ */
+function createCategoryDiv(task) {
+    const {className, text} = getCategoryDetails(task.category);
+    return `&lt;div class="${className}">${text}&lt;/div>`;
+}
+
+/**
+ * Creates assigned contact elements based on the given assigned contacts.
+ *
+ * @param {Array} assignedContacts - The array of assigned contacts.
+ * @returns {Array} - The array of assigned contact elements.
+ */
+function createAssignedContactElements(assignedContacts) {
+    return getAssignedContactElements(assignedContacts);
+}
+
+/**
+ * Returns the HTML representation of the priority symbol for a task.
+ *
+ * @param {object} task - The task object.
+ * @param {object} prioritySymbols - The priority symbols object.
+ * @returns {string} The HTML representation of the priority symbol.
+ */
+function getPrioritySymbolHtml(task, prioritySymbols) {
+    const prioritySymbol = prioritySymbols[task.priority];
+    return prioritySymbol
+        ? `&lt;img src="${prioritySymbol}" class="priority-symbol" alt="${task.priority}" style="margin-left: 10px;">`
+        : "";
+}
+
+/**
+ * Calculates the progress of a task based on its subtasks.
+ * @param {Object} task - The task object.
+ * @param {Array} task.subtasks - An array of subtasks.
+ * @param {boolean} task.subtasks.completed - Indicates whether the subtask is completed or not.
+ * @returns {string} - The HTML representation of the progress bar and subtask count.
+ */
+function calculateProgress(task) {
+    const totalSubtasks = task.subtasks.length;
+    const completedSubtasks = task.subtasks.filter(
+        (subtask) => subtask.completed
+    ).length;
+    const progressPercentage =
+        totalSubtasks === 0 ? 0 : (completedSubtasks / totalSubtasks) * 100;
+
+    return `
+        &lt;div class="subtaskWithProgressBar">
+        &lt;div class="progress" >
+            &lt;div class="progress-bar" style="width: ${progressPercentage}%">&lt;/div>
+        &lt;/div>
+        &lt;div class="subtaskNextToProgressBar";">${completedSubtasks}/${totalSubtasks} Subtasks&lt;/div>
+        &lt;/div>
+    `;
+}
+
+/**
+ * Creates the HTML markup for a task card.
+ *
+ * @param {Object} task - The task object.
+ * @param {string} categoryDiv - The category div HTML.
+ * @param {string} progressHtml - The progress HTML.
+ * @param {string} assignedContactElements - The assigned contact elements HTML.
+ * @param {string} prioritySymbolHtml - The priority symbol HTML.
+ * @returns {string} - The HTML markup for the task card.
+ */
+function createCardHtml(
+    task,
+    categoryDiv,
+    progressHtml,
+    assignedContactElements,
+    prioritySymbolHtml
+) {
+    return `
+        &lt;div class="task-card-header">${categoryDiv}&lt;/div>
+        &lt;div class="task-card-title">${task.title}&lt;/div>
+        &lt;div class="task-card-description">${task.description}&lt;/div>
+        &lt;/div>&lt;div class="boardProgrContainer">${progressHtml}&lt;/div> &lt;!-- Progress-Bar und Subtasks-Anzeige einfügen -->
+        &lt;div class="prioAndContact">
+            &lt;div style="display: flex;">${assignedContactElements}&lt;/div>
+            ${prioritySymbolHtml} &lt;!-- Füge das Prioritätssymbol hinzu -->
+        &lt;/div>
+    `;
+}
+
+/**
+ * Sets the task information in the DOM.
+ * 
+ * @param {Object} task - The task object containing the task information.
+ */
+function setTaskInformation(task) {
+    const allTaskInformation = document.getElementById("allTaskInformation");
+    allTaskInformation.dataset.taskId = task.id;
+    allTaskInformation.style.display = "flex";
+}
+
+/**
+ * Sets the priority information for a task.
+ *
+ * @param {object} task - The task object containing the priority information.
+ */
+function setPriorityInformation(task) {
+    const prioritySymbol = prioritySymbols[task.priority];
+    const prioritySymbolHtml = prioritySymbol
+        ? `&lt;img src="${prioritySymbol}" class="priority-symbol" alt="${task.priority}" style="vertical-align: middle; margin-left: 5px;">`
+        : "";
+    const allTaskInformationPriority = document.getElementById(
+        "allTaskInformationPriority"
+    );
+    allTaskInformationPriority.innerHTML = task.priority + prioritySymbolHtml;
+}
+
+/**
+ * Sets the task details on the UI.
+ *
+ * @param {Object} task - The task object containing the details.
+ * @param {string} task.title - The title of the task.
+ * @param {string} task.description - The description of the task.
+ * @param {string} task.taskDate - The due date of the task.
+ * @param {Array} task.assignedContacts - The contacts assigned to the task.
+ * @param {string} task.category - The category of the task.
+ * @returns {void}
+ */
+function setTaskDetails(task) {
+    const allTaskInformationTitle = document.getElementById(
+        "allTaskInformationTitle"
+    );
+    allTaskInformationTitle.textContent = task.title;
+
+    const allTaskInformationDescription = document.getElementById(
+        "allTaskInformationDescription"
+    );
+    allTaskInformationDescription.textContent = task.description;
+
+    const allTaskInformationDueDate = document.getElementById(
+        "allTaskInformationDueDate"
+    );
+    allTaskInformationDueDate.textContent = task.taskDate;
+
+    const allTaskInformationAssignedTo = document.getElementById(
+        "allTaskInformationAssignedTo"
+    );
+    allTaskInformationAssignedTo.innerHTML = getAssignedContactDisplay(
+        task.assignedContacts
+    );
+
+    const {className, text} = getCategoryDetails(task.category);
+    const allTaskInformationCategory = document.getElementById(
+        "allTaskInformationCategory"
+    );
+    allTaskInformationCategory.textContent = text;
+    allTaskInformationCategory.className = className;
+}
+
+/**
+ * Sets the subtasks for a given task.
+ * 
+ * @param {Object} task - The task object.
+ * @param {string} task.id - The ID of the task.
+ * @param {Array} task.subtasks - An array of subtasks.
+ * @param {string} task.subtasks.name - The name of the subtask.
+ * @param {boolean} task.subtasks.completed - Indicates whether the subtask is completed or not.
+ * 
+ * @returns {void}
+ */
+function setSubtasks(task) {
+    const allTaskInformationSubtasks = document.getElementById(
+        "allTaskInformationSubtasks"
+    );
+    allTaskInformationSubtasks.innerHTML = "";
+    allTaskInformationSubtasks.style.listStyle = "none";
+    task.subtasks.forEach((subtask, index) => {
+        const subtaskElement = document.createElement("li");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = subtask.completed;
+        checkbox.dataset.index = index;
+
+        checkbox.addEventListener("change", function () {
+            toggleSubtaskCompletion(task.id, index, this.checked);
+        });
+
+        subtaskElement.appendChild(checkbox);
+        subtaskElement.appendChild(document.createTextNode(subtask.name));
+        allTaskInformationSubtasks.appendChild(subtaskElement);
+    });
+}
+
+/**
+ * Opens all task information.
+ * @param {Object} task - The task object.
+ */
+function openAllTaskInformation(task) {
+    setTaskInformation(task);
+    setPriorityInformation(task);
+    setTaskDetails(task);
+    setSubtasks(task);
+}
+
+/**
+ * Creates a card element for a task.
+ * @param {Object} task - The task object.
+ * @param {string} task.id - The unique identifier for the task.
+ * @param {string} task.status - The status of the task.
+ * @returns {HTMLElement} The created card element.
+ */
+function createCardElement(task) {
+    let card = document.createElement("article");
+    card.className = "task-card";
+    card.id = task.id || "task-" + Math.random().toString(36).substr(2, 9);
+    card.setAttribute("draggable", true);
+    card.dataset.status = task.status;
+    return card;
+}
+
+/**
+ * Adds event listeners to a card element.
+ *
+ * @param {HTMLElement} card - The card element to attach event listeners to.
+ * @param {Task} task - The task associated with the card.
+ */
+function addEventListenersToCard(card, task) {
+    card.addEventListener("dragstart", handleDragStart);
+    card.addEventListener("click", function () {
+        openAllTaskInformation(task);
+    });
+}
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addEditSubtask">addEditSubtask</a></li><li><a href="global.html#addEventListenersToCard">addEventListenersToCard</a></li><li><a href="global.html#addNewContactScreen">addNewContactScreen</a></li><li><a href="global.html#addPriorityClass">addPriorityClass</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addTaskActive">addTaskActive</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#adjustSidebarVisibility">adjustSidebarVisibility</a></li><li><a href="global.html#allocateEarliestDate">allocateEarliestDate</a></li><li><a href="global.html#allocateTasks">allocateTasks</a></li><li><a href="global.html#boardActive">boardActive</a></li><li><a href="global.html#calculateProgress">calculateProgress</a></li><li><a href="global.html#changeImg">changeImg</a></li><li><a href="global.html#checkLoggedUser">checkLoggedUser</a></li><li><a href="global.html#checkLoggedUserAlt">checkLoggedUserAlt</a></li><li><a href="global.html#checkMsgBox">checkMsgBox</a></li><li><a href="global.html#checkRememberUser">checkRememberUser</a></li><li><a href="global.html#checkSignupPasswordConfirm">checkSignupPasswordConfirm</a></li><li><a href="global.html#clearSubtaskInput">clearSubtaskInput</a></li><li><a href="global.html#clearTaskColumns">clearTaskColumns</a></li><li><a href="global.html#closeAddContact">closeAddContact</a></li><li><a href="global.html#closeAllTaskInformation">closeAllTaskInformation</a></li><li><a href="global.html#closeBoardAddTask">closeBoardAddTask</a></li><li><a href="global.html#closeContactFullResponsive">closeContactFullResponsive</a></li><li><a href="global.html#closeDropdown">closeDropdown</a></li><li><a href="global.html#closeEditContact">closeEditContact</a></li><li><a href="global.html#closeEditor">closeEditor</a></li><li><a href="global.html#contactActive">contactActive</a></li><li><a href="global.html#contactSuccessfullCreated">contactSuccessfullCreated</a></li><li><a href="global.html#convertIdToStatus">convertIdToStatus</a></li><li><a href="global.html#countTasks">countTasks</a></li><li><a href="global.html#createAssignedContactElements">createAssignedContactElements</a></li><li><a href="global.html#createBtn">createBtn</a></li><li><a href="global.html#createCardElement">createCardElement</a></li><li><a href="global.html#createCardHtml">createCardHtml</a></li><li><a href="global.html#createCategoryDiv">createCategoryDiv</a></li><li><a href="global.html#createContactCheckboxes">createContactCheckboxes</a></li><li><a href="global.html#createNewContact">createNewContact</a></li><li><a href="global.html#createSubtasksHtml">createSubtasksHtml</a></li><li><a href="global.html#createTaskCard">createTaskCard</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteContactBig">deleteContactBig</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#displayAssignedContacts">displayAssignedContacts</a></li><li><a href="global.html#displayTasks">displayTasks</a></li><li><a href="global.html#editContact">editContact</a></li><li><a href="global.html#fillContactDropdown">fillContactDropdown</a></li><li><a href="global.html#fillDropdownList">fillDropdownList</a></li><li><a href="global.html#fillMsgBox">fillMsgBox</a></li><li><a href="global.html#fillTaskEditor">fillTaskEditor</a></li><li><a href="global.html#generateUserId">generateUserId</a></li><li><a href="global.html#getAssignedContactDisplay">getAssignedContactDisplay</a></li><li><a href="global.html#getAssignedContactElements">getAssignedContactElements</a></li><li><a href="global.html#getCategoryDetails">getCategoryDetails</a></li><li><a href="global.html#getDaytime">getDaytime</a></li><li><a href="global.html#getEarliestDate">getEarliestDate</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getItemAsJson">getItemAsJson</a></li><li><a href="global.html#getPrioritySymbolHtml">getPrioritySymbolHtml</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getTask">getTask</a></li><li><a href="global.html#getTaskById">getTaskById</a></li><li><a href="global.html#getUrgendTask">getUrgendTask</a></li><li><a href="global.html#getUserName">getUserName</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#handleCheckboxAndMessage">handleCheckboxAndMessage</a></li><li><a href="global.html#handleCheckboxChange">handleCheckboxChange</a></li><li><a href="global.html#handleClickOutside">handleClickOutside</a></li><li><a href="global.html#handleDragOver">handleDragOver</a></li><li><a href="global.html#handleDragStart">handleDragStart</a></li><li><a href="global.html#handleDrop">handleDrop</a></li><li><a href="global.html#handleKeyboardAccessibility">handleKeyboardAccessibility</a></li><li><a href="global.html#hideContactPopupEditDelete">hideContactPopupEditDelete</a></li><li><a href="global.html#hideContactResponsive">hideContactResponsive</a></li><li><a href="global.html#includeW3">includeW3</a></li><li><a href="global.html#initAddSidebar">initAddSidebar</a></li><li><a href="global.html#initBoard">initBoard</a></li><li><a href="global.html#initPirivacyPolicy">initPirivacyPolicy</a></li><li><a href="global.html#initW3">initW3</a></li><li><a href="global.html#initializeDropdown">initializeDropdown</a></li><li><a href="global.html#legalNoticeActive">legalNoticeActive</a></li><li><a href="global.html#linkToSummary">linkToSummary</a></li><li><a href="global.html#loadCheckedUserInitials">loadCheckedUserInitials</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#loadTasks">loadTasks</a></li><li><a href="global.html#loadUsers">loadUsers</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#mediaQuery">mediaQuery</a></li><li><a href="global.html#openAddTaskWithStatus">openAddTaskWithStatus</a></li><li><a href="global.html#openAllTaskInformation">openAllTaskInformation</a></li><li><a href="global.html#patchEdit">patchEdit</a></li><li><a href="global.html#pirivacyPolicyActive">pirivacyPolicyActive</a></li><li><a href="global.html#priorityButtons">priorityButtons</a></li><li><a href="global.html#prioritySymbols">prioritySymbols</a></li><li><a href="global.html#removeCurrentInputValues">removeCurrentInputValues</a></li><li><a href="global.html#removeEditSubtask">removeEditSubtask</a></li><li><a href="global.html#removeMark">removeMark</a></li><li><a href="global.html#removePriorityClasses">removePriorityClasses</a></li><li><a href="global.html#removeSubtask">removeSubtask</a></li><li><a href="global.html#renderContactList">renderContactList</a></li><li><a href="global.html#resetButtonImage">resetButtonImage</a></li><li><a href="global.html#resetButtons">resetButtons</a></li><li><a href="global.html#saveContacts">saveContacts</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#selectOption">selectOption</a></li><li><a href="global.html#sessionStorageFirstTimeTrue">sessionStorageFirstTimeTrue</a></li><li><a href="global.html#setDaytime">setDaytime</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setItemFromJson">setItemFromJson</a></li><li><a href="global.html#setLogoAnimation">setLogoAnimation</a></li><li><a href="global.html#setLogoAnimationDone">setLogoAnimationDone</a></li><li><a href="global.html#setPriority">setPriority</a></li><li><a href="global.html#setPriorityInformation">setPriorityInformation</a></li><li><a href="global.html#setPriorityLevel">setPriorityLevel</a></li><li><a href="global.html#setPriorityValue">setPriorityValue</a></li><li><a href="global.html#setStorageSession">setStorageSession</a></li><li><a href="global.html#setSubtasks">setSubtasks</a></li><li><a href="global.html#setTaskDetails">setTaskDetails</a></li><li><a href="global.html#setTaskEditorCategory">setTaskEditorCategory</a></li><li><a href="global.html#setTaskInformation">setTaskInformation</a></li><li><a href="global.html#setupDropdownListeners">setupDropdownListeners</a></li><li><a href="global.html#showClearButton">showClearButton</a></li><li><a href="global.html#showContact">showContact</a></li><li><a href="global.html#showContactPopupEditDelete">showContactPopupEditDelete</a></li><li><a href="global.html#showContactResponsive">showContactResponsive</a></li><li><a href="global.html#showInitials">showInitials</a></li><li><a href="global.html#signupForward">signupForward</a></li><li><a href="global.html#sortContacts">sortContacts</a></li><li><a href="global.html#sortTasks">sortTasks</a></li><li><a href="global.html#summaryActive">summaryActive</a></li><li><a href="global.html#taskColumns">taskColumns</a></li><li><a href="global.html#tasks">tasks</a></li><li><a href="global.html#timeout">timeout</a></li><li><a href="global.html#toggleDisplay">toggleDisplay</a></li><li><a href="global.html#toggleDropdown">toggleDropdown</a></li><li><a href="global.html#toggleLoginSignup">toggleLoginSignup</a></li><li><a href="global.html#toggleSubtaskCompletion">toggleSubtaskCompletion</a></li><li><a href="global.html#updateEditCheckedUserInitials">updateEditCheckedUserInitials</a></li><li><a href="global.html#updateEditSubtaskList">updateEditSubtaskList</a></li><li><a href="global.html#updateSelectedButton">updateSelectedButton</a></li><li><a href="global.html#updateSubtaskList">updateSubtaskList</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#updateTaskColumns">updateTaskColumns</a></li><li><a href="global.html#updateTaskInRemoteStorage">updateTaskInRemoteStorage</a></li><li><a href="global.html#updateTaskStatusAndMove">updateTaskStatusAndMove</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Apr 18 2024 23:20:39 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

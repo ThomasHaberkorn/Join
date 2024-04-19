@@ -269,10 +269,10 @@ function updateSubtaskList() {
     });
 }
 
- /**
-* Represents the value of a subtask.
-* @type {string}
-*/
+/**
+ * Represents the value of a subtask.
+ * @type {string}
+ */
 document.addEventListener("DOMContentLoaded", function () {
     subtaskAddButton.addEventListener("click", function () {
         let subtaskValue = subtaskInput.value.trim();
@@ -285,7 +285,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /**
  * Adds a new task to the task list.
- * 
+ *
  * @param {Event} event - The event object triggered by the form submission.
  * @returns {Promise<void>} - A promise that resolves when the task is added successfully.
  */
@@ -373,6 +373,10 @@ function removeCurrentInputValues() {
     document
         .querySelectorAll(".contact-checkbox:checked")
         .forEach((checkbox) => {
+            const itemAndCheckbox = checkbox.closest(".itemAndCheckbox");
+            if (checkbox.checked) {
+                itemAndCheckbox.classList.remove("checkedItemAndCheckbox");
+            }
             checkbox.checked = false;
         });
     subtaskInput.value = "";
@@ -392,4 +396,3 @@ function showClearButton(value) {
         ? "inline"
         : "none";
 }
-
