@@ -69,14 +69,11 @@ function setupDropdownListeners() {
     const dropdownSelected = document.querySelector(".dropdown-selected");
     const dropdownArrow = document.querySelector(".dropdown-arrow");
     const dropdownOptions = document.querySelectorAll(".dropdown-option");
-
     dropdownSelected.addEventListener("click", toggleDropdown);
     dropdownArrow.addEventListener("click", toggleDropdown);
-
     dropdownOptions.forEach((option) => {
         option.addEventListener("click", selectOption);
     });
-
     window.addEventListener("click", function () {
         const options = document.querySelector(".dropdown-options");
         const arrow = document.querySelector(".dropdown-arrow");
@@ -130,4 +127,150 @@ document.addEventListener("DOMContentLoaded", initializeDropdown);
 function closeDropdown() {
     fillDropdownList();
     document.getElementById("dropDownContacts").style.display = "none";
+}
+
+function createCheckbox(subtask, index) {
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = subtask.completed;
+    checkbox.onchange = function () {
+        subtasks[index].completed = this.checked;
+    };
+    return checkbox;
+}
+
+function createTextInput(subtask) {
+    let textInput = document.createElement("input");
+    textInput.type = "text";
+    textInput.value = subtask.name;
+    textInput.disabled = true;
+    return textInput;
+}
+
+function createEditButton(textInput, index) {
+    let editButton = document.createElement("button");
+    editButton.type = "button";
+    editButton.classList.add("subtaskEditBtn");
+    let editIcon = document.createElement("img");
+    editIcon.src = "assets/img/edit.png";
+    editIcon.alt = "Edit";
+    editButton.appendChild(editIcon);
+    editButton.onclick = function () {
+        if (textInput.disabled) {
+            textInput.disabled = false;
+            textInput.focus();
+            editIcon.src = "assets/img/check (2).png";
+        } else {
+            subtasks[index].name = textInput.value.trim();
+            textInput.disabled = true;
+            editIcon.src = "assets/img/edit.png";
+            updateSubtaskList();
+        }
+    };
+    return editButton;
+}
+
+function createDeleteButton(index) {
+    let deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.classList.add("subtaskDeleteBtn");
+    let deleteIcon = document.createElement("img");
+    deleteIcon.src = "assets/img/delete.png";
+    deleteIcon.alt = "Delete";
+    deleteButton.appendChild(deleteIcon);
+    deleteButton.onclick = function () {
+        removeSubtask(index);
+    };
+    return deleteButton;
+}
+
+function updateSubtaskList() {
+    subtaskList.innerHTML = "";
+
+    subtasks.forEach((subtask, index) => {
+        let li = document.createElement("li");
+        let checkbox = createCheckbox(subtask, index);
+        let textInput = createTextInput(subtask);
+        let editButton = createEditButton(textInput, index);
+        let deleteButton = createDeleteButton(index);
+
+        li.appendChild(checkbox);
+        li.appendChild(textInput);
+        li.appendChild(editButton);
+        li.appendChild(deleteButton);
+        subtaskList.appendChild(li);
+    });
+}
+
+function createCategoryErrorElement() {
+    let errorMsg = document.createElement("div");
+    errorMsg.id = "categoryError";
+    errorMsg.style.color = "red";
+    return errorMsg;
+}
+
+function hideCategoryError() {
+    let errorMsg = document.getElementById("categoryError");
+    if (errorMsg) {
+        errorMsg.style.display = "none";
+    }
+}
+
+function getAssignedContacts() {
+    return [...document.querySelectorAll(".contact-checkbox:checked")].map((input) => input.value);
+}
+
+function generateTaskId() {
+    return "task-" + Math.random().toString(36).substr(2, 9);
+}
+
+function addTaskToTasks(id, title, description, taskDate, category, userLevel, assignedContacts) {
+    tasks.push({
+        id,
+        title,
+        description,
+        taskDate,
+        category,
+        priority,
+        subtasks,
+        userLevel,
+        status: currentTaskStatus,
+        assignedContacts,
+    });
+}
+
+/**
+ * Fills the dropdown list and toggles the visibility of the dropdown and checked user initials.
+ */
+function fillDropdownList() {
+    let dropdown = document.getElementById("dropDownContacts");
+    let checkedUserInitials = document.getElementById("checkedUserInitials");
+    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+        checkedUserInitials.style.display = "none";
+    } else {
+        dropdown.style.display = "none";
+        checkedUserInitials.style.display = "flex";
+        loadCheckedUserInitials();
+    }
+}
+
+/**
+ * Clears the input values and resets the state of the task form.
+ */
+function removeCurrentInputValues() {
+    document.getElementById("titleInput").value = "";
+    document.getElementById("descriptionInput").value = "";
+    document.getElementById("taskDate").value = "";
+    document.getElementById("category").value = "";
+    document
+        .querySelectorAll(".contact-checkbox:checked")
+        .forEach((checkbox) => {
+            checkbox.checked = false;
+        });
+    subtaskInput.value = "";
+    subtasks = [];
+    setPriority("Medium");
+    loadCheckedUserInitials();
+    updateSubtaskList();
 }

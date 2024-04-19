@@ -90,13 +90,10 @@ function boardActive() {
 function getAssignedContactElements(assignedContactIds) {
     const maxVisibleContacts = 3;
     const additionalContacts = assignedContactIds.length - maxVisibleContacts;
-
     const contactsHtml = generateContactsHtml(assignedContactIds, maxVisibleContacts);
-
     if (additionalContacts > 0) {
         return appendAdditionalContacts(contactsHtml, additionalContacts);
     }
-
     return contactsHtml;
 }
 
@@ -284,14 +281,6 @@ function setPriorityInformation(task) {
 
 /**
  * Sets the task details on the UI.
- *
- * @param {Object} task - The task object containing the details.
- * @param {string} task.title - The title of the task.
- * @param {string} task.description - The description of the task.
- * @param {string} task.taskDate - The due date of the task.
- * @param {Array} task.assignedContacts - The contacts assigned to the task.
- * @param {string} task.category - The category of the task.
- * @returns {void}
  */
 function setTaskDetails(task) {
     const allTaskInformationTitle = document.getElementById(
@@ -326,13 +315,6 @@ function setTaskDetails(task) {
 
 /**
  * Sets the subtasks for a given task.
- * 
- * @param {Object} task - The task object.
- * @param {string} task.id - The ID of the task.
- * @param {Array} task.subtasks - An array of subtasks.
- * @param {string} task.subtasks.name - The name of the subtask.
- * @param {boolean} task.subtasks.completed - Indicates whether the subtask is completed or not.
- * 
  * @returns {void}
  */
 function setSubtasks(task) {
@@ -370,7 +352,6 @@ function createCheckbox(subtask, index, taskId) {
 
 /**
  * Opens all task information.
- * @param {Object} task - The task object.
  */
 function openAllTaskInformation(task) {
     setTaskInformation(task);
@@ -381,10 +362,6 @@ function openAllTaskInformation(task) {
 
 /**
  * Creates a card element for a task.
- * @param {Object} task - The task object.
- * @param {string} task.id - The unique identifier for the task.
- * @param {string} task.status - The status of the task.
- * @returns {HTMLElement} The created card element.
  */
 function createCardElement(task) {
     let card = document.createElement("article");

@@ -37,7 +37,6 @@ function updateTaskColumns() {
             child.classList.contains("task-card")
         );
         const hasNoTaskMessage = !!column.querySelector(".no-task-message");
-
         if (!hasTasks && !hasNoTaskMessage) {
             let noTaskMessage = document.createElement("div");
             noTaskMessage.className = "no-task-message";
@@ -96,10 +95,8 @@ function handleDrop(e) {
     e.preventDefault();
     const id = e.dataTransfer.getData("text");
     const draggableElement = document.getElementById(id);
-
     const newStatus = e.target.closest(".task-column").id;
     draggableElement.dataset.status = newStatus;
-
     e.target.closest(".task-column").appendChild(draggableElement);
     updateTaskInRemoteStorage(id, newStatus);
     updateTaskColumns();
@@ -208,11 +205,9 @@ function closeAllTaskInformation() {
  */
 async function deleteTask() {
     const allTaskInformation = document.getElementById("allTaskInformation");
-
     const taskId = allTaskInformation.dataset.taskId;
     let tasks = JSON.parse((await getItem("tasks")).value || "[]");
     const taskIndex = tasks.findIndex((task) => task.id === taskId);
-
     if (taskIndex !== -1) {
         const taskCard = document.getElementById(tasks[taskIndex].id);
         if (taskCard) {

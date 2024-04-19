@@ -87,10 +87,8 @@ function handleCheckboxChange(checkbox) {
  */
 function loadCheckedUserInitials() {
     const editCheckedUserInitials = document.getElementById(
-        "boardCheckedUserInitials"
-    );
+        "boardCheckedUserInitials");
     editCheckedUserInitials.innerHTML = "";
-
     document
         .querySelectorAll(".contact-checkbox:checked")
         .forEach((checkbox) => {
@@ -100,8 +98,7 @@ function loadCheckedUserInitials() {
                 initialsDiv.className = "userInitials";
                 initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
                 initialsDiv.style.backgroundColor = contact.color;
-                editCheckedUserInitials.appendChild(initialsDiv);
-            }
+                editCheckedUserInitials.appendChild(initialsDiv);}
         });
 }
 
@@ -155,8 +152,7 @@ function updateSelectedButton(selectedPriority) {
         case "Low":
             lowBtn.classList.add("priority-low-selected");
             lowBtn.querySelector("img").src = "assets/img/selectedLow.png";
-            break;
-    }
+            break;}
 }
 
 /**
@@ -209,64 +205,70 @@ function removeSubtask(index) {
     updateSubtaskList();
 }
 
-/**
- * Updates the subtask list in the HTML based on the subtasks array.
- */
+function createSubtaskCheckbox(subtask, index) {
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = subtask.completed;
+    checkbox.onchange = function () {
+        subtasks[index].completed = this.checked;
+    };
+    return checkbox;
+}
+
+function createSubtaskTextInput(subtask) {
+    let textInput = document.createElement("input");
+    textInput.type = "text";
+    textInput.value = subtask.name;
+    textInput.disabled = true;
+    return textInput;
+}
+
+function createSubtaskEditButton(textInput, editIcon, index) {
+    let editButton = document.createElement("button");
+    editButton.type = "button";
+    editButton.classList.add("subtaskEditBtn");
+    editButton.appendChild(editIcon);
+    editButton.onclick = function () {
+        if (textInput.disabled) {
+            textInput.disabled = false;
+            textInput.focus();
+            editIcon.src = "assets/img/check (2).png";} else {
+            subtasks[index].name = textInput.value.trim();
+            textInput.disabled = true;
+            editIcon.src = "assets/img/edit.png";
+            updateSubtaskList();}};
+    return editButton;
+}
+
+function createSubtaskDeleteButton(index) {
+    let deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.classList.add("subtaskDeleteBtn");
+    let deleteIcon = document.createElement("img");
+    deleteIcon.src = "assets/img/delete.png";
+    deleteIcon.alt = "Delete";
+    deleteButton.appendChild(deleteIcon);
+    deleteButton.onclick = function () {
+        removeSubtask(index);};
+    return deleteButton;
+}
+
 function updateSubtaskList() {
     subtaskList.innerHTML = "";
-
     subtasks.forEach((subtask, index) => {
         let li = document.createElement("li");
-        let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = subtask.completed;
-        checkbox.onchange = function () {
-            subtasks[index].completed = this.checked;
-        };
-
-        let textInput = document.createElement("input");
-        textInput.type = "text";
-        textInput.value = subtask.name;
-        textInput.disabled = true;
-
-        let editButton = document.createElement("button");
-        editButton.type = "button";
-        editButton.classList.add("subtaskEditBtn");
+        let checkbox = createSubtaskCheckbox(subtask, index);
+        let textInput = createSubtaskTextInput(subtask);
         let editIcon = document.createElement("img");
         editIcon.src = "assets/img/edit.png";
         editIcon.alt = "Edit";
-        editButton.appendChild(editIcon);
-
-        editButton.onclick = function () {
-            if (textInput.disabled) {
-                textInput.disabled = false;
-                textInput.focus();
-                editIcon.src = "assets/img/check (2).png";
-            } else {
-                subtasks[index].name = textInput.value.trim();
-                textInput.disabled = true;
-                editIcon.src = "assets/img/edit.png";
-                updateSubtaskList();
-            }
-        };
-
-        let deleteButton = document.createElement("button");
-        deleteButton.type = "button";
-        deleteButton.classList.add("subtaskDeleteBtn");
-        let deleteIcon = document.createElement("img");
-        deleteIcon.src = "assets/img/delete.png";
-        deleteIcon.alt = "Delete";
-        deleteButton.appendChild(deleteIcon);
-        deleteButton.onclick = function () {
-            removeSubtask(index);
-        };
-
+        let editButton = createSubtaskEditButton(textInput, editIcon, index);
+        let deleteButton = createSubtaskDeleteButton(index);
         li.appendChild(checkbox);
         li.appendChild(textInput);
         li.appendChild(editButton);
         li.appendChild(deleteButton);
-        subtaskList.appendChild(li);
-    });
+        subtaskList.appendChild(li);});
 }
 
  /**
@@ -289,57 +291,58 @@ document.addEventListener("DOMContentLoaded", function () {
  * @param {Event} event - The event object triggered by the form submission.
  * @returns {Promise<void>} - A promise that resolves when the task is added successfully.
  */
-async function addTask(event) {
-    event.preventDefault();
-
+function getTaskInputs() {
     let title = document.getElementById("titleInput").value;
     let description = document.getElementById("descriptionInput").value;
     let taskDate = document.getElementById("taskDate").value;
     let categoryElement = document.querySelector(".dropdown-selected");
     let category = categoryElement ? categoryElement.textContent.trim() : null;
 
-    if (!category || category === "Select task Category") {
-        let errorMsg = document.getElementById("categoryError");
-        if (!errorMsg) {
-            errorMsg = document.createElement("div");
-            errorMsg.id = "categoryError";
-            errorMsg.style.color = "red";
-            document
-                .getElementById("category")
-                .parentElement.parentElement.appendChild(errorMsg);
-        }
+    return { title, description, taskDate, category };
+}
 
-        errorMsg.textContent = "Please choose a Category.";
-        errorMsg.style.display = "block";
-        return;
-    } else {
-        let errorMsg = document.getElementById("categoryError");
-        if (errorMsg) {
-            errorMsg.style.display = "none";
-        }
+function showErrorMsg() {
+    let errorMsg = document.getElementById("categoryError");
+    if (!errorMsg) {
+        errorMsg = document.createElement("div");
+        errorMsg.id = "categoryError";
+        errorMsg.style.color = "red";
+        document
+            .getElementById("category")
+            .parentElement.parentElement.appendChild(errorMsg);
     }
 
-    let assignedContacts = [
-        ...document.querySelectorAll(".contact-checkbox:checked"),
-    ].map((input) => input.value);
+    errorMsg.textContent = "Please choose a Category.";
+    errorMsg.style.display = "block";
+}
+
+function hideErrorMsg() {
+    let errorMsg = document.getElementById("categoryError");
+    if (errorMsg) {
+        errorMsg.style.display = "none";
+    }
+}
+
+function getAssignedContacts() {
+    return [...document.querySelectorAll(".contact-checkbox:checked")].map(
+        (input) => input.value
+    );
+}
+
+async function addTask(event) {
+    event.preventDefault();
+    let { title, description, taskDate, category } = getTaskInputs();
+    if (!category || category === "Select task Category") {
+        showErrorMsg();
+        return;
+    } else {
+        hideErrorMsg();}
+    let assignedContacts = getAssignedContacts();
     let userLevel = sessionStorage.getItem("userLevel");
     let newTaskId = "task-" + Math.random().toString(36).substr(2, 9);
-
     tasks.push({
-        id: newTaskId,
-        title,
-        description,
-        taskDate,
-        category,
-        priority,
-        subtasks,
-        userLevel,
-        status: currentTaskStatus,
-        assignedContacts,
-    });
-
+        id: newTaskId,title,description,taskDate,category,priority,subtasks,userLevel,status: currentTaskStatus,assignedContacts,});
     await setItem("tasks", tasks);
-
     window.location.href = "board.html";
 }
 
@@ -349,17 +352,13 @@ async function addTask(event) {
 function fillDropdownList() {
     let dropdown = document.getElementById("boardDropDownContacts");
     let checkedUserInitials = document.getElementById(
-        "boardCheckedUserInitials"
-    );
-
+        "boardCheckedUserInitials");
     if (dropdown.style.display === "none" || dropdown.style.display === "") {
         dropdown.style.display = "block";
-        checkedUserInitials.style.display = "none";
-    } else {
+        checkedUserInitials.style.display = "none";} else {
         dropdown.style.display = "none";
         checkedUserInitials.style.display = "flex";
-        loadCheckedUserInitials();
-    }
+        loadCheckedUserInitials();}
 }
 
 /**
