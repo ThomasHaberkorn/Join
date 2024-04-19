@@ -272,44 +272,38 @@
                                                     <div class="dropdown-option" data-value="User Story">User Story
                                                     </div>
                                                 </div>
-                                                <img src="/assets/img/custom-arrow.png" class="dropdown-arrow"
+                                                <img src="./assets/img/custom-arrow.png" class="dropdown-arrow"
                                                     alt="Toggle Dropdown">
                                             </div>
-                                            <img src="./assets/img/custom-arrow.png" class="dropdown-arrow"
-                                                alt="Toggle Dropdown">
-                                           </div>
-                                          <input type="hidden" name="Category" id="category" required>
-
-                                       
+                                            <input type="hidden" name="Category" id="category" required>
+                                        </div>
                                     </div>
-
-                                </div>
-                                <div class="subtask">
-                                    <p style="margin: 0;">Subtasks</p>
-                                    <input id="subtask" type="text" placeholder="Add new subtask"
-                                        oninput="showClearButton(this.value)">
-                                    <div class="pngs">
-                                        <img src="./assets/img/addTask/Subtasks icons11.png" id="subtask-img">
-                                        <img id="clear-subtask" style="display: none; cursor: pointer;"
-                                            onclick="clearSubtaskInput()" src="./assets\img\delete.png">
+                                    <div class="subtask">
+                                        <p style="margin: 0;">Subtasks</p>
+                                        <input id="subtask" type="text" placeholder="Add new subtask"
+                                            oninput="showClearButton(this.value)">
+                                        <div class="pngs">
+                                            <img src="./assets/img/addTask/Subtasks icons11.png" id="subtask-img">
+                                            <img id="clear-subtask" style="display: none; cursor: pointer;"
+                                                onclick="clearSubtaskInput()" src="./assets\img\delete.png">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <section class="buttons-and-text">
-                        <div class="required-text">
-                            <b style="color: red;">*</b>
-                            <p>This field is required</p>
-                        </div>
-                        <div class="btn-position">
-                            <button type="button" id="addTaskClearButton" onclick="removeCurrentInputValues()"
-                                class="btn-clear">Clear X</button>
-                            <button type="submit" class="btn" id="create-btn">Create Task <img
-                                    src="./assets/img/addTask/check (1).png"></button>
-                        </div>
-                    </section>
-                    <div id="animation" class="displayNone">Task added to board</div>
+                        <section class="buttons-and-text">
+                            <div class="required-text">
+                                <b style="color: red;">*</b>
+                                <p>This field is required</p>
+                            </div>
+                            <div class="btn-position">
+                                <button type="button" id="addTaskClearButton" onclick="removeCurrentInputValues()"
+                                    class="btn-clear">Clear X</button>
+                                <button type="submit" class="btn" id="create-btn">Create Task <img
+                                        src="./assets/img/addTask/check (1).png"></button>
+                            </div>
+                        </section>
+                        <div id="animation" class="displayNone">Task added to board</div>
                 </form>
             </div>
         </div>
