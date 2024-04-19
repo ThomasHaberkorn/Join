@@ -38,16 +38,13 @@ function setupDropdownListeners() {
     dropdownSelected.addEventListener("click", toggleDropdown);
     dropdownArrow.addEventListener("click", toggleDropdown);
     dropdownOptions.forEach((option) => {
-        option.addEventListener("click", selectOption);
-    });
+        option.addEventListener("click", selectOption);});
     window.addEventListener("click", function () {
         const options = document.querySelector(".dropdown-options");
         const arrow = document.querySelector(".dropdown-arrow");
         if (options.style.display === "block") {
             options.style.display = "none";
-            arrow.src = "/assets/img/custom-arrow.png";
-        }
-    });
+            arrow.src = "/assets/img/custom-arrow.png";}});
 }
 
 document.addEventListener("DOMContentLoaded", setupDropdownListeners);
