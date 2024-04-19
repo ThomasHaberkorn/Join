@@ -439,7 +439,7 @@ function fillDropdownList() {
 
     if (dropdown.style.display === "none" || dropdown.style.display === "") {
         dropdown.style.display = "block";
-        checkedUserInitials.style.display = "none";
+        // checkedUserInitials.style.display = "none";
     } else {
         dropdown.style.display = "none";
         checkedUserInitials.style.display = "flex";
@@ -458,6 +458,10 @@ function removeCurrentInputValues() {
     document
         .querySelectorAll(".contact-checkbox:checked")
         .forEach((checkbox) => {
+            const itemAndCheckbox = checkbox.closest(".itemAndCheckbox");
+            if (checkbox.checked) {
+                itemAndCheckbox.classList.remove("checkedItemAndCheckbox");
+            }
             checkbox.checked = false;
         });
     subtaskInput.value = "";
