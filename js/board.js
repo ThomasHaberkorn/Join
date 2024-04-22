@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async function () {
  */
 async function initBoard() {
     await includeW3();
-    await sortTasks();
+    await getTasks();
     boardActive();
     showInitials();
     updateTaskColumns();
@@ -39,37 +39,28 @@ const prioritySymbols = {
 const taskColumns = document.querySelectorAll(".task-column");
 
 /**
- * Sorts the tasks based on the user level.
- * If the user level is "user", it filters the tasks that have a userLevel of "user".
- * If the user level is not "user", it filters the tasks that have a userLevel of "guest" or null.
- * @returns {Promise<void>} A promise that resolves when the tasks are sorted.
+ * Retrieves tasks from storage and parses them into an array.
+ * @returns {Promise<void>} A promise that resolves when the tasks are retrieved and parsed.
  */
-async function sortTasks() {
-    try {
-        const userLevel = sessionStorage.getItem("userLevel");
-        let taskTemp = JSON.parse((await getItem("tasks")).value || "[]");
-        if (userLevel === "user") {
-            const userTasks = taskTemp.filter((t) => t.userLevel === "user");
-            tasks = userTasks;
-        } else {
-            const userTasks = taskTemp.filter(
-                (t) => t.userLevel === "guest" || t.userLevel == null
-            );
-            tasks = userTasks;
-        }
-    } catch (error) {
-        console.error("Fehler beim Laden der Aufgaben:", error);
-    }
+async function getTasks() {
+    tasks = JSON.parse((await getItem("tasks")).value || "[]");
 }
 
 /**
- * Displays tasks on the board.
+ * Displays tasks based on the user's level.
  */
 function displayTasks() {
+    const userLevel = sessionStorage.getItem("userLevel");
     tasks.forEach((task) => {
-        if (document.getElementById(task.status)) {
-            let taskCard = createTaskCard(task);
-            document.getElementById(task.status).appendChild(taskCard);
+        if (
+            (userLevel === "user" && task.userLevel === "user") ||
+            (userLevel !== "user" &&
+                (task.userLevel === "guest" || task.userLevel == null))
+        ) {
+            if (document.getElementById(task.status)) {
+                let taskCard = createTaskCard(task);
+                document.getElementById(task.status).appendChild(taskCard);
+            }
         }
     });
     updateTaskColumns();
@@ -100,6 +91,12 @@ function getAssignedContactElements(assignedContactIds) {
     return contactsHtml;
 }
 
+/**
+ * Generates HTML markup for displaying assigned contacts.
+ * @param {string[]} assignedContactIds - Array of contact IDs assigned to the task.
+ * @param {number} maxVisibleContacts - Maximum number of contacts to display.
+ * @returns {string} HTML markup for displaying assigned contacts.
+ */
 function generateContactsHtml(assignedContactIds, maxVisibleContacts) {
     return assignedContactIds
         .slice(0, maxVisibleContacts)
@@ -107,6 +104,11 @@ function generateContactsHtml(assignedContactIds, maxVisibleContacts) {
         .join("");
 }
 
+/**
+ * Creates HTML markup for displaying a contact.
+ * @param {string} contactId - ID of the contact.
+ * @returns {string} HTML markup for displaying the contact.
+ */
 function createContactHtml(contactId) {
     const contact = findContact(contactId);
     if (contact) {
@@ -119,10 +121,21 @@ function createContactHtml(contactId) {
     return "";
 }
 
+/**
+ * Finds a contact by its ID.
+ * @param {string} contactId - The ID of the contact to find.
+ * @returns {Object | undefined} The contact object if found, otherwise undefined.
+ */
 function findContact(contactId) {
     return contacts.find((c) => c.userID === contactId);
 }
 
+/**
+ * Appends additional contacts to the existing contacts HTML.
+ * @param {string} contactsHtml - The HTML string representing the existing contacts.
+ * @param {number} additionalContacts - The number of additional contacts to display.
+ * @returns {string} The updated HTML string with additional contacts appended.
+ */
 function appendAdditionalContacts(contactsHtml, additionalContacts) {
     return (
         contactsHtml +
@@ -326,11 +339,22 @@ function setSubtasks(task) {
     });
 }
 
+/**
+ * Clears the subtasks from the task information section.
+ * @param {HTMLElement} allTaskInformationSubtasks - The HTML element containing the subtasks.
+ */
 function clearSubtasks(allTaskInformationSubtasks) {
     allTaskInformationSubtasks.innerHTML = "";
     allTaskInformationSubtasks.style.listStyle = "none";
 }
 
+/**
+ * Creates an HTML element for a subtask.
+ * @param {Object} subtask - The subtask object containing name and completed status.
+ * @param {number} index - The index of the subtask.
+ * @param {string} taskId - The ID of the task to which the subtask belongs.
+ * @returns {HTMLElement} - The HTML element representing the subtask.
+ */
 function createSubtaskElement(subtask, index, taskId) {
     const subtaskElement = document.createElement("li");
     const checkbox = createCheckbox(subtask, index, taskId);
@@ -339,6 +363,13 @@ function createSubtaskElement(subtask, index, taskId) {
     return subtaskElement;
 }
 
+/**
+ * Creates a checkbox element for a subtask.
+ * @param {Object} subtask - The subtask object containing name and completed status.
+ * @param {number} index - The index of the subtask.
+ * @param {string} taskId - The ID of the task to which the subtask belongs.
+ * @returns {HTMLInputElement} - The checkbox element for the subtask.
+ */
 function createCheckbox(subtask, index, taskId) {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";

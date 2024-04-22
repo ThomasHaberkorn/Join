@@ -363,7 +363,7 @@ form {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 100%;
+    height: 80%;
     gap: 12px;
 }
 
@@ -676,7 +676,7 @@ input[type="text"][disabled] {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-right: 22px;
+    margin-right: 11px;
 }
 
 .subtask-list li input[type="text"] {

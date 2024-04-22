@@ -28,7 +28,8 @@
     .boardTaskContainer {
         display: block;
         flex-direction: column;
-        width: 100%;
+        width: 95%;
+        margin-left: 10px;
     }
     .boardTaskContainer::-webkit-scrollbar {
         display: none;
@@ -134,10 +135,11 @@
     }
     .subtask-list {
         max-height: 100px;
+        height: auto;
     }
     .allTasksHeader {
         width: 220px;
-        margin-left: 18px;
+        margin-left: -4px;
     }
 }
 
@@ -278,6 +280,7 @@
     .task-column {
         display: flex;
         flex-direction: row;
+        width: 91%;
     }
 
     .contentContainer {
@@ -301,7 +304,7 @@
     }
 
     .allTasks {
-        width: 100vw;
+        width: 95vw;
     }
 
     .task-card {
@@ -500,6 +503,9 @@
     }
     #taskDate::-webkit-calendar-picker-indicator {
         right: 1px;
+    }
+    #boardAddTaskCloseButton {
+        left: 84%;
     }
 }
 
@@ -1404,7 +1410,7 @@
         border-radius: 20px;
     }
     .boardTaskContainer {
-        height: 45vh;
+        height: 50vh;
     }
     .loginLogo img {
         margin-top: -25px;
@@ -1472,13 +1478,90 @@
     .radius30 {
         border-radius: 20px;
     }
+    .boardContainer {
+        height: 510px;
+        margin-top: 10px;
+    }
     .boardTaskContainer {
-        height: 45vh;
+        height: 60vh;
+    }
+    #boardContainerUpperPart h1 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    #boardAddTaskButton {
+        padding: 6px 16px;
+    }
+    #boardSearchbar {
+        height: 30px;
+    }
+    #boardContainerUpperPart {
+        margin-bottom: 5px;
+    }
+    .allTasksHeader {
+        margin-top: 10px;
+    }
+    .task-card {
+        margin: 10px;
+    }
+    .task-column {
+        margin-bottom: 0px;
+        width: 93%;
+        margin-left: 3px;
+        padding-left: 0px;
     }
     .loginLogo img {
         margin-top: -25px;
     }
+    .addTaskContentContainer {
+        height: 76%;
+        top: 81px;
+    }
+    .subtask-list li {
+        margin-right: 0px;
+        gap: 5px;
+        overflow-x: hidden;
+    }
     .alltaskContent {
         height: 75%;
+    }
+    .subtask-list li input[type="text"] {
+        flex-grow: 1;
+        margin-right: -80px;
+    }
+    .subtask input {
+        padding: 12px 4px;
+    }
+    .required-text p {
+        font-size: 17px;
+    }
+    .contactAddArea {
+        height: 89vh;
+    }
+    .contactEditArea {
+        height: 88vh;
+    }
+    .contactEditSaveDelete {
+        margin-top: 6px;
+    }
+    .helpPosContainer {
+        height: 77%;
+        width: 95%;
+    }
+    .helpTextarea {
+        height: 76.3vh;
+        width: 95%;
+    }
+    .helpTextContainer {
+        width: 95%;
+    }
+    .msgContainer {
+        width: 90%;
+        height: 16px;
+        margin-bottom: 4px;
+        justify-content: center;
+    }
+    .inputPassword {
+        margin-bottom: 4px;
     }
 }

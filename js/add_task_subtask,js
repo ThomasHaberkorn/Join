@@ -46,7 +46,7 @@ function toggleDropdown(event) {
 
 /**
  * Handles the selection of an option in the dropdown menu.
- * 
+ *
  * @param {Event} event - The event object triggered by the selection.
  */
 function selectOption(event) {
@@ -69,13 +69,16 @@ function setupDropdownListeners() {
     dropdownSelected.addEventListener("click", toggleDropdown);
     dropdownArrow.addEventListener("click", toggleDropdown);
     dropdownOptions.forEach((option) => {
-        option.addEventListener("click", selectOption);});
+        option.addEventListener("click", selectOption);
+    });
     window.addEventListener("click", function () {
         const options = document.querySelector(".dropdown-options");
         const arrow = document.querySelector(".dropdown-arrow");
         if (options.style.display === "block") {
             options.style.display = "none";
-            arrow.src = "./assets/img/custom-arrow.png";}});
+            arrow.src = "./assets/img/custom-arrow.png";
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", setupDropdownListeners);
@@ -123,6 +126,13 @@ function closeDropdown() {
     document.getElementById("dropDownContacts").style.display = "none";
 }
 
+/**
+ * Creates a checkbox element for a subtask, setting its checked status based on the subtask's completion status.
+ * Updates the subtask's completed property when the checkbox state changes.
+ * @param {Object} subtask - The subtask object with a completed property.
+ * @param {number} index - The index of the subtask in the subtasks array.
+ * @returns {HTMLElement} The created checkbox element.
+ */
 function createCheckbox(subtask, index) {
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -133,6 +143,11 @@ function createCheckbox(subtask, index) {
     return checkbox;
 }
 
+/**
+ * Creates a disabled text input element pre-filled with the name of a subtask.
+ * @param {Object} subtask - The subtask object containing the name to be displayed.
+ * @returns {HTMLElement} The created text input element, configured as disabled.
+ */
 function createTextInput(subtask) {
     let textInput = document.createElement("input");
     textInput.type = "text";
@@ -141,6 +156,13 @@ function createTextInput(subtask) {
     return textInput;
 }
 
+/**
+ * Creates an edit button for a subtask input field, allowing the field to be toggled between editable and non-editable states.
+ * The button toggles its icon based on the state of the input field.
+ * @param {HTMLElement} textInput - The text input element associated with the subtask.
+ * @param {number} index - The index of the subtask in the subtasks array, used to update the subtask's name upon confirmation.
+ * @returns {HTMLElement} The created button element with an attached event listener for toggling edit mode.
+ */
 function createEditButton(textInput, index) {
     let editButton = document.createElement("button");
     editButton.type = "button";
@@ -153,14 +175,22 @@ function createEditButton(textInput, index) {
         if (textInput.disabled) {
             textInput.disabled = false;
             textInput.focus();
-            editIcon.src = "assets/img/check (2).png";} else {
+            editIcon.src = "assets/img/check (2).png";
+        } else {
             subtasks[index].name = textInput.value.trim();
             textInput.disabled = true;
             editIcon.src = "assets/img/edit.png";
-            updateSubtaskList();}};
+            updateSubtaskList();
+        }
+    };
     return editButton;
 }
 
+/**
+ * Creates a delete button with an icon for removing a subtask. The button, when clicked, removes the subtask at the specified index.
+ * @param {number} index - The index of the subtask to be deleted.
+ * @returns {HTMLElement} The created delete button with an attached event listener for subtask removal.
+ */
 function createDeleteButton(index) {
     let deleteButton = document.createElement("button");
     deleteButton.type = "button";
@@ -175,6 +205,9 @@ function createDeleteButton(index) {
     return deleteButton;
 }
 
+/**
+ * Updates and re-renders the list of subtasks. Each subtask is displayed with a checkbox, a text input, and edit and delete buttons.
+ */
 function updateSubtaskList() {
     subtaskList.innerHTML = "";
     subtasks.forEach((subtask, index) => {
@@ -187,9 +220,14 @@ function updateSubtaskList() {
         li.appendChild(textInput);
         li.appendChild(editButton);
         li.appendChild(deleteButton);
-        subtaskList.appendChild(li);});
+        subtaskList.appendChild(li);
+    });
 }
 
+/**
+ * Creates an error element for the category.
+ * @returns {HTMLDivElement} The created error element.
+ */
 function createCategoryErrorElement() {
     let errorMsg = document.createElement("div");
     errorMsg.id = "categoryError";
@@ -197,6 +235,9 @@ function createCategoryErrorElement() {
     return errorMsg;
 }
 
+/**
+ * Hides the error message associated with category validation by setting its display style to none.
+ */
 function hideCategoryError() {
     let errorMsg = document.getElementById("categoryError");
     if (errorMsg) {
@@ -204,15 +245,43 @@ function hideCategoryError() {
     }
 }
 
+/**
+ * Retrieves the values of all checked contact checkboxes in the form.
+ * @returns {Array<string>} An array of values representing the selected contacts.
+ */
 function getAssignedContacts() {
-    return [...document.querySelectorAll(".contact-checkbox:checked")].map((input) => input.value);
+    return [...document.querySelectorAll(".contact-checkbox:checked")].map(
+        (input) => input.value
+    );
 }
 
+/**
+ * Generates a unique identifier for a task using a random alphanumeric string.
+ * @returns {string} A unique task identifier in the format 'task-{random_string}'.
+ */
 function generateTaskId() {
     return "task-" + Math.random().toString(36).substr(2, 9);
 }
 
-function addTaskToTasks(id, title, description, taskDate, category, userLevel, assignedContacts) {
+/**
+ * Adds a new task to the tasks array with detailed information about the task.
+ * @param {string} id - Unique identifier for the task.
+ * @param {string} title - Title of the task.
+ * @param {string} description - Description of the task.
+ * @param {string} taskDate - Date associated with the task.
+ * @param {string} category - Category of the task.
+ * @param {string} userLevel - Access level required to view the task.
+ * @param {Array<string>} assignedContacts - List of contact IDs assigned to the task.
+ */
+function addTaskToTasks(
+    id,
+    title,
+    description,
+    taskDate,
+    category,
+    userLevel,
+    assignedContacts
+) {
     tasks.push({
         id,
         title,
@@ -228,7 +297,8 @@ function addTaskToTasks(id, title, description, taskDate, category, userLevel, a
 }
 
 /**
- * Fills the dropdown list and toggles the visibility of the dropdown and checked user initials.
+ * Toggles the visibility of the dropdown list and the checked user initials display based on their current state.
+ * It displays the dropdown or the checked user initials, also updating the initials when hiding the dropdown.
  */
 function fillDropdownList() {
     let dropdown = document.getElementById("dropDownContacts");
@@ -244,7 +314,8 @@ function fillDropdownList() {
 }
 
 /**
- * Clears the input values and resets the state of the task form.
+ * Resets the fields of the task form to default values, including clearing text inputs, unchecking checkboxes,
+ * resetting subtasks list, setting default priority, and refreshing user initials display.
  */
 function removeCurrentInputValues() {
     document.getElementById("titleInput").value = "";
@@ -254,7 +325,8 @@ function removeCurrentInputValues() {
     document
         .querySelectorAll(".contact-checkbox:checked")
         .forEach((checkbox) => {
-            checkbox.checked = false;});
+            checkbox.checked = false;
+        });
     subtaskInput.value = "";
     subtasks = [];
     setPriority("Medium");

@@ -52,6 +52,13 @@ function clearDropdownEdit(dropdownEdit) {
     dropdownEdit.innerHTML = "";
 }
 
+/**
+ * Creates a div element representing a contact with optional checkbox.
+ * @param {Object} contact - The contact object containing details like first and last name.
+ * @param {boolean} isChecked - Indicates whether the contact is checked (selected).
+ * @param {string} checkboxId - The id attribute for the checkbox associated with the contact.
+ * @returns {HTMLDivElement} The created div element representing the contact.
+ */
 function createContactDiv(contact, isChecked, checkboxId) {
     const div = document.createElement("div");
     div.classList.add("itemAndCheckbox");
@@ -59,27 +66,46 @@ function createContactDiv(contact, isChecked, checkboxId) {
         div.classList.add("checkedItemAndCheckbox");
     }
     const initials = `${contact.firstLetter}${contact.lastLetter}`;
-    div.innerHTML = generateContactHtml(contact, initials, checkboxId, isChecked);
+    div.innerHTML = generateContactHtml(
+        contact,
+        initials,
+        checkboxId,
+        isChecked
+    );
     return div;
 }
 
+/**
+ * Generates HTML representing a contact with a checkbox.
+ * @param {Object} contact - The contact object containing details like name and color.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} checkboxId - The id attribute for the associated checkbox.
+ * @param {boolean} isChecked - Indicates whether the checkbox should be checked.
+ * @returns {string} The HTML representing the contact with checkbox.
+ */
 function generateContactHtml(contact, initials, checkboxId, isChecked) {
     return `
-        <div class="userInitials" style="background-color: ${contact.color};">${initials}</div>
+        <div class="userInitials" style="background-color: ${
+            contact.color
+        };">${initials}</div>
         <div class="nameWithCheckbox">
             <label for="${checkboxId}">${contact.name}</label>
-            <input type="checkbox" class="edit-contact-checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${contact.userID}" ${isChecked ? "checked" : ""} onchange="handleCheckboxChange(this)">
+            <input type="checkbox" class="edit-contact-checkbox" id="${checkboxId}" name="assignedContactsEdit" value="${
+        contact.userID
+    }" ${isChecked ? "checked" : ""} onchange="handleCheckboxChange(this)">
         </div>
     `;
 }
 
 /**
  * Displays the assigned contacts for a given task.
- * 
+ *
  * @param {Object} task - The task object containing assigned contacts.
  */
 function displayAssignedContacts(task) {
-    const editCheckedUserInitials = document.getElementById("editCheckedUserInitials");
+    const editCheckedUserInitials = document.getElementById(
+        "editCheckedUserInitials"
+    );
     editCheckedUserInitials.innerHTML = "";
     task.assignedContacts.forEach((contactId) => {
         const contact = contacts.find((c) => c.userID === contactId);
@@ -89,13 +115,14 @@ function displayAssignedContacts(task) {
             initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
             initialsDiv.style.backgroundColor = contact.color;
             editCheckedUserInitials.appendChild(initialsDiv);
-        }});
+        }
+    });
 }
 
 /**
-* Represents the element that contains all task information.
-* @type {HTMLElement}
-*/
+ * Represents the element that contains all task information.
+ * @type {HTMLElement}
+ */
 document
     .getElementById("editTaskButton")
     .addEventListener("click", async function () {
@@ -108,8 +135,9 @@ document
         if (task) {
             fillTaskEditor(task);
             createContactCheckboxes(task);
-            displayAssignedContacts(task);}}
-);
+            displayAssignedContacts(task);
+        }
+    });
 
 const openDropdownEdit = document.getElementById("openDropdownEdit");
 const dropdownEdit = document.getElementById("dropDownContactsEdit");
@@ -118,11 +146,21 @@ dropdownEdit.addEventListener("click", function (event) {
     event.stopPropagation();
 });
 
+/**
+ * Retrieves the tasks from the remote storage.
+ * @returns {Promise<Array>} A promise that resolves to an array of task objects.
+ */
 async function getTasks() {
     return JSON.parse((await getItem("tasks")).value || []);
 }
 
-function getTaskIndex(tasks, taskId) {
+/**
+ * Retrieves the index of a task with the given task ID from the tasks array.
+ * @param {Array} tasks - An array of task objects.
+ * @param {string} taskId - The ID of the task to find.
+ * @returns {Promise<number>} A promise that resolves to the index of the task in the tasks array.
+ */
+async function getTaskIndex(tasks, taskId) {
     return tasks.findIndex((task) => task.id === taskId);
 }
 
@@ -142,6 +180,11 @@ function updateTask(task) {
     ).map((el) => el.value);
 }
 
+/**
+ * Saves the tasks to the remote storage.
+ * @param {Array} tasks - An array of task objects to save.
+ * @returns {Promise<void>} A promise that resolves when the tasks are successfully saved.
+ */
 async function saveTasks(tasks) {
     await setItem("tasks", JSON.stringify(tasks));
 }
@@ -157,10 +200,10 @@ document
     .getElementById("saveEdit")
     .addEventListener("click", async function () {
         const taskId = allTaskInformation.dataset.taskId;
-        const tasks = await getTasks();
-        const taskIndex = getTaskIndex(tasks, taskId);
+        const taskIndex = await getTaskIndex(tasks, taskId);
+        let task = tasks[taskIndex];
         if (taskIndex !== -1) {
-            updateTask(tasks[taskIndex]);
+            updateTask(task);
             await saveTasks(tasks);
             closeEditor();
         } else {
@@ -200,10 +243,17 @@ function searchTasks() {
             .querySelector(".task-card-description")
             .textContent.toLowerCase();
         if (title.includes(searchValue) || description.includes(searchValue)) {
-            card.style.display = "";} else {
-            card.style.display = "none";}});
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+    });
 }
 
+/**
+ * Event listener for the move task button.
+ * Displays the move option when the button is clicked.
+ */
 const moveTaskButton = document.getElementById("moveTaskButton");
 
 moveTaskButton.addEventListener("click", function () {
@@ -211,6 +261,9 @@ moveTaskButton.addEventListener("click", function () {
     moveOption.style.display = "block";
 });
 
+/**
+ * Hides the move option.
+ */
 function moveOptionClose() {
     document.getElementById("moveOption").style.display = "none";
 }
@@ -225,16 +278,23 @@ async function addEditSubtask() {
     const subtaskInput = document.getElementById("editSubtaskInput");
     const subtaskValue = subtaskInput.value.trim();
     if (subtaskValue) {
-        const taskId = document.getElementById("allTaskInformation").dataset.taskId;
+        const taskId =
+            document.getElementById("allTaskInformation").dataset.taskId;
         let tasks = JSON.parse((await getItem("tasks")).value || "[]");
         let taskIndex = tasks.findIndex((task) => task.id === taskId);
         if (taskIndex !== -1) {
             let task = tasks[taskIndex];
-            if (!task.subtasks) {task.subtasks = [];}
-            task.subtasks.push({ name: subtaskValue, completed: false });
+            if (!task.subtasks) {
+                task.subtasks = [];
+            }
+            task.subtasks.push({name: subtaskValue, completed: false});
             updateEditSubtaskList(task.subtasks);
             await setItemFromJson("tasks", tasks);
-            subtaskInput.value = "";}}}
+            subtaskInput.value = "";
+            getTasks();
+        }
+    }
+}
 
 /**
  * Removes a subtask from the task's subtask list.
@@ -249,6 +309,7 @@ async function removeEditSubtask(index) {
             task.subtasks.splice(index, 1);
             updateEditSubtaskList(task.subtasks);
             await setItemFromJson("tasks", tasks);
+            await getTasks();
         }
     }
 }
@@ -269,17 +330,30 @@ function updateEditSubtaskList(subtasks) {
         deleteButton.textContent = "Delete";
         deleteButton.onclick = () => removeEditSubtask(index);
         li.appendChild(deleteButton);
-        list.appendChild(li);});
+        list.appendChild(li);
+    });
 }
 
+/**
+ * Event listener for the add button in the edit subtask section.
+ * Adds a new subtask to the edit subtask list when clicked.
+ */
 document
     .getElementById("editSubtaskAddButton")
     .addEventListener("click", addEditSubtask);
 
+/**
+ * Loads the edit subtasks for the given task.
+ * @param {Object} task The task object containing subtasks to be loaded.
+ */
 function loadEditSubtasks(task) {
     updateEditSubtaskList(task.subtasks);
 }
 
+/**
+ * Event listener for the edit task button.
+ * Loads subtasks for editing when the button is clicked.
+ */
 document
     .getElementById("editTaskButton")
     .addEventListener("click", async function () {
@@ -290,9 +364,14 @@ document
         loadEditSubtasks(task);
     });
 
+/**
+ * Event listener for the options container options.
+ * Updates the task status and moves the task accordingly when an option is clicked.
+ */
 document.querySelectorAll(".optionsContainerOption").forEach((option) => {
     option.addEventListener("click", async function () {
-        const taskId = document.getElementById("allTaskInformation").dataset.taskId;
+        const taskId =
+            document.getElementById("allTaskInformation").dataset.taskId;
         let newStatus = this.id.replace("optionsContainer", "");
         newStatus = convertIdToStatus(newStatus);
         await updateTaskStatusAndMove(taskId, newStatus);
@@ -300,7 +379,9 @@ document.querySelectorAll(".optionsContainerOption").forEach((option) => {
         const moveOption = document.getElementById("moveOption");
         if (moveOption) {
             moveOption.style.display = "none";
-            allTaskInformation.style.display = "none";}});
+            allTaskInformation.style.display = "none";
+        }
+    });
 });
 
 /**
@@ -335,7 +416,8 @@ async function updateTaskStatusAndMove(taskId, newStatus) {
             await setItemFromJson("tasks", tasks);
         }
     } catch (error) {
-        console.error("Fehler beim Aktualisieren des Task-Status:", error);}
+        console.error("Fehler beim Aktualisieren des Task-Status:", error);
+    }
 }
 
 /**
@@ -349,9 +431,13 @@ async function toggleSubtaskCompletion(taskId, subtaskIndex, completedStatus) {
             let subtask = tasks[taskIndex].subtasks[subtaskIndex];
             if (subtask) {
                 subtask.completed = completedStatus;
-                await setItemFromJson("tasks", tasks);}}
+                await setItemFromJson("tasks", tasks);
+            }
+        }
     } catch (error) {
         console.error(
             "Fehler beim Aktualisieren des Subtask-Erledigungsstatus:",
-            error);}}
-
+            error
+        );
+    }
+}

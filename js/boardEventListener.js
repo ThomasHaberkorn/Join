@@ -15,7 +15,7 @@ function toggleDropdown(event) {
 
 /**
  * Handles the selection of an option in the dropdown menu.
- * 
+ *
  * @param {Event} event - The event object triggered by the selection.
  */
 function selectOption(event) {
@@ -38,7 +38,8 @@ function setupDropdownListeners() {
     dropdownSelected.addEventListener("click", toggleDropdown);
     dropdownArrow.addEventListener("click", toggleDropdown);
     dropdownOptions.forEach((option) => {
-        option.addEventListener("click", selectOption);});
+        option.addEventListener("click", selectOption);
+    });
     window.addEventListener("click", function () {
         const options = document.querySelector(".dropdown-options");
         const arrow = document.querySelector(".dropdown-arrow");
@@ -51,18 +52,33 @@ function setupDropdownListeners() {
 
 document.addEventListener("DOMContentLoaded", setupDropdownListeners);
 
+/**
+ * Handles click events outside the dropdown.
+ * If the clicked target does not match ".dropdown-selected", hides the dropdown options.
+ * @param {MouseEvent} event - The click event.
+ */
 function handleClickOutside(event) {
     if (!event.target.matches(".dropdown-selected")) {
         document.querySelector(".dropdown-options").style.display = "none";
     }
 }
 
+/**
+ * Handles keyboard accessibility for toggling the dropdown.
+ * Toggles the dropdown when the "Enter" key is pressed.
+ * @param {KeyboardEvent} event - The keyboard event.
+ */
 function handleKeyboardAccessibility(event) {
     if (event.key === "Enter") {
         toggleDropdown();
     }
 }
 
+/**
+ * Initializes the dropdown by setting up event listeners for dropdown interaction.
+ * Listens for click events outside the dropdown to close it.
+ * Listens for keyboard events on the dropdown selected element to toggle dropdown visibility.
+ */
 function initializeDropdown() {
     setupDropdownListeners();
     window.addEventListener("click", handleClickOutside, true);

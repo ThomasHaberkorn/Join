@@ -1,13 +1,16 @@
 async function init() {
     await startAnimation();
     await sessionStorageFirstTimeTrue();
+    await loadUsers();
+    await loadContacts();
     handleCheckboxAndMessage();
     checkMsgBox();
     moveContainer();
     checkRememberUser();
-    await loadUsers();
-    await loadContacts();
+    checkError();
 }
+
+let users = [];
 
 async function startAnimation() {
     let firstLog = sessionStorage.getItem(
@@ -18,8 +21,6 @@ async function startAnimation() {
         setLogoAnimation();
     }
 }
-
-let users;
 
 /**
  * Loads users from remote storage and updates the global `users` array.
@@ -42,7 +43,6 @@ async function loadContacts() {
  * The animation is displayed the first time the page is loaded;
  * no animation is displayed the next time the page is loaded in the same session.
  */
-
 async function sessionStorageFirstTimeTrue() {
     let firstLog = sessionStorage.getItem(
         "IsThisFirstTime_Log_From_LiveServer"
@@ -64,20 +64,8 @@ async function sessionStorageFirstTimeTrue() {
 }
 
 /**
- * Checks if the message box is empty and applies a transparency class if it is.
- * Assumes an element with the ID "msgBox" exists in the DOM.
- */
-function checkMsgBox() {
-    let mG = document.getElementById("msgBox");
-    if (!mG.innerHTML) {
-        mG.classList.add("bcTransp");
-    }
-}
-
-/**
  * switch from Log in to Sign up in the index.html
  */
-
 function toggleLoginSignup() {
     const loginInnerContent = document.getElementById("loginInnerContent");
     const signinInnerContent = document.getElementById("signinInnerContent");
@@ -96,7 +84,6 @@ function toggleLoginSignup() {
 /**
  * Sets style classes when the animation is executed.
  */
-
 function setLogoAnimation() {
     document.getElementById("loginSignUp").classList.add("transformOpacity");
     document
@@ -109,7 +96,6 @@ function setLogoAnimation() {
 /**
  * Remove style classes when the animation has been executed.
  */
-
 async function setLogoAnimationDone() {
     document.getElementById("loginSignUp").classList.remove("transformOpacity");
     document
@@ -121,7 +107,6 @@ async function setLogoAnimationDone() {
 /**
  * Function to handle the checkbox and message display
  */
-
 function handleCheckboxAndMessage() {
     const submitButton = document.querySelector(".signupButton");
     const checkbox = document.getElementById("signinCheckBoxPrivacyPolicy");
@@ -133,44 +118,42 @@ function handleCheckboxAndMessage() {
             submitButton.disabled = !checkbox.checked;
             submitButton.classList.toggle("bcGray");
         });
-        fillMsgBox();
     }
 }
 
 /**
- * Fills the message box with the message from the URL parameters.
+ * Checks if the message box is empty and applies a transparency class if it is.
+ * Assumes an element with the ID "msgBox" exists in the DOM.
  */
-
-function fillMsgBox() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const msg = urlParams.get("msg");
-    if (msg) {
-        msgBox.innerHTML = msg;
-        msgBox.classList.remove("d-none");
-    } else {
-        msgBox.classList.add("d-none");
+function checkMsgBox() {
+    let mG = document.getElementById("msgBox");
+    if (!mG.innerHTML) {
+        mG.classList.add("bcTransp");
     }
 }
 
 /**
- * check if the user already exists and if the password and the password confirm are the same
+ * Manages the registration process, checks for existing users and password confirmation.
+ * Registers a new user if the email is available and passwords match. Sets error messages in sessionStorage
+ * if conditions fail.
+ * @async
+ * @returns {Promise<void>} Performs operations related to user registration without returning a value.
  */
-
 async function addUser() {
     const name = document.getElementById("signinInputName").value;
     const email = document.getElementById("signinInputMail").value;
     const password = document.getElementById("suPWInput").value;
     const passwordConfirm = document.getElementById("suPWCInput").value;
-    let currentUser = [];
     const existingUser = users.find((user) => user.email === email);
     const confirmPassword = password === passwordConfirm;
     if (existingUser) {
-        currentUser.push({email, password});
-        window.location.href =
-            "index.html?msg=E-Mail-Adresse bereits registriert!";
-        return;
+        handleExistingUser(email, password);
     }
     if (!confirmPassword) {
+        sessionStorage.setItem(
+            "authError",
+            "Passwörter stimmen nicht überein!"
+        );
         checkSignupPasswordConfirm();
     } else {
         signupForward(name, email, password);
@@ -178,9 +161,24 @@ async function addUser() {
 }
 
 /**
+ * Processes an attempt to register with an email that already exists. Sets a sessionStorage error message,
+ * toggles the login/signup interface, unchecks the 'Remember Me' checkbox, and refreshes user data memory.
+ * @param {string} email - The email address of the user attempting to register.
+ * @param {string} password - The password entered, saved for potential future use.
+ */
+function handleExistingUser(email, password) {
+    let currentUser = [];
+    currentUser.push({email, password});
+    sessionStorage.setItem("authError", "E-Mail-Adresse bereits registriert!");
+    toggleLoginSignup();
+    document.getElementById("loginCheckBoxRememberMe").checked = false;
+    rememberMe();
+    checkError();
+}
+
+/**
  * checkSignupPasswordConfirm function to check if the password and the password confirm are the same
  */
-
 function checkSignupPasswordConfirm() {
     document.getElementById("suPWCInput").classList.add("focusAlert");
     document.getElementById("my-form").innerHTML =
@@ -190,7 +188,6 @@ function checkSignupPasswordConfirm() {
 /**
  * signupForward function to save the user data in the local storage and redirect to the index.html
  */
-
 async function signupForward(a, b, c) {
     let name = a;
     let email = b;
@@ -232,14 +229,11 @@ function signupForwardRedirect(email, password) {
     document.getElementById("loPWInput").value = password;
     document.getElementById("loginCheckBoxRememberMe").checked = true;
     signinInnerContent.classList.add("d-none");
-    window.location.href =
-        "index.html?msg=Du hast dich erfolgreich registriert";
 }
 
 /**
  * remove "RememberUser" from the local storage if the user uncheck the "Remember me" checkbox
  */
-
 function rememberMe() {
     let checkbox = document.getElementById("loginCheckBoxRememberMe");
     if (!checkbox.checked) {
@@ -257,44 +251,143 @@ function rememberMe() {
  * Checks if the user has checked the "Remember me" checkbox and saves the user data in the local storage.
  */
 function checkRememberUser() {
-    let rememberUser = JSON.parse(localStorage.getItem("RememberUser"));
-    if (rememberUser) {
+    let rememberUserData = localStorage.getItem("RememberUser");
+    let rememberUser = rememberUserData ? JSON.parse(rememberUserData) : null;
+    if (rememberUser && rememberUser[0].password === "") {
+        document.getElementById("loginInputMail").value = rememberUser[0].email;
+        document.getElementById("loPWInput").value = "";
+        document.getElementById("loginCheckBoxRememberMe").checked = false;
+    } else if (rememberUser) {
         document.getElementById("loginInputMail").value = rememberUser[0].email;
         document.getElementById("loPWInput").value = rememberUser[0].password;
         document.getElementById("loginCheckBoxRememberMe").checked = true;
+    } else {
+        document.getElementById("loginInputMail").value = "";
+        document.getElementById("loPWInput").value = "";
+        document.getElementById("loginCheckBoxRememberMe").checked = false;
     }
 }
 
 /**
- * Checks if the user has entered the correct email and password and logs in the user.
+ * Checks if the user has entered the correct email and password and logs in the user
+ * or displays an error message if the email or password is incorrect.
  */
-function login() {
-    event.preventDefault();
+function login(event) {
+    if (event) event.preventDefault();
     const email = document.getElementById("loginInputMail").value;
     const password = document.getElementById("loPWInput").value;
+    if (!email) {
+        handleNoEmail();
+    } else if (!password) {
+        handleNoPassword(email);
+    } else if (authenticateUser(email, password)) {
+        manageSessionStorage(true, email, password);
+        window.location.href = "summary.html";
+    } else {
+        setAuthError("Email oder Passwort falsch");
+    }
+}
+
+function handleNoEmail() {
+    let user = [];
+    user.push({email: "", password: ""});
+    localStorage.setItem("RememberUser", JSON.stringify(user));
+    setAuthError("Keine Email eingetragen");
+}
+
+function handleNoPassword(email) {
+    setAuthError("Kein Passwort eingetragen");
+    holdUserClearPassword(email);
+}
+/**
+ * Validates a user's email and password against the stored users data. Sets session storage for successful
+ * authentication or error messages for failures.
+ * @param {string} email - The email address of the user attempting to log in.
+ * @param {string} password - The password entered by the user.
+ * @returns {boolean} Returns true if authentication is successful, otherwise false.
+ */
+function authenticateUser(email, password) {
+    let mail = email;
     const foundUser = users.find((user) => user.email === email);
-    let checkbox = document.getElementById("loginCheckBoxRememberMe");
-    let currentUser = [];
     if (foundUser && password === foundUser.password) {
+        sessionStorage.setItem("userName", foundUser.name);
+        sessionStorage.setItem("userLevel", foundUser.userLevel);
+        return true;
+    } else if (foundUser) {
+        holdUserClearPassword(mail);
+        setAuthError("Falsches Passwort");
+    } else {
+        document.getElementById("loginInputMail").classList.add("focusAlert");
+        setAuthError("E-Mail-Adresse nicht gefunden");
+    }
+    return false;
+}
+
+/**
+ * Clears the password input and sets visual cues for an incorrect password attempt.
+ * Also updates localStorage to only remember the user's email, not the password.
+ * @param {string} email - The email address of the user who attempted to log in.
+ */
+function holdUserClearPassword(email) {
+    document.getElementById("loPWInput").value = "";
+    document.getElementById("loginInputMail").classList.add("focusAlert");
+    password = "";
+    let user = [];
+    user.push({email, password});
+    localStorage.setItem("RememberUser", JSON.stringify(user));
+}
+
+function setAuthError(message) {
+    sessionStorage.setItem("authError", message);
+    window.location.href = "index.html";
+}
+
+/**
+ * Manages the storage of user credentials in localStorage based on authentication status and the state of the "Remember Me" checkbox. Stores credentials if authenticated and the checkbox is checked; clears storage otherwise.
+ * @param {boolean} isAuthenticated - Indicates if the user is authenticated.
+ * @param {string|null} email - The user's email, used if remembering the user. Defaults to null.
+ * @param {string|null} password - The user's password, used if remembering the user. Defaults to null.
+ */
+function manageSessionStorage(isAuthenticated, email = null, password = null) {
+    const checkbox = document.getElementById("loginCheckBoxRememberMe");
+    if (isAuthenticated) {
         if (checkbox.checked) {
-            currentUser.push({email, password});
+            const currentUser = [{email, password}];
             localStorage.setItem("RememberUser", JSON.stringify(currentUser));
         } else {
             localStorage.removeItem("RememberUser");
         }
-        sessionStorage.setItem("userName", foundUser.name);
-        sessionStorage.setItem("userLevel", foundUser.userLevel);
-        window.location.href = "summary.html";
     } else {
-        window.location.href = "index.html?msg=Email oder Passwort falsch";
+        localStorage.removeItem("RememberUser");
+    }
+}
+
+/**
+ * Checks for authentication errors stored in sessionStorage and displays them in a designated message box.
+ * If an error is present, it is shown and then automatically cleared from both the display and sessionStorage
+ * after a set timeout period.
+ */
+function checkError() {
+    const authError = sessionStorage.getItem("authError");
+    if (authError) {
+        const errorMessageDiv = document.getElementById("msgBox");
+        if (errorMessageDiv) {
+            errorMessageDiv.textContent = authError;
+            errorMessageDiv.style.display = "block";
+            setTimeout(() => {
+                errorMessageDiv.style.display = "none";
+                sessionStorage.removeItem("authError");
+            }, 5000);
+        }
     }
 }
 
 /**
  * Logs the user in as a guest.
  */
-
 function guestLogin() {
+    document.getElementById("loginCheckBoxRememberMe").checked = false;
+    rememberMe();
     sessionStorage.setItem("userName", "guest");
     sessionStorage.setItem("userLevel", "guest");
     window.location.href = "summary.html";
@@ -303,9 +396,7 @@ function guestLogin() {
 /**
  * Moves the Sing Up button to the "signinMobileContainer" with a screen width of 720 pixels
  */
-
 const mediaQuery = window.matchMedia("(max-width: 720px)");
-
 function moveContainer() {
     const loginSignUp = document.getElementById("loginSignUp");
     const loginHead = document.getElementById("loginHead");
@@ -321,11 +412,9 @@ function moveContainer() {
 mediaQuery.addListener(moveContainer);
 
 /**
- *
  * @param {*} id take the id of the current event and change the image of the password field
  * it work for the login and the signup page
  */
-
 function changeImg(id) {
     let img = document.getElementById(`${id}`);
     img.src = "/assets/img/passw-hidden.png";

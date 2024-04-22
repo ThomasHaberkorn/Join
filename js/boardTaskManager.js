@@ -6,10 +6,6 @@ let subtaskInput = document.getElementById("subtask");
 let subtaskAddButton = document.getElementById("subtask-img");
 let subtaskList = document.getElementById("list");
 let openDropdown = document.getElementById("openDropdown");
-/**
- * Object representing priority buttons.
- * @type {Object.<string, HTMLElement>}
- */
 let priorityButtons = {Urgent: urgentBtn, Medium: mediumBtn, Low: lowBtn};
 let priority = "";
 let subtasks = [];
@@ -87,7 +83,8 @@ function handleCheckboxChange(checkbox) {
  */
 function loadCheckedUserInitials() {
     const editCheckedUserInitials = document.getElementById(
-        "boardCheckedUserInitials");
+        "boardCheckedUserInitials"
+    );
     editCheckedUserInitials.innerHTML = "";
     document
         .querySelectorAll(".contact-checkbox:checked")
@@ -98,7 +95,8 @@ function loadCheckedUserInitials() {
                 initialsDiv.className = "userInitials";
                 initialsDiv.textContent = `${contact.firstLetter}${contact.lastLetter}`;
                 initialsDiv.style.backgroundColor = contact.color;
-                editCheckedUserInitials.appendChild(initialsDiv);}
+                editCheckedUserInitials.appendChild(initialsDiv);
+            }
         });
 }
 
@@ -152,7 +150,8 @@ function updateSelectedButton(selectedPriority) {
         case "Low":
             lowBtn.classList.add("priority-low-selected");
             lowBtn.querySelector("img").src = "assets/img/selectedLow.png";
-            break;}
+            break;
+    }
 }
 
 /**
@@ -205,6 +204,12 @@ function removeSubtask(index) {
     updateSubtaskList();
 }
 
+/**
+ * Creates a checkbox element for a subtask.
+ * @param {Object} subtask The subtask object.
+ * @param {number} index The index of the subtask.
+ * @returns {HTMLInputElement} The created checkbox element.
+ */
 function createSubtaskCheckbox(subtask, index) {
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -215,6 +220,11 @@ function createSubtaskCheckbox(subtask, index) {
     return checkbox;
 }
 
+/**
+ * Creates a text input element for a subtask.
+ * @param {Object} subtask The subtask object.
+ * @returns {HTMLInputElement} The created text input element.
+ */
 function createSubtaskTextInput(subtask) {
     let textInput = document.createElement("input");
     textInput.type = "text";
@@ -223,6 +233,13 @@ function createSubtaskTextInput(subtask) {
     return textInput;
 }
 
+/**
+ * Creates an edit button for a subtask.
+ * @param {HTMLInputElement} textInput The text input element associated with the subtask.
+ * @param {HTMLImageElement} editIcon The edit icon image element.
+ * @param {number} index The index of the subtask.
+ * @returns {HTMLButtonElement} The created edit button element.
+ */
 function createSubtaskEditButton(textInput, editIcon, index) {
     let editButton = document.createElement("button");
     editButton.type = "button";
@@ -232,14 +249,22 @@ function createSubtaskEditButton(textInput, editIcon, index) {
         if (textInput.disabled) {
             textInput.disabled = false;
             textInput.focus();
-            editIcon.src = "assets/img/check (2).png";} else {
+            editIcon.src = "assets/img/check (2).png";
+        } else {
             subtasks[index].name = textInput.value.trim();
             textInput.disabled = true;
             editIcon.src = "assets/img/edit.png";
-            updateSubtaskList();}};
+            updateSubtaskList();
+        }
+    };
     return editButton;
 }
 
+/**
+ * Creates a delete button for a subtask.
+ * @param {number} index The index of the subtask.
+ * @returns {HTMLButtonElement} The created delete button element.
+ */
 function createSubtaskDeleteButton(index) {
     let deleteButton = document.createElement("button");
     deleteButton.type = "button";
@@ -249,10 +274,14 @@ function createSubtaskDeleteButton(index) {
     deleteIcon.alt = "Delete";
     deleteButton.appendChild(deleteIcon);
     deleteButton.onclick = function () {
-        removeSubtask(index);};
+        removeSubtask(index);
+    };
     return deleteButton;
 }
 
+/**
+ * Updates the list of subtasks displayed on the UI.
+ */
 function updateSubtaskList() {
     subtaskList.innerHTML = "";
     subtasks.forEach((subtask, index) => {
@@ -268,7 +297,8 @@ function updateSubtaskList() {
         li.appendChild(textInput);
         li.appendChild(editButton);
         li.appendChild(deleteButton);
-        subtaskList.appendChild(li);});
+        subtaskList.appendChild(li);
+    });
 }
 
 /**
@@ -297,9 +327,12 @@ function getTaskInputs() {
     let taskDate = document.getElementById("taskDate").value;
     let categoryElement = document.querySelector(".dropdown-selected");
     let category = categoryElement ? categoryElement.textContent.trim() : null;
-    return { title, description, taskDate, category };
+    return {title, description, taskDate, category};
 }
 
+/**
+ * Displays an error message if the category is not selected.
+ */
 function showErrorMsg() {
     let errorMsg = document.getElementById("categoryError");
     if (!errorMsg) {
@@ -314,6 +347,9 @@ function showErrorMsg() {
     errorMsg.style.display = "block";
 }
 
+/**
+ * Hides the error message for category selection.
+ */
 function hideErrorMsg() {
     let errorMsg = document.getElementById("categoryError");
     if (errorMsg) {
@@ -321,25 +357,44 @@ function hideErrorMsg() {
     }
 }
 
+/**
+ * Retrieves the IDs of assigned contacts from the checked checkboxes.
+ * @returns {string[]} An array containing the IDs of assigned contacts.
+ */
 function getAssignedContacts() {
     return [...document.querySelectorAll(".contact-checkbox:checked")].map(
         (input) => input.value
     );
 }
 
+/**
+ * Adds a new task to the task list after validating input fields.
+ * @param {Event} event - The event object triggered by form submission.
+ */
 async function addTask(event) {
     event.preventDefault();
-    let { title, description, taskDate, category } = getTaskInputs();
+    let {title, description, taskDate, category} = getTaskInputs();
     if (!category || category === "Select task Category") {
         showErrorMsg();
         return;
     } else {
-        hideErrorMsg();}
+        hideErrorMsg();
+    }
     let assignedContacts = getAssignedContacts();
     let userLevel = sessionStorage.getItem("userLevel");
     let newTaskId = "task-" + Math.random().toString(36).substr(2, 9);
     tasks.push({
-        id: newTaskId,title,description,taskDate,category,priority,subtasks,userLevel,status: currentTaskStatus,assignedContacts,});
+        id: newTaskId,
+        title,
+        description,
+        taskDate,
+        category,
+        priority,
+        subtasks,
+        userLevel,
+        status: currentTaskStatus,
+        assignedContacts,
+    });
     await setItem("tasks", tasks);
     window.location.href = "board.html";
 }
@@ -350,13 +405,16 @@ async function addTask(event) {
 function fillDropdownList() {
     let dropdown = document.getElementById("boardDropDownContacts");
     let checkedUserInitials = document.getElementById(
-        "boardCheckedUserInitials");
+        "boardCheckedUserInitials"
+    );
     if (dropdown.style.display === "none" || dropdown.style.display === "") {
         dropdown.style.display = "block";
-        checkedUserInitials.style.display = "none";} else {
+        checkedUserInitials.style.display = "none";
+    } else {
         dropdown.style.display = "none";
         checkedUserInitials.style.display = "flex";
-        loadCheckedUserInitials();}
+        loadCheckedUserInitials();
+    }
 }
 
 /**
@@ -372,8 +430,10 @@ function removeCurrentInputValues() {
         .forEach((checkbox) => {
             const itemAndCheckbox = checkbox.closest(".itemAndCheckbox");
             if (checkbox.checked) {
-                itemAndCheckbox.classList.remove("checkedItemAndCheckbox");}
-            checkbox.checked = false;});
+                itemAndCheckbox.classList.remove("checkedItemAndCheckbox");
+            }
+            checkbox.checked = false;
+        });
     subtaskInput.value = "";
     subtasks = [];
     setPriority("Medium");

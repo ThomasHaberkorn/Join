@@ -123,7 +123,7 @@ function showMenu() {
 function hideMenu() {
     timeout = setTimeout(() => {
         dropdownMenu.classList.add("d-none");
-    }, 700); // delay in  Milliseconds
+    }, 700);
 }
 
 /**
@@ -138,7 +138,7 @@ function showInitials() {
             .map((n) => n.charAt(0))
             .join("")
             .toUpperCase();
-        initials = initials.substring(0, 2); // Limit the initials to 2 characters
+        initials = initials.substring(0, 2);
         document.getElementById("headerUserProfileInitials").innerHTML =
             initials;
     }

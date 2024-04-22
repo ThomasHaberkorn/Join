@@ -1,3 +1,7 @@
+let contacts = [];
+let previousIndex;
+let contactCount = 0;
+
 /**
  * init the contact section
  */
@@ -13,27 +17,20 @@ async function initContact() {
 
 /**
  * show the initials of the contact
- * @returns
  */
 function contactActive() {
     document.getElementById("contactSum").classList.add("bgfocus");
 }
 
-let contacts = [];
-let previousIndex;
-let contactCount = 0;
-
 /**
  * load the contacts from the remote storage
- * @returns
  */
 async function loadContacts() {
-    // contacts = await JSON.parse(localStorage.getItem("contacts"));
     contacts = JSON.parse((await getItem("contacts")).value || "[]");
 }
 
 /**
- * render the contact list
+ * Renders a sorted contact list in the specified HTML element. It displays contacts grouped by the first letter of their names, adding unique first letters as headers.
  */
 async function renderContactList() {
     let list = document.getElementById("listArea");
@@ -55,16 +52,15 @@ async function renderContactList() {
 }
 
 /**
- * sort the contacts by name
+ * Sorts the global contacts array alphabetically by contact name using locale comparison.
  */
 function sortContacts() {
     contacts.sort((a, b) => a["name"].localeCompare(b["name"]));
 }
 
 /**
- * show the add new contact screen
+ * Displays the "Add New Contact" screen by setting its display style to flex and populating it with HTML content.
  */
-
 function addNewContactScreen() {
     let addNewContact = document.getElementById("contactAddArea");
     addNewContact.style.display = "flex";
@@ -73,7 +69,10 @@ function addNewContactScreen() {
 }
 
 /**
- * Create a new contact
+ * Handles the creation of a new contact from form inputs, adds it to the contacts array, and updates the UI.
+ * Prevents the default form submission event, extracts and processes the contact data, and saves it.
+ * Finally, it re-renders the contact list, closes the form, and displays a success notification.
+ * @param {Event} event - The event object from the form submission.
  */
 async function createNewContact(event) {
     event.preventDefault();
@@ -96,8 +95,8 @@ async function createNewContact(event) {
 }
 
 /**
- * User ID generation
- * @returns {string} id
+ * Generates a unique user ID using the current date and a sequential number, ensuring no duplicates in the contacts array.
+ * @returns {string} The unique user ID in the format YYYYMMNN.
  */
 function generateUserId() {
     const date = new Date();
@@ -117,7 +116,8 @@ function generateUserId() {
 }
 
 /**
- * Create a random color
+ * Generates a random color in hexadecimal format.
+ * @returns {string} A string representing a hex color code.
  */
 function getRandomColor() {
     const getRandomHex = () =>
@@ -128,7 +128,8 @@ function getRandomColor() {
 }
 
 /**
- * Delete the contact with the given index
+ * Deletes a contact at a specified index from the contacts array, updates storage, and refreshes the UI.
+ * @param {number} index - The index of the contact to delete in the contacts array.
  */
 function deleteContact(index) {
     contacts.splice(index, 1);
@@ -140,7 +141,9 @@ function deleteContact(index) {
 }
 
 /**
- * Delete the contact with the given index
+ * Deletes a contact at the specified index from the contacts array, saves the updated list,
+ * refreshes the contact display, and slides the contact detail view off the screen.
+ * @param {number} index - The index of the contact to be deleted.
  */
 function deleteContactBig(index) {
     contacts.splice(index, 1);
@@ -150,7 +153,7 @@ function deleteContactBig(index) {
 }
 
 /**
- * close the BIG-contact view
+ * Closes the detailed contact view by sliding it out of view and removes the active class from the previously selected contact.
  */
 function closeContact() {
     let fullContact = document.getElementById("contactFull");
@@ -167,37 +170,71 @@ function closeContact() {
         }
     }
 }
+
 /**
- * Show the contact with the given index
+ * Applies a CSS transform to a specified HTML element with a smooth transition effect.
+ * @param {HTMLElement} element - The DOM element to which the transform will be applied.
+ * @param {string} transformValue - The CSS transform value to apply (e.g., "translateX(0)").
+ */
+function applyTransform(element, transformValue) {
+    element.style.transition = "transform 0.4s ease";
+    element.style.transform = transformValue;
+}
+
+/**
+ * Removes an active CSS class from the specified contact element, effectively un-highlighting it in the UI.
+ * @param {number} index - The index of the contact in the list, used to identify the specific HTML element.
+ */
+function removeActiveClassFromPreviousContact(index) {
+    document
+        .getElementById(`info${index}`)
+        .classList.remove("contactListShowActive");
+}
+
+/**
+ * Adds active class to the current contact element.
+ * @param {number} index - The index of the contact element.
+ */
+function addActiveClassToCurrentContact(index) {
+    document
+        .getElementById(`info${index}`)
+        .classList.add("contactListShowActive");
+    document
+        .getElementById(`info${index}`)
+        .classList.add("contactListShowActive:hover");
+}
+
+/**
+ * Updates the detailed view of a contact by clearing existing content and inserting new HTML.
+ * It also applies a sliding animation and updates the background color based on the contact's specific color.
+ * @param {number} index - The index of the contact in the contacts array to display.
+ */
+function updateFullContact(index) {
+    let fullContact = document.getElementById("contactFull");
+    fullContact.innerHTML = "";
+    fullContact.innerHTML += renderShowContactHTML(index);
+    fullContact.style.transform = "translateX(0)";
+    document.getElementById(`listContactBig${index}`).style.backgroundColor =
+        contacts[index]["color"];
+}
+
+/**
+ * Displays a contact's full details in a designated panel. If the contact is already selected, it hides the panel.
+ * For smaller screens, it invokes a responsive display method. This function manages UI transitions
+ * and ensures the active contact is highlighted, while previous selections are unmarked.
+ * @param {number} index - The index of the contact in the contacts array to display or hide.
  */
 function showContact(index) {
     let fullContact = document.getElementById("contactFull");
-    fullContact.style.transition = "transform 0.4s ease";
-    fullContact.style.transform = "translateX(100%)";
-    if (previousIndex == index) {
-        fullContact.style.transform = "translateX(100%)";
+    applyTransform(fullContact, "translateX(100%)");
+    if (previousIndex === index) {
         previousIndex = -1;
-        document
-            .getElementById(`info${index}`)
-            .classList.remove("contactListShowActive");
+        removeActiveClassFromPreviousContact(index);
     } else {
         removeMark();
-        document
-            .getElementById(`info${index}`)
-            .classList.add("contactListShowActive");
-        document
-            .getElementById(`info${index}`)
-            .classList.add("contactListShowActive:hover");
-        setTimeout(() => {
-            fullContact.innerHTML = "";
-            fullContact.innerHTML += renderShowContactHTML(index);
-            fullContact.style.transform = "translateX(0)";
-            document.getElementById(
-                `listContactBig${index}`
-            ).style.backgroundColor = contacts[index]["color"];
-        }, 400);
-        if (window.innerWidth >= 950) {
-        } else {
+        addActiveClassToCurrentContact(index);
+        setTimeout(() => updateFullContact(index), 400);
+        if (window.innerWidth < 950) {
             showContactResponsive(index);
         }
         previousIndex = index;
@@ -217,7 +254,9 @@ function removeMark() {
 }
 
 /**
- * show the contact with the given index in the responsive view
+ * Displays the contact information in a responsive view for a given index. It handles UI transitions for entering
+ * the contact view and updates the display content accordingly.
+ * @param {number} index - The index of the contact in the contacts array to be displayed.
  */
 function showContactResponsive(index) {
     let contactFullResponsive = document.getElementById(
@@ -234,7 +273,8 @@ function showContactResponsive(index) {
 }
 
 /**
- * show the value of the contact from remotestoarge
+ * Displays the editing interface for a specific contact from the contacts array. It populates form fields with the contact's existing values and allows for modifications.
+ * @param {number} index - The index of the contact to edit in the contacts array.
  */
 function editContact(index) {
     let contactEdit = document.getElementById("contactEditArea");
@@ -253,7 +293,7 @@ function editContact(index) {
 }
 
 /**
- * close the edit contact area
+ * Closes the edit contact area by applying a slide-out animation and then hiding the element. It also clears the content after the animation completes.
  */
 function closeEditContact() {
     let contactEditVisible = document.getElementById("contactEditVisible");
@@ -265,7 +305,7 @@ function closeEditContact() {
 }
 
 /**
- * close the contact responsive view
+ * Closes the responsive view of a contact by applying a slide-out animation to the left. It also clears the content of the view after the animation and resets display properties.
  */
 function closeContactFullResponsive() {
     let contactFullResponsive = document.getElementById(
@@ -278,11 +318,10 @@ function closeContactFullResponsive() {
         contactFullResponsive.innerHTML = "";
         contactFullResponsive.style.display = "none";
     }, 400);
-
 }
 
 /**
- * auxiliar function to hide the contact responsive view
+ * Conditionally hides or shows the responsive contact view based on the window's width. It sets the display to 'none' for wider screens and 'flex' for narrower screens.
  */
 function hideContactResponsive() {
     const container = document.getElementById("contactFullResponsive");
@@ -301,7 +340,7 @@ function hideContactResponsive() {
 window.addEventListener("resize", hideContactResponsive);
 
 /**
- * show the initials of the contact
+ * Displays a popup for editing or deleting a contact by applying a slide-in animation. It makes the popup visible and adjusts CSS classes for the animation.
  */
 function showContactPopupEditDelete() {
     let popupContactSmal = document.getElementById("contactPopupEditDelete");
@@ -312,8 +351,8 @@ function showContactPopupEditDelete() {
     popupContactSmal.classList.add(`slide-in-right-popup`);
 }
 
-/**
- * hide the initials of the contact
+/** Hides the popup for editing or deleting a contact by applying a slide-out animation.
+ * The popup and its auxiliary container are set to invisible after the animation completes.
  */
 function hideContactPopupEditDelete() {
     let popupContactSmal = document.getElementById("contactPopupEditDelete");
@@ -329,32 +368,40 @@ function hideContactPopupEditDelete() {
 }
 
 /**
- * @param {*} index Edit the contact with the given index
- * @returns
+ * Updates a contact at a specific index with new data collected from input fields. Validates the index, retrieves updated contact data, merges it with existing data, saves the updated contacts array, and refreshes the contact list display.
+ * @param {number} index - The index of the contact to be edited in the contacts array.
  */
 function patchEdit(index) {
     index = parseInt(index);
-
     if (isNaN(index) || index < 0 || index >= contacts.length) {
         console.error("Invalid index");
         return;
     }
-    let newName = document.getElementById("contactEditName").value;
-    let newMail = document.getElementById("contactEditEmail").value;
-    let newPhone = document.getElementById("contactEditPhone").value;
-    let newFirstLetter = newName.charAt(0).toUpperCase();
-    let newLastLetter = newName.split(" ").pop().charAt(0).toUpperCase();
-    const updatedContact = {
-        name: newName,
-        email: newMail,
-        phone: newPhone,
-        firstLetter: newFirstLetter,
-        lastLetter: newLastLetter,
-    };
+
+    const updatedContact = getUpdatedContactFromInput();
     contacts[index] = Object.assign(contacts[index], updatedContact);
     saveContacts();
     renderContactList();
     showContact(index);
+}
+
+/**
+ * Constructs and returns a contact object based on user input from form fields. This includes the contact's name, email, phone number, and the initials derived from the name.
+ * @returns {Object} An object containing the contact's details: name, email, phone, and capitalized initials (first and last letters).
+ */
+function getUpdatedContactFromInput() {
+    let name = document.getElementById("contactEditName").value;
+    let email = document.getElementById("contactEditEmail").value;
+    let phone = document.getElementById("contactEditPhone").value;
+    let firstLetter = name.charAt(0).toUpperCase();
+    let lastLetter = name.split(" ").pop().charAt(0).toUpperCase();
+    return {
+        name: name,
+        email: email,
+        phone: phone,
+        firstLetter: firstLetter,
+        lastLetter: lastLetter,
+    };
 }
 
 /**
@@ -365,7 +412,7 @@ async function saveContacts() {
 }
 
 /**
- *  close the add contact area
+ * Closes the add contact area with a slide-out-right animation, then hides and clears the content after the animation completes.
  */
 function closeAddContact() {
     let contactAddVisible = document.getElementById("contactAddVisible");
@@ -377,8 +424,9 @@ function closeAddContact() {
 }
 
 /**
- * show the status of the new contact
+ * Displays a success notification for a newly created contact using an animation. The notification appears with a slide-up-and-down effect and then disappears after 2 seconds.
  */
+
 function contactSuccessfullCreated() {
     let contactSuccess = document.getElementById("contactSuccess");
     contactSuccess.style.display = "flex";

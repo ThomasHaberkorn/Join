@@ -1,20 +1,27 @@
 /**
  * Creates a task card element based on the given task object.
- * 
+ *
  * @param {Object} task - The task object containing the necessary information.
  * @returns {HTMLElement} - The created task card element.
  */
 function createTaskCard(task) {
     let card = createCardElement(task);
     let categoryDiv = createCategoryDiv(task);
-    let progressHtml = task.subtasks && task.subtasks.length > 0
+    let progressHtml =
+        task.subtasks && task.subtasks.length > 0
             ? calculateProgress(task)
             : "";
     const assignedContactElements = createAssignedContactElements(
-        task.assignedContacts);
+        task.assignedContacts
+    );
     const prioritySymbolHtml = getPrioritySymbolHtml(task, prioritySymbols);
     card.innerHTML = createCardHtml(
-        task, categoryDiv, progressHtml, assignedContactElements, prioritySymbolHtml);
+        task,
+        categoryDiv,
+        progressHtml,
+        assignedContactElements,
+        prioritySymbolHtml
+    );
     addEventListenersToCard(card, task);
     return card;
 }
@@ -27,7 +34,8 @@ function createTaskCard(task) {
 function updateTaskColumns() {
     document.querySelectorAll(".task-column").forEach((column) => {
         const hasTasks = Array.from(column.children).some((child) =>
-            child.classList.contains("task-card"));
+            child.classList.contains("task-card")
+        );
         const hasNoTaskMessage = !!column.querySelector(".no-task-message");
         if (!hasTasks && !hasNoTaskMessage) {
             let noTaskMessage = document.createElement("div");
@@ -36,7 +44,9 @@ function updateTaskColumns() {
             column.appendChild(noTaskMessage);
         } else if (hasTasks && hasNoTaskMessage) {
             let noTaskMessage = column.querySelector(".no-task-message");
-            column.removeChild(noTaskMessage);}});
+            column.removeChild(noTaskMessage);
+        }
+    });
 }
 
 /**
@@ -61,7 +71,7 @@ taskColumns.forEach((column) => {
 
 /**
  * Handles the drag start event.
- * 
+ *
  * @param {DragEvent} e - The drag start event object.
  */
 function handleDragStart(e) {
@@ -78,7 +88,7 @@ function handleDragOver(e) {
 
 /**
  * Handles the drop event when a draggable element is dropped onto a task column.
- * 
+ *
  * @param {DragEvent} e - The drop event object.
  */
 function handleDrop(e) {
@@ -136,16 +146,19 @@ function addPriorityClass(element, priority) {
     switch (priority) {
         case "Urgent":
             element.classList.add("priority-urgent");
-            element.querySelector("img").src = "./assets/img/selectedUrgent.png";
+            element.querySelector("img").src =
+                "./assets/img/selectedUrgent.png";
             break;
         case "Medium":
             element.classList.add("priority-medium");
-            element.querySelector("img").src = "./assets/img/selectedMedium.png";
+            element.querySelector("img").src =
+                "./assets/img/selectedMedium.png";
             break;
         case "Low":
             element.classList.add("priority-low");
             element.querySelector("img").src = "./assets/img/selectedLow.png";
-            break;}
+            break;
+    }
 }
 
 /**
@@ -200,7 +213,9 @@ async function deleteTask() {
         if (taskCard) {
             taskCard.remove();
             tasks.splice(taskIndex, 1);
-            await setItemFromJson("tasks", tasks);}}
+            await setItemFromJson("tasks", tasks);
+        }
+    }
     closeAllTaskInformation();
     await initBoard();
 }
@@ -249,6 +264,10 @@ function setTaskEditorCategory(category) {
     taskEditorCategory.className = className;
 }
 
+/**
+ * Adds event listeners to each task column for drag-and-drop functionality.
+ * The listeners include dragover, dragenter, dragleave, and drop events.
+ */
 taskColumns.forEach((column) => {
     column.addEventListener("dragover", handleDragOver);
     column.addEventListener("dragenter", handleDragEnter);
@@ -256,19 +275,35 @@ taskColumns.forEach((column) => {
     column.addEventListener("drop", handleDrop);
 });
 
+/**
+ * Prevents the default behavior for the dragover event.
+ * @param {Event} e - The dragover event object.
+ */
 function handleDragOver(e) {
     e.preventDefault();
 }
 
+/**
+ * Handles the dragenter event by preventing the default behavior and adding a "hovered" class to the target element.
+ * @param {Event} e - The dragenter event object.
+ */
 function handleDragEnter(e) {
     e.preventDefault();
     this.classList.add("hovered");
 }
 
+/**
+ * Removes the "hovered" class from the target element when the dragleave event occurs.
+ */
 function handleDragLeave() {
     this.classList.remove("hovered");
 }
 
+/**
+ * Handles the drop event on task columns, moving tasks between columns. It sets the new status for the task,
+ * updates its position in the DOM, and updates task data in remote storage.
+ * @param {Event} e - The drop event object which contains data transferred via drag-and-drop.
+ */
 function handleDrop(e) {
     e.preventDefault();
     const id = e.dataTransfer.getData("text");
